@@ -6,16 +6,21 @@
   height: 100%;
 
   button {
-    font-family: "Trebuchet MS", Courier;
+    font-family: 'Trebuchet MS', Courier;
     width: 100px;
     height: 40px;
     border: none;
     outline: none;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-    background-color: #4BBB4B;
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+    background: radial-gradient(circle, #5eac56 0%, #3c873c 100%) center / cover no-repeat;
     color: white;
     font-size: 20px;
-    box-shadow: 0px 2px 0px 1px rgba(0,0,0,0.75);
+    box-shadow: 0px 5px 10px #79ce71 inset;
+    cursor: pointer;
+    
+    &:hover {
+      box-shadow: 0px 0px 15px #333 inset;
+    }
   }
 }
