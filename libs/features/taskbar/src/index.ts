@@ -1,1 +1,1 @@
-export * from './lib/features-taskbar/features-taskbar.component';
+export * from './lib/taskbar/taskbar.component';

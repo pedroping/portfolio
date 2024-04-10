@@ -1,20 +1,19 @@
 :host {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: calc(100% - 32px);
-  background: url('/assets/win-xp-wallpaper.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-
   footer {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
     height: 32px;
-    background: linear-gradient(to bottom, #245edb 0%, #3f8cf3 9%, #245edb 18%, #245edb 92%, #333 100%) center / cover no-repeat;
+    background: linear-gradient(
+        to bottom,
+        #245edb 0%,
+        #3f8cf3 9%,
+        #245edb 18%,
+        #245edb 92%,
+        #333 100%
+      )
+      center / cover no-repeat;
   }
 
   button {
@@ -25,7 +24,8 @@
     outline: none;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 13px;
-    background: radial-gradient(circle, #5eac56 0%, #3c873c 100%) center / cover no-repeat;
+    background: radial-gradient(circle, #5eac56 0%, #3c873c 100%) center / cover
+      no-repeat;
     color: white;
     font-size: 20px;
     box-shadow: 0px 5px 10px #79ce71 inset;
