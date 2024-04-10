@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TaskbarComponent } from '@portifolio/features/taskbar';
+import { TaskbarComponent } from '@portifolio/features/feature-taskbar';
 
 @Component({
   selector: 'home-page',

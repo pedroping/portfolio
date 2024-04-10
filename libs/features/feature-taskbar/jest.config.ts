@@ -1,9 +1,9 @@
 /* eslint-disable */
 export default {
-  displayName: 'features-taskbar',
+  displayName: 'features-feature-taskbar',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../../coverage/libs/features/taskbar',
+  coverageDirectory: '../../../coverage/libs/features/feature-taskbar',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

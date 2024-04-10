@@ -1,7 +1,7 @@
 {
-  "name": "features-taskbar",
+  "name": "features-feature-taskbar",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/features/taskbar/src",
+  "sourceRoot": "libs/features/feature-taskbar/src",
   "prefix": "lib",
   "projectType": "library",
   "tags": [],
@@ -10,7 +10,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/features/taskbar/jest.config.ts"
+        "jestConfig": "libs/features/feature-taskbar/jest.config.ts"
       }
     },
     "lint": {
