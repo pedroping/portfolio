@@ -1,0 +1,9 @@
+$project-properties: (
+  'taskbar-height': 32px,
+);
+
+:root {
+  @each $name, $value in $project-properties {
+    --#{$name}: #{$value};
+  }
+}

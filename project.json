@@ -28,7 +28,13 @@
         ],
         "scripts": [],
         "serviceWorker": true,
-        "ngswConfigPath": "ngsw-config.json"
+        "ngswConfigPath": "ngsw-config.json",
+        "stylePreprocessorOptions": {
+          "includePaths": [
+            "libs/util/styles/src/lib",
+            "libs/util/styles/src"
+          ]
+        }
       },
       "configurations": {
         "production": {

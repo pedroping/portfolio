@@ -1,5 +1,8 @@
 :host {
   section {
-    height: calc(100% - 32px);
+    background: url('/assets/images/win-xp-wallpaper.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: calc(100% - var(--taskbar-height));
   }
 }
