@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@portifolio/features/feature-page-creator": [
+        "libs/features/feature-page-creator/src/index.ts"
+      ],
       "@portifolio/features/feature-taskbar": [
         "libs/features/feature-taskbar/src/index.ts"
       ],
