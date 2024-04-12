@@ -1,5 +1,11 @@
 import { ElementRef, Type } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
+
+export interface IElementActions {
+  minimize$: Subject<void>;
+  maximize$: Subject<void>;
+  close$: Subject<void>;
+}
 
 export interface IElement {
   id: number | string;
@@ -10,6 +16,7 @@ export interface IElement {
     y: number;
   };
   isFullScreen: boolean;
+  elementActions: IElementActions;
 }
 
 export interface IPageConfig {
@@ -20,11 +27,13 @@ export interface IPageConfig {
     width: number;
     height: number;
   };
-  elementReference: BehaviorSubject<IElement>;
   pageContent: Type<unknown>;
+  elementReference: BehaviorSubject<IElement | null>;
 }
 
-export type IInitialConfig = Omit<
-  IPageConfig,
-  'elementReference' | 'pageContent'
->;
+export interface IPageComponent {
+  element: ElementRef<HTMLElement>;
+}
+
+export type IInitialConfig = Omit<IPageConfig, 'elementReference'>;
+export type IDomElementOptions = Partial<Omit<IElement, 'id' | 'element'>>;

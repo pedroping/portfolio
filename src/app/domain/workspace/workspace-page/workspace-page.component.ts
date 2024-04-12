@@ -4,6 +4,7 @@ import {
   IInitialConfig,
   PageParentDirective,
 } from '@portifolio/features/feature-page-creator';
+import { TestPageComponent } from '../../../shared/test-page/test-page.component';
 
 @Component({
   selector: 'workspace-page',
@@ -18,6 +19,7 @@ export class WorkspacePageComponent implements AfterViewInit {
   ngAfterViewInit() {
     const config: IInitialConfig = {
       baseSizes: { width: 500, height: 500 },
+      pageContent: TestPageComponent,
     };
     this.elementsFacede.createElement(0, {}, config);
   }

@@ -4,7 +4,7 @@ import { ElementsData } from '../services/elements-data/elements-data.service';
 import { IInitialConfig } from '../models/elements-interfaces';
 
 @Injectable({ providedIn: 'root' })
-export class ElementsFacede<T = any> {
+export class ElementsFacede<T = unknown> {
   constructor(
     private readonly elementsData: ElementsData,
     private readonly elementCreatorService: ElementCreatorService<T>
@@ -16,5 +16,9 @@ export class ElementsFacede<T = any> {
 
   createElement(id: number, data: T, config: IInitialConfig) {
     this.elementCreatorService.createElement(id, data, config);
+  }
+
+  get elements$() {
+    return this.elementsData.elements$;
   }
 }
