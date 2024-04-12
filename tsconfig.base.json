@@ -21,6 +21,9 @@
       "@portifolio/features/feature-taskbar": [
         "libs/features/feature-taskbar/src/index.ts"
       ],
+      "@portifolio/ui/ui-page-actions-buttons": [
+        "libs/ui/ui-page-actions-buttons/src/index.ts"
+      ],
       "@portifolio/util/adpters": ["libs/util/adpters/src/index.ts"],
       "@portifolio/util/styles": ["libs/util/styles/src/index.ts"]
     }

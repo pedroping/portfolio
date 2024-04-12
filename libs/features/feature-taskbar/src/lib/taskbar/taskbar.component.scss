@@ -7,15 +7,12 @@
     left: 0;
     width: 100%;
     height: 32px;
-    background: linear-gradient(
-        to bottom,
-        #245edb 0%,
-        #3f8cf3 9%,
-        #245edb 18%,
-        #245edb 92%,
-        #333 100%
-      )
-      center / cover no-repeat;
+    background: linear-gradient(to bottom,
+        var(--gradient-color-01) 0%,
+        var(--gradient-color-03) 9%,
+        var(--gradient-color-01) 18%,
+        var(--gradient-color-01) 92%,
+        var(--shadow-color-01) 100%) center / cover no-repeat;
   }
 
   button {
@@ -26,11 +23,10 @@
     outline: none;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 13px;
-    background: radial-gradient(circle, #5eac56 0%, #3c873c 100%) center / cover
-      no-repeat;
-    color: white;
+    background: radial-gradient(circle, var(--gradiant-btn-01) 0%, var(--gradiant-btn-02) 100%) center / cover no-repeat;
+    color: var(--text-color-01);
     font-size: 20px;
-    box-shadow: 0px 5px 10px #79ce71 inset;
+    box-shadow: 0px 5px 10px var(--start-btn-box-shadow) inset;
     cursor: pointer;
 
     img {
@@ -38,8 +34,9 @@
       height: 20px;
     }
 
+    &:active,
     &:hover {
-      box-shadow: 0px 0px 15px #333 inset;
+      box-shadow: 0px 0px 15px var(--shadow-color-01) inset;
     }
   }
 }

@@ -11,5 +11,8 @@ import {
   standalone: true,
 })
 export class TestPageComponent {
-  constructor(@Inject(CONFIG_TOKEN) private readonly _config: IPageConfig) {}
+  name: string;
+  constructor(@Inject(CONFIG_TOKEN) private readonly _config: IPageConfig) {
+    this.name = this._config.name;
+  }
 }

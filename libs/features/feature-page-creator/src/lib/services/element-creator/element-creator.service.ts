@@ -15,14 +15,16 @@ import {
 import { CONFIG_TOKEN, DATA_TOKEN } from '../../models/elements-token';
 import { PageComponent } from '../../components/page/page.component';
 import { BehaviorSubject, Subject } from 'rxjs';
-
+import { LastZIndexService } from '../last-z-index/last-z-index.service';
+import { DomElementAdpter } from '@portifolio/util/adpters';
 @Injectable({ providedIn: 'root' })
 export class ElementCreatorService<T> {
-  vcr!: ViewContainerRef;
+  private vcr!: ViewContainerRef;
 
   constructor(
+    private readonly injector: Injector,
     private readonly elementsData: ElementsData,
-    private readonly injector: Injector
+    private readonly lastZIndexService: LastZIndexService
   ) {}
 
   startCreator(vcr: ViewContainerRef) {
@@ -50,12 +52,27 @@ export class ElementCreatorService<T> {
       index: id,
       injector: elementInjection,
     });
+
+    componentRef.changeDetectorRef.detectChanges();
+
+    DomElementAdpter.setZIndex(
+      componentRef.instance.element.nativeElement,
+      this.lastZIndexService.createNewZIndex(id)
+    );
+
     const elementReference = this.createElementReference(
       id,
       componentRef.instance.element,
       domElementOptions
     );
+
+    this.elementsData.pushElement(elementReference);
     elementReference$.next(elementReference);
+  }
+
+  destroyElement(id: number) {
+    this.elementsData.removeElement(id);
+    this.vcr.remove(id);
   }
 
   private createElementReference(

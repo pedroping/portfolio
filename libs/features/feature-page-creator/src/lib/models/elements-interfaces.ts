@@ -8,7 +8,7 @@ export interface IElementActions {
 }
 
 export interface IElement {
-  id: number | string;
+  id: number;
   element: ElementRef<HTMLElement>;
   opened: boolean;
   lastPosition: {
@@ -23,6 +23,7 @@ export interface IPageConfig {
   customX?: number;
   customY?: number;
   startOnMiddle?: boolean;
+  name: string;
   baseSizes: {
     width: number;
     height: number;
