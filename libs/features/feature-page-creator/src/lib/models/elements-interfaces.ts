@@ -7,6 +7,11 @@ export interface IElementActions {
   close$: Subject<void>;
 }
 
+export interface IBasicElement {
+  id: number;
+  name: string;
+}
+
 export interface IElement {
   id: number;
   element: ElementRef<HTMLElement>;

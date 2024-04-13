@@ -68,7 +68,7 @@ export class ElementCreatorService<T> {
       config.customY
     );
 
-    this.elementsData.pushElement(elementReference);
+    this.elementsData.pushElement(id, config.name, elementReference);
     elementReference$.next(elementReference);
     this.setCustomStartPosition(
       config.customX,

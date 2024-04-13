@@ -2,6 +2,7 @@
 
 :host {
   footer {
+    display: flex;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -23,6 +24,7 @@
     outline: none;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 13px;
+    margin-right: 25px;
     background: radial-gradient(circle, var(--gradiant-btn-01) 0%, var(--gradiant-btn-02) 100%) center / cover no-repeat;
     color: var(--text-color-01);
     font-size: 20px;

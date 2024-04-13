@@ -1,0 +1,5 @@
+@for (item of basicElements$ | async; track $index) {
+<div class="element" (click)="handelElementClick(item.id)">
+  {{ item.name }}
+</div>
+}
