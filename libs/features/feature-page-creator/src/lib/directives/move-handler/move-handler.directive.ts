@@ -1,9 +1,10 @@
 import { Directive, ElementRef, Inject, OnInit } from '@angular/core';
-import { CONFIG_TOKEN } from '../../models/elements-token';
-import { IPageConfig } from '../../models/elements-interfaces';
+import { DomElementAdpter } from '@portifolio/util/adpters';
 import { fromEvent, takeUntil } from 'rxjs';
 import { ElementsFacede } from '../../facede/elements-facede';
-import { DomElementAdpter } from '@portifolio/util/adpters';
+import { IPageConfig } from '../../models/elements-interfaces';
+import { CONFIG_TOKEN } from '../../models/elements-token';
+import { PreventHandlerElements } from '../../services/prevent-handler-elements/prevent-handler-elements.service';
 
 @Directive({
   selector: '[moveHandler]',
@@ -13,22 +14,23 @@ import { DomElementAdpter } from '@portifolio/util/adpters';
   },
 })
 export class MoveHandlerDirective implements OnInit {
-  private initialX = 0;
-  private initialY = 0;
-  private currentX = 0;
-  private currentY = 0;
-  private dragEnd$ = fromEvent<MouseEvent>(document, 'mouseup');
-  private dragStart$ = fromEvent<MouseEvent>(
+  initialX = 0;
+  initialY = 0;
+  currentX = 0;
+  currentY = 0;
+  dragEnd$ = fromEvent<MouseEvent>(document, 'mouseup');
+  dragStart$ = fromEvent<MouseEvent>(
     this.elementRef.nativeElement,
     'mousedown'
   );
-  private drag$ = fromEvent<MouseEvent>(document, 'mousemove').pipe(
+  drag$ = fromEvent<MouseEvent>(document, 'mousemove').pipe(
     takeUntil(this.dragEnd$)
   );
 
   constructor(
     private readonly elementRef: ElementRef,
     private readonly elementsFacede: ElementsFacede,
+    private readonly preventHandlerElements: PreventHandlerElements,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {}
 
@@ -37,6 +39,8 @@ export class MoveHandlerDirective implements OnInit {
   }
 
   dragStart(event: MouseEvent) {
+    if (this.hasPrevent(event.target as HTMLElement)) return;
+
     const element = this._config.elementReference.value?.element.nativeElement;
     const draggingBoundaryElement =
       this.elementsFacede.draggingBoundaryElement.nativeElement.parentElement;
@@ -69,5 +73,9 @@ export class MoveHandlerDirective implements OnInit {
     this.currentY = Math.max(0, Math.min(y, maxBoundY));
 
     DomElementAdpter.setTransform(element, this.currentX, this.currentY);
+  }
+
+  hasPrevent(element: HTMLElement) {
+    return this.preventHandlerElements.hasElement(element);
   }
 }

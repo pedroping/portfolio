@@ -22,11 +22,18 @@ export class WorkspacePageComponent implements AfterViewInit {
   constructor(private readonly elementsFacede: ElementsFacede) {}
 
   ngAfterViewInit() {
-    const config: IInitialConfig = {
+    const config1: IInitialConfig = {
       name: 'Pagina',
       baseSizes: { width: 300, height: 200 },
       pageContent: TestPageComponent,
     };
-    this.elementsFacede.createElement(0, {}, config);
+
+    const config2: IInitialConfig = {
+      name: 'Pagina2',
+      baseSizes: { width: 100, height: 250 },
+      pageContent: TestPageComponent,
+    };
+    this.elementsFacede.createElement(0, {}, config1);
+    this.elementsFacede.createElement(1, {}, config2);
   }
 }

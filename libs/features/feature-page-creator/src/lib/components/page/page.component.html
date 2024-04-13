@@ -1,6 +1,10 @@
 <header moveHandler>
   <div class="page-name">{{ name }}</div>
-  <div class="header-actions"></div>
+  <div class="header-actions">
+    <ui-page-actions-buttons-minimize preventHandler pageMinimize />
+    <ui-page-actions-buttons-maximize preventHandler pageMaximize />
+    <ui-page-actions-buttons-close preventHandler pageClose />
+  </div>
 </header>
 <section>
   <ng-container pageContent></ng-container>

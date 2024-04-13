@@ -5,7 +5,7 @@ import { IElement } from '../../models/elements-interfaces';
 @Injectable({ providedIn: 'root' })
 export class ElementsData {
   elements$ = new BehaviorSubject<IElement[]>([]);
-  draggingBoundaryElement!: ElementRef;
+  draggingBoundaryElement!: ElementRef<HTMLElement>;
 
   setDraggingBoundaryElement(elementRef: ElementRef) {
     this.draggingBoundaryElement = elementRef;
@@ -20,5 +20,9 @@ export class ElementsData {
       (element) => element.id != id
     );
     this.elements$.next(filteredElements);
+  }
+
+  findIndexElement(id: number) {
+    return this.elements$.value.findIndex((item) => item.id == id);
   }
 }

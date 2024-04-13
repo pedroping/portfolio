@@ -21,8 +21,13 @@
 
     .page-name {
       font-size: 14px;
-      color: white;
+      color: var(--text-color-01);
       font-weight: 500;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 5px;
     }
   }
 

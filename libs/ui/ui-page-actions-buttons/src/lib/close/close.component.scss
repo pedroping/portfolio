@@ -1,0 +1,18 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 23px;
+  height: 23px;
+  background: linear-gradient(
+    to bottom,
+    var(--gradiant-close-btn-01) 0%,
+    var(--gradiant-close-btn-02) 100%
+  );
+  border: 2px solid var(--page-actions-border);
+  border-radius: 3px;
+  font-size: 18px;
+  box-shadow: var(--pade-actions-box-shadow) -1px 1px 0px 1px;
+  color: var(--text-color-01);
+  cursor: pointer;
+}

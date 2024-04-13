@@ -1,21 +1,47 @@
-import { Component, ElementRef, Inject, OnInit, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  Inject,
+  OnInit,
+  signal,
+} from '@angular/core';
+import {
+  CloseComponent,
+  MaximizeComponent,
+  MinimizeComponent,
+} from '@portifolio/ui/ui-page-actions-buttons';
 import { MoveHandlerDirective } from '../../directives/move-handler/move-handler.directive';
+import { PageCloseDirective } from '../../directives/page-close/page-close.directive';
 import { PageContentDirective } from '../../directives/page-content/page-content.directive';
+import { PageMaximizeDirective } from '../../directives/page-maximize/page-maximize.directive';
+import { PageMinimizeDirective } from '../../directives/page-minimize/page-minimize.directive';
+import { PreventHandlerDirective } from '../../directives/prevent-handler/prevent-handler.directive';
 import { IPageComponent, IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
-
 @Component({
-  selector: 'page',
+  selector: 'feature-page',
   templateUrl: './page.component.html',
   styleUrls: ['./page.component.scss'],
   standalone: true,
-  imports: [PageContentDirective, MoveHandlerDirective],
+  imports: [
+    PreventHandlerDirective,
+    PageMinimizeDirective,
+    PageMaximizeDirective,
+    PageContentDirective,
+    MoveHandlerDirective,
+    PageCloseDirective,
+    MinimizeComponent,
+    MaximizeComponent,
+    CloseComponent,
+  ],
   host: {
     '[style.height]': 'height()',
     '[style.width]': 'width()',
     '[style.minHeight]': 'height()',
     '[style.minWidth]': 'width()',
   },
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PageComponent implements IPageComponent, OnInit {
   element: ElementRef<HTMLElement>;
