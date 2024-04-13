@@ -29,12 +29,12 @@ export interface IPageConfig {
     height: number;
   };
   pageContent: Type<unknown>;
-  elementReference: BehaviorSubject<IElement | null>;
+  elementReference$: BehaviorSubject<IElement | null>;
 }
 
 export interface IPageComponent {
   element: ElementRef<HTMLElement>;
 }
 
-export type IInitialConfig = Omit<IPageConfig, 'elementReference'>;
+export type IInitialConfig = Omit<IPageConfig, 'elementReference$'>;
 export type IDomElementOptions = Partial<Omit<IElement, 'id' | 'element'>>;

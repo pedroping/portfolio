@@ -1,13 +1,13 @@
-import { ElementRef, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { IElement } from '../../models/elements-interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class ElementsData {
   elements$ = new BehaviorSubject<IElement[]>([]);
-  draggingBoundaryElement!: ElementRef<HTMLElement>;
+  draggingBoundaryElement!: HTMLElement;
 
-  setDraggingBoundaryElement(elementRef: ElementRef) {
+  setDraggingBoundaryElement(elementRef: HTMLElement) {
     this.draggingBoundaryElement = elementRef;
   }
 

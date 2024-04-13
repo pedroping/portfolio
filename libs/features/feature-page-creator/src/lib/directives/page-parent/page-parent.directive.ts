@@ -14,6 +14,8 @@ export class PageParentDirective implements OnInit {
 
   ngOnInit() {
     this.elementsFacede.startCreator(this.vcr);
-    this.elementsFacede.setDraggingBoundaryElement(this.elementRef);
+    this.elementsFacede.setDraggingBoundaryElement(
+      this.elementRef.nativeElement
+    );
   }
 }

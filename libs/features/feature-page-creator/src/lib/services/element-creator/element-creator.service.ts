@@ -45,7 +45,7 @@ export class ElementCreatorService<T> {
     const elementReference$ = new BehaviorSubject<IElement | null>(null);
     const pageConfig: IPageConfig = {
       ...config,
-      elementReference: elementReference$,
+      elementReference$: elementReference$,
     };
     const elementInjection = this.createElementInjection(data, pageConfig);
     const componentRef = this.vcr.createComponent(PageComponent, {
@@ -63,11 +63,18 @@ export class ElementCreatorService<T> {
     const elementReference = this.createElementReference(
       id,
       componentRef.instance.element,
-      domElementOptions
+      domElementOptions,
+      config.customX,
+      config.customY
     );
 
     this.elementsData.pushElement(elementReference);
     elementReference$.next(elementReference);
+    this.setCustomStartPosition(
+      config.customX,
+      config.customY,
+      componentRef.instance.element.nativeElement
+    );
   }
 
   destroyElement(id: number) {
@@ -75,18 +82,24 @@ export class ElementCreatorService<T> {
     this.vcr.remove(id);
   }
 
+  private setCustomStartPosition(x = 0, y = 0, element: HTMLElement) {
+    DomElementAdpter.setTransform(element, x, y);
+  }
+
   private createElementReference(
     id: number,
     element: ElementRef<HTMLElement>,
-    domElementOptions?: IDomElementOptions
+    domElementOptions?: IDomElementOptions,
+    customX = 0,
+    customY = 0
   ): IElement {
     return {
       id: id,
       element: element,
       opened: domElementOptions?.opened || true,
       lastPosition: domElementOptions?.lastPosition || {
-        x: 0,
-        y: 0,
+        x: customX,
+        y: customY,
       },
       isFullScreen: domElementOptions?.isFullScreen || false,
       elementActions: this.createActions(),

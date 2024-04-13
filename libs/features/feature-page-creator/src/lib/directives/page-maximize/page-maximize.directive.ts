@@ -19,7 +19,7 @@ export class PageMaximizeDirective {
   ) {}
 
   @HostListener('click') onclick() {
-    const elementReference = this._config.elementReference.value;
+    const elementReference = this._config.elementReference$.value;
     if (!elementReference) return;
 
     const isFullScreen = elementReference.isFullScreen;
@@ -27,7 +27,7 @@ export class PageMaximizeDirective {
     if (!isFullScreen) this.setSizes(elementReference);
 
     const boundaryElement =
-      this.elementsData.draggingBoundaryElement.nativeElement.parentElement;
+      this.elementsData.draggingBoundaryElement.parentElement;
     const element = elementReference.element.nativeElement;
 
     if (!boundaryElement || !element) return;
@@ -75,5 +75,6 @@ export class PageMaximizeDirective {
       DomElementAdpter.getNumberFromSize(element.style.height) ||
       baseSizes.height;
     this.lastTranslet3d = element.style.transform;
+    elementReference.lastPosition = { x: 0, y: 0 };
   }
 }

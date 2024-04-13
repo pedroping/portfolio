@@ -1,11 +1,11 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async } from '@angular/core/testing';
-import { MoveHandlerDirective } from './move-handler.directive';
+import { SetZIndexDirective } from './set-zIndex.directive';
 
-describe('Directive: MoveHandler', () => {
+describe('Directive: SetZIndex', () => {
   it('should create an instance', () => {
-    const directive = new MoveHandlerDirective();
+    const directive = new SetZIndexDirective();
     expect(directive).toBeTruthy();
   });
 });

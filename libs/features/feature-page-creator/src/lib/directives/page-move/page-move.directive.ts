@@ -7,13 +7,13 @@ import { CONFIG_TOKEN } from '../../models/elements-token';
 import { PreventHandlerElements } from '../../services/prevent-handler-elements/prevent-handler-elements.service';
 
 @Directive({
-  selector: '[moveHandler]',
+  selector: '[pageMove]',
   standalone: true,
   host: {
     '[style.cursor]': '"grab"',
   },
 })
-export class MoveHandlerDirective implements OnInit {
+export class PageMoveDirective implements OnInit {
   initialX = 0;
   initialY = 0;
   currentX = 0;
@@ -35,23 +35,29 @@ export class MoveHandlerDirective implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.currentX = this._config.customX || 0;
+    this.currentY = this._config.customY || 0;
     this.dragStart$.subscribe((event) => this.dragStart(event));
+    this.dragEnd$.subscribe(() => this.dragEnd());
   }
 
   dragStart(event: MouseEvent) {
     if (this.hasPrevent(event.target as HTMLElement)) return;
 
-    const element = this._config.elementReference.value?.element.nativeElement;
-    const draggingBoundaryElement =
-      this.elementsFacede.draggingBoundaryElement.nativeElement.parentElement;
+    const elementReference = this._config.elementReference$.value;
+    if (!elementReference) return;
 
-    if (!element || !draggingBoundaryElement) return;
+    const element = elementReference.element.nativeElement;
+    const draggingBoundaryElement =
+      this.elementsFacede.draggingBoundaryElement.parentElement;
+
+    if (!draggingBoundaryElement) return;
 
     const maxBoundX = draggingBoundaryElement.offsetWidth - element.offsetWidth;
     const maxBoundY =
       draggingBoundaryElement.offsetHeight - element.offsetHeight;
-    this.initialX = event.clientX - this.currentX;
-    this.initialY = event.clientY - this.currentY;
+    this.initialX = event.clientX - elementReference.lastPosition.x || 0;
+    this.initialY = event.clientY - elementReference.lastPosition.y || 0;
 
     this.drag$.subscribe((event) =>
       this.drag(event, element, maxBoundX, maxBoundY)
@@ -73,6 +79,13 @@ export class MoveHandlerDirective implements OnInit {
     this.currentY = Math.max(0, Math.min(y, maxBoundY));
 
     DomElementAdpter.setTransform(element, this.currentX, this.currentY);
+  }
+
+  dragEnd() {
+    const elementReference = this._config.elementReference$.value;
+    if (!elementReference) return;
+
+    elementReference.lastPosition = { x: this.currentX, y: this.currentY };
   }
 
   hasPrevent(element: HTMLElement) {

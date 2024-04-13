@@ -1,7 +1,7 @@
-import { ElementRef, Injectable, ViewContainerRef } from '@angular/core';
+import { Injectable, ViewContainerRef } from '@angular/core';
+import { IInitialConfig } from '../models/elements-interfaces';
 import { ElementCreatorService } from '../services/element-creator/element-creator.service';
 import { ElementsData } from '../services/elements-data/elements-data.service';
-import { IInitialConfig } from '../models/elements-interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class ElementsFacede<T = unknown> {
@@ -22,7 +22,7 @@ export class ElementsFacede<T = unknown> {
     this.elementCreatorService.destroyElement(id);
   }
 
-  setDraggingBoundaryElement(elementRef: ElementRef) {
+  setDraggingBoundaryElement(elementRef: HTMLElement) {
     this.elementsData.setDraggingBoundaryElement(elementRef);
   }
 
@@ -31,6 +31,6 @@ export class ElementsFacede<T = unknown> {
   }
 
   get draggingBoundaryElement() {
-    return this.elementsData.draggingBoundaryElement as ElementRef<HTMLElement>;
+    return this.elementsData.draggingBoundaryElement;
   }
 }

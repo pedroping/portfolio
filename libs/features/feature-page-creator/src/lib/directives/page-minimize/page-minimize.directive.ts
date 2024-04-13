@@ -15,7 +15,7 @@ export class PageMinimizeDirective {
   ) {}
 
   @HostListener('click') onclick() {
-    const elementReference = this._config.elementReference.value;
+    const elementReference = this._config.elementReference$.value;
     if (!elementReference) return;
 
     const element = elementReference.element.nativeElement;

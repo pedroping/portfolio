@@ -1,8 +1,6 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
+  Component
 } from '@angular/core';
 import {
   ElementsFacede,
@@ -30,7 +28,9 @@ export class WorkspacePageComponent implements AfterViewInit {
 
     const config2: IInitialConfig = {
       name: 'Pagina2',
-      baseSizes: { width: 100, height: 250 },
+      baseSizes: { width: 200, height: 250 },
+      customX: 100,
+      customY: 150,
       pageContent: TestPageComponent,
     };
     this.elementsFacede.createElement(0, {}, config1);
