@@ -2,7 +2,7 @@ import { Directive, ElementRef, Inject, OnInit } from '@angular/core';
 import { DomElementAdpter } from '@portifolio/util/adpters';
 import { fromEvent, takeUntil } from 'rxjs';
 import { ElementsFacede } from '../../facede/elements-facede';
-import { IPageConfig } from '../../models/elements-interfaces';
+import { IElement, IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
 import { PreventHandlerElements } from '../../services/prevent-handler-elements/prevent-handler-elements.service';
 
@@ -38,7 +38,6 @@ export class PageMoveDirective implements OnInit {
     this.currentX = this._config.customX || 0;
     this.currentY = this._config.customY || 0;
     this.dragStart$.subscribe((event) => this.dragStart(event));
-    this.dragEnd$.subscribe(() => this.dragEnd());
   }
 
   dragStart(event: MouseEvent) {
@@ -48,19 +47,19 @@ export class PageMoveDirective implements OnInit {
     if (!elementReference) return;
 
     const element = elementReference.element.nativeElement;
-    const draggingBoundaryElement =
-      this.elementsFacede.draggingBoundaryElement.parentElement;
+    const draggingBoundaryElement = this.elementsFacede.draggingBoundaryElement;
 
     if (!draggingBoundaryElement) return;
 
     const maxBoundX = draggingBoundaryElement.offsetWidth - element.offsetWidth;
     const maxBoundY =
       draggingBoundaryElement.offsetHeight - element.offsetHeight;
+
     this.initialX = event.clientX - elementReference.lastPosition.x || 0;
     this.initialY = event.clientY - elementReference.lastPosition.y || 0;
 
     this.drag$.subscribe((event) =>
-      this.drag(event, element, maxBoundX, maxBoundY)
+      this.drag(event, element, maxBoundX, maxBoundY, elementReference)
     );
   }
 
@@ -68,24 +67,22 @@ export class PageMoveDirective implements OnInit {
     event: MouseEvent,
     element: HTMLElement,
     maxBoundX: number,
-    maxBoundY: number
+    maxBoundY: number,
+    elementReference: IElement
   ) {
     event.preventDefault();
 
     const x = event.clientX - this.initialX;
     const y = event.clientY - this.initialY;
 
-    this.currentX = Math.max(0, Math.min(x, maxBoundX));
-    this.currentY = Math.max(0, Math.min(y, maxBoundY));
+    const maxPositionX = Math.min(x, maxBoundX);
+    const maxPositionY = Math.min(y, maxBoundY);
+
+    this.currentX = Math.max(0, maxPositionX);
+    this.currentY = Math.max(0, maxPositionY);
+    elementReference.lastPosition = { x: this.currentX, y: this.currentY };
 
     DomElementAdpter.setTransform(element, this.currentX, this.currentY);
-  }
-
-  dragEnd() {
-    const elementReference = this._config.elementReference$.value;
-    if (!elementReference) return;
-
-    elementReference.lastPosition = { x: this.currentX, y: this.currentY };
   }
 
   hasPrevent(element: HTMLElement) {

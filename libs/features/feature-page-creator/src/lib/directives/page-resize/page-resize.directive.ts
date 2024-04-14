@@ -36,9 +36,7 @@ export class PageResizeDirective implements OnInit {
           const width = element.offsetWidth;
           const height = element.offsetHeight;
 
-          const boundaryElement =
-            this.elementsData.draggingBoundaryElement
-              .parentElement;
+          const boundaryElement = this.elementsData.draggingBoundaryElement;
 
           if (
             width == boundaryElement?.offsetWidth &&
@@ -46,8 +44,11 @@ export class PageResizeDirective implements OnInit {
           )
             return;
 
-          if (width != this.lastWidth || height != this.lastHeight)
+          if (width != this.lastWidth || height != this.lastHeight) {
+            if (elementReference.isFullScreen)
+              elementReference.lastPosition = { x: 0, y: 0 };
             elementReference.isFullScreen = false;
+          }
         }).observe(element, observeConfig);
       });
   }

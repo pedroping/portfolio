@@ -42,4 +42,6 @@ export interface IPageComponent {
 }
 
 export type IInitialConfig = Omit<IPageConfig, 'elementReference$'>;
-export type IDomElementOptions = Partial<Omit<IElement, 'id' | 'element'>>;
+export type IDomElementOptions = Partial<
+  Omit<IElement, 'id' | 'element' | 'elementActions' | 'lastPosition'>
+>;

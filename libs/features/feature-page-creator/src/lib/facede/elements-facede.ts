@@ -1,5 +1,8 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
-import { IInitialConfig } from '../models/elements-interfaces';
+import {
+  IDomElementOptions,
+  IInitialConfig,
+} from '../models/elements-interfaces';
 import { ElementCreatorService } from '../services/element-creator/element-creator.service';
 import { ElementsData } from '../services/elements-data/elements-data.service';
 import { PageEvents } from '../services/page-events/page-events.service';
@@ -16,8 +19,18 @@ export class ElementsFacede<T = unknown> {
     this.elementCreatorService.startCreator(vcr);
   }
 
-  createElement(id: number, data: T, config: IInitialConfig) {
-    this.elementCreatorService.createElement(id, data, config);
+  createElement(
+    id: number,
+    data: T,
+    config: IInitialConfig,
+    domElementOptions?: IDomElementOptions
+  ) {
+    this.elementCreatorService.createElement(
+      id,
+      data,
+      config,
+      domElementOptions
+    );
   }
 
   destroyElement(id: number) {

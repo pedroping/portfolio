@@ -1,9 +1,7 @@
-import {
-  AfterViewInit,
-  Component
-} from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import {
   ElementsFacede,
+  IDomElementOptions,
   IInitialConfig,
   PageParentDirective,
 } from '@portifolio/features/feature-page-creator';
@@ -33,7 +31,12 @@ export class WorkspacePageComponent implements AfterViewInit {
       customY: 150,
       pageContent: TestPageComponent,
     };
+
+    const domConfig: IDomElementOptions = {
+      isFullScreen: true,
+    };
+
     this.elementsFacede.createElement(0, {}, config1);
-    this.elementsFacede.createElement(1, {}, config2);
+    this.elementsFacede.createElement(1, {}, config2, domConfig);
   }
 }

@@ -8,8 +8,8 @@ export class ElementsData {
   elements$ = new BehaviorSubject<IElement[]>([]);
   draggingBoundaryElement!: HTMLElement;
 
-  setDraggingBoundaryElement(elementRef: HTMLElement) {
-    this.draggingBoundaryElement = elementRef;
+  setDraggingBoundaryElement(element: HTMLElement) {
+    this.draggingBoundaryElement = element.parentElement as HTMLElement;
   }
 
   pushElement(id: number, name: string, element: IElement) {
