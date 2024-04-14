@@ -96,7 +96,7 @@ export class ElementCreatorService<T> {
     return {
       id: id,
       element: element,
-      opened: domElementOptions?.opened || true,
+      opened: !!domElementOptions?.opened,
       lastPosition: {
         x: customX,
         y: customY,
