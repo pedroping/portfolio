@@ -28,6 +28,7 @@ export class PageMaximizeDirective implements OnInit {
         const boundaryElement = this.elementsData.draggingBoundaryElement;
         const element = elementReference.element.nativeElement;
         this.setSizes(elementReference);
+        elementReference.opened = true;
         elementReference.isFullScreen = false;
 
         this.lastTranslet3d = DomElementAdpter.getTranslate3d(
@@ -73,11 +74,41 @@ export class PageMaximizeDirective implements OnInit {
     elementReference: IElement,
     preventAnimation = false
   ) {
+    if (
+      this.currentWidth == boundaryElement.offsetWidth &&
+      this.currentHeight == boundaryElement.offsetHeight &&
+      hasToSet
+    )
+      return this.setBaseScreenSize(
+        element,
+        elementReference,
+        preventAnimation
+      );
+
     const transform = hasToSet
       ? this.lastTranslet3d
       : DomElementAdpter.getTranslate3d(0, 0);
     const width = hasToSet ? this.currentWidth : boundaryElement.offsetWidth;
     const height = hasToSet ? this.currentHeight : boundaryElement.offsetHeight;
+
+    this.setPropierties(
+      element,
+      width,
+      height,
+      transform,
+      elementReference,
+      preventAnimation
+    );
+  }
+
+  setBaseScreenSize(
+    element: HTMLElement,
+    elementReference: IElement,
+    preventAnimation = false
+  ) {
+    const width = this._config.baseSizes.width;
+    const height = this._config.baseSizes.height;
+    const transform = this.lastTranslet3d;
 
     this.setPropierties(
       element,
@@ -114,12 +145,8 @@ export class PageMaximizeDirective implements OnInit {
   setSizes(elementReference: IElement) {
     const element = elementReference.element.nativeElement;
     const baseSizes = this._config.baseSizes;
-    this.currentWidth =
-      DomElementAdpter.getNumberFromSize(element.style.width) ||
-      baseSizes.width;
-    this.currentHeight =
-      DomElementAdpter.getNumberFromSize(element.style.height) ||
-      baseSizes.height;
+    this.currentWidth = element.offsetWidth || baseSizes.width;
+    this.currentHeight = element.offsetHeight || baseSizes.height;
     this.lastTranslet3d = element.style.transform;
   }
 }
