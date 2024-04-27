@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { ElementsData } from '../elements-data/elements-data.service';
-import { IElement } from '../../models/elements-interfaces';
 import { DomElementAdpter, UtlisFunctions } from '@portifolio/util/adpters';
-import { LastZIndexService } from '../last-z-index/last-z-index.service';
+import { IElement } from '../../models/elements-interfaces';
+import { ElementsData } from '../elements-data/elements-data.service';
+import { SetZIndexService } from '../set-z-index/set-z-index.service';
 
 @Injectable({ providedIn: 'root' })
 export class PageEvents {
   constructor(
     private readonly elementsData: ElementsData,
-    private readonly lastZIndexService: LastZIndexService
+    private readonly setZIndexService: SetZIndexService
   ) {}
 
   openElement(id: number) {
@@ -55,7 +55,7 @@ export class PageEvents {
     ) {
       DomElementAdpter.setZIndex(
         element,
-        this.lastZIndexService.createNewZIndex(element.id)
+        this.setZIndexService.setNewZIndex(element.id)
       );
       return;
     }
@@ -92,7 +92,7 @@ export class PageEvents {
     DomElementAdpter.setOnlyTransformTransition(element, 1);
     DomElementAdpter.setZIndex(
       element,
-      this.lastZIndexService.createNewZIndex(elementReference.id)
+      this.setZIndexService.setNewZIndex(elementReference.id)
     );
     element.style.display = 'block';
 

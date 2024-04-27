@@ -15,8 +15,8 @@ import {
 import { CONFIG_TOKEN, DATA_TOKEN } from '../../models/elements-token';
 import { PageComponent } from '../../components/page/page.component';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { LastZIndexService } from '../last-z-index/last-z-index.service';
 import { DomElementAdpter } from '@portifolio/util/adpters';
+import { SetZIndexService } from '../set-z-index/set-z-index.service';
 @Injectable({ providedIn: 'root' })
 export class ElementCreatorService<T> {
   private vcr!: ViewContainerRef;
@@ -24,7 +24,7 @@ export class ElementCreatorService<T> {
   constructor(
     private readonly injector: Injector,
     private readonly elementsData: ElementsData,
-    private readonly lastZIndexService: LastZIndexService
+    private readonly setZIndexService: SetZIndexService
   ) {}
 
   startCreator(vcr: ViewContainerRef) {
@@ -57,7 +57,7 @@ export class ElementCreatorService<T> {
 
     DomElementAdpter.setZIndex(
       componentRef.instance.element.nativeElement,
-      this.lastZIndexService.createNewZIndex(id)
+      this.setZIndexService.setNewZIndex(id)
     );
 
     const elementReference = this.createElementReference(

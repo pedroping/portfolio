@@ -1,4 +1,5 @@
 import { AfterViewInit, Component } from '@angular/core';
+import { InitialMenuComponent } from '@portifolio/features/feature-inital-menu';
 import {
   ElementsFacede,
   IDomElementOptions,
@@ -6,13 +7,12 @@ import {
   PageParentDirective,
 } from '@portifolio/features/feature-page-creator';
 import { TestPageComponent } from '../../../shared/test-page/test-page.component';
-
 @Component({
   selector: 'workspace-page',
   templateUrl: './workspace-page.component.html',
   styleUrls: ['./workspace-page.component.scss'],
   standalone: true,
-  imports: [PageParentDirective],
+  imports: [PageParentDirective, InitialMenuComponent],
 })
 export class WorkspacePageComponent implements AfterViewInit {
   constructor(private readonly elementsFacede: ElementsFacede) {}

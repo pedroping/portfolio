@@ -31,7 +31,10 @@
         "libs/ui/ui-taskbar-action-button/src/index.ts"
       ],
       "@portifolio/util/adpters": ["libs/util/adpters/src/index.ts"],
-      "@portifolio/util/styles": ["libs/util/styles/src/index.ts"]
+      "@portifolio/util/styles": ["libs/util/styles/src/index.ts"],
+      "@portifolio/util/util-z-index-handler": [
+        "libs/util/util-z-index-handler/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

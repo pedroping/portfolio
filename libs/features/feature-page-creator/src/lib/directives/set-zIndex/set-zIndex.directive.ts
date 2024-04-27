@@ -2,7 +2,7 @@ import { Directive, HostListener, Inject } from '@angular/core';
 import { DomElementAdpter } from '@portifolio/util/adpters';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
-import { LastZIndexService } from '../../services/last-z-index/last-z-index.service';
+import { SetZIndexService } from '../../services/set-z-index/set-z-index.service';
 
 @Directive({
   selector: '[setZIndex]',
@@ -10,12 +10,12 @@ import { LastZIndexService } from '../../services/last-z-index/last-z-index.serv
 })
 export class SetZIndexDirective {
   constructor(
-    @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig,
-    private readonly lastZIndexService: LastZIndexService
+    private readonly setZIndexService: SetZIndexService,
+    @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {}
 
-  @HostListener('click') 
-  @HostListener('mousedown') 
+  @HostListener('click')
+  @HostListener('mousedown')
   onEvent() {
     const elementReference = this._config.elementReference$.value;
     if (!elementReference) return;
@@ -23,9 +23,6 @@ export class SetZIndexDirective {
     const element = elementReference.element.nativeElement;
     const id = elementReference.id;
 
-    DomElementAdpter.setZIndex(
-      element,
-      this.lastZIndexService.createNewZIndex(id)
-    );
+    DomElementAdpter.setZIndex(element, this.setZIndexService.setNewZIndex(id));
   }
 }
