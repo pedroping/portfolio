@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@portifolio/features/feature-inital-menu": [
+        "libs/features/feature-inital-menu/src/index.ts"
+      ],
       "@portifolio/features/feature-page-creator": [
         "libs/features/feature-page-creator/src/index.ts"
       ],
