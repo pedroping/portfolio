@@ -78,8 +78,8 @@ export class ElementCreatorService<T> {
   }
 
   destroyElement(id: number) {
-    this.elementsData.removeElement(id);
     this.vcr.remove(id);
+    this.elementsData.removeElement(id);
   }
 
   private setCustomStartPosition(x = 0, y = 0, element: HTMLElement) {
