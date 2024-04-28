@@ -1,50 +1,24 @@
 import { Directive, HostListener, Inject, OnInit } from '@angular/core';
 import { DomElementAdpter, UtlisFunctions } from '@portifolio/util/adpters';
+import { take } from 'rxjs';
+import { ElementsFacede } from '../../facede/elements-facede';
 import { IElement, IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
-import { ElementsData } from '../../services/elements-data/elements-data.service';
-import { take } from 'rxjs';
 
 @Directive({
   selector: '[pageMaximize]',
   standalone: true,
 })
 export class PageMaximizeDirective implements OnInit {
+  lastHeight = 0;
   currentWidth: string | number = 'auto';
   currentHeight: string | number = 'auto';
   lastTranslet3d = DomElementAdpter.getTranslate3d(0, 0);
 
   constructor(
-    private readonly elementsData: ElementsData,
+    private readonly elementsFacede: ElementsFacede,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {}
-
-  ngOnInit(): void {
-    this._config.elementReference$
-      .pipe(take(2))
-      .subscribe((elementReference) => {
-        if (!elementReference || !elementReference.isFullScreen) return;
-
-        const boundaryElement = this.elementsData.draggingBoundaryElement;
-        const element = elementReference.element.nativeElement;
-        this.setSizes(elementReference);
-        elementReference.opened = true;
-        elementReference.isFullScreen = false;
-
-        this.lastTranslet3d = DomElementAdpter.getTranslate3d(
-          this._config.customX || 0,
-          this._config.customY || 0
-        );
-
-        this.setFullScreen(
-          false,
-          boundaryElement,
-          element,
-          elementReference,
-          true
-        );
-      });
-  }
 
   @HostListener('click') onclick() {
     const elementReference = this._config.elementReference$.value;
@@ -54,17 +28,70 @@ export class PageMaximizeDirective implements OnInit {
 
     if (!isFullScreen) this.setSizes(elementReference);
 
-    const boundaryElement = this.elementsData.draggingBoundaryElement;
+    const boundaryElement = this.elementsFacede.draggingBoundaryElement;
     const element = elementReference.element.nativeElement;
 
     if (!boundaryElement || !element) return;
 
     this.setFullScreen(
-      isFullScreen,
+      !isFullScreen,
       boundaryElement,
       element,
       elementReference
     );
+  }
+
+  ngOnInit(): void {
+    this.lastHeight = this.elementsFacede.draggingBoundaryElement.offsetHeight;
+    const observeConfig = {
+      attributes: true,
+      childList: true,
+      subtree: true,
+    };
+    const boundaryElement = this.elementsFacede.draggingBoundaryElement;
+
+    this._config.elementReference$
+      .pipe(take(2))
+      .subscribe((elementReference) => {
+        if (!elementReference || !elementReference.isFullScreen) return;
+
+        this.setSizes(elementReference);
+        const element = elementReference.element.nativeElement;
+        elementReference.opened = true;
+        elementReference.isFullScreen = false;
+
+        this.lastTranslet3d = DomElementAdpter.getTranslate3d(
+          this._config.customX || 0,
+          this._config.customY || 0
+        );
+
+        this.setFullScreen(
+          true,
+          boundaryElement,
+          element,
+          elementReference,
+          true
+        );
+      });
+
+    new MutationObserver(() => {
+      if (this.lastHeight === boundaryElement.offsetHeight) return;
+
+      this.lastHeight = boundaryElement.offsetHeight;
+      const elementReference = this._config.elementReference$.value;
+
+      if (!elementReference) return;
+
+      const element = elementReference.element.nativeElement;
+
+      this.setFullScreen(
+        true,
+        boundaryElement,
+        element,
+        elementReference,
+        true
+      );
+    }).observe(this.elementsFacede.draggingBoundaryElement, observeConfig);
   }
 
   setFullScreen(
@@ -86,10 +113,10 @@ export class PageMaximizeDirective implements OnInit {
       );
 
     const transform = hasToSet
-      ? this.lastTranslet3d
-      : DomElementAdpter.getTranslate3d(0, 0);
-    const width = hasToSet ? this.currentWidth : boundaryElement.offsetWidth;
-    const height = hasToSet ? this.currentHeight : boundaryElement.offsetHeight;
+      ? DomElementAdpter.getTranslate3d(0, 0)
+      : this.lastTranslet3d;
+    const width = hasToSet ? boundaryElement.offsetWidth : this.currentWidth;
+    const height = hasToSet ? boundaryElement.offsetHeight : this.currentHeight;
 
     this.setPropierties(
       element,

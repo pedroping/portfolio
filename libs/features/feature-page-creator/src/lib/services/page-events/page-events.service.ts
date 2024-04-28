@@ -48,17 +48,17 @@ export class PageEvents {
       elementReference.isFullScreen && !isHiggerElement;
     const hasNoOtherElement = isOnlyElement.length <= 0;
 
+    if (hasNoOtherElement) return this.minimizeElement(elementReference);
+
     if (
-      ((isBehindAnotherElement && !isHiggerElement) ||
-        onFullScreenAndNotBigger) &&
-      !hasNoOtherElement
-    ) {
-      DomElementAdpter.setZIndex(
+      (isBehindAnotherElement && !isHiggerElement) ||
+      onFullScreenAndNotBigger
+    )
+      return DomElementAdpter.setZIndex(
         element,
         this.setZIndexService.setNewZIndex(element.id)
       );
-      return;
-    }
+
     this.minimizeElement(elementReference);
   }
 

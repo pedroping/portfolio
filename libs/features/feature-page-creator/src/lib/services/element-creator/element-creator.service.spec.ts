@@ -10,7 +10,7 @@ describe('Service: ElementCreator', () => {
     });
   });
 
-  it('should ...', inject([ElementCreatorService], (service: ElementCreatorService) => {
+  it('should ...', inject([ElementCreatorService], (service: ElementCreatorService<unknown>) => {
     expect(service).toBeTruthy();
   }));
 });

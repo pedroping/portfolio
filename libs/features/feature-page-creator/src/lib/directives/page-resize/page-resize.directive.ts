@@ -1,8 +1,8 @@
 import { Directive, Inject, OnInit } from '@angular/core';
+import { take } from 'rxjs';
+import { ElementsFacede } from '../../facede/elements-facede';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
-import { take } from 'rxjs';
-import { ElementsData } from '../../services/elements-data/elements-data.service';
 
 @Directive({
   selector: '[pageResize]',
@@ -13,8 +13,8 @@ export class PageResizeDirective implements OnInit {
   lastWidth: number | string = '';
 
   constructor(
-    @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig,
-    private readonly elementsData: ElementsData
+    private readonly elementsFacede: ElementsFacede,
+    @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {}
 
   ngOnInit(): void {
@@ -36,7 +36,7 @@ export class PageResizeDirective implements OnInit {
           const width = element.offsetWidth;
           const height = element.offsetHeight;
 
-          const boundaryElement = this.elementsData.draggingBoundaryElement;
+          const boundaryElement = this.elementsFacede.draggingBoundaryElement;
 
           if (
             width == boundaryElement?.offsetWidth &&

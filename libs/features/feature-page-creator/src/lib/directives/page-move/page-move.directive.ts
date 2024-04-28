@@ -4,7 +4,6 @@ import { fromEvent, takeUntil } from 'rxjs';
 import { ElementsFacede } from '../../facede/elements-facede';
 import { IElement, IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
-import { PreventHandlerElements } from '../../services/prevent-handler-elements/prevent-handler-elements.service';
 
 @Directive({
   selector: '[pageMove]',
@@ -30,7 +29,6 @@ export class PageMoveDirective implements OnInit {
   constructor(
     private readonly elementRef: ElementRef,
     private readonly elementsFacede: ElementsFacede,
-    private readonly preventHandlerElements: PreventHandlerElements,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {}
 
@@ -86,6 +84,6 @@ export class PageMoveDirective implements OnInit {
   }
 
   hasPrevent(element: HTMLElement) {
-    return this.preventHandlerElements.hasElement(element);
+    return this.elementsFacede.hasPreventElement(element);
   }
 }

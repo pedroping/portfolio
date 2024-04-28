@@ -1,8 +1,8 @@
 import { Directive, HostListener, Inject } from '@angular/core';
 import { DomElementAdpter } from '@portifolio/util/adpters';
+import { ElementsFacede } from '../../facede/elements-facede';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
-import { SetZIndexService } from '../../services/set-z-index/set-z-index.service';
 
 @Directive({
   selector: '[setZIndex]',
@@ -10,7 +10,7 @@ import { SetZIndexService } from '../../services/set-z-index/set-z-index.service
 })
 export class SetZIndexDirective {
   constructor(
-    private readonly setZIndexService: SetZIndexService,
+    private readonly elementsFacede: ElementsFacede,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {}
 
@@ -23,6 +23,6 @@ export class SetZIndexDirective {
     const element = elementReference.element.nativeElement;
     const id = elementReference.id;
 
-    DomElementAdpter.setZIndex(element, this.setZIndexService.setNewZIndex(id));
+    DomElementAdpter.setZIndex(element, this.elementsFacede.setNewZIndex(id));
   }
 }

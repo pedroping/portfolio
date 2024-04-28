@@ -1,9 +1,9 @@
 import { Directive, HostListener, Inject, OnInit } from '@angular/core';
 import { DomElementAdpter, UtlisFunctions } from '@portifolio/util/adpters';
+import { take } from 'rxjs';
+import { ElementsFacede } from '../../facede/elements-facede';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
-import { ElementsData } from '../../services/elements-data/elements-data.service';
-import { take } from 'rxjs';
 
 @Directive({
   selector: '[pageMinimize]',
@@ -11,8 +11,8 @@ import { take } from 'rxjs';
 })
 export class PageMinimizeDirective implements OnInit {
   constructor(
+    private readonly elementsFacede: ElementsFacede,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig,
-    private readonly elementsData: ElementsData
   ) {}
 
   ngOnInit(): void {
@@ -33,7 +33,7 @@ export class PageMinimizeDirective implements OnInit {
     elementReference.lastPosition = DomElementAdpter.getTransformValues(
       element.style.transform
     );
-    const index = this.elementsData.findIndexElement(elementReference.id);
+    const index = this.elementsFacede.findIndexElement(elementReference.id);
     elementReference.opened = false;
 
     DomElementAdpter.setOnlyTransformTransition(element, 5);

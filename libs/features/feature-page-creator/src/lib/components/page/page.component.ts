@@ -53,8 +53,8 @@ export class PageComponent implements IPageComponent, OnInit {
   name: string;
 
   constructor(
-    @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig,
-    private readonly _elementRef: ElementRef<HTMLElement>
+    private readonly _elementRef: ElementRef<HTMLElement>,
+    @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {
     this.element = this._elementRef;
     this.name = this._config.name;
