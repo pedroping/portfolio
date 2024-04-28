@@ -41,7 +41,7 @@ export class WorkspacePageComponent implements AfterViewInit {
       opened: false,
     };
 
-    this.elementsFacede.createElement(0, {}, config1, domConfig2);
-    this.elementsFacede.createElement(1, {}, config2, domConfig1);
+    // this.elementsFacede.createElement(0, {}, config1, domConfig2);
+    // this.elementsFacede.createElement(1, {}, config2, domConfig1);
   }
 }
