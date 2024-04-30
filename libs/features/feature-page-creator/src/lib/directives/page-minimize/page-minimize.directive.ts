@@ -37,7 +37,7 @@ export class PageMinimizeDirective implements OnInit {
     const elementReference = this._config.elementReference$.value;
     if (!elementReference) return;
 
-    const element = elementReference.element.nativeElement;
+    const element = elementReference.element;
     elementReference.lastPosition = DomElementAdpter.getTransformValues(
       element.style.transform
     );

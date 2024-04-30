@@ -21,7 +21,7 @@ export class PageResizeDirective implements OnInit {
     this._config.elementReference$
       .pipe(take(2))
       .subscribe((elementReference) => {
-        const element = elementReference?.element.nativeElement;
+        const element = elementReference?.element;
         if (!element) return;
 
         this.lastWidth = element.offsetWidth;

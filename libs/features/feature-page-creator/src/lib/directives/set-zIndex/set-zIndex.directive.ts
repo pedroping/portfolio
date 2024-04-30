@@ -20,7 +20,7 @@ export class SetZIndexDirective {
     const elementReference = this._config.elementReference$.value;
     if (!elementReference) return;
 
-    const element = elementReference.element.nativeElement;
+    const element = elementReference.element;
     const id = elementReference.id;
 
     DomElementAdpter.setZIndex(element, this.elementsFacede.setNewZIndex(id));

@@ -48,32 +48,36 @@ export class ElementCreatorService<T> {
       elementReference$: elementReference$,
     };
     const elementInjection = this.createElementInjection(data, pageConfig);
-    const componentRef = this.vcr.createComponent(PageComponent, {
-      index: id,
-      injector: elementInjection,
-    });
+    const { changeDetectorRef, instance } = this.vcr.createComponent(
+      PageComponent,
+      {
+        index: id,
+        injector: elementInjection,
+      }
+    );
 
-    componentRef.changeDetectorRef.detectChanges();
+    changeDetectorRef.detectChanges();
 
     DomElementAdpter.setZIndex(
-      componentRef.instance.element.nativeElement,
+      instance.element,
       this.setZIndexService.setNewZIndex(id)
     );
 
     const elementReference = this.createElementReference(
       id,
-      componentRef.instance.element,
+      instance.element,
       domElementOptions,
       config.customX,
       config.customY
     );
 
-    this.elementsData.pushElement(id, config.name, elementReference);
     elementReference$.next(elementReference);
+    this.elementsData.pushElement(id, config.name, elementReference);
+
     this.setCustomStartPosition(
       config.customX,
       config.customY,
-      componentRef.instance.element.nativeElement
+      instance.element
     );
   }
 
@@ -88,7 +92,7 @@ export class ElementCreatorService<T> {
 
   private createElementReference(
     id: number,
-    element: ElementRef<HTMLElement>,
+    element: HTMLElement,
     domElementOptions?: IDomElementOptions,
     customX = 0,
     customY = 0
@@ -96,13 +100,13 @@ export class ElementCreatorService<T> {
     return {
       id: id,
       element: element,
-      opened: !!domElementOptions?.opened,
       lastPosition: {
         x: customX,
         y: customY,
       },
-      isFullScreen: domElementOptions?.isFullScreen || false,
+      opened: !!domElementOptions?.opened,
       elementActions: this.createActions(),
+      isFullScreen: domElementOptions?.isFullScreen || false,
     };
   }
 

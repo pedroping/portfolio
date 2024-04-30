@@ -12,36 +12,36 @@ export interface IBasicElement {
   name: string;
 }
 
-export interface IElement {
-  id: number;
-  element: ElementRef<HTMLElement>;
+export interface IDomElementOptions {
   opened: boolean;
-  lastPosition: {
-    x: number;
-    y: number;
-  };
-  isFullScreen: boolean;
-  elementActions: IElementActions;
+  isFullScreen?: boolean;
 }
 
-export interface IPageConfig {
+export interface IInitialConfig {
   customX?: number;
   customY?: number;
-  startOnMiddle?: boolean;
   name: string;
   baseSizes: {
     width: number;
     height: number;
   };
   pageContent: Type<unknown>;
+}
+
+export interface IPageConfig extends IInitialConfig {
   elementReference$: BehaviorSubject<IElement | null>;
 }
 
-export interface IPageComponent {
-  element: ElementRef<HTMLElement>;
+export interface IElement extends IDomElementOptions {
+  id: number;
+  element: HTMLElement;
+  lastPosition: {
+    x: number;
+    y: number;
+  };
+  elementActions: IElementActions;
 }
 
-export type IInitialConfig = Omit<IPageConfig, 'elementReference$'>;
-export type IDomElementOptions = Partial<
-  Omit<IElement, 'id' | 'element' | 'elementActions' | 'lastPosition'>
->;
+export interface IPageComponent {
+  element: HTMLElement;
+}

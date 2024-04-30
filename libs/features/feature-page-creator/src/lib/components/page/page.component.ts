@@ -38,25 +38,25 @@ import { CONFIG_TOKEN } from '../../models/elements-token';
     CloseComponent,
   ],
   host: {
-    '[style.height]': 'height()',
     '[style.width]': 'width()',
-    '[style.minHeight]': 'height()',
+    '[style.height]': 'height()',
     '[style.minWidth]': 'width()',
+    '[style.minHeight]': 'height()',
   },
   hostDirectives: [SetZIndexDirective, PageResizeDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PageComponent implements IPageComponent, OnInit {
-  element: ElementRef<HTMLElement>;
+  name: string;
   width = signal<string>('auto');
   height = signal<string>('auto');
-  name: string;
+  element: HTMLElement;
 
   constructor(
     private readonly _elementRef: ElementRef<HTMLElement>,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {
-    this.element = this._elementRef;
+    this.element = this._elementRef.nativeElement;
     this.name = this._config.name;
   }
 

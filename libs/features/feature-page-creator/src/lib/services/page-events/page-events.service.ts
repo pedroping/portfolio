@@ -17,7 +17,6 @@ export class PageEvents {
   openElement(id: number) {
     const elementReference = this.elementsData.findElement(id);
     if (!elementReference) return;
-
     if (!elementReference.opened) return this.showElement(elementReference);
     this.validateElementPosition(elementReference);
   }
@@ -25,7 +24,7 @@ export class PageEvents {
   private validateElementPosition(elementReference: IElement) {
     const isHiggerElement = elementReference.id == this.higgestElementId;
     const elements = this.elementsData.elements$.value;
-    const element = elementReference.element.nativeElement;
+    const element = elementReference.element;
 
     const isOnlyElement = elements
       .filter((item) => item != elementReference)
@@ -36,14 +35,8 @@ export class PageEvents {
       .filter((item) => !!item.opened)
       .map(
         (item) =>
-          DomElementAdpter.elementAboveOther(
-            item.element.nativeElement,
-            element
-          ) &&
-          DomElementAdpter.validateFullScreen(
-            item.element.nativeElement,
-            element
-          )
+          DomElementAdpter.elementAboveOther(item.element, element) &&
+          DomElementAdpter.validateFullScreen(item.element, element)
       )
       .find((result) => !!result);
 
@@ -66,7 +59,7 @@ export class PageEvents {
   }
 
   private minimizeElement(elementReference: IElement) {
-    const element = elementReference.element.nativeElement;
+    const element = elementReference.element;
     const index = this.elementsData.findIndexElement(elementReference.id);
     elementReference.opened = false;
 
@@ -90,7 +83,7 @@ export class PageEvents {
   private showElement(elementReference: IElement) {
     elementReference.opened = true;
 
-    const element = elementReference.element.nativeElement;
+    const element = elementReference.element;
 
     DomElementAdpter.setOnlyTransformTransition(element, 1);
     DomElementAdpter.setZIndex(
@@ -118,7 +111,7 @@ export class PageEvents {
       .filter((item) => !!item.opened)
       .map((item) => ({
         id: item.id,
-        zIndez: item.element.nativeElement.style.zIndex || 0,
+        zIndez: item.element.style.zIndex || 0,
       }));
 
     const maxZindex = Math.max(...idsAndZIndez.map((item) => +item.zIndez));

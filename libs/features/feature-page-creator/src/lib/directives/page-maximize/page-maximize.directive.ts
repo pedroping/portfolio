@@ -31,8 +31,8 @@ export class PageMaximizeDirective implements OnInit {
 
     if (!isFullScreen) this.setSizes(elementReference);
 
-    const boundaryElement = this.elementsFacede.draggingBoundaryElement;
-    const element = elementReference.element.nativeElement;
+    const boundaryElement = this.draggingBoundaryElement;
+    const element = elementReference.element;
 
     if (!boundaryElement || !element) return;
 
@@ -45,13 +45,13 @@ export class PageMaximizeDirective implements OnInit {
   }
 
   ngOnInit(): void {
-    this.lastHeight = this.elementsFacede.draggingBoundaryElement.offsetHeight;
+    this.lastHeight = this.draggingBoundaryElement.offsetHeight;
     const observeConfig = {
       attributes: true,
       childList: true,
       subtree: true,
     };
-    const boundaryElement = this.elementsFacede.draggingBoundaryElement;
+    const boundaryElement = this.draggingBoundaryElement;
 
     this._config.elementReference$
       .pipe(take(2))
@@ -59,7 +59,7 @@ export class PageMaximizeDirective implements OnInit {
         if (!elementReference || !elementReference.isFullScreen) return;
 
         this.setSizes(elementReference);
-        const element = elementReference.element.nativeElement;
+        const element = elementReference.element;
         elementReference.opened = true;
         elementReference.isFullScreen = false;
 
@@ -85,7 +85,7 @@ export class PageMaximizeDirective implements OnInit {
 
       if (!elementReference) return;
 
-      const element = elementReference.element.nativeElement;
+      const element = elementReference.element;
 
       this.setFullScreen(
         true,
@@ -94,7 +94,7 @@ export class PageMaximizeDirective implements OnInit {
         elementReference,
         true
       );
-    }).observe(this.elementsFacede.draggingBoundaryElement, observeConfig);
+    }).observe(this.draggingBoundaryElement, observeConfig);
   }
 
   setFullScreen(
@@ -173,10 +173,14 @@ export class PageMaximizeDirective implements OnInit {
   }
 
   setSizes(elementReference: IElement) {
-    const element = elementReference.element.nativeElement;
+    const element = elementReference.element;
     const baseSizes = this._config.baseSizes;
     this.currentWidth = element.offsetWidth || baseSizes.width;
     this.currentHeight = element.offsetHeight || baseSizes.height;
     this.lastTranslet3d = element.style.transform;
+  }
+
+  get draggingBoundaryElement() {
+    return this.elementsFacede.draggingBoundaryElement;
   }
 }
