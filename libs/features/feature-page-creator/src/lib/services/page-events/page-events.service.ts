@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { DomElementAdpter, UtlisFunctions } from '@portifolio/util/adpters';
+import {
+  DomElementAdpter,
+  UtlisFunctions,
+} from '@portifolio/util/util-adpters';
 import { IElement } from '../../models/elements-interfaces';
 import { ElementsData } from '../elements-data/elements-data.service';
 import { SetZIndexService } from '../set-z-index/set-z-index.service';

@@ -31,8 +31,8 @@
         "ngswConfigPath": "ngsw-config.json",
         "stylePreprocessorOptions": {
           "includePaths": [
-            "libs/util/styles/src/lib",
-            "libs/util/styles/src"
+            "libs/util/util-styles/src/lib",
+            "libs/util/util-styles/src"
           ]
         }
       },

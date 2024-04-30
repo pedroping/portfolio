@@ -1,5 +1,5 @@
 import { Directive, HostListener, Inject } from '@angular/core';
-import { DomElementAdpter } from '@portifolio/util/adpters';
+import { DomElementAdpter } from '@portifolio/util/util-adpters';
 import { ElementsFacede } from '../../facede/elements-facede';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';

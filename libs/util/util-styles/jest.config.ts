@@ -1,9 +1,9 @@
 /* eslint-disable */
 export default {
-  displayName: 'util-adpters',
+  displayName: 'util-util-styles',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../../coverage/libs/util/adpters',
+  coverageDirectory: '../../../coverage/libs/util/util-styles',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

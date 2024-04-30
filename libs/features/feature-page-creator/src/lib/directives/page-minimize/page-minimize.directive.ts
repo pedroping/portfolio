@@ -1,5 +1,8 @@
 import { Directive, HostListener, Inject, OnInit } from '@angular/core';
-import { DomElementAdpter, UtlisFunctions } from '@portifolio/util/adpters';
+import {
+  DomElementAdpter,
+  UtlisFunctions,
+} from '@portifolio/util/util-adpters';
 import { take } from 'rxjs';
 import { ElementsFacede } from '../../facede/elements-facede';
 import { IPageConfig } from '../../models/elements-interfaces';
@@ -12,15 +15,20 @@ import { CONFIG_TOKEN } from '../../models/elements-token';
 export class PageMinimizeDirective implements OnInit {
   constructor(
     private readonly elementsFacede: ElementsFacede,
-    @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig,
+    @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {}
 
   ngOnInit(): void {
     this._config.elementReference$
       .pipe(take(2))
       .subscribe((elementReference) => {
-        if (!elementReference || elementReference.opened || elementReference.isFullScreen) return;
-        
+        if (
+          !elementReference ||
+          elementReference.opened ||
+          elementReference.isFullScreen
+        )
+          return;
+
         this.onclick();
       });
   }

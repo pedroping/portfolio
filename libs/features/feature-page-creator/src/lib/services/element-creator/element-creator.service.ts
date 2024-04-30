@@ -15,7 +15,7 @@ import {
 import { CONFIG_TOKEN, DATA_TOKEN } from '../../models/elements-token';
 import { PageComponent } from '../../components/page/page.component';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { DomElementAdpter } from '@portifolio/util/adpters';
+import { DomElementAdpter } from '@portifolio/util/util-adpters';
 import { SetZIndexService } from '../set-z-index/set-z-index.service';
 @Injectable({ providedIn: 'root' })
 export class ElementCreatorService<T> {

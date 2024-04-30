@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Inject, OnInit } from '@angular/core';
-import { DomElementAdpter } from '@portifolio/util/adpters';
+import { DomElementAdpter } from '@portifolio/util/util-adpters';
 import { fromEvent, takeUntil } from 'rxjs';
 import { ElementsFacede } from '../../facede/elements-facede';
 import { IElement, IPageConfig } from '../../models/elements-interfaces';

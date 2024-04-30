@@ -30,8 +30,8 @@
       "@portifolio/ui/ui-taskbar-action-button": [
         "libs/ui/ui-taskbar-action-button/src/index.ts"
       ],
-      "@portifolio/util/adpters": ["libs/util/adpters/src/index.ts"],
-      "@portifolio/util/styles": ["libs/util/styles/src/index.ts"],
+      "@portifolio/util/util-adpters": ["libs/util/util-adpters/src/index.ts"],
+      "@portifolio/util/util-styles": ["libs/util/util-styles/src/index.ts"],
       "@portifolio/util/util-z-index-handler": [
         "libs/util/util-z-index-handler/src/index.ts"
       ]
