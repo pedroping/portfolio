@@ -63,10 +63,6 @@ export class PageActionsService {
     const index = this.elementsData.findIndexElement(elementReference.id);
     elementReference.opened = false;
 
-    elementReference.lastPosition = DomElementAdpter.getTransformValues(
-      element.style.transform
-    );
-
     DomElementAdpter.setOnlyTransformTransition(element, 5);
     DomElementAdpter.setTransform(
       element,
@@ -93,6 +89,11 @@ export class PageActionsService {
     element.style.display = 'block';
 
     UtlisFunctions.timerSubscription(50).subscribe(() => {
+      if (elementReference.isFullScreen) {
+        DomElementAdpter.setTransform(element, 0, 0);
+        return;
+      }
+
       DomElementAdpter.setTransform(
         element,
         elementReference.lastPosition.x,

@@ -44,11 +44,8 @@ export class PageResizeDirective implements OnInit {
           )
             return;
 
-          if (width != this.lastWidth || height != this.lastHeight) {
-            if (elementReference.isFullScreen)
-              elementReference.lastPosition = { x: 0, y: 0 };
+          if (width != this.lastWidth || height != this.lastHeight)
             elementReference.isFullScreen = false;
-          }
         }).observe(element, observeConfig);
       });
   }

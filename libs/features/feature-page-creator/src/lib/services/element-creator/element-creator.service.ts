@@ -71,14 +71,13 @@ export class ElementCreatorService<T> {
       config.customY
     );
 
-    elementReference$.next(elementReference);
-    this.elementsData.pushElement(id, config.name, elementReference);
-
     this.setCustomStartPosition(
       config.customX,
       config.customY,
       instance.element
     );
+    elementReference$.next(elementReference);
+    this.elementsData.pushElement(id, config.name, elementReference);
   }
 
   destroyElement(id: number) {

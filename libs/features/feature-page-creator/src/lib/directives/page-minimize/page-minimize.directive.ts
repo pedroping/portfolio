@@ -37,10 +37,8 @@ export class PageMinimizeDirective implements OnInit {
     const elementReference = this._config.elementReference$.value;
     if (!elementReference) return;
 
+    const isFullScreen = elementReference.isFullScreen;
     const element = elementReference.element;
-    elementReference.lastPosition = DomElementAdpter.getTransformValues(
-      element.style.transform
-    );
     const index = this.elementsFacede.findIndexElement(elementReference.id);
     elementReference.opened = false;
 
@@ -54,6 +52,10 @@ export class PageMinimizeDirective implements OnInit {
     UtlisFunctions.timerSubscription(100).subscribe(() => {
       DomElementAdpter.removeTransition(element);
       element.style.display = 'none';
+    });
+
+    UtlisFunctions.timerSubscription(200).subscribe(() => {
+      elementReference.isFullScreen = isFullScreen;
     });
   }
 }
