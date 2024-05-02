@@ -4,9 +4,9 @@ import { IBasicElement, IElement } from '../../models/elements-interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class ElementsData {
-  basicElements$ = new BehaviorSubject<IBasicElement[]>([]);
-  elements$ = new BehaviorSubject<IElement[]>([]);
   draggingBoundaryElement!: HTMLElement;
+  elements$ = new BehaviorSubject<IElement[]>([]);
+  basicElements$ = new BehaviorSubject<IBasicElement[]>([]);
 
   setDraggingBoundaryElement(element: HTMLElement) {
     this.draggingBoundaryElement = element.parentElement as HTMLElement;

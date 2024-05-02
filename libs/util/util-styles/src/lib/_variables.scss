@@ -4,7 +4,12 @@ $project-properties: (
   'gradient-color-01': #245edb,
   'gradient-color-02': #0c8dea,
   'gradient-color-03': #3f8cf3,
+  'gradient-color-04': #245edb,
+  'gradient-color-05': #0c8dea,
   'shadow-color-01': #333,
+  'shadow-color-02': #7fbce8,
+  'shadow-color-03': rgba(20, 20, 20, 0.6),
+  'border-01': #1885d3,
   'start-btn-box-shadow-': #79ce71,
   'gradiant-btn-01': #5eac56,
   'gradiant-btn-02': #3c873c,
@@ -15,6 +20,8 @@ $project-properties: (
   'text-color-01': white,
   'page-actions-border': #aeaeae,
   'pade-actions-box-shadow': #59595966,
+  'light-background': white,
+  'light-blue-background': #d3e5fa,
 );
 
 :root {

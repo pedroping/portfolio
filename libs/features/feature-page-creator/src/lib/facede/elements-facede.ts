@@ -8,6 +8,7 @@ import { ElementsData } from '../services/elements-data/elements-data.service';
 import { PageEvents } from '../services/page-events/page-events.service';
 import { PreventHandlerElements } from '../services/prevent-handler-elements/prevent-handler-elements.service';
 import { SetZIndexService } from '../services/set-z-index/set-z-index.service';
+import { PageActionsService } from '../services/page-actions/page-actions.service';
 
 @Injectable({ providedIn: 'root' })
 export class ElementsFacede<T = unknown> {
@@ -15,6 +16,7 @@ export class ElementsFacede<T = unknown> {
     private readonly pageEvents: PageEvents,
     private readonly elementsData: ElementsData,
     private readonly setZIndexService: SetZIndexService,
+    private readonly pageActionsService: PageActionsService,
     private readonly preventHandlerElements: PreventHandlerElements,
     private readonly elementCreatorService: ElementCreatorService<T>
   ) {}
@@ -46,7 +48,7 @@ export class ElementsFacede<T = unknown> {
   }
 
   openElement(id: number) {
-    this.pageEvents.openElement(id);
+    this.pageActionsService.openElement(id);
   }
 
   findIndexElement(id: number) {

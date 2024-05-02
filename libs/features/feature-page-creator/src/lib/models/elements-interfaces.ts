@@ -28,10 +28,6 @@ export interface IInitialConfig {
   pageContent: Type<unknown>;
 }
 
-export interface IPageConfig extends IInitialConfig {
-  elementReference$: BehaviorSubject<IElement | null>;
-}
-
 export interface IElement extends IDomElementOptions {
   id: number;
   element: HTMLElement;
@@ -40,6 +36,10 @@ export interface IElement extends IDomElementOptions {
     y: number;
   };
   elementActions: IElementActions;
+}
+
+export interface IPageConfig extends IInitialConfig {
+  elementReference$: BehaviorSubject<IElement | null>;
 }
 
 export interface IPageComponent {
