@@ -3,7 +3,7 @@ import {
   DomElementAdpter,
   UtlisFunctions,
 } from '@portifolio/util/util-adpters';
-import { take } from 'rxjs';
+import { take, tap } from 'rxjs';
 import { ElementsFacede } from '../../facede/elements-facede';
 import { IElement, IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
@@ -52,15 +52,19 @@ export class PageMaximizeDirective implements OnInit {
     };
 
     this._config.elementReference$
-      .pipe(take(2))
-      .subscribe((elementReference) => {
-        if (!elementReference) return;
-        this.elementReference = elementReference;
-        if (!elementReference.isFullScreen) return;
+      .pipe(
+        take(2),
+        tap((elementReference) => {
+          if (elementReference) this.elementReference = elementReference;
+        })
+      )
+      .subscribe(() => {
+        if (!this.elementReference || !this.elementReference.isFullScreen)
+          return;
 
         this.setSizes();
-        const element = elementReference.element;
-        elementReference.opened = true;
+        const element = this.elementReference.element;
+        this.elementReference.opened = true;
 
         this.lastTranslet3d = DomElementAdpter.getTranslate3d(
           this._config.customX || 0,
