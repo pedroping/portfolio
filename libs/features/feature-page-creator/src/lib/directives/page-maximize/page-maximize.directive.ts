@@ -126,14 +126,18 @@ export class PageMaximizeDirective implements OnInit {
   ) {
     if (!preventAnimation) DomElementAdpter.setTransition(element);
 
+    this.elementReference.preventObservers$.next(true);
+
     UtlisFunctions.timerSubscription(100).subscribe(() => {
       element.style.width = width + 'px';
       element.style.height = height + 'px';
       element.style.transform = transform;
-    });
+      element.style.display = 'block';
 
-    UtlisFunctions.timerSubscription(200).subscribe(() => {
-      DomElementAdpter.removeTransition(element);
+      UtlisFunctions.timerSubscription(200).subscribe(() => {
+        DomElementAdpter.removeTransition(element);
+        this.elementReference.preventObservers$.next(false);
+      });
     });
   }
 

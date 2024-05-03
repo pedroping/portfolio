@@ -1,11 +1,5 @@
-import { ElementRef, Type } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
-
-export interface IElementActions {
-  minimize$: Subject<void>;
-  maximize$: Subject<void>;
-  close$: Subject<void>;
-}
+import { Type } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 export interface IBasicElement {
   id: number;
@@ -18,14 +12,14 @@ export interface IDomElementOptions {
 }
 
 export interface IInitialConfig {
-  customX?: number;
-  customY?: number;
   name: string;
   baseSizes: {
     width: number;
     height: number;
   };
   pageContent: Type<unknown>;
+  customX?: number;
+  customY?: number;
 }
 
 export interface IElement extends IDomElementOptions {
@@ -35,7 +29,7 @@ export interface IElement extends IDomElementOptions {
     x: number;
     y: number;
   };
-  elementActions: IElementActions;
+  preventObservers$: BehaviorSubject<boolean>;
 }
 
 export interface IPageConfig extends IInitialConfig {

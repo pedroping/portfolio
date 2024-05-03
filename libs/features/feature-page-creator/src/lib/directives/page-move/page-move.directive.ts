@@ -80,7 +80,7 @@ export class PageMoveDirective implements OnInit {
     this.currentX = Math.max(0, maxPositionX);
     this.currentY = Math.max(0, maxPositionY);
     elementReference.lastPosition = { x: this.currentX, y: this.currentY };
-
+    DomElementAdpter.removeTransition(element);
     DomElementAdpter.setTransform(element, this.currentX, this.currentY);
   }
 

@@ -33,6 +33,10 @@ export class PageResizeDirective implements AfterViewInit {
           subtree: true,
         };
         new MutationObserver(() => {
+          const preventObservers = elementReference.preventObservers$.value;
+
+          if (preventObservers) return;
+
           const width = element.offsetWidth;
           const height = element.offsetHeight;
 
@@ -45,8 +49,11 @@ export class PageResizeDirective implements AfterViewInit {
           )
             return;
 
-          if (width != this.lastWidth || height != this.lastHeight)
+          if (width != this.lastWidth || height != this.lastHeight) {
+            if (elementReference.isFullScreen)
+              elementReference.lastPosition = { x: 0, y: 0 };
             elementReference.isFullScreen = false;
+          }
         }).observe(element, observeConfig);
       });
   }

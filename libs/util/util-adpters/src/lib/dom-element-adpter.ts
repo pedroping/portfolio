@@ -10,6 +10,10 @@ export class DomElementAdpter {
     return { x: splitedValues[0], y: splitedValues[1] };
   }
 
+  static setDisplay(element: HTMLElement, show: boolean) {
+    element.style.display = show ? 'block' : 'none';
+  }
+
   static setTransform(element: HTMLElement, x: number, y: number) {
     element.style.transform = `translate3d(${x}px, ${y}px, 0)`;
   }

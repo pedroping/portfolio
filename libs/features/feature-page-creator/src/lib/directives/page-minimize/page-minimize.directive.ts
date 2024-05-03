@@ -42,6 +42,8 @@ export class PageMinimizeDirective implements OnInit {
     const index = this.elementsFacede.findElementIndex(elementReference.id);
     elementReference.opened = false;
 
+    elementReference.preventObservers$.next(true);
+
     DomElementAdpter.setOnlyTransformTransition(element, 5);
     DomElementAdpter.setTransform(
       element,
@@ -52,10 +54,11 @@ export class PageMinimizeDirective implements OnInit {
     UtlisFunctions.timerSubscription(100).subscribe(() => {
       DomElementAdpter.removeTransition(element);
       element.style.display = 'none';
-    });
 
-    UtlisFunctions.timerSubscription(200).subscribe(() => {
-      elementReference.isFullScreen = isFullScreen;
+      UtlisFunctions.timerSubscription(200).subscribe(() => {
+        elementReference.isFullScreen = isFullScreen;
+        elementReference.preventObservers$.next(false);
+      });
     });
   }
 }

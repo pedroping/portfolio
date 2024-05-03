@@ -1,21 +1,15 @@
-import {
-  ElementRef,
-  Injectable,
-  Injector,
-  ViewContainerRef,
-} from '@angular/core';
-import { ElementsData } from '../elements-data/elements-data.service';
+import { Injectable, Injector, ViewContainerRef } from '@angular/core';
+import { DomElementAdpter } from '@portifolio/util/util-adpters';
+import { BehaviorSubject } from 'rxjs';
+import { PageComponent } from '../../components/page/page.component';
 import {
   IDomElementOptions,
   IElement,
-  IElementActions,
   IInitialConfig,
   IPageConfig,
 } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN, DATA_TOKEN } from '../../models/elements-token';
-import { PageComponent } from '../../components/page/page.component';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { DomElementAdpter } from '@portifolio/util/util-adpters';
+import { ElementsData } from '../elements-data/elements-data.service';
 import { SetZIndexService } from '../set-z-index/set-z-index.service';
 @Injectable({ providedIn: 'root' })
 export class ElementCreatorService<T> {
@@ -58,11 +52,6 @@ export class ElementCreatorService<T> {
 
     changeDetectorRef.detectChanges();
 
-    DomElementAdpter.setZIndex(
-      instance.element,
-      this.setZIndexService.setNewZIndex(id)
-    );
-
     const elementReference = this.createElementReference(
       id,
       instance.element,
@@ -70,24 +59,25 @@ export class ElementCreatorService<T> {
       config.customX,
       config.customY
     );
-
-    this.setCustomStartPosition(
-      config.customX,
-      config.customY,
-      instance.element
-    );
     elementReference$.next(elementReference);
     this.elementsData.pushElement(id, config.name, elementReference);
+
+    DomElementAdpter.setZIndex(
+      instance.element,
+      this.setZIndexService.setNewZIndex(id)
+    );
+    DomElementAdpter.setDisplay(instance.element, !!domElementOptions?.opened);
+    DomElementAdpter.setTransform(
+      instance.element,
+      config.customX || 0,
+      config.customY || 0
+    );
   }
 
   destroyElement(id: number) {
     const vcrIndex = this.elementsData.findElementIndex(id);
     this.vcr.remove(vcrIndex);
     this.elementsData.removeElement(id);
-  }
-
-  private setCustomStartPosition(x = 0, y = 0, element: HTMLElement) {
-    DomElementAdpter.setTransform(element, x, y);
   }
 
   private createElementReference(
@@ -105,16 +95,8 @@ export class ElementCreatorService<T> {
         y: customY,
       },
       opened: !!domElementOptions?.opened,
-      elementActions: this.createActions(),
       isFullScreen: domElementOptions?.isFullScreen || false,
-    };
-  }
-
-  private createActions(): IElementActions {
-    return {
-      minimize$: new Subject<void>(),
-      maximize$: new Subject<void>(),
-      close$: new Subject<void>(),
+      preventObservers$: new BehaviorSubject<boolean>(true),
     };
   }
 
