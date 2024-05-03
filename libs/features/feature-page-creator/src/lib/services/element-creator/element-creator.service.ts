@@ -32,7 +32,6 @@ export class ElementCreatorService<T> {
   }
 
   createElement(
-    id: number,
     data: T,
     config: IInitialConfig,
     domElementOptions?: IDomElementOptions
@@ -47,6 +46,7 @@ export class ElementCreatorService<T> {
       ...config,
       elementReference$: elementReference$,
     };
+    const id = this.elementsData.elements$.value.length;
     const elementInjection = this.createElementInjection(data, pageConfig);
     const { changeDetectorRef, instance } = this.vcr.createComponent(
       PageComponent,

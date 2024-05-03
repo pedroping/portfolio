@@ -72,7 +72,6 @@ export class PageActionsService {
 
     UtlisFunctions.timerSubscription(100).subscribe(() => {
       DomElementAdpter.removeTransition(element);
-      element.style.display = 'none';
     });
   }
 

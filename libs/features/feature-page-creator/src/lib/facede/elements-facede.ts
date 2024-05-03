@@ -26,17 +26,11 @@ export class ElementsFacede<T = unknown> {
   }
 
   createElement(
-    id: number,
     data: T,
     config: IInitialConfig,
     domElementOptions?: IDomElementOptions
   ) {
-    this.elementCreatorService.createElement(
-      id,
-      data,
-      config,
-      domElementOptions
-    );
+    this.elementCreatorService.createElement(data, config, domElementOptions);
   }
 
   destroyElement(id: number) {

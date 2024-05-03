@@ -34,14 +34,14 @@ export class WorkspacePageComponent implements AfterViewInit {
 
     const domConfig1: IDomElementOptions = {
       opened: false,
-      isFullScreen: true,
     };
 
     const domConfig2: IDomElementOptions = {
       opened: false,
+      isFullScreen: true,
     };
 
-    this.elementsFacede.createElement(0, {}, config1, domConfig2);
-    this.elementsFacede.createElement(1, {}, config2, domConfig1);
+    this.elementsFacede.createElement({}, config1, domConfig1);
+    this.elementsFacede.createElement({}, config2, domConfig2);
   }
 }
