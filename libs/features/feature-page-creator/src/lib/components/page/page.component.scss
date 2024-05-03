@@ -12,7 +12,7 @@
 
   header {
     height: var(--page-header-height);
-    box-shadow: 3px 2px 3px #7fbce8 inset;
+    box-shadow: 3px 2px 3px var(--shadow-color-02) inset;
     background: linear-gradient(to bottom, var(--gradient-color-01) 0%, var(--gradient-color-02) 100%);
     display: flex;
     align-items: center;
@@ -33,7 +33,7 @@
 
   section {
     width: 100%;
+    background-color: var(--light-background);
     height: calc(100% - var(--page-header-height));
-    background-color: white;
   }
 }
