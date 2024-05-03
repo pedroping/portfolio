@@ -1,4 +1,4 @@
-import { Directive, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, Directive, Inject, OnInit } from '@angular/core';
 import { take } from 'rxjs';
 import { ElementsFacede } from '../../facede/elements-facede';
 import { IPageConfig } from '../../models/elements-interfaces';
@@ -8,7 +8,7 @@ import { CONFIG_TOKEN } from '../../models/elements-token';
   selector: '[pageResize]',
   standalone: true,
 })
-export class PageResizeDirective implements OnInit {
+export class PageResizeDirective implements AfterViewInit {
   lastHeight: number | string = '';
   lastWidth: number | string = '';
 
@@ -17,7 +17,7 @@ export class PageResizeDirective implements OnInit {
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {}
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this._config.elementReference$
       .pipe(take(2))
       .subscribe((elementReference) => {
@@ -36,7 +36,8 @@ export class PageResizeDirective implements OnInit {
           const width = element.offsetWidth;
           const height = element.offsetHeight;
 
-          const boundaryElement = this.elementsFacede.draggingBoundaryElement;
+          const boundaryElement =
+            this.elementsFacede.draggingBoundaryElement$.value;
 
           if (
             width == boundaryElement?.offsetWidth &&

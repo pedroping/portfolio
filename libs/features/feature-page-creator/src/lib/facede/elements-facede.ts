@@ -51,8 +51,8 @@ export class ElementsFacede<T = unknown> {
     this.pageActionsService.openElement(id);
   }
 
-  findIndexElement(id: number) {
-    return this.elementsData.findIndexElement(id);
+  findElementIndex(id: number) {
+    return this.elementsData.findElementIndex(id);
   }
 
   pushPreventHandlerElement(element: HTMLElement) {
@@ -79,7 +79,7 @@ export class ElementsFacede<T = unknown> {
     return this.elementsData.basicElements$;
   }
 
-  get draggingBoundaryElement() {
-    return this.elementsData.draggingBoundaryElement;
+  get draggingBoundaryElement$() {
+    return this.elementsData.draggingBoundaryElement$;
   }
 }

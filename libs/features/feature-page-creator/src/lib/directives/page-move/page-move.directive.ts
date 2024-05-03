@@ -45,7 +45,8 @@ export class PageMoveDirective implements OnInit {
     if (!elementReference) return;
 
     const element = elementReference.element;
-    const draggingBoundaryElement = this.elementsFacede.draggingBoundaryElement;
+    const draggingBoundaryElement =
+      this.elementsFacede.draggingBoundaryElement$.value;
 
     if (!draggingBoundaryElement) return;
 

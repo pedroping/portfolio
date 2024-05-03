@@ -34,6 +34,7 @@ export class WorkspacePageComponent implements AfterViewInit {
 
     const domConfig1: IDomElementOptions = {
       opened: false,
+      isFullScreen: true,
     };
 
     const domConfig2: IDomElementOptions = {

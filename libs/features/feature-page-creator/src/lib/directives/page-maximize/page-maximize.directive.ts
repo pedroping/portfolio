@@ -14,6 +14,8 @@ import { CONFIG_TOKEN } from '../../models/elements-token';
 })
 export class PageMaximizeDirective implements OnInit {
   lastHeight = 0;
+  elementReference!: IElement;
+  boundaryElement!: HTMLElement;
   currentWidth: string | number = 'auto';
   currentHeight: string | number = 'auto';
   lastTranslet3d = DomElementAdpter.getTranslate3d(0, 0);
@@ -29,125 +31,90 @@ export class PageMaximizeDirective implements OnInit {
 
     const isFullScreen = elementReference.isFullScreen;
 
-    if (!isFullScreen) this.setSizes(elementReference);
+    if (!isFullScreen) this.setSizes();
 
-    const boundaryElement = this.draggingBoundaryElement;
     const element = elementReference.element;
 
-    if (!boundaryElement || !element) return;
+    if (!this.boundaryElement || !element) return;
 
-    this.setFullScreen(
-      !isFullScreen,
-      boundaryElement,
-      element,
-      elementReference
-    );
+    this.setFullScreen(!isFullScreen, element);
+    this.elementReference.isFullScreen = !this.elementReference.isFullScreen;
   }
 
   ngOnInit(): void {
-    this.lastHeight = this.draggingBoundaryElement.offsetHeight;
+    if (!this.elementsFacede.draggingBoundaryElement$.value) return;
+    this.boundaryElement = this.elementsFacede.draggingBoundaryElement$.value;
+    this.lastHeight = this.boundaryElement.offsetHeight;
     const observeConfig = {
       attributes: true,
       childList: true,
       subtree: true,
     };
-    const boundaryElement = this.draggingBoundaryElement;
 
     this._config.elementReference$
       .pipe(take(2))
       .subscribe((elementReference) => {
-        if (!elementReference || !elementReference.isFullScreen) return;
+        if (!elementReference) return;
+        this.elementReference = elementReference;
+        if (!elementReference.isFullScreen) return;
 
-        this.setSizes(elementReference);
+        this.setSizes();
         const element = elementReference.element;
         elementReference.opened = true;
-        elementReference.isFullScreen = false;
 
         this.lastTranslet3d = DomElementAdpter.getTranslate3d(
           this._config.customX || 0,
           this._config.customY || 0
         );
 
-        this.setFullScreen(
-          true,
-          boundaryElement,
-          element,
-          elementReference,
-          true
-        );
+        this.setFullScreen(true, element, true);
       });
 
     new MutationObserver(() => {
-      if (this.lastHeight === boundaryElement.offsetHeight) return;
+      if (this.lastHeight === this.boundaryElement.offsetHeight) return;
 
-      this.lastHeight = boundaryElement.offsetHeight;
+      this.lastHeight = this.boundaryElement.offsetHeight;
       const elementReference = this._config.elementReference$.value;
 
       if (!elementReference) return;
 
       const element = elementReference.element;
 
-      this.setFullScreen(
-        true,
-        boundaryElement,
-        element,
-        elementReference,
-        true
-      );
-    }).observe(this.draggingBoundaryElement, observeConfig);
+      this.setFullScreen(true, element, true);
+    }).observe(this.boundaryElement, observeConfig);
   }
 
   setFullScreen(
     hasToSet: boolean,
-    boundaryElement: HTMLElement,
     element: HTMLElement,
-    elementReference: IElement,
     preventAnimation = false
   ) {
     if (
-      this.currentWidth == boundaryElement.offsetWidth &&
-      this.currentHeight == boundaryElement.offsetHeight &&
+      this.currentWidth == this.boundaryElement.offsetWidth &&
+      this.currentHeight == this.boundaryElement.offsetHeight &&
       hasToSet
     )
-      return this.setBaseScreenSize(
-        element,
-        elementReference,
-        preventAnimation
-      );
+      return this.setBaseScreenSize(element, preventAnimation);
 
     const transform = hasToSet
       ? DomElementAdpter.getTranslate3d(0, 0)
       : this.lastTranslet3d;
-    const width = hasToSet ? boundaryElement.offsetWidth : this.currentWidth;
-    const height = hasToSet ? boundaryElement.offsetHeight : this.currentHeight;
+    const width = hasToSet
+      ? this.boundaryElement.offsetWidth
+      : this.currentWidth;
+    const height = hasToSet
+      ? this.boundaryElement.offsetHeight
+      : this.currentHeight;
 
-    this.setPropierties(
-      element,
-      width,
-      height,
-      transform,
-      elementReference,
-      preventAnimation
-    );
+    this.setPropierties(element, width, height, transform, preventAnimation);
   }
 
-  setBaseScreenSize(
-    element: HTMLElement,
-    elementReference: IElement,
-    preventAnimation = false
-  ) {
+  setBaseScreenSize(element: HTMLElement, preventAnimation = false) {
     const width = this._config.baseSizes.width;
     const height = this._config.baseSizes.height;
     const transform = this.lastTranslet3d;
 
-    this.setPropierties(
-      element,
-      width,
-      height,
-      transform,
-      elementReference,
-      preventAnimation
-    );
+    this.setPropierties(element, width, height, transform, preventAnimation);
   }
 
   setPropierties(
@@ -155,7 +122,6 @@ export class PageMaximizeDirective implements OnInit {
     width: number | string,
     height: number | string,
     transform: string,
-    elementReference: IElement,
     preventAnimation = false
   ) {
     if (!preventAnimation) DomElementAdpter.setTransition(element);
@@ -167,20 +133,15 @@ export class PageMaximizeDirective implements OnInit {
     });
 
     UtlisFunctions.timerSubscription(200).subscribe(() => {
-      elementReference.isFullScreen = !elementReference.isFullScreen;
       DomElementAdpter.removeTransition(element);
     });
   }
 
-  setSizes(elementReference: IElement) {
-    const element = elementReference.element;
+  setSizes() {
+    const element = this.elementReference.element;
     const baseSizes = this._config.baseSizes;
     this.currentWidth = element.offsetWidth || baseSizes.width;
     this.currentHeight = element.offsetHeight || baseSizes.height;
     this.lastTranslet3d = element.style.transform;
-  }
-
-  get draggingBoundaryElement() {
-    return this.elementsFacede.draggingBoundaryElement;
   }
 }

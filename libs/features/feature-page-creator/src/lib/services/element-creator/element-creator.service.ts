@@ -81,7 +81,8 @@ export class ElementCreatorService<T> {
   }
 
   destroyElement(id: number) {
-    this.vcr.remove(id);
+    const vcrIndex = this.elementsData.findElementIndex(id);
+    this.vcr.remove(vcrIndex);
     this.elementsData.removeElement(id);
   }
 

@@ -39,7 +39,7 @@ export class PageMinimizeDirective implements OnInit {
 
     const isFullScreen = elementReference.isFullScreen;
     const element = elementReference.element;
-    const index = this.elementsFacede.findIndexElement(elementReference.id);
+    const index = this.elementsFacede.findElementIndex(elementReference.id);
     elementReference.opened = false;
 
     DomElementAdpter.setOnlyTransformTransition(element, 5);

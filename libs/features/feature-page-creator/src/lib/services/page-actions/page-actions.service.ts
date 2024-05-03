@@ -60,7 +60,7 @@ export class PageActionsService {
 
   private minimizeElement(elementReference: IElement) {
     const element = elementReference.element;
-    const index = this.elementsData.findIndexElement(elementReference.id);
+    const index = this.elementsData.findElementIndex(elementReference.id);
     elementReference.opened = false;
 
     DomElementAdpter.setOnlyTransformTransition(element, 5);

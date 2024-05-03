@@ -4,12 +4,12 @@ import { IBasicElement, IElement } from '../../models/elements-interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class ElementsData {
-  draggingBoundaryElement!: HTMLElement;
   elements$ = new BehaviorSubject<IElement[]>([]);
   basicElements$ = new BehaviorSubject<IBasicElement[]>([]);
+  draggingBoundaryElement$ = new BehaviorSubject<HTMLElement | null>(null);
 
   setDraggingBoundaryElement(element: HTMLElement) {
-    this.draggingBoundaryElement = element.parentElement as HTMLElement;
+    this.draggingBoundaryElement$.next(element.parentElement as HTMLElement);
   }
 
   pushElement(id: number, name: string, element: IElement) {
@@ -32,7 +32,7 @@ export class ElementsData {
     return this.elements$.value.find((item) => item.id == id);
   }
 
-  findIndexElement(id: number) {
+  findElementIndex(id: number) {
     return this.elements$.value.findIndex((item) => item.id == id);
   }
 }
