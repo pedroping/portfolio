@@ -5,6 +5,7 @@ import {
 } from '@portifolio/util/util-adpters';
 import { take, tap } from 'rxjs';
 import { ElementsFacede } from '../../facede/elements-facede';
+import { OBSERVE_CONFIG } from '../../mocks/observerConfig-mocks';
 import { IElement, IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
 
@@ -45,11 +46,6 @@ export class PageMaximizeDirective implements OnInit {
     if (!this.elementsFacede.draggingBoundaryElement$.value) return;
     this.boundaryElement = this.elementsFacede.draggingBoundaryElement$.value;
     this.lastHeight = this.boundaryElement.offsetHeight;
-    const observeConfig = {
-      attributes: true,
-      childList: true,
-      subtree: true,
-    };
 
     this._config.elementReference$
       .pipe(
@@ -73,7 +69,11 @@ export class PageMaximizeDirective implements OnInit {
 
         this.setFullScreen(true, element, true);
       });
+      
+    this.createBoundaryObserve();
+  }
 
+  createBoundaryObserve() {
     new MutationObserver(() => {
       if (this.lastHeight === this.boundaryElement.offsetHeight) return;
 
@@ -85,7 +85,7 @@ export class PageMaximizeDirective implements OnInit {
       const element = elementReference.element;
 
       this.setFullScreen(true, element, true);
-    }).observe(this.boundaryElement, observeConfig);
+    }).observe(this.boundaryElement, OBSERVE_CONFIG);
   }
 
   setFullScreen(

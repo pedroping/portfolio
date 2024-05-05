@@ -1,6 +1,7 @@
-import { AfterViewInit, Directive, Inject, OnInit } from '@angular/core';
+import { Directive, Inject, OnInit } from '@angular/core';
 import { take } from 'rxjs';
 import { ElementsFacede } from '../../facede/elements-facede';
+import { OBSERVE_CONFIG } from '../../mocks/observerConfig-mocks';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
 
@@ -8,7 +9,7 @@ import { CONFIG_TOKEN } from '../../models/elements-token';
   selector: '[pageResize]',
   standalone: true,
 })
-export class PageResizeDirective implements AfterViewInit {
+export class PageResizeDirective implements OnInit {
   lastHeight: number | string = '';
   lastWidth: number | string = '';
 
@@ -17,7 +18,7 @@ export class PageResizeDirective implements AfterViewInit {
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {}
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     this._config.elementReference$
       .pipe(take(2))
       .subscribe((elementReference) => {
@@ -27,11 +28,6 @@ export class PageResizeDirective implements AfterViewInit {
         this.lastWidth = element.offsetWidth;
         this.lastHeight = element.offsetHeight;
 
-        const observeConfig = {
-          attributes: true,
-          childList: true,
-          subtree: true,
-        };
         new MutationObserver(() => {
           const preventObservers = elementReference.preventObservers$.value;
 
@@ -54,7 +50,7 @@ export class PageResizeDirective implements AfterViewInit {
               elementReference.lastPosition = { x: 0, y: 0 };
             elementReference.isFullScreen = false;
           }
-        }).observe(element, observeConfig);
+        }).observe(element, OBSERVE_CONFIG);
       });
   }
 }

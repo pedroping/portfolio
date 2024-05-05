@@ -13,6 +13,7 @@ export class PageContentDirective implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.vcr.createComponent(this._config.pageContent);
+    if (this._config.pageContent)
+      this.vcr.createComponent(this._config.pageContent);
   }
 }

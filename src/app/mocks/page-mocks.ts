@@ -4,7 +4,6 @@ export const PAGE_01 = {
   config: {
     name: 'Pagina',
     baseSizes: { width: 300, height: 200 },
-    pageContent: TestPageComponent,
   },
   domConfig: {
     opened: false,

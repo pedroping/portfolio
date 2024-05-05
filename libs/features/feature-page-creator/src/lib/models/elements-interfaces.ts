@@ -17,9 +17,9 @@ export interface IInitialConfig {
     width: number;
     height: number;
   };
-  pageContent: Type<unknown>;
   customX?: number;
   customY?: number;
+  pageContent?: Type<unknown>;
 }
 
 export interface IElement extends IDomElementOptions {

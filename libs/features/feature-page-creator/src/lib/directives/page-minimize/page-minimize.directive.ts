@@ -3,7 +3,7 @@ import {
   DomElementAdpter,
   UtlisFunctions,
 } from '@portifolio/util/util-adpters';
-import { take } from 'rxjs';
+import { filter, take } from 'rxjs';
 import { ElementsFacede } from '../../facede/elements-facede';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
@@ -20,17 +20,16 @@ export class PageMinimizeDirective implements OnInit {
 
   ngOnInit(): void {
     this._config.elementReference$
-      .pipe(take(2))
-      .subscribe((elementReference) => {
-        if (
-          !elementReference ||
-          elementReference.opened ||
-          elementReference.isFullScreen
+      .pipe(
+        take(2),
+        filter(
+          (elementReference) =>
+            !!elementReference &&
+            !elementReference.opened &&
+            !elementReference.isFullScreen
         )
-          return;
-
-        this.onclick();
-      });
+      )
+      .subscribe(() => this.onclick());
   }
 
   @HostListener('click') onclick() {
