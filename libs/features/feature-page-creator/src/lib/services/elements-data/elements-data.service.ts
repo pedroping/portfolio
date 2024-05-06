@@ -28,6 +28,14 @@ export class ElementsData {
     this.basicElements$.next(filteredBasicElements);
   }
 
+  isOnlyElementOpened(id: number) {
+    const isOnlyElement = this.elements$.value
+      .filter((item) => item.id != id)
+      .filter((item) => !!item.opened);
+
+    return isOnlyElement.length <= 0;
+  }
+
   findElement(id: number) {
     return this.elements$.value.find((item) => item.id == id);
   }

@@ -6,20 +6,19 @@ export const PAGE_01 = {
     baseSizes: { width: 300, height: 200 },
   },
   domConfig: {
-    opened: false,
+    opened: true,
   },
 };
 
 export const PAGE_02 = {
   config: {
     name: 'Pagina2',
-    baseSizes: { width: 200, height: 250 },
+    baseSizes: { width: window.innerWidth / 2, height: window.innerHeight / 2 },
     customX: 100,
     customY: 150,
     pageContent: TestPageComponent,
   },
   domConfig: {
-    opened: false,
-    isFullScreen: true,
+    opened: true,
   },
 };

@@ -30,6 +30,7 @@ export interface IElement extends IDomElementOptions {
     y: number;
   };
   preventObservers$: BehaviorSubject<boolean>;
+  pageResizing$: BehaviorSubject<boolean>;
 }
 
 export interface IPageConfig extends IInitialConfig {

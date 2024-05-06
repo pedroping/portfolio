@@ -52,6 +52,15 @@ export class ElementCreatorService<T> {
 
     changeDetectorRef.detectChanges();
 
+    this.setZIndexService.setNewZIndex(id, instance.element);
+
+    DomElementAdpter.setDisplay(instance.element, !!domElementOptions?.opened);
+    DomElementAdpter.setTransform(
+      instance.element,
+      config.customX || 0,
+      config.customY || 0
+    );
+
     const elementReference = this.createElementReference(
       id,
       instance.element,
@@ -62,16 +71,7 @@ export class ElementCreatorService<T> {
     elementReference$.next(elementReference);
     this.elementsData.pushElement(id, config.name, elementReference);
 
-    DomElementAdpter.setZIndex(
-      instance.element,
-      this.setZIndexService.setNewZIndex(id)
-    );
-    DomElementAdpter.setDisplay(instance.element, !!domElementOptions?.opened);
-    DomElementAdpter.setTransform(
-      instance.element,
-      config.customX || 0,
-      config.customY || 0
-    );
+    elementReference.preventObservers$.next(false);
   }
 
   destroyElement(id: number) {
@@ -96,6 +96,7 @@ export class ElementCreatorService<T> {
       },
       opened: !!domElementOptions?.opened,
       isFullScreen: domElementOptions?.isFullScreen || false,
+      pageResizing$: new BehaviorSubject<boolean>(true),
       preventObservers$: new BehaviorSubject<boolean>(true),
     };
   }

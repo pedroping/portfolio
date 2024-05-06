@@ -7,7 +7,7 @@ export class PageEvents {
   private pageDestroyed$ = new Subject<number>();
   private changeZIndex$ = new Subject<void>();
 
-  setChangeZIndex$$() {
+  setChangeZIndex() {
     this.changeZIndex$.next();
   }
 

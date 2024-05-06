@@ -23,6 +23,6 @@ export class SetZIndexDirective {
     const element = elementReference.element;
     const id = elementReference.id;
 
-    DomElementAdpter.setZIndex(element, this.elementsFacede.setNewZIndex(id));
+    this.elementsFacede.setNewZIndex(id, element);
   }
 }

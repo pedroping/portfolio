@@ -1,5 +1,5 @@
 import { Directive, Inject, OnInit } from '@angular/core';
-import { take } from 'rxjs';
+import { Subject, debounceTime, filter, take, takeUntil } from 'rxjs';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { OBSERVE_CONFIG } from '../../mocks/observerConfig-mocks';
 import { IPageConfig } from '../../models/elements-interfaces';
@@ -12,6 +12,7 @@ import { CONFIG_TOKEN } from '../../models/elements-token';
 export class PageResizeDirective implements OnInit {
   lastHeight: number | string = '';
   lastWidth: number | string = '';
+  stopResizing$ = new Subject<void>();
 
   constructor(
     private readonly elementsFacede: ElementsFacede,
@@ -24,6 +25,9 @@ export class PageResizeDirective implements OnInit {
       .subscribe((elementReference) => {
         const element = elementReference?.element;
         if (!element) return;
+
+        this.startPageResizing();
+        this.stopPageResizing();
 
         this.lastWidth = element.offsetWidth;
         this.lastHeight = element.offsetHeight;
@@ -46,11 +50,35 @@ export class PageResizeDirective implements OnInit {
             return;
 
           if (width != this.lastWidth || height != this.lastHeight) {
+            elementReference.pageResizing$.next(true);
+            elementReference.isFullScreen = false;
             if (elementReference.isFullScreen)
               elementReference.lastPosition = { x: 0, y: 0 };
-            elementReference.isFullScreen = false;
+
+            this.lastWidth = element.offsetWidth;
+            this.lastHeight = element.offsetHeight;
           }
         }).observe(element, OBSERVE_CONFIG);
       });
+  }
+
+  startPageResizing() {
+    const elementReference = this._config.elementReference$.value;
+    if (!elementReference) return;
+
+    elementReference.pageResizing$
+      .pipe(debounceTime(200), filter(Boolean))
+      .subscribe(() => {
+        this.stopResizing$.next();
+      });
+  }
+
+  stopPageResizing() {
+    this.stopResizing$.subscribe(() => {
+      const elementReference = this._config.elementReference$.value;
+      if (!elementReference) return;
+
+      elementReference.pageResizing$.next(false);
+    });
   }
 }

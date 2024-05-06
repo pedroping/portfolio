@@ -70,22 +70,32 @@ export class PageMaximizeDirective implements OnInit {
         this.setFullScreen(true, element, true);
       });
 
-    this.createBoundaryObserve();
+    this.createBoundaryObservers();
   }
 
-  createBoundaryObserve() {
+  createBoundaryObservers() {
     new MutationObserver(() => {
       if (this.lastHeight === this.boundaryElement.offsetHeight) return;
 
       this.lastHeight = this.boundaryElement.offsetHeight;
       const elementReference = this._config.elementReference$.value;
 
-      if (!elementReference) return;
+      if (!elementReference || !elementReference.isFullScreen) return;
 
       const element = elementReference.element;
 
       this.setFullScreen(true, element, true);
     }).observe(this.boundaryElement, OBSERVE_CONFIG);
+
+    window.addEventListener('resize', () => {
+      const elementReference = this._config.elementReference$.value;
+
+      if (!elementReference || !elementReference.isFullScreen) return;
+
+      const element = elementReference.element;
+
+      this.setFullScreen(true, element, true);
+    });
   }
 
   setFullScreen(

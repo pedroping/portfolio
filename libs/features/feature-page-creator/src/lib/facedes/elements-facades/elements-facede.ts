@@ -61,8 +61,12 @@ export class ElementsFacede<T = unknown> {
     return this.setZIndexService.isBiggestElement(id);
   }
 
-  setNewZIndex(id: number | string) {
-    return this.setZIndexService.setNewZIndex(id);
+  setNewZIndex(id: number | string, element?: HTMLElement) {
+    return this.setZIndexService.setNewZIndex(id, element);
+  }
+
+  isOnlyElementOpened(id: number) {
+    return this.elementsData.isOnlyElementOpened(id);
   }
 
   get elements$() {

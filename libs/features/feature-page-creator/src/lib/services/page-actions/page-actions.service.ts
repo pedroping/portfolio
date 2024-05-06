@@ -22,13 +22,10 @@ export class PageActionsService {
   }
 
   private validateElementPosition(elementReference: IElement) {
-    const isHiggerElement = elementReference.id == this.higgestElementId;
+    const isHiggerElement =
+      elementReference.id == this.setZIndexService.getHiggestElementId();
     const elements = this.elementsData.elements$.value;
     const element = elementReference.element;
-
-    const isOnlyElement = elements
-      .filter((item) => item != elementReference)
-      .filter((item) => !!item.opened);
 
     const isBehindAnotherElement = elements
       .filter((item) => item.id != elementReference.id)
@@ -42,7 +39,10 @@ export class PageActionsService {
 
     const onFullScreenAndNotBigger =
       elementReference.isFullScreen && !isHiggerElement;
-    const hasNoOtherElement = isOnlyElement.length <= 0;
+
+    const hasNoOtherElement = this.elementsData.isOnlyElementOpened(
+      elementReference.id
+    );
 
     if (hasNoOtherElement) return this.minimizeElement(elementReference);
 
@@ -50,10 +50,7 @@ export class PageActionsService {
       (isBehindAnotherElement && !isHiggerElement) ||
       onFullScreenAndNotBigger
     )
-      return DomElementAdpter.setZIndex(
-        element,
-        this.setZIndexService.setNewZIndex(element.id)
-      );
+      return this.setZIndexService.setNewZIndex(elementReference.id, element);
 
     this.minimizeElement(elementReference);
   }
@@ -80,12 +77,10 @@ export class PageActionsService {
 
     const element = elementReference.element;
 
-    DomElementAdpter.setOnlyTransformTransition(element, 1);
-    DomElementAdpter.setZIndex(
-      element,
-      this.setZIndexService.setNewZIndex(elementReference.id)
-    );
     element.style.display = 'block';
+    DomElementAdpter.setOnlyTransformTransition(element, 1);
+
+    this.setZIndexService.setNewZIndex(elementReference.id, element);
 
     UtlisFunctions.timerSubscription(50).subscribe(() => {
       if (elementReference.isFullScreen) {
@@ -104,20 +99,5 @@ export class PageActionsService {
         DomElementAdpter.removeTransition(element);
       });
     });
-  }
-
-  private get higgestElementId() {
-    const idsAndZIndez = this.elementsData.elements$.value
-      .filter((item) => !!item.opened)
-      .map((item) => ({
-        id: item.id,
-        zIndez: item.element.style.zIndex || 0,
-      }));
-
-    const maxZindex = Math.max(...idsAndZIndez.map((item) => +item.zIndez));
-
-    const element = idsAndZIndez.find((item) => item.zIndez == maxZindex);
-
-    return element?.id;
   }
 }
