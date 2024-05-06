@@ -1,5 +1,5 @@
 import { Directive, ElementRef, OnInit, ViewContainerRef } from '@angular/core';
-import { ElementsFacede } from '../../facede/elements-facede';
+import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 
 @Directive({
   selector: '[pageParent]',

@@ -4,7 +4,7 @@ import {
   UtlisFunctions,
 } from '@portifolio/util/util-adpters';
 import { take, tap } from 'rxjs';
-import { ElementsFacede } from '../../facede/elements-facede';
+import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { OBSERVE_CONFIG } from '../../mocks/observerConfig-mocks';
 import { IElement, IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
@@ -69,7 +69,7 @@ export class PageMaximizeDirective implements OnInit {
 
         this.setFullScreen(true, element, true);
       });
-      
+
     this.createBoundaryObserve();
   }
 

@@ -4,7 +4,7 @@ import {
   UtlisFunctions,
 } from '@portifolio/util/util-adpters';
 import { filter, take } from 'rxjs';
-import { ElementsFacede } from '../../facede/elements-facede';
+import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
 

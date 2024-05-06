@@ -21,6 +21,7 @@ import { PreventHandlerDirective } from '../../directives/prevent-handler/preven
 import { SetZIndexDirective } from '../../directives/set-zIndex/set-zIndex.directive';
 import { IPageComponent, IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
+import { PageContentOverlayDirective } from '../../directives/page-content-overlay/page-content-overlay.directive';
 @Component({
   selector: 'feature-page',
   templateUrl: './page.component.html',
@@ -36,6 +37,7 @@ import { CONFIG_TOKEN } from '../../models/elements-token';
     MaximizeComponent,
     PageMoveDirective,
     CloseComponent,
+    PageContentOverlayDirective,
   ],
   host: {
     '[style.width]': 'width()',
