@@ -60,6 +60,8 @@ export class PageMoveDirective implements OnInit {
     this.drag$.subscribe((event) =>
       this.drag(event, element, maxBoundX, maxBoundY, elementReference)
     );
+
+    this.dragEnd$.subscribe(() => elementReference.pageMoving$.next(false));
   }
 
   drag(
@@ -80,6 +82,7 @@ export class PageMoveDirective implements OnInit {
     this.currentX = Math.max(0, maxPositionX);
     this.currentY = Math.max(0, maxPositionY);
     elementReference.lastPosition = { x: this.currentX, y: this.currentY };
+    elementReference.pageMoving$.next(true);
     DomElementAdpter.removeTransition(element);
     DomElementAdpter.setTransform(element, this.currentX, this.currentY);
   }

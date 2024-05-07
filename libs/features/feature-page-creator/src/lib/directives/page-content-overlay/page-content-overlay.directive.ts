@@ -44,6 +44,17 @@ export class PageContentOverlayDirective implements AfterViewInit {
       .subscribe((val) => {
         val ? this.addOverlay() : this.removeOverlay();
       });
+
+    this._config.elementReference$
+      .pipe(
+        skip(1),
+        switchMap((elementReference) =>
+          elementReference!.pageMoving$.asObservable()
+        )
+      )
+      .subscribe((val) => {
+        val ? this.addOverlay() : this.removeOverlay();
+      });
   }
 
   validateOverlay() {

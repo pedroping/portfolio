@@ -31,6 +31,7 @@ export interface IElement extends IDomElementOptions {
   };
   preventObservers$: BehaviorSubject<boolean>;
   pageResizing$: BehaviorSubject<boolean>;
+  pageMoving$: BehaviorSubject<boolean>;
 }
 
 export interface IPageConfig extends IInitialConfig {

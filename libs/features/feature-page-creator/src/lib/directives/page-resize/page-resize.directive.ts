@@ -51,9 +51,9 @@ export class PageResizeDirective implements OnInit {
 
           if (width != this.lastWidth || height != this.lastHeight) {
             elementReference.pageResizing$.next(true);
-            elementReference.isFullScreen = false;
             if (elementReference.isFullScreen)
               elementReference.lastPosition = { x: 0, y: 0 };
+            elementReference.isFullScreen = false;
 
             this.lastWidth = element.offsetWidth;
             this.lastHeight = element.offsetHeight;
@@ -74,10 +74,10 @@ export class PageResizeDirective implements OnInit {
   }
 
   stopPageResizing() {
-    this.stopResizing$.subscribe(() => {
-      const elementReference = this._config.elementReference$.value;
-      if (!elementReference) return;
+    const elementReference = this._config.elementReference$.value;
+    if (!elementReference) return;
 
+    this.stopResizing$.subscribe(() => {
       elementReference.pageResizing$.next(false);
     });
   }

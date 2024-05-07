@@ -96,6 +96,7 @@ export class ElementCreatorService<T> {
       },
       opened: !!domElementOptions?.opened,
       isFullScreen: domElementOptions?.isFullScreen || false,
+      pageMoving$: new BehaviorSubject<boolean>(true),
       pageResizing$: new BehaviorSubject<boolean>(true),
       preventObservers$: new BehaviorSubject<boolean>(true),
     };
