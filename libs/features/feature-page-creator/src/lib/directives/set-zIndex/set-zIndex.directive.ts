@@ -17,11 +17,12 @@ export class SetZIndexDirective {
   @HostListener('click')
   @HostListener('mousedown')
   onEvent() {
-    const elementReference = this._config.elementReference$.value;
-    if (!elementReference) return;
+    const elementReference = this._config.elementReference;
 
-    const element = elementReference.element;
+    const element = elementReference.element$.value;
     const id = elementReference.id;
+
+    if (!element) return;
 
     this.elementsFacede.setNewZIndex(id, element);
   }

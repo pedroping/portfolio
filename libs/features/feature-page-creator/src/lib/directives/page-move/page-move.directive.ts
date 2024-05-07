@@ -41,10 +41,11 @@ export class PageMoveDirective implements OnInit {
   dragStart(event: MouseEvent) {
     if (this.hasPrevent(event.target as HTMLElement)) return;
 
-    const elementReference = this._config.elementReference$.value;
-    if (!elementReference) return;
+    const elementReference = this._config.elementReference;
+    const element = elementReference.element$.value;
 
-    const element = elementReference.element;
+    if (!element) return;
+
     const draggingBoundaryElement =
       this.elementsFacede.draggingBoundaryElement$.value;
 

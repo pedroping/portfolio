@@ -24,7 +24,7 @@ export class SetZIndexService {
   getHiggestElementId() {
     const indexAndIds = this.elementsData.elements$.value.map((element) => ({
       id: element.id,
-      zIndex: element.element.style.zIndex || 0,
+      zIndex: element.element$.value?.style.zIndex || 0,
     }));
 
     const maxZindex = Math.max(...indexAndIds.map((item) => +item.zIndex));

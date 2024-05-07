@@ -19,25 +19,26 @@ export class PageMinimizeDirective implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._config.elementReference$
+    this._config.elementReference.element$
       .pipe(
         take(2),
         filter(
-          (elementReference) =>
-            !!elementReference &&
-            !elementReference.opened &&
-            !elementReference.isFullScreen
+          () =>
+            !!this._config.elementReference &&
+            !this._config.elementReference.opened &&
+            !this._config.elementReference.isFullScreen
         )
       )
       .subscribe(() => this.onclick());
   }
 
   @HostListener('click') onclick() {
-    const elementReference = this._config.elementReference$.value;
-    if (!elementReference) return;
+    const elementReference = this._config.elementReference;
+    const element = elementReference.element$.value;
+
+    if (!element) return;
 
     const isFullScreen = elementReference.isFullScreen;
-    const element = elementReference.element;
     const index = this.elementsFacede.findElementIndex(elementReference.id);
     elementReference.opened = false;
 

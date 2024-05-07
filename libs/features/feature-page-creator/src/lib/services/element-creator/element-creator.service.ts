@@ -40,12 +40,20 @@ export class ElementCreatorService<T> {
         'ViewContainerRef not initialized try to use startCreator function '
       );
 
-    const elementReference$ = new BehaviorSubject<IElement | null>(null);
-    const pageConfig: IPageConfig = {
-      ...config,
-      elementReference$: elementReference$,
-    };
     const id = this.elementsData.elements$.value.length;
+    const elementReference = this.createElementReference(
+      id,
+      new BehaviorSubject<HTMLElement | null>(null),
+      domElementOptions,
+      config.customX,
+      config.customY
+    );
+
+    const pageConfig = {
+      ...config,
+      elementReference,
+    };
+
     const elementInjection = this.createElementInjection(data, pageConfig);
     const { changeDetectorRef, instance } = this.vcr.createComponent(
       PageComponent,
@@ -65,17 +73,8 @@ export class ElementCreatorService<T> {
       config.customX || 0,
       config.customY || 0
     );
-
-    const elementReference = this.createElementReference(
-      id,
-      instance.element,
-      domElementOptions,
-      config.customX,
-      config.customY
-    );
-    elementReference$.next(elementReference);
     this.elementsData.pushElement(id, config.name, elementReference);
-
+    elementReference.element$.next(instance.element);
     elementReference.preventObservers$.next(false);
   }
 
@@ -87,18 +86,18 @@ export class ElementCreatorService<T> {
 
   private createElementReference(
     id: number,
-    element: HTMLElement,
+    element$: BehaviorSubject<HTMLElement | null>,
     domElementOptions?: IDomElementOptions,
     customX = 0,
     customY = 0
   ): IElement {
     return {
       id: id,
-      element: element,
       lastPosition: {
         x: customX,
         y: customY,
       },
+      element$: element$,
       opened: !!domElementOptions?.opened,
       isFullScreen: !!domElementOptions?.isFullScreen,
       pageMoving$: new BehaviorSubject<boolean>(true),

@@ -20,50 +20,49 @@ export class PageResizeDirective implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._config.elementReference$
-      .pipe(take(2))
-      .subscribe((elementReference) => {
-        const element = elementReference?.element;
-        if (!element) return;
+    this._config.elementReference.element$.pipe(take(2)).subscribe(() => {
+      const elementReference = this._config.elementReference;
+      const element = this._config.elementReference.element$.value;
+      if (!element) return;
 
-        this.startPageResizing();
-        this.stopPageResizing();
+      this.startPageResizing();
+      this.stopPageResizing();
 
-        this.lastWidth = element.offsetWidth;
-        this.lastHeight = element.offsetHeight;
+      this.lastWidth = element.offsetWidth;
+      this.lastHeight = element.offsetHeight;
 
-        new MutationObserver(() => {
-          const preventObservers = elementReference.preventObservers$.value;
+      new MutationObserver(() => {
+        const preventObservers = elementReference.preventObservers$.value;
 
-          if (preventObservers) return;
+        if (preventObservers) return;
 
-          const width = element.offsetWidth;
-          const height = element.offsetHeight;
+        const width = element.offsetWidth;
+        const height = element.offsetHeight;
 
-          const boundaryElement =
-            this.elementsFacede.draggingBoundaryElement$.value;
+        const boundaryElement =
+          this.elementsFacede.draggingBoundaryElement$.value;
 
-          if (
-            width == boundaryElement?.offsetWidth &&
-            height == boundaryElement.offsetHeight
-          )
-            return;
+        if (
+          width == boundaryElement?.offsetWidth &&
+          height == boundaryElement.offsetHeight
+        )
+          return;
 
-          if (width != this.lastWidth || height != this.lastHeight) {
-            elementReference.pageResizing$.next(true);
-            if (elementReference.isFullScreen)
-              elementReference.lastPosition = { x: 0, y: 0 };
-            elementReference.isFullScreen = false;
+        if (width != this.lastWidth || height != this.lastHeight) {
+          elementReference.pageResizing$.next(true);
+          if (elementReference.isFullScreen)
+            elementReference.lastPosition = { x: 0, y: 0 };
+          elementReference.isFullScreen = false;
 
-            this.lastWidth = element.offsetWidth;
-            this.lastHeight = element.offsetHeight;
-          }
-        }).observe(element, OBSERVE_CONFIG);
-      });
+          this.lastWidth = element.offsetWidth;
+          this.lastHeight = element.offsetHeight;
+        }
+      }).observe(element, OBSERVE_CONFIG);
+    });
   }
 
   startPageResizing() {
-    const elementReference = this._config.elementReference$.value;
+    const elementReference = this._config.elementReference;
     if (!elementReference) return;
 
     elementReference.pageResizing$
@@ -74,7 +73,7 @@ export class PageResizeDirective implements OnInit {
   }
 
   stopPageResizing() {
-    const elementReference = this._config.elementReference$.value;
+    const elementReference = this._config.elementReference;
     if (!elementReference) return;
 
     this.stopResizing$.subscribe(() => {

@@ -24,7 +24,9 @@ export class PageActionsService {
   private validateElementPosition(elementReference: IElement) {
     const isHiggerElement =
       elementReference.id == this.setZIndexService.getHiggestElementId();
-    const element = elementReference.element;
+    const element = elementReference.element$.value;
+
+    if (!element) return;
 
     const isBehindAnotherElement = this.getIsBehindAnotherElement(
       elementReference.id,
@@ -50,7 +52,9 @@ export class PageActionsService {
   }
 
   private minimizeElement(elementReference: IElement) {
-    const element = elementReference.element;
+    const element = elementReference.element$.value;
+    if (!element) return;
+
     const index = this.elementsData.findElementIndex(elementReference.id);
     elementReference.opened = false;
 
@@ -68,8 +72,9 @@ export class PageActionsService {
 
   private showElement(elementReference: IElement) {
     elementReference.opened = true;
+    const element = elementReference.element$.value;
 
-    const element = elementReference.element;
+    if (!element) return;
 
     element.style.display = 'block';
     DomElementAdpter.setOnlyTransformTransition(element, 1);
@@ -101,8 +106,9 @@ export class PageActionsService {
       .filter((item) => !!item.opened)
       .map(
         (item) =>
-          DomElementAdpter.elementAboveOther(item.element, element) &&
-          DomElementAdpter.validateFullScreen(item.element, element)
+          item.element$.value &&
+          DomElementAdpter.elementAboveOther(item.element$.value, element) &&
+          DomElementAdpter.validateFullScreen(item.element$.value, element)
       )
       .find((result) => !!result);
   }

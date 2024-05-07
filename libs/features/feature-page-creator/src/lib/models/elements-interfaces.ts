@@ -24,18 +24,18 @@ export interface IInitialConfig {
 
 export interface IElement extends IDomElementOptions {
   id: number;
-  element: HTMLElement;
   lastPosition: {
     x: number;
     y: number;
   };
+  element$: BehaviorSubject<HTMLElement | null>;
   preventObservers$: BehaviorSubject<boolean>;
   pageResizing$: BehaviorSubject<boolean>;
   pageMoving$: BehaviorSubject<boolean>;
 }
 
 export interface IPageConfig extends IInitialConfig {
-  elementReference$: BehaviorSubject<IElement | null>;
+  elementReference: IElement;
 }
 
 export interface IPageComponent {

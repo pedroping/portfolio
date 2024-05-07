@@ -15,7 +15,6 @@ import { CONFIG_TOKEN } from '../../models/elements-token';
 })
 export class PageMaximizeDirective implements OnInit {
   lastHeight = 0;
-  elementReference!: IElement;
   boundaryElement!: HTMLElement;
   currentWidth: string | number = 'auto';
   currentHeight: string | number = 'auto';
@@ -27,48 +26,44 @@ export class PageMaximizeDirective implements OnInit {
   ) {}
 
   @HostListener('click') onclick() {
-    const elementReference = this._config.elementReference$.value;
-    if (!elementReference) return;
+    const elementReference = this._config.elementReference;
+    const element = elementReference.element$.value;
+
+    if (!element) return;
 
     const isFullScreen = elementReference.isFullScreen;
 
     if (!isFullScreen) this.setSizes();
 
-    const element = elementReference.element;
-
     if (!this.boundaryElement || !element) return;
 
     this.setFullScreen(!isFullScreen, element);
-    this.elementReference.isFullScreen = !this.elementReference.isFullScreen;
+    elementReference.isFullScreen = !elementReference.isFullScreen;
   }
 
   ngOnInit(): void {
     if (!this.elementsFacede.draggingBoundaryElement$.value) return;
+    const elementReference = this._config.elementReference;
+    const element = elementReference.element$.value;
+
+    if (!element) return;
+
     this.boundaryElement = this.elementsFacede.draggingBoundaryElement$.value;
     this.lastHeight = this.boundaryElement.offsetHeight;
 
-    this._config.elementReference$
-      .pipe(
-        take(2),
-        tap((elementReference) => {
-          if (elementReference) this.elementReference = elementReference;
-        })
-      )
-      .subscribe(() => {
-        if (!this.elementReference || !this.elementReference.isFullScreen)
-          return;
+    this._config.elementReference.element$.pipe(take(2)).subscribe(() => {
+      if (!elementReference || !elementReference.isFullScreen) return;
 
-        this.setSizes();
-        const element = this.elementReference.element;
-        this.elementReference.opened = true;
+      this.setSizes();
+      elementReference.opened = true;
 
-        this.lastTranslet3d = DomElementAdpter.getTranslate3d(
-          this._config.customX || 0,
-          this._config.customY || 0
-        );
+      this.lastTranslet3d = DomElementAdpter.getTranslate3d(
+        this._config.customX || 0,
+        this._config.customY || 0
+      );
 
-        this.setFullScreen(true, element, true);
-      });
+      this.setFullScreen(true, element, true);
+    });
 
     this.createBoundaryObservers();
   }
@@ -78,21 +73,22 @@ export class PageMaximizeDirective implements OnInit {
       if (this.lastHeight === this.boundaryElement.offsetHeight) return;
 
       this.lastHeight = this.boundaryElement.offsetHeight;
-      const elementReference = this._config.elementReference$.value;
+      const elementReference = this._config.elementReference;
+      const element = elementReference.element$.value;
+
+      if (!element) return;
 
       if (!elementReference || !elementReference.isFullScreen) return;
-
-      const element = elementReference.element;
 
       this.setFullScreen(true, element, true);
     }).observe(this.boundaryElement, OBSERVE_CONFIG);
 
     window.addEventListener('resize', () => {
-      const elementReference = this._config.elementReference$.value;
+      const elementReference = this._config.elementReference;
+      const element = elementReference.element$.value;
 
-      if (!elementReference || !elementReference.isFullScreen) return;
-
-      const element = elementReference.element;
+      if (!elementReference.isFullScreen) return;
+      if (!element) return;
 
       this.setFullScreen(true, element, true);
     });
@@ -138,9 +134,10 @@ export class PageMaximizeDirective implements OnInit {
     transform: string,
     preventAnimation = false
   ) {
-    if (!preventAnimation) DomElementAdpter.setTransition(element);
+    const elementReference = this._config.elementReference;
 
-    this.elementReference.preventObservers$.next(true);
+    if (!preventAnimation) DomElementAdpter.setTransition(element);
+    elementReference.preventObservers$.next(true);
 
     UtlisFunctions.timerSubscription(100).subscribe(() => {
       element.style.width = width + 'px';
@@ -150,13 +147,16 @@ export class PageMaximizeDirective implements OnInit {
 
       UtlisFunctions.timerSubscription(200).subscribe(() => {
         DomElementAdpter.removeTransition(element);
-        this.elementReference.preventObservers$.next(false);
+        elementReference.preventObservers$.next(false);
       });
     });
   }
 
   setSizes() {
-    const element = this.elementReference.element;
+    const elementReference = this._config.elementReference;
+    const element = elementReference.element$.value;
+    if (!element) return;
+
     const baseSizes = this._config.baseSizes;
     this.currentWidth = element.offsetWidth || baseSizes.width;
     this.currentHeight = element.offsetHeight || baseSizes.height;

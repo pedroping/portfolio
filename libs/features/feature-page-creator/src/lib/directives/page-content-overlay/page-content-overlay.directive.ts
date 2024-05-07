@@ -11,7 +11,6 @@ import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { EventsFacade } from '../../facedes/events-facades/events-facade.service';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
-import { SetZIndexService } from '../../services/set-z-index/set-z-index.service';
 
 @Directive({
   selector: '[pageContentOverlay]',
@@ -30,16 +29,16 @@ export class PageContentOverlayDirective implements AfterViewInit {
     merge(
       this.eventsFacade.changeZIndex$$,
       this.elementsFacede.elements$.asObservable(),
-      this._config.elementReference$.pipe(take(2))
+      this._config.elementReference.element$.pipe(take(2))
     ).subscribe(() => this.validateOverlay());
 
-    this._config.elementReference$
+    this._config.elementReference.element$
       .pipe(
         skip(1),
-        switchMap((elementReference) =>
+        switchMap(() =>
           merge(
-            elementReference!.pageResizing$.asObservable(),
-            elementReference!.pageMoving$.asObservable()
+            this._config.elementReference.pageResizing$.asObservable(),
+            this._config.elementReference.pageMoving$.asObservable()
           )
         )
       )
@@ -49,9 +48,10 @@ export class PageContentOverlayDirective implements AfterViewInit {
   }
 
   validateOverlay() {
-    const elementReference = this._config.elementReference$.value;
-    if (!elementReference) return;
-    const element = elementReference.element;
+    const elementReference = this._config.elementReference;
+    const element = elementReference.element$.value;
+
+    if (!element) return;
 
     const hasNoOtherElement = this.elementsFacede.isOnlyElementOpened(
       elementReference.id
@@ -79,7 +79,9 @@ export class PageContentOverlayDirective implements AfterViewInit {
       .filter((item) => item.id != id)
       .filter((item) => !!item.opened)
       .map(
-        (item) => !!DomElementAdpter.elementAboveOther(item.element, element)
+        (item) =>
+          item.element$.value &&
+          !!DomElementAdpter.elementAboveOther(item.element$.value, element)
       )
       .find((result) => !!result);
   }
