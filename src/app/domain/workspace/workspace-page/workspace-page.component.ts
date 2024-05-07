@@ -4,7 +4,7 @@ import {
   ElementsFacede,
   PageParentDirective,
 } from '@portifolio/features/feature-page-creator';
-import { PAGE_01, PAGE_02 } from 'src/app/mocks/page-mocks';
+import { PAGE_01, PAGE_02 } from '../../../mocks/page-mocks';
 @Component({
   selector: 'workspace-page',
   templateUrl: './workspace-page.component.html',
