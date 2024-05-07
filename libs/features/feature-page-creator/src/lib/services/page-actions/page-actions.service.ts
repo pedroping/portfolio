@@ -24,18 +24,12 @@ export class PageActionsService {
   private validateElementPosition(elementReference: IElement) {
     const isHiggerElement =
       elementReference.id == this.setZIndexService.getHiggestElementId();
-    const elements = this.elementsData.elements$.value;
     const element = elementReference.element;
 
-    const isBehindAnotherElement = elements
-      .filter((item) => item.id != elementReference.id)
-      .filter((item) => !!item.opened)
-      .map(
-        (item) =>
-          DomElementAdpter.elementAboveOther(item.element, element) &&
-          DomElementAdpter.validateFullScreen(item.element, element)
-      )
-      .find((result) => !!result);
+    const isBehindAnotherElement = this.getIsBehindAnotherElement(
+      elementReference.id,
+      element
+    );
 
     const onFullScreenAndNotBigger =
       elementReference.isFullScreen && !isHiggerElement;
@@ -46,10 +40,10 @@ export class PageActionsService {
 
     if (hasNoOtherElement) return this.minimizeElement(elementReference);
 
-    if (
-      (isBehindAnotherElement && !isHiggerElement) ||
-      onFullScreenAndNotBigger
-    )
+    if (onFullScreenAndNotBigger)
+      return this.setZIndexService.setNewZIndex(elementReference.id, element);
+
+    if (isBehindAnotherElement && !isHiggerElement)
       return this.setZIndexService.setNewZIndex(elementReference.id, element);
 
     this.minimizeElement(elementReference);
@@ -99,5 +93,17 @@ export class PageActionsService {
         DomElementAdpter.removeTransition(element);
       });
     });
+  }
+
+  private getIsBehindAnotherElement(id: number, element: HTMLElement) {
+    return !!this.elementsData.elements$.value
+      .filter((item) => item.id != id)
+      .filter((item) => !!item.opened)
+      .map(
+        (item) =>
+          DomElementAdpter.elementAboveOther(item.element, element) &&
+          DomElementAdpter.validateFullScreen(item.element, element)
+      )
+      .find((result) => !!result);
   }
 }

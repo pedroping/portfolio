@@ -5,15 +5,13 @@ import {
 } from '../../models/elements-interfaces';
 import { ElementCreatorService } from '../../services/element-creator/element-creator.service';
 import { ElementsData } from '../../services/elements-data/elements-data.service';
-import { PageEvents } from '../../services/page-events/page-events.service';
+import { PageActionsService } from '../../services/page-actions/page-actions.service';
 import { PreventHandlerElements } from '../../services/prevent-handler-elements/prevent-handler-elements.service';
 import { SetZIndexService } from '../../services/set-z-index/set-z-index.service';
-import { PageActionsService } from '../../services/page-actions/page-actions.service';
 
 @Injectable({ providedIn: 'root' })
 export class ElementsFacede<T = unknown> {
   constructor(
-    private readonly pageEvents: PageEvents,
     private readonly elementsData: ElementsData,
     private readonly setZIndexService: SetZIndexService,
     private readonly pageActionsService: PageActionsService,
@@ -63,6 +61,10 @@ export class ElementsFacede<T = unknown> {
 
   setNewZIndex(id: number | string, element?: HTMLElement) {
     return this.setZIndexService.setNewZIndex(id, element);
+  }
+
+  getHiggestElementId() {
+    return this.setZIndexService.getHiggestElementId();
   }
 
   isOnlyElementOpened(id: number) {

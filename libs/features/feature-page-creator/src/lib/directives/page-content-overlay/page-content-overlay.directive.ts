@@ -23,7 +23,6 @@ export class PageContentOverlayDirective implements AfterViewInit {
   constructor(
     private readonly eventsFacade: EventsFacade,
     private readonly elementsFacede: ElementsFacede,
-    private readonly setZIndexService: SetZIndexService,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {}
 
@@ -38,18 +37,10 @@ export class PageContentOverlayDirective implements AfterViewInit {
       .pipe(
         skip(1),
         switchMap((elementReference) =>
-          elementReference!.pageResizing$.asObservable()
-        )
-      )
-      .subscribe((val) => {
-        val ? this.addOverlay() : this.removeOverlay();
-      });
-
-    this._config.elementReference$
-      .pipe(
-        skip(1),
-        switchMap((elementReference) =>
-          elementReference!.pageMoving$.asObservable()
+          merge(
+            elementReference!.pageResizing$.asObservable(),
+            elementReference!.pageMoving$.asObservable()
+          )
         )
       )
       .subscribe((val) => {
@@ -69,21 +60,28 @@ export class PageContentOverlayDirective implements AfterViewInit {
     if (hasNoOtherElement) return this.removeOverlay();
 
     const isHiggestElement =
-      elementReference.id == this.setZIndexService.getHiggestElementId();
+      elementReference.id == this.elementsFacede.getHiggestElementId();
 
     if (isHiggestElement) return this.removeOverlay();
 
-    const isBehindAnotherElement = !!this.elementsFacede.elements$.value
-      .filter((item) => item.id != elementReference.id)
+    const isBehindAnotherElement = this.getIsBehindAnotherElement(
+      elementReference.id,
+      element
+    );
+
+    if (isBehindAnotherElement) return this.addOverlay();
+
+    this.removeOverlay();
+  }
+
+  getIsBehindAnotherElement(id: number, element: HTMLElement) {
+    return !!this.elementsFacede.elements$.value
+      .filter((item) => item.id != id)
       .filter((item) => !!item.opened)
       .map(
         (item) => !!DomElementAdpter.elementAboveOther(item.element, element)
       )
       .find((result) => !!result);
-
-    if (isBehindAnotherElement) return this.addOverlay();
-
-    this.removeOverlay();
   }
 
   addOverlay() {

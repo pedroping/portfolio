@@ -1,4 +1,9 @@
-import { Injectable, Injector, ViewContainerRef } from '@angular/core';
+import {
+  EnvironmentInjector,
+  Injectable,
+  Injector,
+  ViewContainerRef,
+} from '@angular/core';
 import { DomElementAdpter } from '@portifolio/util/util-adpters';
 import { BehaviorSubject } from 'rxjs';
 import { PageComponent } from '../../components/page/page.component';
@@ -16,8 +21,8 @@ export class ElementCreatorService<T> {
   private vcr!: ViewContainerRef;
 
   constructor(
-    private readonly injector: Injector,
     private readonly elementsData: ElementsData,
+    private readonly injector: EnvironmentInjector,
     private readonly setZIndexService: SetZIndexService
   ) {}
 
@@ -95,7 +100,7 @@ export class ElementCreatorService<T> {
         y: customY,
       },
       opened: !!domElementOptions?.opened,
-      isFullScreen: domElementOptions?.isFullScreen || false,
+      isFullScreen: !!domElementOptions?.isFullScreen,
       pageMoving$: new BehaviorSubject<boolean>(true),
       pageResizing$: new BehaviorSubject<boolean>(true),
       preventObservers$: new BehaviorSubject<boolean>(true),
