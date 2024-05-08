@@ -3,10 +3,10 @@ import {
   DomElementAdpter,
   UtlisFunctions,
 } from '@portifolio/util/util-adpters';
-import { take, tap } from 'rxjs';
+import { filter, take } from 'rxjs';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { OBSERVE_CONFIG } from '../../mocks/observerConfig-mocks';
-import { IElement, IPageConfig } from '../../models/elements-interfaces';
+import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
 
 @Directive({
@@ -15,7 +15,6 @@ import { CONFIG_TOKEN } from '../../models/elements-token';
 })
 export class PageMaximizeDirective implements OnInit {
   lastHeight = 0;
-  boundaryElement!: HTMLElement;
   currentWidth: string | number = 'auto';
   currentHeight: string | number = 'auto';
   lastTranslet3d = DomElementAdpter.getTranslate3d(0, 0);
@@ -35,24 +34,23 @@ export class PageMaximizeDirective implements OnInit {
 
     if (!isFullScreen) this.setSizes();
 
-    if (!this.boundaryElement || !element) return;
+    if (!element) return;
 
     this.setFullScreen(!isFullScreen, element);
     elementReference.isFullScreen = !elementReference.isFullScreen;
   }
 
   ngOnInit(): void {
-    if (!this.elementsFacede.draggingBoundaryElement$.value) return;
+    const boundaryElement = this.elementsFacede.draggingBoundaryElement$.value;
+    if (!boundaryElement) return;
     const elementReference = this._config.elementReference;
-    const element = elementReference.element$.value;
-
-    if (!element) return;
-
-    this.boundaryElement = this.elementsFacede.draggingBoundaryElement$.value;
-    this.lastHeight = this.boundaryElement.offsetHeight;
+    this.lastHeight = boundaryElement.offsetHeight;
 
     this._config.elementReference.element$.pipe(take(2)).subscribe(() => {
       if (!elementReference || !elementReference.isFullScreen) return;
+      const element = elementReference.element$.value;
+
+      if (!element) return;
 
       this.setSizes();
       elementReference.opened = true;
@@ -69,29 +67,33 @@ export class PageMaximizeDirective implements OnInit {
   }
 
   createBoundaryObservers() {
-    new MutationObserver(() => {
-      if (this.lastHeight === this.boundaryElement.offsetHeight) return;
+    this.elementsFacede.draggingBoundaryElement$
+      .pipe(filter(Boolean))
+      .subscribe((boundaryElement) => {
+        new MutationObserver(() => {
+          if (this.lastHeight === boundaryElement.offsetHeight) return;
 
-      this.lastHeight = this.boundaryElement.offsetHeight;
-      const elementReference = this._config.elementReference;
-      const element = elementReference.element$.value;
+          this.lastHeight = boundaryElement.offsetHeight;
+          const elementReference = this._config.elementReference;
+          const element = elementReference.element$.value;
 
-      if (!element) return;
+          if (!element) return;
 
-      if (!elementReference || !elementReference.isFullScreen) return;
+          if (!elementReference || !elementReference.isFullScreen) return;
 
-      this.setFullScreen(true, element, true);
-    }).observe(this.boundaryElement, OBSERVE_CONFIG);
+          this.setFullScreen(true, element, true);
+        }).observe(boundaryElement, OBSERVE_CONFIG);
 
-    window.addEventListener('resize', () => {
-      const elementReference = this._config.elementReference;
-      const element = elementReference.element$.value;
+        window.addEventListener('resize', () => {
+          const elementReference = this._config.elementReference;
+          const element = elementReference.element$.value;
 
-      if (!elementReference.isFullScreen) return;
-      if (!element) return;
+          if (!elementReference.isFullScreen) return;
+          if (!element) return;
 
-      this.setFullScreen(true, element, true);
-    });
+          this.setFullScreen(true, element, true);
+        });
+      });
   }
 
   setFullScreen(
@@ -99,9 +101,12 @@ export class PageMaximizeDirective implements OnInit {
     element: HTMLElement,
     preventAnimation = false
   ) {
+    const boundaryElement = this.elementsFacede.draggingBoundaryElement$.value;
+    if (!boundaryElement) return;
+
     if (
-      this.currentWidth == this.boundaryElement.offsetWidth &&
-      this.currentHeight == this.boundaryElement.offsetHeight &&
+      this.currentWidth == boundaryElement.offsetWidth &&
+      this.currentHeight == boundaryElement.offsetHeight &&
       hasToSet
     )
       return this.setBaseScreenSize(element, preventAnimation);
@@ -109,12 +114,8 @@ export class PageMaximizeDirective implements OnInit {
     const transform = hasToSet
       ? DomElementAdpter.getTranslate3d(0, 0)
       : this.lastTranslet3d;
-    const width = hasToSet
-      ? this.boundaryElement.offsetWidth
-      : this.currentWidth;
-    const height = hasToSet
-      ? this.boundaryElement.offsetHeight
-      : this.currentHeight;
+    const width = hasToSet ? boundaryElement.offsetWidth : this.currentWidth;
+    const height = hasToSet ? boundaryElement.offsetHeight : this.currentHeight;
 
     this.setPropierties(element, width, height, transform, preventAnimation);
   }
