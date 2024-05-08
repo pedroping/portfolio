@@ -1,14 +1,17 @@
 import { Directive, OnInit, ViewContainerRef } from '@angular/core';
 import { InitialMenuComponent } from '../../components/initial-menu/initial-menu.component';
 import { MenuEventsService } from '../../services/menu-events/menu-events.service';
-
+import { BuildAnimation } from '@portifolio/utils/util-animations';
 @Directive({
   selector: 'initial-menu-creator',
   standalone: true,
 })
 export class InitialMenuCreatorDirective implements OnInit {
+  menuElement?: HTMLElement;
+
   constructor(
     private readonly vcr: ViewContainerRef,
+    private readonly buildAnimation: BuildAnimation,
     private readonly menuEventsService: MenuEventsService
   ) {}
 
@@ -21,10 +24,19 @@ export class InitialMenuCreatorDirective implements OnInit {
 
   createMenu() {
     this.destroyMenu();
-    this.vcr.createComponent(InitialMenuComponent);
+    const { location } = this.vcr.createComponent(InitialMenuComponent);
+    this.menuElement = location.nativeElement;
+    this.buildAnimation.animate('enterAnimationY', location.nativeElement);
   }
 
   destroyMenu() {
-    this.vcr.clear();
+    if (!this.menuElement) return this.vcr.clear();
+
+    this.buildAnimation
+      .animate('leaveAnimationY', this.menuElement)
+      .subscribe(() => {
+        this.vcr.clear();
+        this.menuElement = undefined;
+      });
   }
 }
