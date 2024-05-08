@@ -4,7 +4,7 @@ import {
   Injector,
   ViewContainerRef,
 } from '@angular/core';
-import { DomElementAdpter } from '@portifolio/util/util-adpters';
+import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import { BehaviorSubject } from 'rxjs';
 import { PageComponent } from '../../components/page/page.component';
 import {

@@ -5,7 +5,7 @@ import {
   Inject,
   contentChild,
 } from '@angular/core';
-import { DomElementAdpter } from '@portifolio/util/util-adpters';
+import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import { merge, skip, switchMap, take } from 'rxjs';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { EventsFacade } from '../../facedes/events-facades/events-facade.service';

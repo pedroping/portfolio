@@ -2,7 +2,7 @@ import { Directive, HostListener, Inject, OnInit } from '@angular/core';
 import {
   DomElementAdpter,
   UtlisFunctions,
-} from '@portifolio/util/util-adpters';
+} from '@portifolio/utils/util-adpters';
 import { filter, take } from 'rxjs';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { OBSERVE_CONFIG } from '../../mocks/observerConfig-mocks';

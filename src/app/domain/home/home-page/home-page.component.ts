@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { MenuEventsService } from '@portifolio/features/feature-inital-menu';
 import { TaskbarComponent } from '@portifolio/features/feature-taskbar';
 
 @Component({
@@ -9,4 +10,10 @@ import { TaskbarComponent } from '@portifolio/features/feature-taskbar';
   standalone: true,
   imports: [TaskbarComponent, RouterModule],
 })
-export class HomePageComponent {}
+export class HomePageComponent {
+  constructor(private readonly menuEventsService: MenuEventsService) {}
+
+  toggleMenu() {
+    this.menuEventsService.toggleMenu();
+  }
+}

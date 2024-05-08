@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { PagesListComponent } from '../pages-list/pages-list.component';
 
 @Component({
@@ -8,4 +8,6 @@ import { PagesListComponent } from '../pages-list/pages-list.component';
   standalone: true,
   imports: [PagesListComponent],
 })
-export class TaskbarComponent {}
+export class TaskbarComponent {
+  startClick = output<void>();
+}

@@ -30,10 +30,15 @@
       "@portifolio/ui/ui-taskbar-action-button": [
         "libs/ui/ui-taskbar-action-button/src/index.ts"
       ],
-      "@portifolio/util/util-adpters": ["libs/util/util-adpters/src/index.ts"],
-      "@portifolio/util/util-styles": ["libs/util/util-styles/src/index.ts"],
-      "@portifolio/util/util-z-index-handler": [
-        "libs/util/util-z-index-handler/src/index.ts"
+      "@portifolio/utils/util-adpters": [
+        "libs/utils/util-adpters/src/index.ts"
+      ],
+      "@portifolio/utils/util-animations": [
+        "libs/utils/util-animations/src/index.ts"
+      ],
+      "@portifolio/utils/util-styles": ["libs/utils/util-styles/src/index.ts"],
+      "@portifolio/utils/util-z-index-handler": [
+        "libs/utils/util-z-index-handler/src/index.ts"
       ]
     }
   },
