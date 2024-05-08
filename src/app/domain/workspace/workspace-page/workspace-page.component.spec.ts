@@ -11,9 +11,8 @@ describe('WorkspacePageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WorkspacePageComponent ]
-    })
-    .compileComponents();
+      declarations: [WorkspacePageComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

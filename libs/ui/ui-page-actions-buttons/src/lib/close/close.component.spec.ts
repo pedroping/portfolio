@@ -11,9 +11,8 @@ describe('CloseComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CloseComponent ]
-    })
-    .compileComponents();
+      declarations: [CloseComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

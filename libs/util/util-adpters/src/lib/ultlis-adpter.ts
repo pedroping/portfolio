@@ -1,4 +1,4 @@
-import { take, timer } from "rxjs";
+import { take, timer } from 'rxjs';
 
 export class UtlisFunctions {
   static timerSubscription(time: number) {

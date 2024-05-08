@@ -6,7 +6,7 @@ import { PageEventsService } from './page-events.service';
 describe('Service: PageEvents', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [PageEventsService]
+      providers: [PageEventsService],
     });
   });
 

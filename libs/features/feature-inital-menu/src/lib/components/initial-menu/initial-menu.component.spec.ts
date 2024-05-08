@@ -11,9 +11,8 @@ describe('InitialMenuComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InitialMenuComponent ]
-    })
-    .compileComponents();
+      declarations: [InitialMenuComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

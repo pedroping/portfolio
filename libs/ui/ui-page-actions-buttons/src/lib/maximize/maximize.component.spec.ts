@@ -11,9 +11,8 @@ describe('MaximizeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MaximizeComponent ]
-    })
-    .compileComponents();
+      declarations: [MaximizeComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

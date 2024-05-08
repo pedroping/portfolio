@@ -11,9 +11,8 @@ describe('PagesListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PagesListComponent ]
-    })
-    .compileComponents();
+      declarations: [PagesListComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

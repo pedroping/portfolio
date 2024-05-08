@@ -6,7 +6,7 @@ import { LastZIndexService } from './last-z-index.service';
 describe('Service: LastZIndex', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [LastZIndexService]
+      providers: [LastZIndexService],
     });
   });
 

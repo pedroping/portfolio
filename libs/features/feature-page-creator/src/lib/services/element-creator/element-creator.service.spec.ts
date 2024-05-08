@@ -6,11 +6,14 @@ import { ElementCreatorService } from './element-creator.service';
 describe('Service: ElementCreator', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ElementCreatorService]
+      providers: [ElementCreatorService],
     });
   });
 
-  it('should ...', inject([ElementCreatorService], (service: ElementCreatorService<unknown>) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should ...', inject(
+    [ElementCreatorService],
+    (service: ElementCreatorService<unknown>) => {
+      expect(service).toBeTruthy();
+    }
+  ));
 });

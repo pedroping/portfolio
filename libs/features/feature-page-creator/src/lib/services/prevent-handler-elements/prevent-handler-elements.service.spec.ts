@@ -6,11 +6,14 @@ import { PreventHandlerElements } from './prevent-handler-elements.service';
 describe('Service: PreventHandlerElements', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [PreventHandlerElements]
+      providers: [PreventHandlerElements],
     });
   });
 
-  it('should ...', inject([PreventHandlerElements], (service: PreventHandlerElements) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should ...', inject(
+    [PreventHandlerElements],
+    (service: PreventHandlerElements) => {
+      expect(service).toBeTruthy();
+    }
+  ));
 });

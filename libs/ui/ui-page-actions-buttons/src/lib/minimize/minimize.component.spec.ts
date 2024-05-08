@@ -11,9 +11,8 @@ describe('MinimizeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MinimizeComponent ]
-    })
-    .compileComponents();
+      declarations: [MinimizeComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -6,7 +6,7 @@ import { SetZIndexService } from './set-z-index.service';
 describe('Service: SetZIndex', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [SetZIndexService]
+      providers: [SetZIndexService],
     });
   });
 

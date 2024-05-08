@@ -6,11 +6,14 @@ import { PageActionsService } from './page-actions.service';
 describe('Service: PageActions', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [PageActionsService]
+      providers: [PageActionsService],
     });
   });
 
-  it('should ...', inject([PageActionsService], (service: PageActionsService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should ...', inject(
+    [PageActionsService],
+    (service: PageActionsService) => {
+      expect(service).toBeTruthy();
+    }
+  ));
 });
