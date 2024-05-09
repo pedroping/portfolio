@@ -40,6 +40,8 @@ import { PageContentOverlayDirective } from '../../directives/page-content-overl
     PageContentOverlayDirective,
   ],
   host: {
+    '[attr.page-id]': 'id()',
+    '[attr.page-name]': 'name()',
     '[style.width]': 'width()',
     '[style.height]': 'height()',
     '[style.minWidth]': 'width()',
@@ -49,7 +51,8 @@ import { PageContentOverlayDirective } from '../../directives/page-content-overl
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PageComponent implements IPageComponent, OnInit {
-  name: string;
+  id = signal<number>(-1);
+  name = signal<string>('');
   width = signal<string>('auto');
   height = signal<string>('auto');
   element: HTMLElement;
@@ -59,10 +62,11 @@ export class PageComponent implements IPageComponent, OnInit {
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {
     this.element = this._elementRef.nativeElement;
-    this.name = this._config.name;
   }
 
   ngOnInit(): void {
+    this.name.set(this._config.name);
+    this.id.set(this._config.elementReference.id);
     this.width.set(this._config.baseSizes.width + 'px');
     this.height.set(this._config.baseSizes.height + 'px');
   }

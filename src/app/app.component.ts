@@ -4,8 +4,8 @@ import { RouterModule } from '@angular/router';
 @Component({
   standalone: true,
   imports: [RouterModule],
-  selector: 'app-root',
-  template: '<router-outlet></router-outlet>',
+  selector: 'root',
+  template: '<main><router-outlet></router-outlet></main>',
 })
 export class AppComponent {
   title = 'portifolio';
