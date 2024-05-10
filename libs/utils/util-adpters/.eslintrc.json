@@ -15,9 +15,7 @@
     {
       "files": ["*.html"],
       "extends": ["plugin:@nx/angular-template"],
-      "rules": {
-        "@angular-eslint/no-host-metadata-property": "off"
-      }
+      "rules": {}
     }
   ]
 }
