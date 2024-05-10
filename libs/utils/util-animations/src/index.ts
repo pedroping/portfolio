@@ -1,2 +1,2 @@
-export * from './lib/services/build-animation.service';
+export * from './lib/facade/animations-facade.service';
 export * from './lib/models/animation-models';

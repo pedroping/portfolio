@@ -1,7 +1,7 @@
 import { AnimationBuilder, AnimationFactory } from '@angular/animations';
 import { Injectable } from '@angular/core';
-import { IAvailableAnimations } from '../models/animation-models';
-import { ALL_ANIMATIONS } from '../animations/animations';
+import { IAvailableAnimations } from '../../models/animation-models';
+import { ALL_ANIMATIONS } from '../../animations/animations';
 import { Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
