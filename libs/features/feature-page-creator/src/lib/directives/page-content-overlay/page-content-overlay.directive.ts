@@ -5,6 +5,7 @@ import {
   Inject,
   contentChild,
 } from '@angular/core';
+import { MenuEventsService } from '@portifolio/features/feature-inital-menu';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import { merge, skip, switchMap, take } from 'rxjs';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
@@ -22,6 +23,7 @@ export class PageContentOverlayDirective implements AfterViewInit {
   constructor(
     private readonly eventsFacade: EventsFacade,
     private readonly elementsFacede: ElementsFacede,
+    private readonly menuEventsService: MenuEventsService,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {}
 
@@ -42,14 +44,15 @@ export class PageContentOverlayDirective implements AfterViewInit {
           )
         )
       )
-      .subscribe((val) => {
-        val ? this.addOverlay() : this.removeOverlay();
-      });
+      .subscribe(this.handleBoolean);
+
+    this.menuEventsService.menuOpened$$.subscribe(this.handleBoolean);
   }
 
   validateOverlay() {
     const elementReference = this._config.elementReference;
     const element = elementReference.element$.value;
+    this.menuEventsService.setCloseMenu();
 
     if (!element) return;
 
@@ -85,6 +88,9 @@ export class PageContentOverlayDirective implements AfterViewInit {
       )
       .find((result) => !!result);
   }
+
+  handleBoolean = (val: boolean) =>
+    val ? this.addOverlay() : this.removeOverlay();
 
   addOverlay() {
     const overlay = this.overlay()?.nativeElement;
