@@ -4,10 +4,6 @@ import { IAnimation, ICustomStyle } from '../../models/animation-models';
 
 @Injectable({ providedIn: 'root' })
 export class CreateCustomAnimationService {
-  constructor() {}
-
-  createAnimation() {}
-
   createStyle(
     initialStyles: ICustomStyle,
     animationDuration: string,

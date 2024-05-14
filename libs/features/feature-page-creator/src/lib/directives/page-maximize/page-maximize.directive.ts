@@ -8,6 +8,7 @@ import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { OBSERVE_CONFIG } from '../../mocks/observerConfig-mocks';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
+import { AnimationsFacade } from '@portifolio/utils/util-animations';
 
 @Directive({
   selector: '[pageMaximize]',
@@ -21,6 +22,7 @@ export class PageMaximizeDirective implements OnInit {
 
   constructor(
     private readonly elementsFacede: ElementsFacede,
+    private readonly animationsFacade: AnimationsFacade,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {}
 
@@ -140,13 +142,28 @@ export class PageMaximizeDirective implements OnInit {
     if (!preventAnimation) DomElementAdpter.setTransition(element);
     elementReference.preventObservers$.next(true);
 
+    const animation = this.animationsFacade.createStyle(
+      {
+        width: element.style.width,
+        height: element.style.height,
+        transform: element.style.transform,
+        display: element.style.display,
+      },
+      '200',
+      {
+        width: width + 'px',
+        height: height + 'px',
+        transform: transform,
+        display: 'block',
+      }
+    );
+
     UtlisFunctions.timerSubscription(100).subscribe(() => {
       element.style.width = width + 'px';
       element.style.height = height + 'px';
       element.style.transform = transform;
       element.style.display = 'block';
-
-      UtlisFunctions.timerSubscription(200).subscribe(() => {
+      +UtlisFunctions.timerSubscription(200).subscribe(() => {
         DomElementAdpter.removeTransition(element);
         elementReference.preventObservers$.next(false);
       });
