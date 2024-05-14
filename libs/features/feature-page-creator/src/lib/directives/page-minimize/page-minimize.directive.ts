@@ -3,7 +3,7 @@ import {
   DomElementAdpter,
   UtlisFunctions,
 } from '@portifolio/utils/util-adpters';
-import { filter, take } from 'rxjs';
+import { filter, switchMap, take, tap } from 'rxjs';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
@@ -51,14 +51,17 @@ export class PageMinimizeDirective implements OnInit {
       window.innerHeight * 2.5
     );
 
-    UtlisFunctions.timerSubscription(100).subscribe(() => {
-      DomElementAdpter.removeTransition(element);
-      element.style.display = 'none';
-
-      UtlisFunctions.timerSubscription(200).subscribe(() => {
+    DomElementAdpter.afterTransitions(element)
+      .pipe(
+        tap(() => {
+          DomElementAdpter.removeTransition(element);
+          element.style.display = 'none';
+        }),
+        switchMap(() => DomElementAdpter.afterTransitions(element))
+      )
+      .subscribe(() => {
         elementReference.isFullScreen = isFullScreen;
         elementReference.preventObservers$.next(false);
       });
-    });
   }
 }

@@ -1,5 +1,5 @@
 import { Directive, OnInit, ViewContainerRef } from '@angular/core';
-import { AnimationsFacade } from '@portifolio/utils/util-animations';
+import { BuildAnimation } from '@portifolio/utils/util-animations';
 import { InitialMenuComponent } from '../../components/initial-menu/initial-menu.component';
 import { MenuEventsService } from '../../services/menu-events/menu-events.service';
 import { MenuActionsDirective } from '../menu-actions/menu-actions.directive';
@@ -13,7 +13,7 @@ export class InitialMenuCreatorDirective implements OnInit {
 
   constructor(
     private readonly vcr: ViewContainerRef,
-    private readonly animationsFacade: AnimationsFacade,
+    private readonly buildAnimation: BuildAnimation,
     private readonly menuEventsService: MenuEventsService
   ) {}
 
@@ -28,13 +28,13 @@ export class InitialMenuCreatorDirective implements OnInit {
     this.destroyMenu();
     const { location } = this.vcr.createComponent(InitialMenuComponent);
     this.menuElement = location.nativeElement;
-    this.animationsFacade.animate('enterAnimationY', location.nativeElement);
+    this.buildAnimation.animate('enterAnimationY', location.nativeElement);
   }
 
   destroyMenu() {
     if (!this.menuElement) return this.vcr.clear();
 
-    this.animationsFacade
+    this.buildAnimation
       .animate('leaveAnimationY', this.menuElement)
       .subscribe(() => {
         this.vcr.clear();

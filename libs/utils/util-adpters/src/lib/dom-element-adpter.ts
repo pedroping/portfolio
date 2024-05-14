@@ -1,3 +1,5 @@
+import { debounceTime, fromEvent, take } from 'rxjs';
+
 export class DomElementAdpter {
   static getTransformValues(transform: string) {
     if (!transform) return { x: -1, y: -1 };
@@ -57,6 +59,13 @@ export class DomElementAdpter {
       domRect1.right < domRect2.left ||
       domRect1.bottom < domRect2.top ||
       domRect1.left > domRect2.right
+    );
+  }
+
+  static afterTransitions(element: HTMLElement) {
+    return fromEvent<TransitionEvent>(element, 'transitionstart').pipe(
+      debounceTime(100),
+      take(1)
     );
   }
 }

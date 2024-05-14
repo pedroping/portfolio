@@ -6,8 +6,3 @@ export type IAvailableAnimations =
   | 'leaveAnimationY'
   | 'enterAboveAnimationY'
   | 'leaveAboveAnimationY';
-
-export type ICustomStyle =
-  | '*'
-  | { [kye: string]: string }
-  | { [kye: string]: string }[];

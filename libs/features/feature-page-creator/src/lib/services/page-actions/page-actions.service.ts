@@ -71,6 +71,8 @@ export class PageActionsService {
   }
 
   private showElement(elementReference: IElement) {
+    console.log('afsasf');
+
     elementReference.opened = true;
     const element = elementReference.element$.value;
 

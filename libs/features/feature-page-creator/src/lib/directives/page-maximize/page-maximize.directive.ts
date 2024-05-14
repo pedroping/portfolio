@@ -8,7 +8,6 @@ import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { OBSERVE_CONFIG } from '../../mocks/observerConfig-mocks';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
-import { AnimationsFacade } from '@portifolio/utils/util-animations';
 
 @Directive({
   selector: '[pageMaximize]',
@@ -22,7 +21,6 @@ export class PageMaximizeDirective implements OnInit {
 
   constructor(
     private readonly elementsFacede: ElementsFacede,
-    private readonly animationsFacade: AnimationsFacade,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {}
 
@@ -62,7 +60,7 @@ export class PageMaximizeDirective implements OnInit {
         this._config.customY || 0
       );
 
-      this.setFullScreen(true, element, true);
+      this.setFullScreen(true, element);
     });
 
     this.createBoundaryObservers();
@@ -83,7 +81,7 @@ export class PageMaximizeDirective implements OnInit {
 
           if (!elementReference || !elementReference.isFullScreen) return;
 
-          this.setFullScreen(true, element, true);
+          this.setFullScreen(true, element);
         }).observe(boundaryElement, OBSERVE_CONFIG);
 
         window.addEventListener('resize', () => {
@@ -93,16 +91,12 @@ export class PageMaximizeDirective implements OnInit {
           if (!elementReference.isFullScreen) return;
           if (!element) return;
 
-          this.setFullScreen(true, element, true);
+          this.setFullScreen(true, element);
         });
       });
   }
 
-  setFullScreen(
-    hasToSet: boolean,
-    element: HTMLElement,
-    preventAnimation = false
-  ) {
+  setFullScreen(hasToSet: boolean, element: HTMLElement) {
     const boundaryElement = this.elementsFacede.draggingBoundaryElement$.value;
     if (!boundaryElement) return;
 
@@ -111,7 +105,7 @@ export class PageMaximizeDirective implements OnInit {
       this.currentHeight == boundaryElement.offsetHeight &&
       hasToSet
     )
-      return this.setBaseScreenSize(element, preventAnimation);
+      return this.setBaseScreenSize(element);
 
     const transform = hasToSet
       ? DomElementAdpter.getTranslate3d(0, 0)
@@ -119,54 +113,35 @@ export class PageMaximizeDirective implements OnInit {
     const width = hasToSet ? boundaryElement.offsetWidth : this.currentWidth;
     const height = hasToSet ? boundaryElement.offsetHeight : this.currentHeight;
 
-    this.setPropierties(element, width, height, transform, preventAnimation);
+    this.setPropierties(element, width, height, transform);
   }
 
-  setBaseScreenSize(element: HTMLElement, preventAnimation = false) {
+  setBaseScreenSize(element: HTMLElement) {
     const width = this._config.baseSizes.width;
     const height = this._config.baseSizes.height;
     const transform = this.lastTranslet3d;
 
-    this.setPropierties(element, width, height, transform, preventAnimation);
+    this.setPropierties(element, width, height, transform);
   }
 
   setPropierties(
     element: HTMLElement,
     width: number | string,
     height: number | string,
-    transform: string,
-    preventAnimation = false
+    transform: string
   ) {
     const elementReference = this._config.elementReference;
-
-    if (!preventAnimation) DomElementAdpter.setTransition(element);
+    DomElementAdpter.setTransition(element);
     elementReference.preventObservers$.next(true);
 
-    const animation = this.animationsFacade.createStyle(
-      {
-        width: element.style.width,
-        height: element.style.height,
-        transform: element.style.transform,
-        display: element.style.display,
-      },
-      '200',
-      {
-        width: width + 'px',
-        height: height + 'px',
-        transform: transform,
-        display: 'block',
-      }
-    );
+    element.style.width = width + 'px';
+    element.style.height = height + 'px';
+    element.style.transform = transform;
+    element.style.display = 'block';
 
-    UtlisFunctions.timerSubscription(100).subscribe(() => {
-      element.style.width = width + 'px';
-      element.style.height = height + 'px';
-      element.style.transform = transform;
-      element.style.display = 'block';
-      +UtlisFunctions.timerSubscription(200).subscribe(() => {
-        DomElementAdpter.removeTransition(element);
-        elementReference.preventObservers$.next(false);
-      });
+    DomElementAdpter.afterTransitions(element).subscribe(() => {
+      DomElementAdpter.removeTransition(element);
+      elementReference.preventObservers$.next(false);
     });
   }
 
