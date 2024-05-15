@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  DomElementAdpter,
-  UtlisFunctions,
-} from '@portifolio/utils/util-adpters';
+import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import { IElement } from '../../models/elements-interfaces';
 import { ElementsData } from '../elements-data/elements-data.service';
 import { SetZIndexService } from '../set-z-index/set-z-index.service';
@@ -65,40 +62,35 @@ export class PageActionsService {
       window.innerHeight * 2.5
     );
 
-    UtlisFunctions.timerSubscription(100).subscribe(() => {
+    DomElementAdpter.afterTransitions(element).subscribe(() => {
       DomElementAdpter.removeTransition(element);
     });
   }
 
   private showElement(elementReference: IElement) {
-    console.log('afsasf');
-
     elementReference.opened = true;
     const element = elementReference.element$.value;
 
     if (!element) return;
 
+    DomElementAdpter.setTransition(element);
     element.style.display = 'block';
-    DomElementAdpter.setOnlyTransformTransition(element, 1);
-
     this.setZIndexService.setNewZIndex(elementReference.id, element);
 
-    UtlisFunctions.timerSubscription(50).subscribe(() => {
-      if (elementReference.isFullScreen) {
-        DomElementAdpter.setTransform(element, 0, 0);
-        return;
-      }
+    if (elementReference.isFullScreen) {
+      DomElementAdpter.setTransform(element, 0, 0);
+      return;
+    }
 
-      DomElementAdpter.setTransform(
-        element,
-        elementReference.lastPosition.x,
-        elementReference.lastPosition.y
-      );
+    DomElementAdpter.setTransform(
+      element,
+      elementReference.lastPosition.x,
+      elementReference.lastPosition.y
+    );
 
-      UtlisFunctions.timerSubscription(1000).subscribe(() => {
-        element.style.display = 'block';
-        DomElementAdpter.removeTransition(element);
-      });
+    DomElementAdpter.afterTransitions(element).subscribe(() => {
+      element.style.display = 'block';
+      DomElementAdpter.removeTransition(element);
     });
   }
 

@@ -1,8 +1,5 @@
 import { Directive, HostListener, Inject, OnInit } from '@angular/core';
-import {
-  DomElementAdpter,
-  UtlisFunctions,
-} from '@portifolio/utils/util-adpters';
+import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import { filter, switchMap, take, tap } from 'rxjs';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { IPageConfig } from '../../models/elements-interfaces';
