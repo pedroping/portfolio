@@ -4,6 +4,7 @@ import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { OBSERVE_CONFIG } from '../../mocks/observerConfig-mocks';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
+import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 
 @Directive({
   selector: '[pageResize]',
@@ -50,6 +51,8 @@ export class PageResizeDirective implements OnInit {
 
         if (width != this.lastWidth || height != this.lastHeight) {
           elementReference.pageResizing$.next(true);
+          DomElementAdpter.removeTransition(element);
+
           if (elementReference.isFullScreen)
             elementReference.lastPosition = { x: 0, y: 0 };
           elementReference.isFullScreen = false;
