@@ -1,1 +1,1 @@
-export * from './lib/ui-splash-screen/ui-splash-screen.component';
+export * from './lib/component/ui-splash-screen.component';

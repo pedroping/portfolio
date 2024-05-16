@@ -101,5 +101,13 @@
         "spa": true
       }
     }
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "style": "scss",
+      "changeDetection": "OnPush",
+      "standalone": true,
+      "prefix": ""
+    }
   }
 }
