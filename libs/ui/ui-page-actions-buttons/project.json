@@ -1,5 +1,5 @@
 {
-  "name": "ui-ui-page-actions-buttons",
+  "name": "ui-page-actions-buttons",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/ui/ui-page-actions-buttons/src",
   "prefix": "lib",

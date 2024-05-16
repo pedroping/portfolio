@@ -1,9 +1,9 @@
 /* eslint-disable */
 export default {
-  displayName: 'ui-taskbar-action-button',
+  displayName: 'ui-splash-screen',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../../coverage/libs/ui/ui-taskbar-action-button',
+  coverageDirectory: '../../../coverage/libs/ui/ui-splash-screen',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

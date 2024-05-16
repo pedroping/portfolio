@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'ui-ui-page-actions-buttons',
+  displayName: 'ui-page-actions-buttons',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   coverageDirectory: '../../../coverage/libs/ui/ui-page-actions-buttons',

@@ -27,6 +27,9 @@
       "@portifolio/ui/ui-page-actions-buttons": [
         "libs/ui/ui-page-actions-buttons/src/index.ts"
       ],
+      "@portifolio/ui/ui-splash-screen": [
+        "libs/ui/ui-splash-screen/src/index.ts"
+      ],
       "@portifolio/ui/ui-taskbar-action-button": [
         "libs/ui/ui-taskbar-action-button/src/index.ts"
       ],
