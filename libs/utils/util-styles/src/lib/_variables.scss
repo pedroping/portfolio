@@ -1,32 +1,30 @@
-$project-properties: (
-  'taskbar-height': 32px,
-  'page-header-height': 30px,
-  'gradient-color-01': #245edb,
-  'gradient-color-02': #0c8dea,
-  'gradient-color-03': #3f8cf3,
-  'gradient-color-04': #245edb,
-  'gradient-color-05': #0c8dea,
-  'shadow-color-01': #333,
-  'shadow-color-02': #7fbce8,
-  'shadow-color-03': rgba(20, 20, 20, 0.6),
-  'border-01': #1885d3,
-  'start-btn-box-shadow-': #79ce71,
-  'gradiant-btn-01': #5eac56,
-  'gradiant-btn-02': #3c873c,
-  'gradiant-close-btn-01': #e18787,
-  'gradiant-close-btn-02': #e80606,
-  'gradiant-action-btn-01': #767575,
-  'gradiant-action-btn-02': #0d0dd6,
-  'text-color-01': white,
-  'page-actions-border': #aeaeae,
-  'pade-actions-box-shadow': #59595966,
-  'light-background': white,
-  'light-blue-background': #d3e5fa,
-  'black-01': #000000,
-);
-
 :root {
-  @each $name, $value in $project-properties {
-    --#{$name}: #{$value};
-  }
+  --taskbar-height: 32px;
+  --page-header-height: 30px;
+  --gradient-color-01: #245edb;
+  --gradient-color-02: #0c8dea;
+  --gradient-color-03: #3f8cf3;
+  --gradient-color-04: #245edb;
+  --gradient-color-05: #0c8dea;
+  --gradient-color-06: #6666f5;
+  --gradient-color-07: blue;
+  --shadow-color-01: #333;
+  --shadow-color-02: #7fbce8;
+  --shadow-color-03: rgba(20; 20; 20; 0.6);
+  --border-01: #1885d3;
+  --start-btn-box-shadow-: #79ce71;
+  --gradiant-btn-01: #5eac56;
+  --gradiant-btn-02: #3c873c;
+  --gradiant-close-btn-01: #e18787;
+  --gradiant-close-btn-02: #e80606;
+  --gradiant-action-btn-01: #767575;
+  --gradiant-action-btn-02: #0d0dd6;
+  --text-color-01: white;
+  --page-actions-border: #aeaeae;
+  --pade-actions-box-shadow: #59595966;
+  --light-background: white;
+  --light-blue-background: #d3e5fa;
+  --black-01: #000000;
+  --orange-01: #c6561e;
+  --white-01: white;
 }

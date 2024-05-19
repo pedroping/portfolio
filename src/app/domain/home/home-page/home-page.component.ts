@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MenuEventsService } from '@portifolio/features/feature-inital-menu';
 import { TaskbarComponent } from '@portifolio/features/feature-taskbar';
-
+import { ShowScreenDirective } from '@portifolio/ui/ui-splash-screen';
 @Component({
   selector: 'home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
   standalone: true,
-  imports: [TaskbarComponent, RouterModule],
+  imports: [TaskbarComponent, RouterModule, ShowScreenDirective],
 })
 export class HomePageComponent {
   constructor(private readonly menuEventsService: MenuEventsService) {}

@@ -1,0 +1,11 @@
+@keyframes progress-animation {
+    0% {
+        transform: translateX(-50px);
+    }
+    5% {
+        transform: translateX(-50px);
+    }
+    100% {
+        transform: translateX(250px);
+    }
+}

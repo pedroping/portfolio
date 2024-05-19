@@ -1,0 +1,23 @@
+@import "keyframes";
+
+:host {
+  display: flex;
+  padding: 3px;
+  border: 1px solid var(--white-01);
+  border-radius: 5px;
+  width: 250px;
+  overflow: hidden;
+
+  .blocks {
+    display: flex;
+    gap: 2px;
+    animation: progress-animation 2000ms ease-in-out infinite;
+
+    .block {
+      height: 10px;
+      width: 10px;
+      border-radius: 1px;
+      background: linear-gradient(to bottom, var(--gradient-color-06) 0%, var(--gradient-color-07) 100%);
+    }
+  }
+}

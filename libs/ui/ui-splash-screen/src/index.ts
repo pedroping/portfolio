@@ -1,1 +1,2 @@
-export * from './lib/component/ui-splash-screen.component';
+export * from './lib/directive/show-screen.directive';
+
