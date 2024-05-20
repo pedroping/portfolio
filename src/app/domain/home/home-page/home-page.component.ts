@@ -12,7 +12,7 @@ import { ShowScreenDirective } from '@portifolio/ui/ui-splash-screen';
 })
 export class HomePageComponent {
   constructor(private readonly menuEventsService: MenuEventsService) {}
-
+  
   toggleMenu() {
     this.menuEventsService.toggleMenu();
   }

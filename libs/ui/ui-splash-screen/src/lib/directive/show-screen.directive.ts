@@ -1,4 +1,4 @@
-import { Directive, OnInit, ViewContainerRef, output } from '@angular/core';
+import { Directive, OnInit, ViewContainerRef } from '@angular/core';
 import { BuildAnimation } from '@portifolio/utils/util-animations';
 import { switchMap, take, timer } from 'rxjs';
 import { UiSplashScreenComponent } from '../components/ui-splash-screen/ui-splash-screen.component';
@@ -8,8 +8,6 @@ import { UiSplashScreenComponent } from '../components/ui-splash-screen/ui-splas
   standalone: true,
 })
 export class ShowScreenDirective implements OnInit {
-  afterClosed = output<void>();
-
   constructor(
     private readonly vcr: ViewContainerRef,
     private readonly buildAnimation: BuildAnimation
@@ -17,6 +15,13 @@ export class ShowScreenDirective implements OnInit {
 
   ngOnInit(): void {
     const { location } = this.vcr.createComponent(UiSplashScreenComponent);
+
+    (location.nativeElement as HTMLElement).addEventListener(
+      'mousemove',
+      () => {
+        '';
+      }
+    );
 
     timer(5000)
       .pipe(
@@ -27,7 +32,9 @@ export class ShowScreenDirective implements OnInit {
       )
       .subscribe(() => {
         this.vcr.clear();
-        this.afterClosed.emit();
+        const audio = new Audio('/assets/audios/videoplayback.m4a');
+        audio.load();
+        audio.play();
       });
   }
 }
