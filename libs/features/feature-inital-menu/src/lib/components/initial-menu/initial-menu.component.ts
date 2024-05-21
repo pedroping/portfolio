@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { LastZIndexService } from '@portifolio/utils/util-z-index-handler';
 import { CloseMenuOnOutsideClickDirective } from '../../directives/close-menu-on-outside-click/close-menu-on-outside-click.directive';
+import { MenuFooterActionsComponent } from '../menu-footer-actions/menu-footer-actions.component';
 
 @Component({
   selector: 'initial-menu',
@@ -11,6 +12,7 @@ import { CloseMenuOnOutsideClickDirective } from '../../directives/close-menu-on
     '[style.zIndex]': 'zIndex()',
   },
   hostDirectives: [CloseMenuOnOutsideClickDirective],
+  imports: [MenuFooterActionsComponent],
 })
 export class InitialMenuComponent {
   zIndex = signal<string>('0');
