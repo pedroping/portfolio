@@ -2,7 +2,7 @@ import { Directive, ElementRef, OnInit, ViewContainerRef } from '@angular/core';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 
 @Directive({
-  selector: '[pageParent]',
+  selector: 'pageParent',
   standalone: true,
 })
 export class PageParentDirective implements OnInit {
