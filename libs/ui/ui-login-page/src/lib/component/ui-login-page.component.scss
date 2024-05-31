@@ -38,6 +38,66 @@
           background: linear-gradient(0deg, transparent 12%, var(--white-01) 50%, transparent 88%);
         }
       }
+
+      &:last-child {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding-left: 20px;
+
+        .login {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+
+          img {
+            width: 50px;
+            border-radius: 5px;
+            border: 2px solid var(--white-01);
+          }
+        }
+
+        .user {
+          p {
+            font-size: 24px;
+            color: var(--white-01);
+          }
+
+          .actions {
+            button {
+              display: flex;
+              align-items: center;
+              outline: none;
+              border: none;
+              background-color: transparent;
+              color: var(--text-color-01);
+              cursor: pointer;
+
+              .icon {
+                margin-right: 5px;
+                width: 25px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                aspect-ratio: 1;
+                border: 1.5px solid var(--white-01);
+                border-radius: 5px;
+                transition: all 200ms ease-in-out;
+                background: linear-gradient(to bottom, var(--gradiant-close-btn-01) 0%, var(--gradiant-close-btn-02) 100%);
+
+                i {
+                  font-size: 18px;
+                }
+
+                &:hover {
+                  transform: scale(1.03) translateY(-1px);
+                }
+              }
+            }
+          }
+
+        }
+      }
     }
   }
 
