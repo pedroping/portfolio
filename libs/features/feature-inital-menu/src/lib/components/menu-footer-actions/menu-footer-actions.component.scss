@@ -40,9 +40,7 @@
     }
 
     &:last-child .icon {
-      background: linear-gradient(to bottom,
-          var(--gradiant-action-btn-01) 0%,
-          var(--gradiant-action-btn-02) 100%);
+      background: linear-gradient(to bottom, var(--gradiant-close-btn-01) 0%, var(--gradiant-close-btn-02) 100%);
     }
 
     span {

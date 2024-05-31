@@ -11,17 +11,17 @@ import {
   MaximizeComponent,
   MinimizeComponent,
 } from '@portifolio/ui/ui-page-actions-buttons';
-import { PageCloseDirective } from '../../directives/page-close/page-close.directive';
-import { PageContentDirective } from '../../directives/page-content/page-content.directive';
-import { PageMaximizeDirective } from '../../directives/page-maximize/page-maximize.directive';
-import { PageMinimizeDirective } from '../../directives/page-minimize/page-minimize.directive';
-import { PageMoveDirective } from '../../directives/page-move/page-move.directive';
-import { PageResizeDirective } from '../../directives/page-resize/page-resize.directive';
-import { PreventHandlerDirective } from '../../directives/prevent-handler/prevent-handler.directive';
-import { SetZIndexDirective } from '../../directives/set-zIndex/set-zIndex.directive';
-import { IPageComponent, IPageConfig } from '../../models/elements-interfaces';
-import { CONFIG_TOKEN } from '../../models/elements-token';
-import { PageContentOverlayDirective } from '../../directives/page-content-overlay/page-content-overlay.directive';
+import { PageCloseDirective } from '../directives/page-close/page-close.directive';
+import { PageContentDirective } from '../directives/page-content/page-content.directive';
+import { PageMaximizeDirective } from '../directives/page-maximize/page-maximize.directive';
+import { PageMinimizeDirective } from '../directives/page-minimize/page-minimize.directive';
+import { PageMoveDirective } from '../directives/page-move/page-move.directive';
+import { PageResizeDirective } from '../directives/page-resize/page-resize.directive';
+import { PreventHandlerDirective } from '../directives/prevent-handler/prevent-handler.directive';
+import { SetZIndexDirective } from '../directives/set-zIndex/set-zIndex.directive';
+import { IPageComponent, IPageConfig } from '../models/elements-interfaces';
+import { CONFIG_TOKEN } from '../models/elements-token';
+import { PageContentOverlayDirective } from '../directives/page-content-overlay/page-content-overlay.directive';
 @Component({
   selector: 'feature-page',
   templateUrl: './page.component.html',

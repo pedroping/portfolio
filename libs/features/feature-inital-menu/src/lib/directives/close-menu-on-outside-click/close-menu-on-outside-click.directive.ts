@@ -38,7 +38,7 @@ export class CloseMenuOnOutsideClickDirective implements OnInit {
 
   isOutTarget(target: HTMLElement) {
     return (
-      !this.elementRef.nativeElement.contains(target) ||
+      !this.elementRef.nativeElement.contains(target) &&
       this.elementRef.nativeElement != target
     );
   }

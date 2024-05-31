@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import { BehaviorSubject } from 'rxjs';
-import { PageComponent } from '../../components/page/page.component';
+import { PageComponent } from '../../component/page.component';
 import {
   IDomElementOptions,
   IElement,

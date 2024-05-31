@@ -15,54 +15,6 @@
     justify-content: center;
     color: var(--text-color-01);
     padding-bottom: 100px;
-
-    .logo {
-      .company {
-        font-size: 12px;
-        position: relative;
-        right: 22px;
-        top: 15px;
-
-        .copyright {
-          position: relative;
-          bottom: 5px;
-        }
-      }
-
-      img {
-        width: 160px;
-        aspect-ratio: 1;
-        position: relative;
-        top: 28px;
-        right: 15px;
-      }
-    }
-
-    .title {
-      display: flex;
-
-      h1 {
-        font-size: 48px;
-        letter-spacing: 2px;
-
-        span:first-child {
-          font-size: 64px;
-        }
-      }
-
-      .copyright {
-        display: block;
-        position: relative;
-        top: 17px;
-      }
-
-      .xp {
-        font-size: 40px;
-        font-weight: 800;
-        letter-spacing: 2px;
-        color: var(--orange-01);
-      }
-    }
   }
 
   footer {
