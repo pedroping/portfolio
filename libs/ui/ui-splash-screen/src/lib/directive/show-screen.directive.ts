@@ -19,7 +19,7 @@ export class ShowScreenDirective implements OnInit {
     (location.nativeElement as HTMLElement).addEventListener(
       'mousemove',
       () => {
-        '';
+        ('');
       }
     );
 
@@ -28,7 +28,8 @@ export class ShowScreenDirective implements OnInit {
         take(1),
         switchMap(() =>
           this.buildAnimation.animate('leaveOpacity', location.nativeElement)
-        )
+        ),
+        take(1)
       )
       .subscribe(() => {
         this.vcr.clear();

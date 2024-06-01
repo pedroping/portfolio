@@ -2,7 +2,7 @@ import { Route } from '@angular/router';
 
 export const appRoutes: Route[] = [
   {
-    path: '',
+    path: 'home',
     loadChildren: async () => await import('./domain/home/home-routes'),
   },
   {
@@ -10,8 +10,13 @@ export const appRoutes: Route[] = [
     loadChildren: async () => await import('./domain/login/login-routes'),
   },
   {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full',
+  },
+  {
     path: '**',
-    redirectTo: '',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
 ];

@@ -21,9 +21,19 @@ export const LEAVE_ABOVE_ANIMATION_Y: IAnimation = [
   animate(50, style({ opacity: 1, transform: 'translateY(-100%)' })),
 ];
 
+export const ENTER_OPACITY: IAnimation = [
+  style({ opacity: 0 }),
+  animate(1000, style({ opacity: 1 })),
+];
+
 export const LEAVE_OPACITY: IAnimation = [
   style({ opacity: 1 }),
   animate(1000, style({ opacity: 0 })),
+];
+
+export const FAST_LEAVE_OPACITY: IAnimation = [
+  style({ opacity: 1 }),
+  animate(200, style({ opacity: 0 })),
 ];
 
 export const ALL_ANIMATIONS: { [key in IAvailableAnimations]: IAnimation } = {
@@ -32,4 +42,6 @@ export const ALL_ANIMATIONS: { [key in IAvailableAnimations]: IAnimation } = {
   enterAboveAnimationY: ENTER_ABOVE_ANIMATION_Y,
   leaveAboveAnimationY: LEAVE_ABOVE_ANIMATION_Y,
   leaveOpacity: LEAVE_OPACITY,
+  fastLeaveOpacity: FAST_LEAVE_OPACITY,
+  enterOpacity: ENTER_OPACITY,
 };

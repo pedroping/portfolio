@@ -6,4 +6,6 @@ export type IAvailableAnimations =
   | 'leaveAnimationY'
   | 'enterAboveAnimationY'
   | 'leaveAboveAnimationY'
-  | 'leaveOpacity';
+  | 'leaveOpacity'
+  | 'enterOpacity'
+  | 'fastLeaveOpacity';
