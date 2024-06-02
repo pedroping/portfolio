@@ -64,5 +64,12 @@ export class PageResizeRightDirective implements OnInit {
 
         element.style.width = newWidth + 'px';
       });
+
+    this.mouseDownEvent$.subscribe(() =>
+      this._config.elementReference.pageResizing$.next(true)
+    );
+    this.mouseUpEvent$.subscribe(() =>
+      this._config.elementReference.pageResizing$.next(false)
+    );
   }
 }

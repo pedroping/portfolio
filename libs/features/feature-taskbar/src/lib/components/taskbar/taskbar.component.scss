@@ -1,4 +1,4 @@
-@import "root";
+@import 'root';
 
 :host {
   footer {
@@ -7,25 +7,33 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 32px;
-    background: linear-gradient(to bottom,
+    height: var(--taskbar-height);
+    background: linear-gradient(
+        to bottom,
         var(--gradient-color-01) 0%,
         var(--gradient-color-03) 9%,
         var(--gradient-color-01) 18%,
         var(--gradient-color-01) 92%,
-        var(--shadow-color-01) 100%) center / cover no-repeat;
+        var(--shadow-color-01) 100%
+      )
+      center / cover no-repeat;
   }
 
   button {
     font-family: 'Trebuchet MS', Courier;
     width: 100px;
-    height: 32px;
+    height: var(--taskbar-height);
     border: none;
     outline: none;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
-    margin-right: 25px;
-    background: radial-gradient(circle, var(--gradiant-btn-01) 0%, var(--gradiant-btn-02) 100%) center / cover no-repeat;
+    margin-right: 10px;
+    background: radial-gradient(
+        circle,
+        var(--gradiant-btn-01) 0%,
+        var(--gradiant-btn-02) 100%
+      )
+      center / cover no-repeat;
     color: var(--text-color-01);
     font-size: 20px;
     box-shadow: 0px 5px 10px var(--start-btn-box-shadow) inset;

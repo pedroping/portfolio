@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 export interface IBasicElement {
   id: number;
   name: string;
+  opened: boolean;
 }
 
 export interface IDomElementOptions {

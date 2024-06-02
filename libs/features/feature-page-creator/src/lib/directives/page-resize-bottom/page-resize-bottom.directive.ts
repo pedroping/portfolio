@@ -64,5 +64,12 @@ export class PageResizeBottomDirective implements OnInit {
 
         element.style.height = newHeight + 'px';
       });
+
+    this.mouseDownEvent$.subscribe(() =>
+      this._config.elementReference.pageResizing$.next(true)
+    );
+    this.mouseUpEvent$.subscribe(() =>
+      this._config.elementReference.pageResizing$.next(false)
+    );
   }
 }

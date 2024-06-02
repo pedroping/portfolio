@@ -54,6 +54,7 @@ export class PageActionsService {
 
     const index = this.elementsData.findElementIndex(elementReference.id);
     elementReference.opened = false;
+    this.elementsData.hideElement(elementReference.id);
 
     DomElementAdpter.setOnlyTransformTransition(element, 5);
     DomElementAdpter.setTransform(
@@ -72,6 +73,8 @@ export class PageActionsService {
     const element = elementReference.element$.value;
 
     if (!element) return;
+
+    this.elementsData.openElement(elementReference.id);
 
     DomElementAdpter.setTransition(element);
     element.style.display = 'block';

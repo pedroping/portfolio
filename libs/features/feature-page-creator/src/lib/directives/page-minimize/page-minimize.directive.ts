@@ -38,6 +38,7 @@ export class PageMinimizeDirective implements OnInit {
     const isFullScreen = elementReference.isFullScreen;
     const index = this.elementsFacede.findElementIndex(elementReference.id);
     elementReference.opened = false;
+    this.elementsFacede.hideElement(elementReference.id);
 
     elementReference.preventObservers$.next(true);
 

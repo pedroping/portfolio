@@ -52,8 +52,8 @@ export class PageResizeTopDirective implements OnInit {
       .subscribe((event) => {
         const element = this.element$.value;
         if (!element) return;
-        if(event.y < 0) return;
-        
+        if (event.y < 0) return;
+
         const elementReference = this._config.elementReference;
         const newPositionCalc = this.startPosition - event.y;
 
@@ -71,5 +71,12 @@ export class PageResizeTopDirective implements OnInit {
           elementReference.lastPosition.y
         );
       });
+
+    this.mouseDownEvent$.subscribe(() =>
+      this._config.elementReference.pageResizing$.next(true)
+    );
+    this.mouseUpEvent$.subscribe(() =>
+      this._config.elementReference.pageResizing$.next(false)
+    );
   }
 }

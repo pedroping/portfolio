@@ -22,6 +22,6 @@ export class WorkspacePageComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.elementsFacede.createElement({}, PAGE_01.config, PAGE_01.domConfig);
-    // this.elementsFacede.createElement({}, PAGE_02.config, PAGE_02.domConfig);
+    this.elementsFacede.createElement({}, PAGE_02.config, PAGE_02.domConfig);
   }
 }

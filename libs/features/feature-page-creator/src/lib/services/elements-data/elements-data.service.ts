@@ -14,7 +14,10 @@ export class ElementsData {
 
   pushElement(id: number, name: string, element: IElement) {
     this.elements$.next([...this.elements$.value, element]);
-    this.basicElements$.next([...this.basicElements$.value, { id, name }]);
+    this.basicElements$.next([
+      ...this.basicElements$.value,
+      { id, name, opened: element.opened },
+    ]);
   }
 
   removeElement(id: number) {
@@ -34,6 +37,25 @@ export class ElementsData {
       .filter((item) => !!item.opened);
 
     return isOnlyElement.length <= 0;
+  }
+
+  openElement(id: number) {
+    const openedElement = this.basicElements$.value.find(
+      (val) => val.id === id
+    );
+    if (!openedElement) return;
+
+    openedElement.opened = true;
+  }
+
+  
+  hideElement(id: number) {
+    const openedElement = this.basicElements$.value.find(
+      (val) => val.id === id
+    );
+    if (!openedElement) return;
+
+    openedElement.opened = false;
   }
 
   findElement(id: number) {

@@ -43,6 +43,10 @@ export class ElementsFacede<T = unknown> {
     this.pageActionsService.openElement(id);
   }
 
+  hideElement(id: number) {
+    this.elementsData.hideElement(id);
+  }
+
   findElementIndex(id: number) {
     return this.elementsData.findElementIndex(id);
   }

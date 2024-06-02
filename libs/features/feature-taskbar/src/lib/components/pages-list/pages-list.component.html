@@ -1,5 +1,13 @@
 @for (item of basicElements$ | async; track $index) {
-<div class="element" (click)="handelElementClick(item.id)">
+<div
+  class="element"
+  (click)="handelElementClick(item.id)"
+  [class.opened]="item.opened"
+>
+  <img
+    src="/assets/images/windows-basic-folder.png"
+    alt="Ícone de uma pasta de arquivo"
+  />
   {{ item.name }}
 </div>
 }

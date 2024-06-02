@@ -72,5 +72,12 @@ export class PageResizeLeftDirective implements OnInit {
           elementReference.lastPosition.y
         );
       });
+
+    this.mouseDownEvent$.subscribe(() =>
+      this._config.elementReference.pageResizing$.next(true)
+    );
+    this.mouseUpEvent$.subscribe(() =>
+      this._config.elementReference.pageResizing$.next(false)
+    );
   }
 }
