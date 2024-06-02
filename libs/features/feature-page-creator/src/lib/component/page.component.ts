@@ -25,6 +25,7 @@ import { PageContentOverlayDirective } from '../directives/page-content-overlay/
 import { PageResizeRightDirective } from '../directives/page-resize-right/page-resize-right.directive';
 import { PageResizeBottomDirective } from '../directives/page-resize-bottom/page-resize-bottom.directive';
 import { PageResizeLeftDirective } from '../directives/page-resize-left/page-resize-left.directive';
+import { PageResizeTopDirective } from '../directives/page-resize-top/page-resize-top.directive';
 @Component({
   selector: 'feature-page',
   templateUrl: './page.component.html',
@@ -44,6 +45,7 @@ import { PageResizeLeftDirective } from '../directives/page-resize-left/page-res
     PageResizeRightDirective,
     PageResizeBottomDirective,
     PageResizeLeftDirective,
+    PageResizeTopDirective,
   ],
   host: {
     '[attr.page-id]': 'id()',
