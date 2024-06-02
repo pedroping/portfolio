@@ -23,6 +23,7 @@ import { IPageComponent, IPageConfig } from '../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../models/elements-token';
 import { PageContentOverlayDirective } from '../directives/page-content-overlay/page-content-overlay.directive';
 import { PageResizeRightDirective } from '../directives/page-resize-right/page-resize-right.directive';
+import { PageResizeBottomDirective } from '../directives/page-resize-bottom/page-resize-bottom.directive';
 @Component({
   selector: 'feature-page',
   templateUrl: './page.component.html',
@@ -39,7 +40,8 @@ import { PageResizeRightDirective } from '../directives/page-resize-right/page-r
     PageMoveDirective,
     CloseComponent,
     PageContentOverlayDirective,
-    PageResizeRightDirective
+    PageResizeRightDirective,
+    PageResizeBottomDirective,
   ],
   host: {
     '[attr.page-id]': 'id()',
