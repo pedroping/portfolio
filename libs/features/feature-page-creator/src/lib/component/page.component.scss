@@ -1,7 +1,6 @@
 :host {
   display: none;
   position: absolute;
-  resize: both;
   border-radius: 5px 5px 0px 0px;
   border: 3px var(--border-01) solid;
   top: 0;
@@ -9,15 +8,21 @@
   overflow: hidden;
   max-height: 100%;
   max-width: 100%;
+  user-select: none;
 
   header {
     height: var(--page-header-height);
     box-shadow: 3px 2px 3px var(--shadow-color-02) inset;
-    background: linear-gradient(to bottom, var(--gradient-color-01) 0%, var(--gradient-color-02) 100%);
+    background: linear-gradient(
+      to bottom,
+      var(--gradient-color-01) 0%,
+      var(--gradient-color-02) 100%
+    );
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 2px 3px;
+    user-select: none;
 
     .page-name {
       font-size: 14px;
@@ -28,6 +33,10 @@
     .header-actions {
       display: flex;
       gap: 2px;
+
+      & > * {
+        z-index: 11;
+      }
     }
   }
 
@@ -44,6 +53,39 @@
       height: 100%;
       top: 0;
       left: 0;
+    }
+
+    .resize {
+      position: absolute;
+      z-index: 10;
+
+      &.top {
+        top: calc((var(--page-header-height) + 10px) * (-1));
+        width: 100%;
+        height: 20px;
+        cursor: n-resize;
+      }
+
+      &.bottom {
+        bottom: -10px;
+        width: 100%;
+        height: 20px;
+        cursor: s-resize;
+      }
+
+      &.right {
+        width: 20px;
+        height: 100%;
+        right: -10px;
+        cursor: e-resize;
+      }
+
+      &.left {
+        width: 20px;
+        height: 100%;
+        left: -10px;
+        cursor: w-resize;
+      }
     }
   }
 }

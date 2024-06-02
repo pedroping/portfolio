@@ -22,6 +22,7 @@ import { SetZIndexDirective } from '../directives/set-zIndex/set-zIndex.directiv
 import { IPageComponent, IPageConfig } from '../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../models/elements-token';
 import { PageContentOverlayDirective } from '../directives/page-content-overlay/page-content-overlay.directive';
+import { PageResizeRightDirective } from '../directives/page-resize-right/page-resize-right.directive';
 @Component({
   selector: 'feature-page',
   templateUrl: './page.component.html',
@@ -38,6 +39,7 @@ import { PageContentOverlayDirective } from '../directives/page-content-overlay/
     PageMoveDirective,
     CloseComponent,
     PageContentOverlayDirective,
+    PageResizeRightDirective
   ],
   host: {
     '[attr.page-id]': 'id()',

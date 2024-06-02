@@ -1,10 +1,10 @@
 import { Directive, Inject, OnInit } from '@angular/core';
-import { Subject, debounceTime, filter, take, takeUntil } from 'rxjs';
+import { DomElementAdpter } from '@portifolio/utils/util-adpters';
+import { Subject, debounceTime, filter, take } from 'rxjs';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { OBSERVE_CONFIG } from '../../mocks/observerConfig-mocks';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
-import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 
 @Directive({
   selector: '[pageResize]',

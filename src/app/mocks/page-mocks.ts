@@ -9,11 +9,13 @@ type IMocks = { config: IInitialConfig; domConfig: IDomElementOptions };
 export const PAGE_01: IMocks = {
   config: {
     name: 'Pagina',
+    customX: 500,
+    customY: 500,
     baseSizes: { width: 300, height: 200 },
   },
   domConfig: {
     opened: true,
-    isFullScreen: true,
+    isFullScreen: false,
   },
 };
 
