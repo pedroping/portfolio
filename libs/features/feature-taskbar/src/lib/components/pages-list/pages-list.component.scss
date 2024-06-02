@@ -20,11 +20,16 @@
       var(--gradient-color-18) 30%,
       var(--gradient-color-19) 82%
     );
+    transition: all 200ms ease-in-out;
 
     box-shadow: inset 0px 0px 5px 2px var(--shadow-color-04);
 
     &.opened {
       box-shadow: 2px 3px 4px 0px var(--shadow-color-05);
+    }
+
+    &:hover {
+      transform: scale(1.03) translateY(-1px);
     }
 
     img {
