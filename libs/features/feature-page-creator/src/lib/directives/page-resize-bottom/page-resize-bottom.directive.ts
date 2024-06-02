@@ -9,6 +9,7 @@ import {
   takeUntil,
   tap,
 } from 'rxjs';
+import { ElementsData } from '../../services/elements-data/elements-data.service';
 
 @Directive({
   selector: '.bottom',
@@ -24,6 +25,7 @@ export class PageResizeBottomDirective implements OnInit {
 
   constructor(
     private readonly elementRef: ElementRef,
+    private readonly elementsData: ElementsData,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {
     this.mouseDownEvent$ = fromEvent<MouseEvent>(
@@ -49,6 +51,10 @@ export class PageResizeBottomDirective implements OnInit {
       .subscribe((event) => {
         const element = this.element$.value;
         if (!element) return;
+
+        const boundaryHeight =
+          this.elementsData.draggingBoundaryElement$.value?.offsetHeight;
+        if (boundaryHeight && event.y > boundaryHeight) return;
 
         const newPositionCalc = event.y - this.startPosition;
         const newHeight = Math.max(

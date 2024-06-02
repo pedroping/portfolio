@@ -56,6 +56,8 @@ export class PageResizeLeftDirective implements OnInit {
         const elementReference = this._config.elementReference;
         const newPositionCalc = this.startPosition - event.x;
 
+        if (event.x < 0) return;
+
         const newWidth = Math.max(
           this.initialElementWidth + newPositionCalc,
           this._config.baseSizes.width

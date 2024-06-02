@@ -9,6 +9,7 @@ import {
 } from 'rxjs';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
+import { ElementsData } from '../../services/elements-data/elements-data.service';
 
 @Directive({
   selector: '.right',
@@ -24,6 +25,7 @@ export class PageResizeRightDirective implements OnInit {
 
   constructor(
     private readonly elementRef: ElementRef,
+    private readonly elementsData: ElementsData,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {
     this.mouseDownEvent$ = fromEvent<MouseEvent>(
@@ -49,6 +51,10 @@ export class PageResizeRightDirective implements OnInit {
       .subscribe((event) => {
         const element = this.element$.value;
         if (!element) return;
+
+        const boundaryWidth =
+          this.elementsData.draggingBoundaryElement$.value?.offsetWidth;
+        if (boundaryWidth && event.y > boundaryWidth) return;
 
         const newPositionCalc = event.x - this.startPosition;
         const newWidth = Math.max(
