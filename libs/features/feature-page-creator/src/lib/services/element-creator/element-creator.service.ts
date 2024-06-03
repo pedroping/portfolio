@@ -64,17 +64,37 @@ export class ElementCreatorService<T> {
     );
 
     changeDetectorRef.detectChanges();
-
     this.setZIndexService.setNewZIndex(id, instance.element);
-
     DomElementAdpter.setDisplay(instance.element, !!domElementOptions?.opened);
-    DomElementAdpter.setTransform(
-      instance.element,
-      config.customX || 0,
-      config.customY || 0
-    );
+    this.setCustomTransform(instance.element, pageConfig, elementReference);
     this.elementsData.pushElement(id, config.name, elementReference);
     elementReference.element$.next(instance.element);
+  }
+
+  setCustomTransform(
+    element: HTMLElement,
+    config: IPageConfig,
+    elementReference: IElement
+  ) {
+    const boundaryElement = this.elementsData.draggingBoundaryElement$.value;
+
+    if (!boundaryElement)
+      return DomElementAdpter.setTransform(
+        element,
+        config.customX || 0,
+        config.customY || 0
+      );
+
+    const height = boundaryElement.offsetHeight;
+    const width = boundaryElement.offsetWidth;
+    const elementHeight = element.offsetHeight;
+    const elementWidth = element.offsetWidth;
+
+    const maxY = Math.min(config.customY || 0, height - elementHeight);
+    const maxX = Math.min(config.customX || 0, width - elementWidth);
+
+    elementReference.lastPosition = { x: maxX, y: maxY };
+    DomElementAdpter.setTransform(element, maxX, maxY);
   }
 
   destroyElement(id: number) {
