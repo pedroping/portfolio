@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { MenuEventsService } from '@portifolio/features/feature-inital-menu';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
-import { merge, skip, switchMap, take } from 'rxjs';
+import { debounceTime, merge, skip, switchMap, take } from 'rxjs';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { EventsFacade } from '../../facedes/events-facades/events-facade.service';
 import { IPageConfig } from '../../models/elements-interfaces';
@@ -34,25 +34,13 @@ export class PageContentOverlayDirective implements AfterViewInit {
       this._config.elementReference.element$.pipe(take(2))
     ).subscribe(() => this.validateOverlay());
 
-    this._config.elementReference.element$
-      .pipe(
-        skip(1),
-        switchMap(() =>
-          merge(
-            this._config.elementReference.pageResizing$.asObservable(),
-            this._config.elementReference.pageMoving$.asObservable()
-          )
-        )
-      )
-      .subscribe(this.handleBoolean);
-
+    this.elementsFacede.anyElementEvent$$.subscribe(this.handleBoolean);
     this.menuEventsService.menuOpened$$.subscribe(this.handleBoolean);
   }
 
   validateOverlay() {
     const elementReference = this._config.elementReference;
     const element = elementReference.element$.value;
-    this.menuEventsService.setCloseMenu();
 
     if (!element) return;
 
@@ -89,8 +77,9 @@ export class PageContentOverlayDirective implements AfterViewInit {
       .find((result) => !!result);
   }
 
-  handleBoolean = (val: boolean) =>
-    val ? this.addOverlay() : this.removeOverlay();
+  handleBoolean = (val: boolean) => {
+    return val ? this.addOverlay() : this.removeOverlay();
+  };
 
   addOverlay() {
     const overlay = this.overlay()?.nativeElement;

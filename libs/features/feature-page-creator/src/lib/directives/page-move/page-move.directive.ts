@@ -26,6 +26,13 @@ export class PageMoveDirective implements OnInit {
     takeUntil(this.dragEnd$)
   );
 
+  touchMove$ = fromEvent<TouchEvent>(document, 'touchmove');
+  touchStart$ = fromEvent<TouchEvent>(
+    this.elementRef.nativeElement,
+    'touchstart'
+  );
+  touchEnd$ = fromEvent<TouchEvent>(document, 'touchend');
+
   constructor(
     private readonly elementRef: ElementRef,
     private readonly elementsFacede: ElementsFacede,
@@ -35,7 +42,8 @@ export class PageMoveDirective implements OnInit {
   ngOnInit(): void {
     this.currentX = this._config.customX || 0;
     this.currentY = this._config.customY || 0;
-    this.dragStart$.subscribe((event) => this.dragStart(event));
+    this.dragStart$.subscribe(this.dragStart.bind(this));
+    this.touchStart$.subscribe(this.touchStart.bind(this));
   }
 
   dragStart(event: MouseEvent) {
@@ -58,32 +66,66 @@ export class PageMoveDirective implements OnInit {
     this.initialX = event.clientX - elementReference.lastPosition.x || 0;
     this.initialY = event.clientY - elementReference.lastPosition.y || 0;
 
-    this.drag$.subscribe((event) =>
-      this.drag(event, element, maxBoundX, maxBoundY, elementReference)
-    );
+    this.drag$.subscribe((event) => {
+      this.drag(
+        event.clientX,
+        event.clientY,
+        element,
+        maxBoundX,
+        maxBoundY,
+        elementReference
+      );
+    });
+  }
 
-    this.dragEnd$.subscribe(() => elementReference.pageMoving$.next(false));
+  touchStart(event: TouchEvent) {
+    if (this.hasPrevent(event.target as HTMLElement)) return;
+
+    const elementReference = this._config.elementReference;
+    const element = elementReference.element$.value;
+
+    if (!element) return;
+
+    const draggingBoundaryElement =
+      this.elementsFacede.draggingBoundaryElement$.value;
+
+    if (!draggingBoundaryElement) return;
+
+    const touchX = event.touches[0].pageX;
+    const touchY = event.touches[0].pageY;
+    const maxBoundX = draggingBoundaryElement.offsetWidth - element.offsetWidth;
+    const maxBoundY =
+      draggingBoundaryElement.offsetHeight - element.offsetHeight;
+
+    this.initialX = touchX - elementReference.lastPosition.x || 0;
+    this.initialY = touchY - elementReference.lastPosition.y || 0;
+
+    this.touchMove$.subscribe((event) => {
+      event.preventDefault();
+      const X = event.touches[0].pageX;
+      const Y = event.touches[0].pageY;
+      this.drag(X, Y, element, maxBoundX, maxBoundY, elementReference);
+    });
   }
 
   drag(
-    event: MouseEvent,
+    x: number,
+    y: number,
     element: HTMLElement,
     maxBoundX: number,
     maxBoundY: number,
     elementReference: IElement
   ) {
-    event.preventDefault();
+    const newX = x - this.initialX;
+    const newY = y - this.initialY;
 
-    const x = event.clientX - this.initialX;
-    const y = event.clientY - this.initialY;
-
-    const maxPositionX = Math.min(x, maxBoundX);
-    const maxPositionY = Math.min(y, maxBoundY);
+    const maxPositionX = Math.min(newX, maxBoundX);
+    const maxPositionY = Math.min(newY, maxBoundY);
 
     this.currentX = Math.max(0, maxPositionX);
     this.currentY = Math.max(0, maxPositionY);
     elementReference.lastPosition = { x: this.currentX, y: this.currentY };
-    elementReference.pageMoving$.next(true);
+    this.elementsFacede.setAnyElementEvent(true);
     DomElementAdpter.removeTransition(element);
     DomElementAdpter.setTransform(element, this.currentX, this.currentY);
   }

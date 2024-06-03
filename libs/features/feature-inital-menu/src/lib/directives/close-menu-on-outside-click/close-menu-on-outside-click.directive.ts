@@ -6,7 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { fromEvent, skip } from 'rxjs';
+import { fromEvent, merge, skip } from 'rxjs';
 import { MenuEventsService } from '../../services/menu-events/menu-events.service';
 
 @Directive({
@@ -22,7 +22,7 @@ export class CloseMenuOnOutsideClickDirective implements OnInit {
 
   ngOnInit(): void {
     this.ngZone.runOutsideAngular(() => {
-      fromEvent(document, 'click')
+      merge(fromEvent(document, 'click'), fromEvent(document, 'mousedown'))
         .pipe(skip(1), takeUntilDestroyed(this.destroyRef))
         .subscribe((event: Event) => {
           const isOutTarget = this.isOutTarget(event.target as HTMLElement);

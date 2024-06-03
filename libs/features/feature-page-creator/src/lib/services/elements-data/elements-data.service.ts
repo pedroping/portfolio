@@ -7,6 +7,7 @@ export class ElementsData {
   elements$ = new BehaviorSubject<IElement[]>([]);
   basicElements$ = new BehaviorSubject<IBasicElement[]>([]);
   draggingBoundaryElement$ = new BehaviorSubject<HTMLElement | null>(null);
+  anyElementEvent$ = new BehaviorSubject<boolean>(false);
 
   setDraggingBoundaryElement(element: HTMLElement) {
     this.draggingBoundaryElement$.next(element.parentElement as HTMLElement);
@@ -48,7 +49,6 @@ export class ElementsData {
     openedElement.opened = true;
   }
 
-  
   hideElement(id: number) {
     const openedElement = this.basicElements$.value.find(
       (val) => val.id === id
@@ -64,5 +64,9 @@ export class ElementsData {
 
   findElementIndex(id: number) {
     return this.elements$.value.findIndex((item) => item.id == id);
+  }
+
+  setAnyElementEvent(val: boolean) {
+    this.anyElementEvent$.next(val);
   }
 }

@@ -1,6 +1,4 @@
 import { Directive, ElementRef, Inject, OnInit } from '@angular/core';
-import { CONFIG_TOKEN } from '../../models/elements-token';
-import { IPageConfig } from '../../models/elements-interfaces';
 import {
   BehaviorSubject,
   Observable,
@@ -10,6 +8,9 @@ import {
   takeUntil,
   tap,
 } from 'rxjs';
+import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
+import { IPageConfig } from '../../models/elements-interfaces';
+import { CONFIG_TOKEN } from '../../models/elements-token';
 import { ElementsData } from '../../services/elements-data/elements-data.service';
 
 @Directive({
@@ -27,6 +28,7 @@ export class PageResizeBottomDirective implements OnInit {
   constructor(
     private readonly elementRef: ElementRef,
     private readonly elementsData: ElementsData,
+    private readonly elementsFacede: ElementsFacede,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {
     this.mouseDownEvent$ = fromEvent<MouseEvent>(
@@ -64,11 +66,11 @@ export class PageResizeBottomDirective implements OnInit {
         );
 
         element.style.height = newHeight + 'px';
-        this._config.elementReference.pageResizing$.next(true);
+        this.elementsFacede.setAnyElementEvent(true);
       });
 
     this.mouseMoveEvent$
       .pipe(debounceTime(1000))
-      .subscribe(() => this._config.elementReference.pageResizing$.next(false));
+      .subscribe(() => this.elementsFacede.setAnyElementEvent(false));
   }
 }

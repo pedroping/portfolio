@@ -11,6 +11,7 @@ import {
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
+import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 
 @Directive({
   selector: '.left',
@@ -27,6 +28,7 @@ export class PageResizeLeftDirective implements OnInit {
 
   constructor(
     private readonly elementRef: ElementRef,
+    private readonly elementsFacede: ElementsFacede,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {
     this.mouseDownEvent$ = fromEvent<MouseEvent>(
@@ -72,11 +74,11 @@ export class PageResizeLeftDirective implements OnInit {
           elementReference.lastPosition.x,
           elementReference.lastPosition.y
         );
-        this._config.elementReference.pageResizing$.next(true);
+        this.elementsFacede.setAnyElementEvent(true);
       });
 
     this.mouseMoveEvent$
       .pipe(debounceTime(1000))
-      .subscribe(() => this._config.elementReference.pageResizing$.next(false));
+      .subscribe(() => this.elementsFacede.setAnyElementEvent(false));
   }
 }

@@ -30,8 +30,6 @@ export interface IElement extends IDomElementOptions {
     y: number;
   };
   element$: BehaviorSubject<HTMLElement | null>;
-  pageResizing$: BehaviorSubject<boolean>;
-  pageMoving$: BehaviorSubject<boolean>;
 }
 
 export interface IPageConfig extends IInitialConfig {

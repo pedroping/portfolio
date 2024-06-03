@@ -75,6 +75,10 @@ export class ElementsFacede<T = unknown> {
     return this.elementsData.isOnlyElementOpened(id);
   }
 
+  setAnyElementEvent(val: boolean) {
+    this.elementsData.setAnyElementEvent(val);
+  }
+
   get elements$() {
     return this.elementsData.elements$;
   }
@@ -85,5 +89,9 @@ export class ElementsFacede<T = unknown> {
 
   get draggingBoundaryElement$() {
     return this.elementsData.draggingBoundaryElement$;
+  }
+
+  get anyElementEvent$$() {
+    return this.elementsData.anyElementEvent$.asObservable();
   }
 }
