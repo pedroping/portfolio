@@ -10,6 +10,9 @@ export class UiLoginPageComponent {
   constructor(private readonly router: Router) {}
 
   login() {
+    const audio = new Audio('/assets/audios/videoplayback.m4a');
+    audio.load();
+    audio.play();
     this.router.navigate(['./home']);
   }
 }

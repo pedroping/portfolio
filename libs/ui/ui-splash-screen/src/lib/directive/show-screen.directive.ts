@@ -1,6 +1,6 @@
 import { Directive, OnInit, ViewContainerRef } from '@angular/core';
 import { BuildAnimation } from '@portifolio/utils/util-animations';
-import { switchMap, take, timer } from 'rxjs';
+import { take, timer } from 'rxjs';
 import { UiSplashScreenComponent } from '../components/ui-splash-screen/ui-splash-screen.component';
 
 @Directive({
@@ -24,18 +24,10 @@ export class ShowScreenDirective implements OnInit {
     );
 
     timer(5000)
-      .pipe(
-        take(1),
-        switchMap(() =>
-          this.buildAnimation.animate('leaveOpacity', location.nativeElement)
-        ),
-        take(1)
-      )
+      .pipe(take(1))
       .subscribe(() => {
         this.vcr.clear();
-        const audio = new Audio('/assets/audios/videoplayback.m4a');
-        audio.load();
-        audio.play();
+        this.buildAnimation.animate('leaveOpacity', location.nativeElement);
       });
   }
 }
