@@ -12,20 +12,19 @@ import {
   MinimizeComponent,
 } from '@portifolio/ui/ui-page-actions-buttons';
 import { PageCloseDirective } from '../directives/page-close/page-close.directive';
+import { PageContentOverlayDirective } from '../directives/page-content-overlay/page-content-overlay.directive';
 import { PageContentDirective } from '../directives/page-content/page-content.directive';
 import { PageMaximizeDirective } from '../directives/page-maximize/page-maximize.directive';
 import { PageMinimizeDirective } from '../directives/page-minimize/page-minimize.directive';
 import { PageMoveDirective } from '../directives/page-move/page-move.directive';
-import { PageResizeDirective } from '../directives/page-resize/page-resize.directive';
+import { PageResizeBottomDirective } from '../directives/page-resize-bottom/page-resize-bottom.directive';
+import { PageResizeLeftDirective } from '../directives/page-resize-left/page-resize-left.directive';
+import { PageResizeRightDirective } from '../directives/page-resize-right/page-resize-right.directive';
+import { PageResizeTopDirective } from '../directives/page-resize-top/page-resize-top.directive';
 import { PreventHandlerDirective } from '../directives/prevent-handler/prevent-handler.directive';
 import { SetZIndexDirective } from '../directives/set-zIndex/set-zIndex.directive';
 import { IPageComponent, IPageConfig } from '../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../models/elements-token';
-import { PageContentOverlayDirective } from '../directives/page-content-overlay/page-content-overlay.directive';
-import { PageResizeRightDirective } from '../directives/page-resize-right/page-resize-right.directive';
-import { PageResizeBottomDirective } from '../directives/page-resize-bottom/page-resize-bottom.directive';
-import { PageResizeLeftDirective } from '../directives/page-resize-left/page-resize-left.directive';
-import { PageResizeTopDirective } from '../directives/page-resize-top/page-resize-top.directive';
 @Component({
   selector: 'feature-page',
   templateUrl: './page.component.html',
@@ -55,7 +54,7 @@ import { PageResizeTopDirective } from '../directives/page-resize-top/page-resiz
     '[style.minWidth]': 'width()',
     '[style.minHeight]': 'height()',
   },
-  hostDirectives: [SetZIndexDirective, PageResizeDirective],
+  hostDirectives: [SetZIndexDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PageComponent implements IPageComponent, OnInit {

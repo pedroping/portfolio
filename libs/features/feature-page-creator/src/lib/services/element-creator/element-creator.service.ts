@@ -75,7 +75,6 @@ export class ElementCreatorService<T> {
     );
     this.elementsData.pushElement(id, config.name, elementReference);
     elementReference.element$.next(instance.element);
-    elementReference.preventObservers$.next(false);
   }
 
   destroyElement(id: number) {
@@ -102,7 +101,6 @@ export class ElementCreatorService<T> {
       isFullScreen: !!domElementOptions?.isFullScreen,
       pageMoving$: new BehaviorSubject<boolean>(false),
       pageResizing$: new BehaviorSubject<boolean>(false),
-      preventObservers$: new BehaviorSubject<boolean>(true),
     };
   }
 

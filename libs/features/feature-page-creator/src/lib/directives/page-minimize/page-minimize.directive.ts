@@ -40,8 +40,6 @@ export class PageMinimizeDirective implements OnInit {
     elementReference.opened = false;
     this.elementsFacede.hideElement(elementReference.id);
 
-    elementReference.preventObservers$.next(true);
-
     DomElementAdpter.setOnlyTransformTransition(element, 5);
     DomElementAdpter.setTransform(
       element,
@@ -59,7 +57,6 @@ export class PageMinimizeDirective implements OnInit {
       )
       .subscribe(() => {
         elementReference.isFullScreen = isFullScreen;
-        elementReference.preventObservers$.next(false);
       });
   }
 }

@@ -4,6 +4,7 @@ import { IPageConfig } from '../../models/elements-interfaces';
 import {
   BehaviorSubject,
   Observable,
+  debounceTime,
   fromEvent,
   switchMap,
   takeUntil,
@@ -63,13 +64,11 @@ export class PageResizeBottomDirective implements OnInit {
         );
 
         element.style.height = newHeight + 'px';
+        this._config.elementReference.pageResizing$.next(true);
       });
 
-    this.mouseDownEvent$.subscribe(() =>
-      this._config.elementReference.pageResizing$.next(true)
-    );
-    this.mouseUpEvent$.subscribe(() =>
-      this._config.elementReference.pageResizing$.next(false)
-    );
+    this.mouseMoveEvent$
+      .pipe(debounceTime(1000))
+      .subscribe(() => this._config.elementReference.pageResizing$.next(false));
   }
 }

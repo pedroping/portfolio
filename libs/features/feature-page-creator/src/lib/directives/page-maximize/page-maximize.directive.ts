@@ -127,9 +127,7 @@ export class PageMaximizeDirective implements OnInit {
     height: number | string,
     transform: string
   ) {
-    const elementReference = this._config.elementReference;
     DomElementAdpter.setTransition(element);
-    elementReference.preventObservers$.next(true);
 
     element.style.width = width + 'px';
     element.style.height = height + 'px';
@@ -138,7 +136,6 @@ export class PageMaximizeDirective implements OnInit {
 
     DomElementAdpter.afterTransitions(element).subscribe(() => {
       DomElementAdpter.removeTransition(element);
-      elementReference.preventObservers$.next(false);
     });
   }
 

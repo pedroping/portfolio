@@ -2,6 +2,7 @@ import { Directive, ElementRef, Inject, OnInit } from '@angular/core';
 import {
   BehaviorSubject,
   Observable,
+  debounceTime,
   fromEvent,
   switchMap,
   takeUntil,
@@ -71,13 +72,11 @@ export class PageResizeLeftDirective implements OnInit {
           elementReference.lastPosition.x,
           elementReference.lastPosition.y
         );
+        this._config.elementReference.pageResizing$.next(true);
       });
 
-    this.mouseDownEvent$.subscribe(() =>
-      this._config.elementReference.pageResizing$.next(true)
-    );
-    this.mouseUpEvent$.subscribe(() =>
-      this._config.elementReference.pageResizing$.next(false)
-    );
+    this.mouseMoveEvent$
+      .pipe(debounceTime(1000))
+      .subscribe(() => this._config.elementReference.pageResizing$.next(false));
   }
 }

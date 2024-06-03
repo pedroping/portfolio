@@ -30,7 +30,6 @@ export interface IElement extends IDomElementOptions {
     y: number;
   };
   element$: BehaviorSubject<HTMLElement | null>;
-  preventObservers$: BehaviorSubject<boolean>;
   pageResizing$: BehaviorSubject<boolean>;
   pageMoving$: BehaviorSubject<boolean>;
 }
