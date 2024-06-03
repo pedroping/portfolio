@@ -50,7 +50,7 @@ export class PageResizeBottomDirective implements OnInit {
       )
       .subscribe((event) => {
         const element = this.element$.value;
-        if (!element) return;
+        if (!element || event.buttons !== 1) return;
 
         const boundaryHeight =
           this.elementsData.draggingBoundaryElement$.value?.offsetHeight;

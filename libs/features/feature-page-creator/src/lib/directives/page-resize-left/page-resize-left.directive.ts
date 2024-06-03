@@ -51,7 +51,7 @@ export class PageResizeLeftDirective implements OnInit {
       )
       .subscribe((event) => {
         const element = this.element$.value;
-        if (!element) return;
+        if (!element || event.buttons !== 1) return;
 
         const elementReference = this._config.elementReference;
         const newPositionCalc = this.startPosition - event.x;

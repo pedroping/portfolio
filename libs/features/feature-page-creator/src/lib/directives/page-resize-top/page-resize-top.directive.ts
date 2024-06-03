@@ -51,7 +51,7 @@ export class PageResizeTopDirective implements OnInit {
       )
       .subscribe((event) => {
         const element = this.element$.value;
-        if (!element) return;
+        if (!element || event.buttons !== 1) return;
         if (event.y < 0) return;
 
         const elementReference = this._config.elementReference;

@@ -50,7 +50,7 @@ export class PageResizeRightDirective implements OnInit {
       )
       .subscribe((event) => {
         const element = this.element$.value;
-        if (!element) return;
+        if (!element || event.buttons !== 1) return;
 
         const boundaryWidth =
           this.elementsData.draggingBoundaryElement$.value?.offsetWidth;
