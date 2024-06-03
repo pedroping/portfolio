@@ -11,9 +11,8 @@ describe('UiLoginPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UiLoginPageComponent ]
-    })
-    .compileComponents();
+      declarations: [UiLoginPageComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

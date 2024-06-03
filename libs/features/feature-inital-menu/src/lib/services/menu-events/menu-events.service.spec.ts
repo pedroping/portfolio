@@ -6,7 +6,7 @@ import { MenuEventsService } from './menu-events.service';
 describe('Service: MenuEvents', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [MenuEventsService]
+      providers: [MenuEventsService],
     });
   });
 

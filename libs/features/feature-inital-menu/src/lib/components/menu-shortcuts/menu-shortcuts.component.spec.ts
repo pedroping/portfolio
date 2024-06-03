@@ -11,9 +11,8 @@ describe('MenuShortcutsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MenuShortcutsComponent ]
-    })
-    .compileComponents();
+      declarations: [MenuShortcutsComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -11,9 +11,8 @@ describe('MenuFavoritesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MenuFavoritesComponent ]
-    })
-    .compileComponents();
+      declarations: [MenuFavoritesComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

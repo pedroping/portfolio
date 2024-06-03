@@ -9,9 +9,8 @@ describe('UiSplashScreenComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UiSplashScreenComponent ]
-    })
-    .compileComponents();
+      declarations: [UiSplashScreenComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

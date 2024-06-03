@@ -11,9 +11,8 @@ describe('MenuFooterActionsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MenuFooterActionsComponent ]
-    })
-    .compileComponents();
+      declarations: [MenuFooterActionsComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

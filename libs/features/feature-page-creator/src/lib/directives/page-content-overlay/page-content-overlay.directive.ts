@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { MenuEventsService } from '@portifolio/features/feature-inital-menu';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
-import { debounceTime, merge, skip, switchMap, take } from 'rxjs';
+import { merge, take } from 'rxjs';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { EventsFacade } from '../../facedes/events-facades/events-facade.service';
 import { IPageConfig } from '../../models/elements-interfaces';
