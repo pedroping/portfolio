@@ -64,11 +64,11 @@ export class ElementCreatorService<T> {
     );
 
     changeDetectorRef.detectChanges();
-    this.setZIndexService.setNewZIndex(id, instance.element);
     DomElementAdpter.setDisplay(instance.element, !!domElementOptions?.opened);
     this.setCustomTransform(instance.element, pageConfig, elementReference);
     this.elementsData.pushElement(id, config.name, elementReference);
     elementReference.element$.next(instance.element);
+    this.setZIndexService.setNewZIndex(id, instance.element);
   }
 
   setCustomTransform(

@@ -4,7 +4,7 @@ import {
   ElementsFacede,
   PageParentDirective,
 } from '@portifolio/features/feature-page-creator';
-import { PAGE_01, PAGE_02 } from 'src/app/mocks/page-mocks';
+import { PAGE_01, PAGE_02, PAGE_03 } from 'src/app/mocks/page-mocks';
 @Component({
   selector: 'workspace-page',
   templateUrl: './workspace-page.component.html',
@@ -16,7 +16,8 @@ export class WorkspacePageComponent implements AfterViewInit {
   constructor(private readonly elementsFacede: ElementsFacede) {}
 
   ngAfterViewInit(): void {
-    this.elementsFacede.createElement({}, PAGE_01.config, PAGE_01.domConfig);
     this.elementsFacede.createElement({}, PAGE_02.config, PAGE_02.domConfig);
+    this.elementsFacede.createElement({}, PAGE_03.config, PAGE_03.domConfig);
+    this.elementsFacede.createElement({}, PAGE_01.config, PAGE_01.domConfig);
   }
 }

@@ -31,3 +31,16 @@ export const PAGE_02: IMocks = {
     opened: true,
   },
 };
+
+export const PAGE_03: IMocks = {
+  config: {
+    name: 'Pagina3',
+    baseSizes: { width: window.innerWidth / 2, height: window.innerHeight / 2 },
+    customX: window.innerWidth / 2,
+    customY: window.innerHeight / 2,
+    pageContent: TestPageComponent,
+  },
+  domConfig: {
+    opened: true,
+  },
+};
