@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { MenuEventsService } from '@portifolio/features/feature-inital-menu';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
-import { merge, take } from 'rxjs';
+import { fromEvent, merge, take } from 'rxjs';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { EventsFacade } from '../../facedes/events-facades/events-facade.service';
 import { IPageConfig } from '../../models/elements-interfaces';
@@ -28,7 +28,10 @@ export class PageContentOverlayDirective implements AfterViewInit {
   ) {}
 
   ngAfterViewInit(): void {
+    const mouseLeaveEvent$ = fromEvent(document, 'mouseleave');
+
     merge(
+      mouseLeaveEvent$,
       this.eventsFacade.changeZIndex$$,
       this.elementsFacede.elements$.asObservable(),
       this._config.elementReference.element$.pipe(take(2))
@@ -72,6 +75,7 @@ export class PageContentOverlayDirective implements AfterViewInit {
       .map(
         (item) =>
           item.element$.value &&
+          +item.element$.value.style.zIndex > +element.style.zIndex &&
           !!DomElementAdpter.elementAboveOther(item.element$.value, element)
       )
       .find((result) => !!result);
