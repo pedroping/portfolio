@@ -2,16 +2,15 @@ import { Directive, ElementRef, Inject, OnInit } from '@angular/core';
 import {
   BehaviorSubject,
   Observable,
-  debounceTime,
   fromEvent,
   switchMap,
   takeUntil,
-  tap,
+  tap
 } from 'rxjs';
+import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
 import { ElementsData } from '../../services/elements-data/elements-data.service';
-import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 
 @Directive({
   selector: '.right',
@@ -68,9 +67,5 @@ export class PageResizeRightDirective implements OnInit {
         element.style.width = newWidth + 'px';
         this.elementsFacede.setAnyElementEvent(true);
       });
-
-    this.mouseMoveEvent$
-      .pipe(debounceTime(1000))
-      .subscribe(() => this.elementsFacede.setAnyElementEvent(false));
   }
 }

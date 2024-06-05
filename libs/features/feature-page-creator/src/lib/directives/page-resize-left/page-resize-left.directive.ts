@@ -1,17 +1,16 @@
 import { Directive, ElementRef, Inject, OnInit } from '@angular/core';
+import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import {
   BehaviorSubject,
   Observable,
-  debounceTime,
   fromEvent,
   switchMap,
   takeUntil,
-  tap,
+  tap
 } from 'rxjs';
+import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
-import { DomElementAdpter } from '@portifolio/utils/util-adpters';
-import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 
 @Directive({
   selector: '.left',
@@ -76,9 +75,5 @@ export class PageResizeLeftDirective implements OnInit {
         );
         this.elementsFacede.setAnyElementEvent(true);
       });
-
-    this.mouseMoveEvent$
-      .pipe(debounceTime(1000))
-      .subscribe(() => this.elementsFacede.setAnyElementEvent(false));
   }
 }
