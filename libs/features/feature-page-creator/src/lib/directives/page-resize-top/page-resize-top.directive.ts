@@ -6,7 +6,7 @@ import {
   fromEvent,
   switchMap,
   takeUntil,
-  tap
+  tap,
 } from 'rxjs';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { IPageConfig } from '../../models/elements-interfaces';
@@ -20,6 +20,10 @@ export class PageResizeTopDirective implements OnInit {
   mouseDownEvent$: Observable<MouseEvent>;
   mouseMoveEvent$: Observable<MouseEvent>;
   mouseUpEvent$: Observable<MouseEvent>;
+  touchStart$: Observable<TouchEvent>;
+  touchMove$: Observable<TouchEvent>;
+  touchEnd$: Observable<TouchEvent>;
+
   element$: BehaviorSubject<HTMLElement | null>;
   startPosition = 0;
   initialElementWidth = 0;
@@ -37,6 +41,14 @@ export class PageResizeTopDirective implements OnInit {
     this.mouseMoveEvent$ = fromEvent<MouseEvent>(document, 'mousemove');
     this.mouseUpEvent$ = fromEvent<MouseEvent>(document, 'mouseup');
     this.element$ = this._config.elementReference.element$;
+    this.touchEnd$ = fromEvent<TouchEvent>(document, 'touchend');
+    this.touchMove$ = fromEvent<TouchEvent>(document, 'touchmove').pipe(
+      takeUntil(this.touchEnd$)
+    );
+    this.touchStart$ = fromEvent<TouchEvent>(
+      this.elementRef.nativeElement,
+      'touchstart'
+    );
   }
 
   ngOnInit(): void {
@@ -54,25 +66,45 @@ export class PageResizeTopDirective implements OnInit {
       .subscribe((event) => {
         const element = this.element$.value;
         if (!element || event.buttons !== 1) return;
-        if (event.y < 0) return;
-
-        const elementReference = this._config.elementReference;
-        const newPositionCalc = this.startPosition - event.y;
-
-        const newWidth = Math.max(
-          this.initialElementWidth + newPositionCalc,
-          this._config.baseSizes.height
-        );
-
-        elementReference.lastPosition.y =
-          this.initialYPosition - Math.max(newPositionCalc, 0);
-        element.style.height = newWidth + 'px';
-        DomElementAdpter.setTransform(
-          element,
-          elementReference.lastPosition.x,
-          elementReference.lastPosition.y
-        );
-        this.elementsFacede.setAnyElementEvent(true);
+        this.resizeElement(event.y, element);
       });
+
+    this.touchStart$
+      .pipe(
+        tap((event) => {
+          this.startPosition = event.touches[0].pageY;
+          this.initialYPosition = this._config.elementReference.lastPosition.y;
+          this.initialElementWidth = this.element$.value?.offsetHeight ?? 0;
+        }),
+        switchMap(() => this.touchMove$.pipe(takeUntil(this.touchEnd$)))
+      )
+      .subscribe((event) => {
+        const element = this.element$.value;
+        if (!element) return;
+
+        this.resizeElement(event.touches[0].pageY, element);
+      });
+  }
+
+  resizeElement(y: number, element: HTMLElement) {
+    if (y < 0) return;
+
+    const elementReference = this._config.elementReference;
+    const newPositionCalc = this.startPosition - y;
+
+    const newWidth = Math.max(
+      this.initialElementWidth + newPositionCalc,
+      this._config.baseSizes.height
+    );
+
+    elementReference.lastPosition.y =
+      this.initialYPosition - Math.max(newPositionCalc, 0);
+    element.style.height = newWidth + 'px';
+    DomElementAdpter.setTransform(
+      element,
+      elementReference.lastPosition.x,
+      elementReference.lastPosition.y
+    );
+    this.elementsFacede.setAnyElementEvent(true);
   }
 }

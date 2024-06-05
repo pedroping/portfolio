@@ -3,6 +3,7 @@ import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import { IElement } from '../../models/elements-interfaces';
 import { ElementsData } from '../elements-data/elements-data.service';
 import { SetZIndexService } from '../set-z-index/set-z-index.service';
+import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
 
 @Injectable({ providedIn: 'root' })
 export class PageActionsService {
@@ -81,7 +82,11 @@ export class PageActionsService {
     this.setZIndexService.setNewZIndex(elementReference.id, element);
 
     if (elementReference.isFullScreen) {
-      DomElementAdpter.setTransform(element, 0, 0);
+      DomElementAdpter.setTransform(
+        element,
+        -ELEMENT_PADDING,
+        -ELEMENT_PADDING
+      );
       return;
     }
 

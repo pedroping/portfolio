@@ -4,6 +4,7 @@ import { fromEvent, takeUntil } from 'rxjs';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { IElement, IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
+import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
 
 @Directive({
   selector: '[pageMove]',
@@ -26,12 +27,14 @@ export class PageMoveDirective implements OnInit {
     takeUntil(this.dragEnd$)
   );
 
-  touchMove$ = fromEvent<TouchEvent>(document, 'touchmove');
+  touchEnd$ = fromEvent<TouchEvent>(document, 'touchend');
+  touchMove$ = fromEvent<TouchEvent>(document, 'touchmove').pipe(
+    takeUntil(this.touchEnd$)
+  );
   touchStart$ = fromEvent<TouchEvent>(
     this.elementRef.nativeElement,
     'touchstart'
   );
-  touchEnd$ = fromEvent<TouchEvent>(document, 'touchend');
 
   constructor(
     private readonly elementRef: ElementRef,
@@ -59,9 +62,14 @@ export class PageMoveDirective implements OnInit {
 
     if (!draggingBoundaryElement) return;
 
-    const maxBoundX = draggingBoundaryElement.offsetWidth - element.offsetWidth;
+    const maxBoundX =
+      draggingBoundaryElement.offsetWidth +
+      ELEMENT_PADDING -
+      element.offsetWidth;
     const maxBoundY =
-      draggingBoundaryElement.offsetHeight - element.offsetHeight;
+      draggingBoundaryElement.offsetHeight +
+      ELEMENT_PADDING -
+      element.offsetHeight;
 
     this.initialX = event.clientX - elementReference.lastPosition.x || 0;
     this.initialY = event.clientY - elementReference.lastPosition.y || 0;
@@ -93,15 +101,19 @@ export class PageMoveDirective implements OnInit {
 
     const touchX = event.touches[0].pageX;
     const touchY = event.touches[0].pageY;
-    const maxBoundX = draggingBoundaryElement.offsetWidth - element.offsetWidth;
+    const maxBoundX =
+      draggingBoundaryElement.offsetWidth +
+      ELEMENT_PADDING -
+      element.offsetWidth;
     const maxBoundY =
-      draggingBoundaryElement.offsetHeight - element.offsetHeight;
+      draggingBoundaryElement.offsetHeight +
+      ELEMENT_PADDING -
+      element.offsetHeight;
 
     this.initialX = touchX - elementReference.lastPosition.x || 0;
     this.initialY = touchY - elementReference.lastPosition.y || 0;
 
     this.touchMove$.subscribe((event) => {
-      event.preventDefault();
       const X = event.touches[0].pageX;
       const Y = event.touches[0].pageY;
       this.drag(X, Y, element, maxBoundX, maxBoundY, elementReference);
@@ -116,14 +128,16 @@ export class PageMoveDirective implements OnInit {
     maxBoundY: number,
     elementReference: IElement
   ) {
+    if (elementReference.isFullScreen) return;
+
     const newX = x - this.initialX;
     const newY = y - this.initialY;
 
     const maxPositionX = Math.min(newX, maxBoundX);
     const maxPositionY = Math.min(newY, maxBoundY);
 
-    this.currentX = Math.max(0, maxPositionX);
-    this.currentY = Math.max(0, maxPositionY);
+    this.currentX = Math.max(-ELEMENT_PADDING, maxPositionX);
+    this.currentY = Math.max(-ELEMENT_PADDING, maxPositionY);
     elementReference.lastPosition = { x: this.currentX, y: this.currentY };
     this.elementsFacede.setAnyElementEvent(true);
     DomElementAdpter.removeTransition(element);

@@ -5,6 +5,7 @@ import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { OBSERVE_CONFIG } from '../../mocks/observerConfig-mocks';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
+import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
 
 @Directive({
   selector: '[pageMaximize]',
@@ -98,17 +99,22 @@ export class PageMaximizeDirective implements OnInit {
     if (!boundaryElement) return;
 
     if (
-      this.currentWidth == boundaryElement.offsetWidth &&
-      this.currentHeight == boundaryElement.offsetHeight &&
+      this.currentWidth == boundaryElement.offsetWidth + ELEMENT_PADDING * 2 &&
+      this.currentHeight ==
+        boundaryElement.offsetHeight + ELEMENT_PADDING * 2 &&
       hasToSet
     )
       return this.setBaseScreenSize(element);
 
     const transform = hasToSet
-      ? DomElementAdpter.getTranslate3d(0, 0)
+      ? DomElementAdpter.getTranslate3d(-ELEMENT_PADDING, -ELEMENT_PADDING)
       : this.lastTranslet3d;
-    const width = hasToSet ? boundaryElement.offsetWidth : this.currentWidth;
-    const height = hasToSet ? boundaryElement.offsetHeight : this.currentHeight;
+    const width = hasToSet
+      ? boundaryElement.offsetWidth + ELEMENT_PADDING * 2
+      : this.currentWidth;
+    const height = hasToSet
+      ? boundaryElement.offsetHeight + ELEMENT_PADDING * 2
+      : this.currentHeight;
 
     this.setPropierties(element, width, height, transform);
   }
@@ -145,8 +151,10 @@ export class PageMaximizeDirective implements OnInit {
     if (!element) return;
 
     const baseSizes = this._config.baseSizes;
-    this.currentWidth = element.offsetWidth || baseSizes.width;
-    this.currentHeight = element.offsetHeight || baseSizes.height;
+    this.currentWidth =
+      element.offsetWidth + ELEMENT_PADDING * 2 || baseSizes.width;
+    this.currentHeight =
+      element.offsetHeight + ELEMENT_PADDING * 2 || baseSizes.height;
     this.lastTranslet3d = element.style.transform;
   }
 }

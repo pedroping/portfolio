@@ -15,6 +15,7 @@ export class SetZIndexDirective {
 
   @HostListener('click')
   @HostListener('mousedown')
+  @HostListener('touchstart')
   onEvent() {
     const elementReference = this._config.elementReference;
 
