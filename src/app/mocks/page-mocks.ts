@@ -22,7 +22,10 @@ export const PAGE_01: IMocks = {
 export const PAGE_02: IMocks = {
   config: {
     name: 'Pagina2',
-    baseSizes: { width: window.innerWidth / 2, height: window.innerHeight / 2 },
+    baseSizes: {
+      width: window.innerWidth / 2 + 20,
+      height: window.innerHeight / 2 + 20,
+    },
     customX: 100,
     customY: 150,
     pageContent: TestPageComponent,
@@ -35,7 +38,10 @@ export const PAGE_02: IMocks = {
 export const PAGE_03: IMocks = {
   config: {
     name: 'Pagina3',
-    baseSizes: { width: window.innerWidth / 2, height: window.innerHeight / 2 },
+    baseSizes: {
+      width: window.innerWidth / 2 + 20,
+      height: window.innerHeight / 2 + 20,
+    },
     customX: window.innerWidth / 2,
     customY: window.innerHeight / 2,
     pageContent: TestPageComponent,

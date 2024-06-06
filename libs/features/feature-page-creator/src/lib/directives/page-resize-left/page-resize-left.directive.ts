@@ -87,6 +87,7 @@ export class PageResizeLeftDirective implements OnInit {
   }
 
   resizeElement(x: number, element: HTMLElement) {
+    if (this._config.elementReference.isFullScreen) return;
     const elementReference = this._config.elementReference;
     const newPositionCalc = this.startPosition - x;
 

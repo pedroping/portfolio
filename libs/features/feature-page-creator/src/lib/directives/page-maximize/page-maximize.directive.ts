@@ -116,6 +116,8 @@ export class PageMaximizeDirective implements OnInit {
       ? boundaryElement.offsetHeight + ELEMENT_PADDING * 2
       : this.currentHeight;
 
+    element.classList[hasToSet ? 'add' : 'remove']('onFullSrcreen');
+
     this.setPropierties(element, width, height, transform);
   }
 

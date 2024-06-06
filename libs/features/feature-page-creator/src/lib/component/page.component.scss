@@ -93,4 +93,10 @@
       cursor: w-resize;
     }
   }
+
+  &.onFullSrcreen {
+    .resize {
+      cursor: default !important;
+    }
+  }
 }

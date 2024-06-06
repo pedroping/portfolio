@@ -87,6 +87,7 @@ export class PageResizeTopDirective implements OnInit {
   }
 
   resizeElement(y: number, element: HTMLElement) {
+    if(this._config.elementReference.isFullScreen) return;
     if (y < 0) return;
 
     const elementReference = this._config.elementReference;
