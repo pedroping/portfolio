@@ -11,6 +11,7 @@ import {
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
+import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
 
 @Directive({
   selector: '.top',
@@ -87,8 +88,7 @@ export class PageResizeTopDirective implements OnInit {
   }
 
   resizeElement(y: number, element: HTMLElement) {
-    if(this._config.elementReference.isFullScreen) return;
-    if (y < 0) return;
+    if (this._config.elementReference.isFullScreen) return;
 
     const elementReference = this._config.elementReference;
     const newPositionCalc = this.startPosition - y;
@@ -103,8 +103,8 @@ export class PageResizeTopDirective implements OnInit {
     element.style.height = newWidth + 'px';
     DomElementAdpter.setTransform(
       element,
-      elementReference.lastPosition.x,
-      elementReference.lastPosition.y
+      Math.max(elementReference.lastPosition.x, -ELEMENT_PADDING),
+      Math.max(elementReference.lastPosition.y, -ELEMENT_PADDING)
     );
     this.elementsFacede.setAnyElementEvent(true);
   }
