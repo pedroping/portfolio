@@ -86,8 +86,8 @@ export class PageResizeBottomDirective implements OnInit {
   }
 
   resizeElement(y: number, element: HTMLElement) {
-    if(this._config.elementReference.isFullScreen) return;
-    
+    if (this._config.elementReference.isFullScreen) return;
+
     const boundaryHeight =
       this.elementsData.draggingBoundaryElement$.value?.offsetHeight;
     if (boundaryHeight && y > boundaryHeight) return;

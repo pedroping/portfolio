@@ -93,14 +93,17 @@ export class PageResizeTopDirective implements OnInit {
     const elementReference = this._config.elementReference;
     const newPositionCalc = this.startPosition - y;
 
-    const newWidth = Math.max(
+    if (y < 0) return;
+
+    const newHeight = Math.max(
       this.initialElementWidth + newPositionCalc,
       this._config.baseSizes.height
     );
+    element.style.height = newHeight + 'px';
 
-    elementReference.lastPosition.y =
-      this.initialYPosition - Math.max(newPositionCalc, 0);
-    element.style.height = newWidth + 'px';
+    if (newHeight === this._config.baseSizes.height) return;
+
+    elementReference.lastPosition.y = this.initialYPosition - newPositionCalc;
     DomElementAdpter.setTransform(
       element,
       Math.max(elementReference.lastPosition.x, -ELEMENT_PADDING),

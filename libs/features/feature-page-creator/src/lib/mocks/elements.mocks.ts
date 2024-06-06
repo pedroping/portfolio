@@ -1,1 +1,1 @@
-export const ELEMENT_PADDING = 10;
+export const ELEMENT_PADDING = 2;

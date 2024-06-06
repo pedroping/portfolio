@@ -8,6 +8,7 @@ import {
   tap,
 } from 'rxjs';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
+import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
 import { ElementsData } from '../../services/elements-data/elements-data.service';
@@ -86,12 +87,13 @@ export class PageResizeRightDirective implements OnInit {
   }
 
   resizeElement(x: number, element: HTMLElement) {
-    if(this._config.elementReference.isFullScreen) return;
+    if (this._config.elementReference.isFullScreen) return;
     const boundaryWidth =
       this.elementsData.draggingBoundaryElement$.value?.offsetWidth;
-    if (boundaryWidth && x > boundaryWidth) return;
+    if (boundaryWidth && x > boundaryWidth - ELEMENT_PADDING) return;
 
     const newPositionCalc = x - this.startPosition;
+
     const newWidth = Math.max(
       this.initialElementWidth + newPositionCalc,
       this._config.baseSizes.width

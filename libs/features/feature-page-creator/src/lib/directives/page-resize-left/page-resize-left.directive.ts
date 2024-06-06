@@ -98,16 +98,16 @@ export class PageResizeLeftDirective implements OnInit {
       this.initialElementWidth + newPositionCalc,
       this._config.baseSizes.width
     );
-
-    elementReference.lastPosition.x =
-      this.initialXPosition - Math.max(newPositionCalc, 0);
     element.style.width = newWidth + 'px';
 
+    this.elementsFacede.setAnyElementEvent(true);
+    if (newWidth === this._config.baseSizes.width) return;
+
+    elementReference.lastPosition.x = this.initialXPosition - newPositionCalc;
     DomElementAdpter.setTransform(
       element,
       Math.max(elementReference.lastPosition.x, -ELEMENT_PADDING),
       Math.max(elementReference.lastPosition.y, -ELEMENT_PADDING)
     );
-    this.elementsFacede.setAnyElementEvent(true);
   }
 }
