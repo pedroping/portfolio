@@ -11,6 +11,7 @@ import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
 import { ElementsData } from '../../services/elements-data/elements-data.service';
+import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
 
 @Directive({
   selector: '.bottom',
@@ -90,7 +91,8 @@ export class PageResizeBottomDirective implements OnInit {
 
     const boundaryHeight =
       this.elementsData.draggingBoundaryElement$.value?.offsetHeight;
-    if (boundaryHeight && y > boundaryHeight) return;
+
+    if (boundaryHeight && y > boundaryHeight - ELEMENT_PADDING * 4) return;
 
     const newPositionCalc = y - this.startPosition;
     const newHeight = Math.max(

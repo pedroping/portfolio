@@ -102,13 +102,11 @@ export class PageMoveDirective implements OnInit {
     const touchX = event.touches[0].pageX;
     const touchY = event.touches[0].pageY;
     const maxBoundX =
-      draggingBoundaryElement.offsetWidth +
+      draggingBoundaryElement.offsetWidth -
       ELEMENT_PADDING -
       element.offsetWidth;
     const maxBoundY =
-      draggingBoundaryElement.offsetHeight +
-      ELEMENT_PADDING -
-      element.offsetHeight;
+      draggingBoundaryElement.offsetHeight - element.offsetHeight;
 
     this.initialX = touchX - elementReference.lastPosition.x || 0;
     this.initialY = touchY - elementReference.lastPosition.y || 0;
