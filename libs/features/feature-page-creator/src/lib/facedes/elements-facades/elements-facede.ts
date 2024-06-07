@@ -79,6 +79,12 @@ export class ElementsFacede<T = unknown> {
     this.elementsData.setAnyElementEvent(val);
   }
 
+  clearAll() {
+    this.elementCreatorService.clearData();
+    this.elementsData.clearData();
+    this.setZIndexService.clearData();
+  }
+
   get elements$() {
     return this.elementsData.elements$;
   }

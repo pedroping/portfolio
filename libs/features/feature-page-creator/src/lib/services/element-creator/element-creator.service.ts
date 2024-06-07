@@ -131,4 +131,8 @@ export class ElementCreatorService<T> {
       parent: this.injector,
     });
   }
+
+  clearData() {
+    this.vcr.clear();
+  }
 }

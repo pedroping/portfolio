@@ -37,4 +37,8 @@ export class SetZIndexService {
   isBiggestElement(id: string | number) {
     return this.biggestElementId === id;
   }
+
+  clearData() {
+    this.biggestElementId = undefined;
+  }
 }

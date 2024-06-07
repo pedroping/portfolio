@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { UiLoginPageComponent } from '@portifolio/ui/ui-login-page';
 import { ShowScreenDirective } from '@portifolio/ui/ui-splash-screen';
 @Component({
@@ -9,7 +10,12 @@ import { ShowScreenDirective } from '@portifolio/ui/ui-splash-screen';
   imports: [UiLoginPageComponent, ShowScreenDirective],
 })
 export class LoginPageComponent implements OnInit {
-  constructor() {}
+  hideSplashScreen = signal<boolean>(true);
+  constructor(private readonly route: ActivatedRoute) {}
 
-  ngOnInit() {}
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      this.hideSplashScreen.set(!!params['noSplash']);
+    });
+  }
 }

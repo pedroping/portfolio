@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 import { InitialMenuCreatorDirective } from '@portifolio/features/feature-inital-menu';
 import {
   ElementsFacede,
@@ -12,12 +12,16 @@ import { PAGE_01, PAGE_02, PAGE_03 } from 'src/app/mocks/page-mocks';
   standalone: true,
   imports: [PageParentDirective, InitialMenuCreatorDirective],
 })
-export class WorkspacePageComponent implements AfterViewInit {
+export class WorkspacePageComponent implements AfterViewInit, OnDestroy {
   constructor(private readonly elementsFacede: ElementsFacede) {}
 
   ngAfterViewInit(): void {
     this.elementsFacede.createElement({}, PAGE_02.config, PAGE_02.domConfig);
     this.elementsFacede.createElement({}, PAGE_03.config, PAGE_03.domConfig);
     this.elementsFacede.createElement({}, PAGE_01.config, PAGE_01.domConfig);
+  }
+
+  ngOnDestroy(): void {
+    this.elementsFacede.clearAll();
   }
 }

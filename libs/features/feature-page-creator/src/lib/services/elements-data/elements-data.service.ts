@@ -69,4 +69,10 @@ export class ElementsData {
   setAnyElementEvent(val: boolean) {
     this.anyElementEvent$.next(val);
   }
+
+  clearData() {
+    this.elements$.next([]);
+    this.basicElements$.next([]);
+    this.anyElementEvent$.next(false);
+  }
 }
