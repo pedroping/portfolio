@@ -58,6 +58,7 @@ export class PageResizeBottomDirective implements OnInit {
         tap((event) => {
           this.startPosition = event.y;
           this.initialElementHeight = this.element$.value?.offsetHeight ?? 0;
+          this.elementsFacede.setAnyElementEvent(true);
         }),
         switchMap(() =>
           this.mouseMoveEvent$.pipe(takeUntil(this.mouseUpEvent$))
@@ -75,13 +76,13 @@ export class PageResizeBottomDirective implements OnInit {
         tap((event) => {
           this.startPosition = event.touches[0].pageY;
           this.initialElementHeight = this.element$.value?.offsetHeight ?? 0;
+          this.elementsFacede.setAnyElementEvent(true);
         }),
         switchMap(() => this.touchMove$.pipe(takeUntil(this.touchEnd$)))
       )
       .subscribe((event) => {
         const element = this.element$.value;
         if (!element) return;
-
         this.resizeElement(event.touches[0].pageY, element);
       });
   }
@@ -92,7 +93,7 @@ export class PageResizeBottomDirective implements OnInit {
     const boundaryHeight =
       this.elementsData.draggingBoundaryElement$.value?.offsetHeight;
 
-    if (boundaryHeight && y > boundaryHeight - ELEMENT_PADDING * 4) return;
+    if (boundaryHeight && y > boundaryHeight - ELEMENT_PADDING * 2) return;
 
     const newPositionCalc = y - this.startPosition;
     const newHeight = Math.max(
@@ -102,5 +103,6 @@ export class PageResizeBottomDirective implements OnInit {
 
     element.style.height = newHeight + 'px';
     this.elementsFacede.setAnyElementEvent(true);
+
   }
 }
