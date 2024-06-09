@@ -7,6 +7,7 @@ import {
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import { BehaviorSubject } from 'rxjs';
 import { PageComponent } from '../../component/page.component';
+import { ELEMENT_BASE_ICON } from '../../mocks/elements.mocks';
 import {
   IDomElementOptions,
   IElement,
@@ -66,7 +67,12 @@ export class ElementCreatorService<T> {
     changeDetectorRef.detectChanges();
     DomElementAdpter.setDisplay(instance.element, !!domElementOptions?.opened);
     this.setCustomTransform(instance.element, pageConfig, elementReference);
-    this.elementsData.pushElement(id, config.name, elementReference);
+    this.elementsData.pushElement(
+      id,
+      config.name,
+      config.icon ?? ELEMENT_BASE_ICON,
+      elementReference
+    );
     elementReference.element$.next(instance.element);
     this.setZIndexService.setNewZIndex(id, instance.element);
   }

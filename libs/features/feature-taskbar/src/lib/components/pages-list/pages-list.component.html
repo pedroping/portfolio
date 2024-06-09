@@ -4,10 +4,7 @@
   (click)="handelElementClick(item.id)"
   [class.opened]="item.opened"
 >
-  <img
-    src="/assets/images/windows-basic-folder.png"
-    alt="Ícone de uma pasta de arquivo"
-  />
+  <img [src]="item.icon" alt="Ícone de uma pasta de arquivo" />
   {{ item.name }}
 </div>
 }

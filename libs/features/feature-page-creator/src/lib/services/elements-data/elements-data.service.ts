@@ -13,11 +13,11 @@ export class ElementsData {
     this.draggingBoundaryElement$.next(element.parentElement as HTMLElement);
   }
 
-  pushElement(id: number, name: string, element: IElement) {
+  pushElement(id: number, name: string, icon: string, element: IElement) {
     this.elements$.next([...this.elements$.value, element]);
     this.basicElements$.next([
       ...this.basicElements$.value,
-      { id, name, opened: element.opened },
+      { id, name, icon, opened: element.opened },
     ]);
   }
 

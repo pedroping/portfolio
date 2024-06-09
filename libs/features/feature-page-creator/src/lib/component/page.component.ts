@@ -25,6 +25,7 @@ import { PreventHandlerDirective } from '../directives/prevent-handler/prevent-h
 import { SetZIndexDirective } from '../directives/set-zIndex/set-zIndex.directive';
 import { IPageComponent, IPageConfig } from '../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../models/elements-token';
+import { ELEMENT_BASE_ICON } from '../mocks/elements.mocks';
 @Component({
   selector: 'feature-page',
   templateUrl: './page.component.html',
@@ -60,6 +61,7 @@ import { CONFIG_TOKEN } from '../models/elements-token';
 export class PageComponent implements IPageComponent, OnInit {
   id = signal<number>(-1);
   name = signal<string>('');
+  icon = signal<string>('');
   width = signal<string>('auto');
   height = signal<string>('auto');
   element: HTMLElement;
@@ -76,5 +78,6 @@ export class PageComponent implements IPageComponent, OnInit {
     this.id.set(this._config.elementReference.id);
     this.width.set(this._config.baseSizes.width + 'px');
     this.height.set(this._config.baseSizes.height + 'px');
+    this.icon.set(this._config.icon ?? ELEMENT_BASE_ICON);
   }
 }

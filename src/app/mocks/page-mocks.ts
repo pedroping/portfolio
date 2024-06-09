@@ -29,6 +29,7 @@ export const PAGE_02: IMocks = {
     customX: 100,
     customY: 150,
     pageContent: TestPageComponent,
+    icon: '/assets/images/trello-icon.png'
   },
   domConfig: {
     opened: true,
@@ -45,6 +46,7 @@ export const PAGE_03: IMocks = {
     customX: window.innerWidth / 2,
     customY: window.innerHeight / 2,
     pageContent: TestPageComponent,
+    icon: '/assets/images/trello-icon.png'
   },
   domConfig: {
     opened: true,

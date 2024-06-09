@@ -13,16 +13,29 @@
   header {
     height: var(--page-header-height);
     box-shadow: 3px 2px 3px var(--shadow-color-02) inset;
-    background: linear-gradient(to bottom,
-        var(--gradient-color-01) 0%,
-        var(--gradient-color-02) 100%);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 2px 3px;
-    user-select: none;
-    border: 3px var(--border-01) solid;
-    border-bottom: none;
+    background: linear-gradient(
+      to bottom,
+      var(--gradient-color-01) 0%,
+      var(--gradient-color-02) 100%
+      );
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2px 3px;
+      user-select: none;
+      border: 3px var(--border-01) solid;
+      border-bottom: none;
+
+    .logo-and-name {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      height: 100%;
+      img {
+        height: 100%;
+        aspect-ratio: 1;
+      }
+    }
 
     .page-name {
       font-size: 14px;
@@ -34,7 +47,7 @@
       display: flex;
       gap: 2px;
 
-      &>* {
+      & > * {
         z-index: 11;
       }
     }

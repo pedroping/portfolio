@@ -1,5 +1,10 @@
 <header pageMove>
-  <div class="page-name">{{ name() }}</div>
+  <div class="logo-and-name">
+    @if(icon()) {
+    <img [src]="icon()" alt="Ícone da pagina" />
+    }
+    <div class="page-name">{{ name() }}</div>
+  </div>
   <div class="header-actions">
     <ui-page-actions-buttons-minimize preventHandler pageMinimize />
     <ui-page-actions-buttons-maximize preventHandler pageMaximize />

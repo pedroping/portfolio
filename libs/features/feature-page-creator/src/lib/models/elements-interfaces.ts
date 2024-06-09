@@ -5,6 +5,7 @@ export interface IBasicElement {
   id: number;
   name: string;
   opened: boolean;
+  icon?: string;
 }
 
 export interface IDomElementOptions {
@@ -20,6 +21,7 @@ export interface IInitialConfig {
   };
   customX?: number;
   customY?: number;
+  icon?: string;
   pageContent?: Type<unknown>;
 }
 
