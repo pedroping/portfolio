@@ -1,5 +1,5 @@
 import { IPageMock } from '@portifolio/features/feature-page-creator';
-import { TestPageComponent } from '../shared/test-page/test-page.component';
+import { UiNewTrelloPageComponent } from '@portifolio/ui/ui-new-trello-page';
 
 export const PAGE_01: IPageMock = {
   config: {
@@ -23,7 +23,7 @@ export const PAGE_02: IPageMock = {
     },
     customX: 100,
     customY: 150,
-    pageContent: TestPageComponent,
+    pageContent: UiNewTrelloPageComponent,
     icon: '/assets/images/trello-icon.png',
   },
   domConfig: {
@@ -40,7 +40,7 @@ export const PAGE_03: IPageMock = {
     },
     customX: window.innerWidth / 2,
     customY: window.innerHeight / 2,
-    pageContent: TestPageComponent,
+    pageContent: UiNewTrelloPageComponent,
     icon: '/assets/images/trello-icon.png',
   },
   domConfig: {

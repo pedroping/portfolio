@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { UiNewTrelloPageComponent } from '@portifolio/ui/ui-new-trello-page';
 import { ProgamComponent } from '../progam/progam.component';
+import { IBasicProgram } from '../../models/program-models';
 
 @Component({
   selector: 'menu-favorites',
@@ -19,10 +21,18 @@ export class MenuFavoritesComponent {
       },
       customX: window.innerWidth / 2,
       customY: window.innerHeight / 2,
+      pageContent: UiNewTrelloPageComponent,
       icon: '/assets/images/trello-icon.png',
     },
     domConfig: {
       opened: true,
     },
+  };
+
+  gitHubProgram: IBasicProgram = {
+    name: 'GitHub',
+    sub: 'Meus repositórios',
+    link: 'https://github.com/pedroping',
+    icon: '/assets/images/github-icon.png',
   };
 }

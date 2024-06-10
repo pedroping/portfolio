@@ -1,5 +1,5 @@
-<img [src]="program().icon ?? defaultIcon" alt="Ícone do programa" />
+<img [src]="imgSrc()" alt="Ícone do programa" />
 <div class="program-details">
-  <p>{{ program().name | titlecase }}</p>
-  <sub>{{ program().sub | titlecase }}</sub>
+  <p>{{ name() | titlecase }}</p>
+  <sub>{{ sub() | titlecase }}</sub>
 </div>
