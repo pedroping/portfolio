@@ -1,12 +1,7 @@
-import {
-  IDomElementOptions,
-  IInitialConfig,
-} from '@portifolio/features/feature-page-creator';
+import { IPageMock } from '@portifolio/features/feature-page-creator';
 import { TestPageComponent } from '../shared/test-page/test-page.component';
 
-type IMocks = { config: IInitialConfig; domConfig: IDomElementOptions };
-
-export const PAGE_01: IMocks = {
+export const PAGE_01: IPageMock = {
   config: {
     name: 'Pagina',
     customX: 500,
@@ -19,7 +14,7 @@ export const PAGE_01: IMocks = {
   },
 };
 
-export const PAGE_02: IMocks = {
+export const PAGE_02: IPageMock = {
   config: {
     name: 'Pagina2',
     baseSizes: {
@@ -29,14 +24,14 @@ export const PAGE_02: IMocks = {
     customX: 100,
     customY: 150,
     pageContent: TestPageComponent,
-    icon: '/assets/images/trello-icon.png'
+    icon: '/assets/images/trello-icon.png',
   },
   domConfig: {
     opened: true,
   },
 };
 
-export const PAGE_03: IMocks = {
+export const PAGE_03: IPageMock = {
   config: {
     name: 'Pagina3',
     baseSizes: {
@@ -46,7 +41,7 @@ export const PAGE_03: IMocks = {
     customX: window.innerWidth / 2,
     customY: window.innerHeight / 2,
     pageContent: TestPageComponent,
-    icon: '/assets/images/trello-icon.png'
+    icon: '/assets/images/trello-icon.png',
   },
   domConfig: {
     opened: true,

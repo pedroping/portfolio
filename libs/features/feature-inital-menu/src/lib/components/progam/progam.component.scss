@@ -1,0 +1,24 @@
+:host {
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 100%;
+  transition: all 200ms ease-in-out;
+
+  img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .program-details {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &:hover {
+    transform: scale(1.03) translateY(-1px);
+  }
+}

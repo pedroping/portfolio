@@ -75,6 +75,8 @@ export class ElementCreatorService<T> {
     );
     elementReference.element$.next(instance.element);
     this.setZIndexService.setNewZIndex(id, instance.element);
+
+    return id;
   }
 
   setCustomTransform(

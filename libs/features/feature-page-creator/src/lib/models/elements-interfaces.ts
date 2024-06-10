@@ -22,6 +22,7 @@ export interface IInitialConfig {
   customX?: number;
   customY?: number;
   icon?: string;
+  sub?: string;
   pageContent?: Type<unknown>;
 }
 
@@ -37,6 +38,11 @@ export interface IElement extends IDomElementOptions {
 export interface IPageConfig extends IInitialConfig {
   elementReference: IElement;
 }
+
+export type IPageMock = {
+  config: IInitialConfig;
+  domConfig: IDomElementOptions;
+};
 
 export interface IPageComponent {
   element: HTMLElement;

@@ -25,6 +25,9 @@
         "libs/features/feature-taskbar/src/index.ts"
       ],
       "@portifolio/ui/ui-login-page": ["libs/ui/ui-login-page/src/index.ts"],
+      "@portifolio/ui/ui-new-trello-page": [
+        "libs/ui/ui-new-trello-page/src/index.ts"
+      ],
       "@portifolio/ui/ui-page-actions-buttons": [
         "libs/ui/ui-page-actions-buttons/src/index.ts"
       ],

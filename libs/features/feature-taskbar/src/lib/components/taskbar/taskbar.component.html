@@ -1,5 +1,9 @@
 <footer>
-  <button (click)="startClick.emit(); $event.stopPropagation()">
+  <button
+    (click)="
+      startClick.emit(); $event.stopPropagation(); $event.preventDefault()
+    "
+  >
     <img src="/assets/images/win-xp.png" alt="" /> Start
   </button>
   <pages-list />
