@@ -48,6 +48,9 @@ export class ProgramComponent {
         pageConfig.domConfig
       );
       this.menuEventsService.setCloseMenu();
+      return;
     }
+
+    window.open(this.basicProgram()?.link, '_blank');
   }
 }

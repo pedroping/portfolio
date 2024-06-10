@@ -14,7 +14,7 @@ export class MenuFavoritesComponent {
   program1Config = {
     config: {
       name: 'New Trello',
-      sub: 'Your cards here',
+      sub: 'Handle cards here',
       baseSizes: {
         width: window.innerWidth / 2 + 20,
         height: window.innerHeight / 2 + 20,
@@ -29,10 +29,30 @@ export class MenuFavoritesComponent {
     },
   };
 
+  program2Config = {
+    config: {
+      name: 'Default Page',
+      customX: 500,
+      customY: 500,
+      baseSizes: { width: 300, height: 200 },
+    },
+    domConfig: {
+      opened: true,
+      isFullScreen: false,
+    },
+  };
+
   gitHubProgram: IBasicProgram = {
     name: 'GitHub',
-    sub: 'Meus repositórios',
+    sub: 'Repositórios',
     link: 'https://github.com/pedroping',
     icon: '/assets/images/github-icon.png',
+  };
+
+  linkedinProgram: IBasicProgram = {
+    name: 'LinkedIn',
+    sub: 'LinkedIn Profile',
+    link: 'https://www.linkedin.com/in/pedro-henrique-chaves-669b10222/',
+    icon: '/assets/images/linkedin-logo.png',
   };
 }
