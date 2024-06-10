@@ -9,13 +9,13 @@ import { MenuEventsService } from '../../services/menu-events/menu-events.servic
 import { IBasicProgram } from '../../models/program-models';
 
 @Component({
-  selector: 'progam',
-  templateUrl: './progam.component.html',
-  styleUrls: ['./progam.component.scss'],
+  selector: 'program',
+  templateUrl: './program.component.html',
+  styleUrls: ['./program.component.scss'],
   standalone: true,
   imports: [TitleCasePipe],
 })
-export class ProgamComponent {
+export class ProgramComponent {
   id = -1;
   pageConfig = input<IPageMock>();
   basicProgram = input<IBasicProgram>();

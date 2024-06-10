@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { UiNewTrelloPageComponent } from '@portifolio/ui/ui-new-trello-page';
-import { ProgamComponent } from '../progam/progam.component';
+import { ProgramComponent } from '../program/program.component';
 import { IBasicProgram } from '../../models/program-models';
 
 @Component({
@@ -8,7 +8,7 @@ import { IBasicProgram } from '../../models/program-models';
   templateUrl: './menu-favorites.component.html',
   styleUrls: ['./menu-favorites.component.scss'],
   standalone: true,
-  imports: [ProgamComponent],
+  imports: [ProgramComponent],
 })
 export class MenuFavoritesComponent {
   program1Config = {
