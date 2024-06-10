@@ -26,6 +26,7 @@ import { SetZIndexDirective } from '../directives/set-zIndex/set-zIndex.directiv
 import { IPageComponent, IPageConfig } from '../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../models/elements-token';
 import { ELEMENT_BASE_ICON } from '../mocks/elements.mocks';
+import { WindowResizeDirective } from '../directives/window-resize/window-resize.directive';
 @Component({
   selector: 'feature-page',
   templateUrl: './page.component.html',
@@ -55,7 +56,7 @@ import { ELEMENT_BASE_ICON } from '../mocks/elements.mocks';
     '[style.minWidth]': 'width()',
     '[style.minHeight]': 'height()',
   },
-  hostDirectives: [SetZIndexDirective],
+  hostDirectives: [SetZIndexDirective, WindowResizeDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PageComponent implements IPageComponent, OnInit {
