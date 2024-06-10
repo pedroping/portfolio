@@ -51,6 +51,7 @@ export class ProgramComponent {
       return;
     }
 
-    window.open(this.basicProgram()?.link, '_blank');
+    window.open(this.basicProgram()?.link);
+    window.focus();
   }
 }
