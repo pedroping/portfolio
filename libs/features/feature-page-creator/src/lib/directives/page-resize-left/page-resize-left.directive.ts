@@ -1,4 +1,10 @@
-import { Directive, ElementRef, Inject, OnInit } from '@angular/core';
+import {
+  DestroyRef,
+  Directive,
+  ElementRef,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import {
   BehaviorSubject,
@@ -12,6 +18,7 @@ import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
 import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Directive({
   selector: '.left',
@@ -31,6 +38,7 @@ export class PageResizeLeftDirective implements OnInit {
   initialXPosition = 0;
 
   constructor(
+    private readonly destroyRef: DestroyRef,
     private readonly elementRef: ElementRef,
     private readonly elementsFacede: ElementsFacede,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
@@ -62,7 +70,8 @@ export class PageResizeLeftDirective implements OnInit {
         }),
         switchMap(() =>
           this.mouseMoveEvent$.pipe(takeUntil(this.mouseUpEvent$))
-        )
+        ),
+        takeUntilDestroyed(this.destroyRef)
       )
       .subscribe((event) => {
         const element = this.element$.value;
@@ -77,7 +86,8 @@ export class PageResizeLeftDirective implements OnInit {
           this.initialXPosition = this._config.elementReference.lastPosition.x;
           this.initialElementWidth = this.element$.value?.offsetWidth ?? 0;
         }),
-        switchMap(() => this.touchMove$.pipe(takeUntil(this.touchEnd$)))
+        switchMap(() => this.touchMove$.pipe(takeUntil(this.touchEnd$))),
+        takeUntilDestroyed(this.destroyRef)
       )
       .subscribe((event) => {
         const element = this.element$.value;

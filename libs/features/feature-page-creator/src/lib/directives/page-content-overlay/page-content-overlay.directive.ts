@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  DestroyRef,
   Directive,
   ElementRef,
   Inject,
@@ -12,6 +13,7 @@ import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { EventsFacade } from '../../facedes/events-facades/events-facade.service';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Directive({
   selector: '[pageContentOverlay]',
@@ -21,6 +23,7 @@ export class PageContentOverlayDirective implements AfterViewInit {
   overlay = contentChild<ElementRef<HTMLElement>>('overlay');
 
   constructor(
+    private readonly destroyRef: DestroyRef,
     private readonly eventsFacade: EventsFacade,
     private readonly elementsFacede: ElementsFacede,
     private readonly menuEventsService: MenuEventsService,
@@ -35,10 +38,16 @@ export class PageContentOverlayDirective implements AfterViewInit {
       this.eventsFacade.changeZIndex$$,
       this.elementsFacede.elements$.asObservable(),
       this._config.elementReference.element$.pipe(take(2))
-    ).subscribe(() => this.validateOverlay());
+    )
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.validateOverlay());
 
-    this.elementsFacede.anyElementEvent$$.subscribe(this.handleBoolean);
-    this.menuEventsService.menuOpened$$.subscribe(this.handleBoolean);
+    this.elementsFacede.anyElementEvent$$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(this.handleBoolean);
+    this.menuEventsService.menuOpened$$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(this.handleBoolean);
   }
 
   validateOverlay() {

@@ -1,13 +1,15 @@
-import { Injectable } from '@angular/core';
+import { DestroyRef, Injectable } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
+import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
 import { IElement } from '../../models/elements-interfaces';
 import { ElementsData } from '../elements-data/elements-data.service';
 import { SetZIndexService } from '../set-z-index/set-z-index.service';
-import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
 
 @Injectable({ providedIn: 'root' })
 export class PageActionsService {
   constructor(
+    private readonly destroyRef: DestroyRef,
     private readonly elementsData: ElementsData,
     private readonly setZIndexService: SetZIndexService
   ) {}
@@ -64,9 +66,11 @@ export class PageActionsService {
       window.innerHeight * 2.5
     );
 
-    DomElementAdpter.afterTransitions(element).subscribe(() => {
-      DomElementAdpter.removeTransition(element);
-    });
+    DomElementAdpter.afterTransitions(element)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        DomElementAdpter.removeTransition(element);
+      });
   }
 
   private showElement(elementReference: IElement) {
@@ -96,10 +100,12 @@ export class PageActionsService {
       elementReference.lastPosition.y
     );
 
-    DomElementAdpter.afterTransitions(element).subscribe(() => {
-      element.style.display = 'block';
-      DomElementAdpter.removeTransition(element);
-    });
+    DomElementAdpter.afterTransitions(element)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        element.style.display = 'block';
+        DomElementAdpter.removeTransition(element);
+      });
   }
 
   private getIsBehindAnotherElement(id: number, element: HTMLElement) {

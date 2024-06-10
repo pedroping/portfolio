@@ -1,11 +1,18 @@
-import { Directive, HostListener, Inject, OnInit } from '@angular/core';
+import {
+  DestroyRef,
+  Directive,
+  HostListener,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
-import { filter, take } from 'rxjs';
+import { filter, fromEvent, take } from 'rxjs';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { OBSERVE_CONFIG } from '../../mocks/observerConfig-mocks';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
 import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Directive({
   selector: '[pageMaximize]',
@@ -18,6 +25,7 @@ export class PageMaximizeDirective implements OnInit {
   lastTranslet3d = DomElementAdpter.getTranslate3d(0, 0);
 
   constructor(
+    private readonly destroyRef: DestroyRef,
     private readonly elementsFacede: ElementsFacede,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {}
@@ -44,29 +52,31 @@ export class PageMaximizeDirective implements OnInit {
     const elementReference = this._config.elementReference;
     this.lastHeight = boundaryElement.offsetHeight;
 
-    this._config.elementReference.element$.pipe(take(2)).subscribe(() => {
-      if (!elementReference || !elementReference.isFullScreen) return;
-      const element = elementReference.element$.value;
+    this._config.elementReference.element$
+      .pipe(take(2), takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        if (!elementReference || !elementReference.isFullScreen) return;
+        const element = elementReference.element$.value;
 
-      if (!element) return;
+        if (!element) return;
 
-      this.setSizes();
-      elementReference.opened = true;
+        this.setSizes();
+        elementReference.opened = true;
 
-      this.lastTranslet3d = DomElementAdpter.getTranslate3d(
-        this._config.customX || 0,
-        this._config.customY || 0
-      );
+        this.lastTranslet3d = DomElementAdpter.getTranslate3d(
+          this._config.customX || 0,
+          this._config.customY || 0
+        );
 
-      this.setFullScreen(true, element);
-    });
+        this.setFullScreen(true, element);
+      });
 
     this.createBoundaryObservers();
   }
 
   createBoundaryObservers() {
     this.elementsFacede.draggingBoundaryElement$
-      .pipe(filter(Boolean))
+      .pipe(filter(Boolean), takeUntilDestroyed(this.destroyRef))
       .subscribe((boundaryElement) => {
         new MutationObserver(() => {
           if (this.lastHeight === boundaryElement.offsetHeight) return;
@@ -82,15 +92,17 @@ export class PageMaximizeDirective implements OnInit {
           this.setFullScreen(true, element);
         }).observe(boundaryElement, OBSERVE_CONFIG);
 
-        window.addEventListener('resize', () => {
-          const elementReference = this._config.elementReference;
-          const element = elementReference.element$.value;
+        fromEvent(window, 'resize')
+          .pipe(takeUntilDestroyed(this.destroyRef))
+          .subscribe(() => {
+            const elementReference = this._config.elementReference;
+            const element = elementReference.element$.value;
 
-          if (!elementReference.isFullScreen) return;
-          if (!element) return;
+            if (!elementReference.isFullScreen) return;
+            if (!element) return;
 
-          this.setFullScreen(true, element);
-        });
+            this.setFullScreen(true, element);
+          });
       });
   }
 

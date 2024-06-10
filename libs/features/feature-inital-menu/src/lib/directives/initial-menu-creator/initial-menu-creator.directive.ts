@@ -3,6 +3,7 @@ import { BuildAnimation } from '@portifolio/utils/util-animations';
 import { InitialMenuComponent } from '../../components/initial-menu/initial-menu.component';
 import { MenuEventsService } from '../../services/menu-events/menu-events.service';
 import { MenuActionsDirective } from '../menu-actions/menu-actions.directive';
+import { take } from 'rxjs';
 @Directive({
   selector: 'initial-menu-creator',
   hostDirectives: [MenuActionsDirective],
@@ -36,6 +37,7 @@ export class InitialMenuCreatorDirective implements OnInit {
 
     this.buildAnimation
       .animate('leaveAnimationY', this.menuElement)
+      .pipe(take(1))
       .subscribe(() => {
         this.vcr.clear();
         this.menuElement = undefined;

@@ -1,10 +1,17 @@
-import { Directive, ElementRef, Inject, OnInit } from '@angular/core';
+import {
+  DestroyRef,
+  Directive,
+  ElementRef,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import { fromEvent, takeUntil } from 'rxjs';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { IElement, IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
 import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Directive({
   selector: '[pageMove]',
@@ -37,6 +44,7 @@ export class PageMoveDirective implements OnInit {
   );
 
   constructor(
+    private readonly destroyRef: DestroyRef,
     private readonly elementRef: ElementRef,
     private readonly elementsFacede: ElementsFacede,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
@@ -45,8 +53,12 @@ export class PageMoveDirective implements OnInit {
   ngOnInit(): void {
     this.currentX = this._config.customX || 0;
     this.currentY = this._config.customY || 0;
-    this.dragStart$.subscribe(this.dragStart.bind(this));
-    this.touchStart$.subscribe(this.touchStart.bind(this));
+    this.dragStart$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(this.dragStart.bind(this));
+    this.touchStart$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(this.touchStart.bind(this));
   }
 
   dragStart(event: MouseEvent) {
@@ -74,7 +86,7 @@ export class PageMoveDirective implements OnInit {
     this.initialX = event.clientX - elementReference.lastPosition.x || 0;
     this.initialY = event.clientY - elementReference.lastPosition.y || 0;
 
-    this.drag$.subscribe((event) => {
+    this.drag$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((event) => {
       this.drag(
         event.clientX,
         event.clientY,
@@ -111,11 +123,13 @@ export class PageMoveDirective implements OnInit {
     this.initialX = touchX - elementReference.lastPosition.x || 0;
     this.initialY = touchY - elementReference.lastPosition.y || 0;
 
-    this.touchMove$.subscribe((event) => {
-      const X = event.touches[0].pageX;
-      const Y = event.touches[0].pageY;
-      this.drag(X, Y, element, maxBoundX, maxBoundY, elementReference);
-    });
+    this.touchMove$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((event) => {
+        const X = event.touches[0].pageX;
+        const Y = event.touches[0].pageY;
+        this.drag(X, Y, element, maxBoundX, maxBoundY, elementReference);
+      });
   }
 
   drag(

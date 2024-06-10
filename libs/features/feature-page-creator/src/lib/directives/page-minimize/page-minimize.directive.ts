@@ -1,9 +1,16 @@
-import { Directive, HostListener, Inject, OnInit } from '@angular/core';
+import {
+  DestroyRef,
+  Directive,
+  HostListener,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import { filter, switchMap, take, tap } from 'rxjs';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Directive({
   selector: '[pageMinimize]',
@@ -11,6 +18,7 @@ import { CONFIG_TOKEN } from '../../models/elements-token';
 })
 export class PageMinimizeDirective implements OnInit {
   constructor(
+    private readonly destroyRef: DestroyRef,
     private readonly elementsFacede: ElementsFacede,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {}
@@ -24,7 +32,8 @@ export class PageMinimizeDirective implements OnInit {
             !!this._config.elementReference &&
             !this._config.elementReference.opened &&
             !this._config.elementReference.isFullScreen
-        )
+        ),
+        takeUntilDestroyed(this.destroyRef)
       )
       .subscribe(() => this.onclick());
   }
@@ -53,7 +62,8 @@ export class PageMinimizeDirective implements OnInit {
           DomElementAdpter.removeTransition(element);
           element.style.display = 'none';
         }),
-        switchMap(() => DomElementAdpter.afterTransitions(element))
+        switchMap(() => DomElementAdpter.afterTransitions(element)),
+        takeUntilDestroyed(this.destroyRef)
       )
       .subscribe(() => {
         elementReference.isFullScreen = isFullScreen;

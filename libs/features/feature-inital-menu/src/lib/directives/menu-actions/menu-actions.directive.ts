@@ -1,6 +1,7 @@
-import { Directive, NgZone, OnInit } from '@angular/core';
+import { DestroyRef, Directive, NgZone, OnInit } from '@angular/core';
 import { MenuEventsService } from '../../services/menu-events/menu-events.service';
 import { fromEvent, map, pairwise } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Directive({
   standalone: true,
@@ -8,6 +9,7 @@ import { fromEvent, map, pairwise } from 'rxjs';
 export class MenuActionsDirective implements OnInit {
   constructor(
     private readonly ngZone: NgZone,
+    private readonly destroyRef: DestroyRef,
     private readonly menuEventsService: MenuEventsService
   ) {}
 
@@ -17,11 +19,14 @@ export class MenuActionsDirective implements OnInit {
 
   keyEvents() {
     this.ngZone.runOutsideAngular(() => {
-      document.addEventListener('keyup', (event: KeyboardEvent) => {
-        if (event.key === 'M' && !!event.shiftKey) return this.closeMenu();
-        if (event.key === 'Meta' && !!event.shiftKey) return this.toggleMenu();
-        if (event.key === 'Escape') return this.closeMenu();
-      });
+      fromEvent<KeyboardEvent>(document, 'keyup')
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe((event) => {
+          if (event.key === 'M' && !!event.shiftKey) return this.closeMenu();
+          if (event.key === 'Meta' && !!event.shiftKey)
+            return this.toggleMenu();
+          if (event.key === 'Escape') return this.closeMenu();
+        });
     });
   }
 

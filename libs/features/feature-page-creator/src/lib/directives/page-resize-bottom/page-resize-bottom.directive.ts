@@ -1,4 +1,11 @@
-import { Directive, ElementRef, Inject, OnInit } from '@angular/core';
+import {
+  DestroyRef,
+  Directive,
+  ElementRef,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   BehaviorSubject,
   Observable,
@@ -8,10 +15,10 @@ import {
   tap,
 } from 'rxjs';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
+import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
 import { ElementsData } from '../../services/elements-data/elements-data.service';
-import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
 
 @Directive({
   selector: '.bottom',
@@ -31,6 +38,7 @@ export class PageResizeBottomDirective implements OnInit {
 
   constructor(
     private readonly elementRef: ElementRef,
+    private readonly destroyRef: DestroyRef,
     private readonly elementsData: ElementsData,
     private readonly elementsFacede: ElementsFacede,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
@@ -62,7 +70,8 @@ export class PageResizeBottomDirective implements OnInit {
         }),
         switchMap(() =>
           this.mouseMoveEvent$.pipe(takeUntil(this.mouseUpEvent$))
-        )
+        ),
+        takeUntilDestroyed(this.destroyRef)
       )
       .subscribe((event) => {
         const element = this.element$.value;
@@ -78,7 +87,8 @@ export class PageResizeBottomDirective implements OnInit {
           this.initialElementHeight = this.element$.value?.offsetHeight ?? 0;
           this.elementsFacede.setAnyElementEvent(true);
         }),
-        switchMap(() => this.touchMove$.pipe(takeUntil(this.touchEnd$)))
+        switchMap(() => this.touchMove$.pipe(takeUntil(this.touchEnd$))),
+        takeUntilDestroyed(this.destroyRef)
       )
       .subscribe((event) => {
         const element = this.element$.value;
@@ -103,6 +113,5 @@ export class PageResizeBottomDirective implements OnInit {
 
     element.style.height = newHeight + 'px';
     this.elementsFacede.setAnyElementEvent(true);
-
   }
 }
