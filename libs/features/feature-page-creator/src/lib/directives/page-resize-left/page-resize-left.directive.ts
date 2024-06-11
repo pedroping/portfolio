@@ -111,7 +111,9 @@ export class PageResizeLeftDirective implements OnInit {
     element.style.width = newWidth + 'px';
 
     this.elementsFacede.setAnyElementEvent(true);
-    if (newWidth === this._config.baseSizes.minWidth ?? BASE_WIDTH) return;
+    const minWidth = this._config.baseSizes.minWidth ?? BASE_WIDTH;
+
+    if (newWidth <= minWidth) return;
 
     elementReference.lastPosition.x = this.initialXPosition - newPositionCalc;
     DomElementAdpter.setTransform(

@@ -112,7 +112,9 @@ export class PageResizeTopDirective implements OnInit {
 
     element.style.height = newHeight + 'px';
 
-    if (newHeight === this._config.baseSizes.minWidth ?? BASE_HEIGHT) return;
+    const minHeight = this._config.baseSizes.minHeight ?? BASE_HEIGHT;
+
+    if (newHeight <= minHeight) return;
 
     elementReference.lastPosition.y = this.initialYPosition - newPositionCalc;
     DomElementAdpter.setTransform(
