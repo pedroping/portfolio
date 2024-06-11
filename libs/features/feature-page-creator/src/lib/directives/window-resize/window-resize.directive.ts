@@ -24,7 +24,13 @@ export class WindowResizeDirective implements OnInit {
         const element = this._config.elementReference.element$.value;
         const boundaryElement =
           this.elementsFacade.draggingBoundaryElement$.value;
-        if (!element || !boundaryElement) return;
+
+        if (
+          !element ||
+          !boundaryElement ||
+          this._config.elementReference.isFullScreen
+        )
+          return;
 
         const height = element.offsetHeight;
         const boundaryHeight = boundaryElement.offsetHeight;
@@ -34,11 +40,10 @@ export class WindowResizeDirective implements OnInit {
         element.style.height = Math.min(height, boundaryHeight) + 'px';
         element.style.width = Math.min(width, boundaryWidth) + 'px';
 
-        console.log(height, boundaryHeight, width, boundaryWidth);
-
         if (height > boundaryHeight || width > boundaryWidth) {
           this._config.elementReference.lastPosition = { x: 0, y: 0 };
           DomElementAdpter.setTransform(element, 0, 0);
+          console.log(height, boundaryHeight, width, boundaryWidth);
         }
       });
   }

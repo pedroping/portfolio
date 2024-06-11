@@ -14,7 +14,7 @@ import {
   tap,
 } from 'rxjs';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
-import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
+import { BASE_WIDTH, ELEMENT_PADDING } from '../../mocks/elements.mocks';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
 import { ElementsData } from '../../services/elements-data/elements-data.service';
@@ -106,7 +106,7 @@ export class PageResizeRightDirective implements OnInit {
 
     const newWidth = Math.max(
       this.initialElementWidth + newPositionCalc,
-      this._config.baseSizes.width
+      Math.min(this._config.baseSizes.minWidth ?? BASE_WIDTH, BASE_WIDTH)
     );
 
     element.style.width = newWidth + 'px';

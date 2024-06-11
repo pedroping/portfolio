@@ -17,7 +17,7 @@ import {
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
-import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
+import { BASE_WIDTH, ELEMENT_PADDING } from '../../mocks/elements.mocks';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Directive({
@@ -106,12 +106,12 @@ export class PageResizeLeftDirective implements OnInit {
 
     const newWidth = Math.max(
       this.initialElementWidth + newPositionCalc,
-      this._config.baseSizes.width
+      Math.min(this._config.baseSizes.minWidth ?? BASE_WIDTH, BASE_WIDTH)
     );
     element.style.width = newWidth + 'px';
 
     this.elementsFacede.setAnyElementEvent(true);
-    if (newWidth === this._config.baseSizes.width) return;
+    if (newWidth === this._config.baseSizes.minWidth ?? BASE_WIDTH) return;
 
     elementReference.lastPosition.x = this.initialXPosition - newPositionCalc;
     DomElementAdpter.setTransform(

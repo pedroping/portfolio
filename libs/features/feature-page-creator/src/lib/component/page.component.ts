@@ -23,10 +23,14 @@ import { PageResizeRightDirective } from '../directives/page-resize-right/page-r
 import { PageResizeTopDirective } from '../directives/page-resize-top/page-resize-top.directive';
 import { PreventHandlerDirective } from '../directives/prevent-handler/prevent-handler.directive';
 import { SetZIndexDirective } from '../directives/set-zIndex/set-zIndex.directive';
+import { WindowResizeDirective } from '../directives/window-resize/window-resize.directive';
+import {
+  BASE_HEIGHT,
+  BASE_WIDTH,
+  ELEMENT_BASE_ICON,
+} from '../mocks/elements.mocks';
 import { IPageComponent, IPageConfig } from '../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../models/elements-token';
-import { ELEMENT_BASE_ICON } from '../mocks/elements.mocks';
-import { WindowResizeDirective } from '../directives/window-resize/window-resize.directive';
 @Component({
   selector: 'feature-page',
   templateUrl: './page.component.html',
@@ -53,8 +57,8 @@ import { WindowResizeDirective } from '../directives/window-resize/window-resize
     '[attr.page-name]': 'name()',
     '[style.width]': 'width()',
     '[style.height]': 'height()',
-    '[style.minWidth]': 'width()',
-    '[style.minHeight]': 'height()',
+    '[style.minWidth]': 'minWidth()',
+    '[style.minHeight]': 'minHeight()',
   },
   hostDirectives: [SetZIndexDirective, WindowResizeDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -65,6 +69,8 @@ export class PageComponent implements IPageComponent, OnInit {
   icon = signal<string>('');
   width = signal<string>('auto');
   height = signal<string>('auto');
+  minWidth = signal<string>('unset');
+  minHeight = signal<string>('unset');
   element: HTMLElement;
 
   constructor(
@@ -80,5 +86,15 @@ export class PageComponent implements IPageComponent, OnInit {
     this.width.set(this._config.baseSizes.width + 'px');
     this.height.set(this._config.baseSizes.height + 'px');
     this.icon.set(this._config.icon ?? ELEMENT_BASE_ICON);
+    this.minHeight.set(
+      this._config.baseSizes?.minHeight
+        ? this._config.baseSizes?.minHeight + 'px'
+        : BASE_HEIGHT + 'px'
+    );
+    this.minWidth.set(
+      this._config.baseSizes?.minWidth
+        ? this._config.baseSizes?.minWidth + 'px'
+        : BASE_WIDTH + 'px'
+    );
   }
 }

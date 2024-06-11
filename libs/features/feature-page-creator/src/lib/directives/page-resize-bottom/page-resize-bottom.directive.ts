@@ -15,7 +15,7 @@ import {
   tap,
 } from 'rxjs';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
-import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
+import { BASE_HEIGHT, ELEMENT_PADDING } from '../../mocks/elements.mocks';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
 import { ElementsData } from '../../services/elements-data/elements-data.service';
@@ -108,7 +108,7 @@ export class PageResizeBottomDirective implements OnInit {
     const newPositionCalc = y - this.startPosition;
     const newHeight = Math.max(
       this.initialElementHeight + newPositionCalc,
-      this._config.baseSizes.height
+      Math.min(this._config.baseSizes.minHeight ?? BASE_HEIGHT, BASE_HEIGHT)
     );
 
     element.style.height = newHeight + 'px';

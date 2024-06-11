@@ -1,15 +1,18 @@
 import { UiNewTrelloPageComponent } from '@portifolio/ui/ui-new-trello-page';
 import { IBasicProgram } from '../models/program-models';
+import { IPageMock } from '@portifolio/features/feature-page-creator';
 
 export const ELEMENT_BASE_ICON = '/assets/images/windows-basic-folder.png';
 
-export const PROGRAM_1_CONFIG = {
+export const PROGRAM_1_CONFIG: IPageMock = {
   config: {
     name: 'New Trello',
     sub: 'Handle cards here',
     baseSizes: {
       width: window.innerWidth * 0.8,
       height: window.innerHeight * 0.8,
+      minWidth: window.innerWidth * 0.3,
+      minHeight: window.innerHeight * 0.5,
     },
     customX: 50,
     customY: 50,
@@ -21,7 +24,7 @@ export const PROGRAM_1_CONFIG = {
   },
 };
 
-export const PROGRAM_2_CONFIG = {
+export const PROGRAM_2_CONFIG: IPageMock = {
   config: {
     name: 'Default Page',
     customX: 500,

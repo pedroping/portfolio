@@ -18,6 +18,8 @@ export interface IInitialConfig {
   baseSizes: {
     width: number;
     height: number;
+    minWidth?: number;
+    minHeight?: number;
   };
   customX?: number;
   customY?: number;

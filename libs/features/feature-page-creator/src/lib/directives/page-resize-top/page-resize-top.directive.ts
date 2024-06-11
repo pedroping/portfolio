@@ -5,6 +5,7 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import {
   BehaviorSubject,
@@ -15,10 +16,9 @@ import {
   tap,
 } from 'rxjs';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
+import { BASE_HEIGHT, ELEMENT_PADDING } from '../../mocks/elements.mocks';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
-import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Directive({
   selector: '.top',
@@ -107,11 +107,12 @@ export class PageResizeTopDirective implements OnInit {
 
     const newHeight = Math.max(
       this.initialElementWidth + newPositionCalc,
-      this._config.baseSizes.height
+      Math.min(this._config.baseSizes.minHeight ?? BASE_HEIGHT, BASE_HEIGHT)
     );
+
     element.style.height = newHeight + 'px';
 
-    if (newHeight === this._config.baseSizes.height) return;
+    if (newHeight === this._config.baseSizes.minWidth ?? BASE_HEIGHT) return;
 
     elementReference.lastPosition.y = this.initialYPosition - newPositionCalc;
     DomElementAdpter.setTransform(
