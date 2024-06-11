@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
-import { UiNewTrelloPageComponent } from '@portifolio/ui/ui-new-trello-page';
+import {
+  GITHUB_PROGRAM,
+  LINKEDIN_PROGRAM,
+  PROGRAM_1_CONFIG,
+  PROGRAM_2_CONFIG,
+} from '../../mocks/program-mocks';
 import { ProgramComponent } from '../program/program.component';
-import { IBasicProgram } from '../../models/program-models';
 
 @Component({
   selector: 'menu-favorites',
@@ -11,48 +15,8 @@ import { IBasicProgram } from '../../models/program-models';
   imports: [ProgramComponent],
 })
 export class MenuFavoritesComponent {
-  program1Config = {
-    config: {
-      name: 'New Trello',
-      sub: 'Handle cards here',
-      baseSizes: {
-        width: window.innerWidth * 0.8,
-        height: window.innerHeight * 0.8,
-      },
-      customX: 50,
-      customY: 50,
-      pageContent: UiNewTrelloPageComponent,
-      icon: '/assets/images/trello-icon.png',
-    },
-    domConfig: {
-      opened: true,
-    },
-  };
-
-  program2Config = {
-    config: {
-      name: 'Default Page',
-      customX: 500,
-      customY: 500,
-      baseSizes: { width: 300, height: 200 },
-    },
-    domConfig: {
-      opened: true,
-      isFullScreen: false,
-    },
-  };
-
-  gitHubProgram: IBasicProgram = {
-    name: 'GitHub',
-    sub: 'Repositórios',
-    link: 'https://github.com/pedroping',
-    icon: '/assets/images/github-icon.png',
-  };
-
-  linkedinProgram: IBasicProgram = {
-    name: 'LinkedIn',
-    sub: 'LinkedIn Profile',
-    link: 'https://www.linkedin.com/in/pedro-henrique-chaves-669b10222/',
-    icon: '/assets/images/linkedin-logo.png',
-  };
+  program1Config = PROGRAM_1_CONFIG;
+  program2Config = PROGRAM_2_CONFIG;
+  gitHubProgram = GITHUB_PROGRAM;
+  linkedinProgram = LINKEDIN_PROGRAM;
 }

@@ -1,6 +1,6 @@
 :host {
   display: flex;
-  padding: 10px;
+  padding: 5px;
   align-items: center;
   gap: 10px;
   cursor: pointer;
@@ -16,6 +16,15 @@
   .program-details {
     display: flex;
     flex-direction: column;
+  }
+
+  p {
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  sub {
+    font-size: 10px;
   }
 
   &:hover {
