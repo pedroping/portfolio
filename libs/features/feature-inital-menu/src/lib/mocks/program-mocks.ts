@@ -39,7 +39,7 @@ export const PROGRAM_2_CONFIG: IPageMock = {
 
 export const GITHUB_PROGRAM: IBasicProgram = {
   name: 'GitHub',
-  sub: 'Repositórios',
+  sub: 'Repositories',
   link: 'https://github.com/pedroping',
   icon: '/assets/images/github-icon.png',
 };
@@ -48,4 +48,11 @@ export const LINKEDIN_PROGRAM: IBasicProgram = {
   sub: 'LinkedIn Profile',
   link: 'https://www.linkedin.com/in/pedro-henrique-chaves-669b10222/',
   icon: '/assets/images/linkedin-logo.png',
+};
+
+export const REPOSITORY_PROGRAM: IBasicProgram = {
+  name: 'Repository ',
+  sub: "Project's repository",
+  link: 'https://github.com/pedroping/portfolio',
+  icon: '/assets/images/git-repository-icon.png',
 };

@@ -4,6 +4,7 @@ import {
   LINKEDIN_PROGRAM,
   PROGRAM_1_CONFIG,
   PROGRAM_2_CONFIG,
+  REPOSITORY_PROGRAM,
 } from '../../mocks/program-mocks';
 import { ProgramComponent } from '../program/program.component';
 
@@ -19,4 +20,5 @@ export class MenuFavoritesComponent {
   program2Config = PROGRAM_2_CONFIG;
   gitHubProgram = GITHUB_PROGRAM;
   linkedinProgram = LINKEDIN_PROGRAM;
+  repositoryProgram = REPOSITORY_PROGRAM;
 }

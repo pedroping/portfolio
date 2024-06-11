@@ -1,10 +1,11 @@
 <footer>
-  <button
-    (click)="
-      startClick.emit(); $event.stopPropagation(); $event.preventDefault()
-    "
-  >
-    <img src="/assets/images/win-xp.png" alt="" /> Start
+  <button (click)="startClick.emit()" [id]="preventToggleId">
+    <img
+      src="/assets/images/win-xp.png"
+      alt="Logo Windows"
+      id="prevent-toggle"
+    />
+    Start
   </button>
   <pages-list />
   <taskbar-actions />

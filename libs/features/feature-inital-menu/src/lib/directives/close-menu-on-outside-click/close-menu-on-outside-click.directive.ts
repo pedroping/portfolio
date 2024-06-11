@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { fromEvent, merge, skip } from 'rxjs';
+import { PREVENT_TOGGLE_ID } from '../../mocks/menu-mocks';
 import { MenuEventsService } from '../../services/menu-events/menu-events.service';
 
 @Directive({
@@ -26,8 +27,10 @@ export class CloseMenuOnOutsideClickDirective implements OnInit {
         .pipe(skip(1), takeUntilDestroyed(this.destroyRef))
         .subscribe((event: Event) => {
           const isOutTarget = this.isOutTarget(event.target as HTMLElement);
+          const hasPrevent =
+            (event.target as HTMLElement).id === PREVENT_TOGGLE_ID;
 
-          if (!isOutTarget) return;
+          if (!isOutTarget || hasPrevent) return;
 
           this.ngZone.run(() => {
             this.menuEventsService.setCloseMenu();

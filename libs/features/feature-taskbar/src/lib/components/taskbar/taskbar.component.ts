@@ -1,6 +1,7 @@
 import { Component, output } from '@angular/core';
 import { PagesListComponent } from '../pages-list/pages-list.component';
 import { TaskbarActionsComponent } from '../taskbar-actions/taskbar-actions.component';
+import { PREVENT_TOGGLE_ID } from '@portifolio/features/feature-inital-menu';
 
 @Component({
   selector: 'feature-taskbar',
@@ -11,4 +12,5 @@ import { TaskbarActionsComponent } from '../taskbar-actions/taskbar-actions.comp
 })
 export class TaskbarComponent {
   startClick = output<void>();
+  preventToggleId = PREVENT_TOGGLE_ID;
 }
