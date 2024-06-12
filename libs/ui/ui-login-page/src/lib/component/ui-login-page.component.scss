@@ -196,7 +196,7 @@
 
       .icon {
         margin-right: 5px;
-        width: 25px;
+        width: 30px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -211,7 +211,7 @@
         );
 
         i {
-          font-size: 18px;
+          font-size: 14px;
         }
 
         &:hover {
@@ -223,6 +223,35 @@
     p {
       color: var(--white-01);
       font-size: 12px;
+    }
+  }
+
+  @media (max-width: 800px) {
+    section {
+      flex-direction: column;
+
+      article {
+        &:first-child {
+          align-items: center !important;
+
+          &::after {
+            bottom: 0px;
+            width: 100%;
+            height: 2px;
+            top: unset;
+            background: linear-gradient(
+              90deg,
+              transparent 12%,
+              var(--white-01) 50%,
+              transparent 88%
+            );
+          }
+        }
+
+        &:last-child {
+          justify-content: flex-end;
+        }
+      }
     }
   }
 }

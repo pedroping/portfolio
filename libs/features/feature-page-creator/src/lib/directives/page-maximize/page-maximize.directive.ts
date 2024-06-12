@@ -87,7 +87,12 @@ export class PageMaximizeDirective implements OnInit {
 
           if (!element) return;
 
-          if (!elementReference || !elementReference.isFullScreen) return;
+          if (
+            !elementReference ||
+            !elementReference.isFullScreen ||
+            !elementReference.opened
+          )
+            return;
 
           this.setFullScreen(true, element);
         }).observe(boundaryElement, OBSERVE_CONFIG);
@@ -98,8 +103,12 @@ export class PageMaximizeDirective implements OnInit {
             const elementReference = this._config.elementReference;
             const element = elementReference.element$.value;
 
-            if (!elementReference.isFullScreen) return;
-            if (!element) return;
+            if (
+              !elementReference.isFullScreen ||
+              !elementReference.opened ||
+              !element
+            )
+              return;
 
             this.setFullScreen(true, element);
           });
