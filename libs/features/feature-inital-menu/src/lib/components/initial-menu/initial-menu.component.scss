@@ -2,7 +2,9 @@
   display: block;
   position: absolute;
   bottom: 0;
-  width: 380px;
+  max-width: 380px;
+  width: 100%;
+  height: 562px;
   max-height: 100%;
   border: 3px var(--border-01) solid;
   border-radius: 5px;
@@ -12,8 +14,13 @@
     align-items: center;
     gap: 15px;
     height: 65px;
-    box-shadow: -2px -2px 5px var(--shadow-color-03) inset, 0px -2px 5px var(--shadow-color-03);
-    background: linear-gradient(to bottom, var(--gradient-color-04) 0%, var(--gradient-color-05) 100%);
+    box-shadow: -2px -2px 5px var(--shadow-color-03) inset,
+      0px -2px 5px var(--shadow-color-03);
+    background: linear-gradient(
+      to bottom,
+      var(--gradient-color-04) 0%,
+      var(--gradient-color-05) 100%
+    );
     padding: 8px 0px 7px 8px;
     color: var(--text-color-01);
     font-weight: 600;
@@ -31,8 +38,9 @@
   .content {
     display: flex;
     height: 450px;
+    max-height: calc(100% - 108px);
 
-    &>div {
+    & > div {
       width: 100%;
       height: 100%;
     }
@@ -49,6 +57,7 @@
   .menu-footer {
     height: 43px;
     background: linear-gradient(to top, #245edb 0%, #0c8dea 100%);
-    box-shadow: -2px -2px 5px var(--shadow-color-03) inset, 3px 3px 5px var(--shadow-color-03);
+    box-shadow: -2px -2px 5px var(--shadow-color-03) inset,
+      3px 3px 5px var(--shadow-color-03);
   }
 }
