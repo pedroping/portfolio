@@ -5,12 +5,12 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { PageComponent } from '../../component/page.component';
 import { ELEMENT_BASE_ICON } from '../../mocks/elements.mocks';
 import {
   IDomElementOptions,
-  IElement,
+  IElementReference,
   IInitialConfig,
   IPageConfig,
 } from '../../models/elements-interfaces';
@@ -76,13 +76,13 @@ export class ElementCreatorService<T> {
     elementReference.element$.next(instance.element);
     this.setZIndexService.setNewZIndex(id, instance.element);
 
-    return id;
+    return elementReference;
   }
 
   setCustomTransform(
     element: HTMLElement,
     config: IPageConfig,
-    elementReference: IElement
+    elementReference: IElementReference
   ) {
     const boundaryElement = this.elementsData.draggingBoundaryElement$.value;
 
@@ -117,7 +117,7 @@ export class ElementCreatorService<T> {
     domElementOptions?: IDomElementOptions,
     customX = 0,
     customY = 0
-  ): IElement {
+  ): IElementReference {
     return {
       id: id,
       lastPosition: {
@@ -127,6 +127,7 @@ export class ElementCreatorService<T> {
       element$: element$,
       opened: !!domElementOptions?.opened,
       isFullScreen: !!domElementOptions?.isFullScreen,
+      onDestroy$: new Subject<void>(),
     };
   }
 

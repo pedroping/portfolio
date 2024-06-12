@@ -2,7 +2,7 @@ import { DestroyRef, Injectable } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
-import { IElement } from '../../models/elements-interfaces';
+import { IElementReference } from '../../models/elements-interfaces';
 import { ElementsData } from '../elements-data/elements-data.service';
 import { SetZIndexService } from '../set-z-index/set-z-index.service';
 
@@ -21,7 +21,7 @@ export class PageActionsService {
     this.validateElementPosition(elementReference);
   }
 
-  private validateElementPosition(elementReference: IElement) {
+  private validateElementPosition(elementReference: IElementReference) {
     const isHiggerElement =
       elementReference.id == this.setZIndexService.getHiggestElementId();
     const element = elementReference.element$.value;
@@ -51,7 +51,7 @@ export class PageActionsService {
     this.minimizeElement(elementReference);
   }
 
-  private minimizeElement(elementReference: IElement) {
+  private minimizeElement(elementReference: IElementReference) {
     const element = elementReference.element$.value;
     if (!element) return;
 
@@ -73,7 +73,7 @@ export class PageActionsService {
       });
   }
 
-  private showElement(elementReference: IElement) {
+  private showElement(elementReference: IElementReference) {
     elementReference.opened = true;
     const element = elementReference.element$.value;
 

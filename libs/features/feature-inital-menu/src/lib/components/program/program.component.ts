@@ -16,7 +16,6 @@ import { IBasicProgram } from '../../models/program-models';
   imports: [TitleCasePipe],
 })
 export class ProgramComponent {
-  id = -1;
   pageConfig = input<IPageMock>();
   basicProgram = input<IBasicProgram>();
 
@@ -42,7 +41,7 @@ export class ProgramComponent {
     const pageConfig = this.pageConfig();
 
     if (pageConfig) {
-      this.id = this.elementsFacede.createElement(
+      this.elementsFacede.createElement(
         {},
         pageConfig.config,
         pageConfig.domConfig

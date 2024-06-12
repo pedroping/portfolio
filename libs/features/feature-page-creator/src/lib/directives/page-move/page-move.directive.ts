@@ -8,7 +8,10 @@ import {
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import { fromEvent, takeUntil } from 'rxjs';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
-import { IElement, IPageConfig } from '../../models/elements-interfaces';
+import {
+  IElementReference,
+  IPageConfig,
+} from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
 import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -138,7 +141,7 @@ export class PageMoveDirective implements OnInit {
     element: HTMLElement,
     maxBoundX: number,
     maxBoundY: number,
-    elementReference: IElement
+    elementReference: IElementReference
   ) {
     if (elementReference.isFullScreen) return;
 

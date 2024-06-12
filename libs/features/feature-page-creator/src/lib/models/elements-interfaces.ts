@@ -1,5 +1,5 @@
 import { Type } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 export interface IBasicElement {
   id: number;
@@ -28,17 +28,18 @@ export interface IInitialConfig {
   pageContent?: Type<unknown>;
 }
 
-export interface IElement extends IDomElementOptions {
+export interface IElementReference extends IDomElementOptions {
   id: number;
   lastPosition: {
     x: number;
     y: number;
   };
   element$: BehaviorSubject<HTMLElement | null>;
+  onDestroy$: Subject<void>;
 }
 
 export interface IPageConfig extends IInitialConfig {
-  elementReference: IElement;
+  elementReference: IElementReference;
 }
 
 export type IPageMock = {

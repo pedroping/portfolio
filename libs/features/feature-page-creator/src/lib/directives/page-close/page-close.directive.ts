@@ -16,6 +16,7 @@ export class PageCloseDirective<T> {
   @HostListener('click') onclick() {
     const elementReference = this._config.elementReference;
     if (!elementReference) return;
+    elementReference.onDestroy$.next();
     this.elementsFacede.destroyElement(elementReference.id);
   }
 }
