@@ -1,7 +1,7 @@
 import { Component, output } from '@angular/core';
-import { PagesListComponent } from '../pages-list/pages-list.component';
-import { TaskbarActionsComponent } from '../taskbar-actions/taskbar-actions.component';
 import { PREVENT_TOGGLE_ID } from '@portifolio/features/feature-inital-menu';
+import { PagesListComponent } from '../components/pages-list/pages-list.component';
+import { TaskbarActionsComponent } from '../components/taskbar-actions/taskbar-actions.component';
 
 @Component({
   selector: 'feature-taskbar',

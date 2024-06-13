@@ -3,6 +3,7 @@
   class="element"
   (click)="handelElementClick(item.id)"
   [class.opened]="item.opened"
+  [showElementPreview]="item"
 >
   <img [src]="item.icon" alt="Ícone de uma pasta de arquivo" />
 </div>

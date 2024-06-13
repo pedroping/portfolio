@@ -1,6 +1,7 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
 import {
   IDomElementOptions,
+  IElementReference,
   IInitialConfig,
 } from '../../models/elements-interfaces';
 import { ElementCreatorService } from '../../services/element-creator/element-creator.service';
@@ -49,6 +50,10 @@ export class ElementsFacede<T = unknown> {
 
   hideElement(id: number) {
     this.elementsData.hideElement(id);
+  }
+
+  getElement(id: number): IElementReference | undefined {
+    return this.elements$.value.find((element) => element.id === id);
   }
 
   findElementIndex(id: number) {

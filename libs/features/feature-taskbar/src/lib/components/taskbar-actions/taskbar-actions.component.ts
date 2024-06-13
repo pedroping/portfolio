@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActualHourDirective } from '../../directives/actual-hour.directive';
+import { ActualHourDirective } from '../../directives/actual-hour/actual-hour.directive';
 
 @Component({
   selector: 'taskbar-actions',
