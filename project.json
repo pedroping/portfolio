@@ -22,7 +22,6 @@
           "src/manifest.webmanifest"
         ],
         "styles": [
-          "@angular/material/prebuilt-themes/deeppurple-amber.css",
           "@fortawesome/fontawesome-free/css/all.min.css",
           "./src/styles.scss"
         ],
