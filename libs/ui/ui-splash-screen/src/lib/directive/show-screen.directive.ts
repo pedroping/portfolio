@@ -30,8 +30,8 @@ export class ShowScreenDirective implements OnInit {
       .subscribe(() => {
         this.vcr.clear();
         this.buildAnimation.animate('leaveOpacity', location.nativeElement);
-        this.htmlElement.style.overflow = 'auto';
-        document.body.style.overflow = 'auto';
+        this.htmlElement.style.overflow = '';
+        document.body.style.overflow = '';
       });
   }
 
