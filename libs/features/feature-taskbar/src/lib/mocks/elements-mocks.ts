@@ -1,1 +1,3 @@
-export const PREVIEW_GAP = 25;
+export const PREVIEW_GAP_TOP = 155;
+export const PREVIEW_GAP_LEFT = 80;
+export const PREVIEW_ID = 'preview-';

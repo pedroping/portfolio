@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { IPreviewPage } from '../../models/preview-models';
+import { IElementReference } from '@portifolio/features/feature-page-creator';
 
 @Component({
   selector: 'page-preview',
@@ -6,4 +8,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./page-preview.component.scss'],
   standalone: true,
 })
-export class PagePreviewComponent {}
+export class PagePreviewComponent implements IPreviewPage {
+  element?: IElementReference;
+}

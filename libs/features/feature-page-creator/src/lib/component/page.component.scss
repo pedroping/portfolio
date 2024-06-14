@@ -15,6 +15,7 @@
   header {
     height: var(--page-header-height);
     box-shadow: 3px 2px 3px var(--shadow-color-02) inset;
+    border-radius: 5px;
     background: linear-gradient(to bottom,
         var(--gradient-color-01) 0%,
         var(--gradient-color-02) 100%);
@@ -60,6 +61,7 @@
     background-color: var(--light-background);
     height: calc(100% - var(--page-header-height));
     border: 3px var(--border-01) solid;
+    border-radius: 5px;
     border-top: none;
 
     .overlay {

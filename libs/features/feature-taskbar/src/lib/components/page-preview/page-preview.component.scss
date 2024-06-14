@@ -1,8 +1,28 @@
 :host {
   display: block;
   position: fixed;
+  height: 150px;
+  width: 200px;
+  background-color: var(--light-background);
+  border: 3px var(--border-01) solid;
+  border-radius: 5px;
 
-  height: 50px;
-  width: 50px;
-  background-color: azure;
+  .header {
+    height: 25px;
+    box-shadow: 3px 2px 3px var(--shadow-color-02) inset;
+    background: linear-gradient(to bottom,
+        var(--gradient-color-01) 0%,
+        var(--gradient-color-02) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px 3px;
+    user-select: none;
+    border-bottom: none;
+  }
+
+  .content {
+    height: 100%;
+    width: 100%;
+  }
 }
