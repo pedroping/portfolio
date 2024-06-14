@@ -1,8 +1,6 @@
 <header pageMove>
   <div class="logo-and-name">
-    @if(icon()) {
     <img [src]="icon()" alt="Ícone da pagina" />
-    }
     <div class="page-name">{{ name() }}</div>
   </div>
   <div class="header-actions">
@@ -12,7 +10,9 @@
   </div>
 </header>
 <section pageContentOverlay>
-  <ng-container pageContent></ng-container>
+  @if(pageContent()) {
+  <ng-container [ngComponentOutlet]="pageContent()"></ng-container>
+  }
   <div class="overlay" #overlay></div>
 </section>
 

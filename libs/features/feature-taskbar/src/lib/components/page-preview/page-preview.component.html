@@ -1,6 +1,17 @@
 <section id="-page-preview">
   <div class="header">
-    <ui-page-actions-buttons-close (click)="closeElement()" />
+    <div class="logo-and-name">
+      <img [src]="icon" alt="Ícone da pagina" />
+      <div class="page-name">{{ element?.name }}</div>
+    </div>
+    <ui-page-actions-buttons-close
+      (click)="closeElement(); $event.stopPropagation()"
+    />
   </div>
-  <div class="content"></div>
+  <div class="content">
+    @if(element?.pageContent) {
+    <ng-container [ngComponentOutlet]="element!.pageContent!"></ng-container>
+    }
+    <div class="overlay"></div>
+  </div>
 </section>

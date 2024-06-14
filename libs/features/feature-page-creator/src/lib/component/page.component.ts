@@ -1,9 +1,11 @@
+import { NgComponentOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
   Inject,
   OnInit,
+  Type,
   signal,
 } from '@angular/core';
 import {
@@ -13,7 +15,6 @@ import {
 } from '@portifolio/ui/ui-page-actions-buttons';
 import { PageCloseDirective } from '../directives/page-close/page-close.directive';
 import { PageContentOverlayDirective } from '../directives/page-content-overlay/page-content-overlay.directive';
-import { PageContentDirective } from '../directives/page-content/page-content.directive';
 import { PageMaximizeDirective } from '../directives/page-maximize/page-maximize.directive';
 import { PageMinimizeDirective } from '../directives/page-minimize/page-minimize.directive';
 import { PageMoveDirective } from '../directives/page-move/page-move.directive';
@@ -37,20 +38,20 @@ import { CONFIG_TOKEN } from '../models/elements-token';
   styleUrls: ['./page.component.scss'],
   standalone: true,
   imports: [
-    PreventHandlerDirective,
-    PageMinimizeDirective,
-    PageMaximizeDirective,
-    PageContentDirective,
-    PageCloseDirective,
+    CloseComponent,
     MinimizeComponent,
     MaximizeComponent,
     PageMoveDirective,
-    CloseComponent,
-    PageContentOverlayDirective,
+    NgComponentOutlet,
+    PageCloseDirective,
+    PageMinimizeDirective,
+    PageMaximizeDirective,
+    PageResizeTopDirective,
+    PreventHandlerDirective,
+    PageResizeLeftDirective,
     PageResizeRightDirective,
     PageResizeBottomDirective,
-    PageResizeLeftDirective,
-    PageResizeTopDirective,
+    PageContentOverlayDirective,
   ],
   host: {
     '[attr.page-id]': 'id()',
@@ -71,6 +72,7 @@ export class PageComponent implements IPageComponent, OnInit {
   height = signal<string>('auto');
   minWidth = signal<string>('unset');
   minHeight = signal<string>('unset');
+  pageContent = signal<Type<unknown> | null>(null);
   element: HTMLElement;
 
   constructor(
@@ -86,6 +88,7 @@ export class PageComponent implements IPageComponent, OnInit {
     this.width.set(this._config.baseSizes.width + 'px');
     this.height.set(this._config.baseSizes.height + 'px');
     this.icon.set(this._config.icon ?? ELEMENT_BASE_ICON);
+    this.pageContent.set(this._config.pageContent ?? null);
     this.minHeight.set(
       this._config.baseSizes?.minHeight
         ? this._config.baseSizes?.minHeight + 'px'

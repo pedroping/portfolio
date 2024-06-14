@@ -36,9 +36,8 @@ export class WindowResizeDirective implements OnInit {
         element.style.width = Math.min(width, boundaryWidth) + 'px';
 
         if (height > boundaryHeight || width > boundaryWidth) {
-          this._config.lastPosition = { x: 0, y: 0 };
-          DomElementAdpter.setTransform(element, 0, 0);
-          console.log(height, boundaryHeight, width, boundaryWidth);
+          // this._config.lastPosition = { x: 0, y: 0 };
+          // DomElementAdpter.setTransform(element, 0, 0);
         }
       });
   }

@@ -79,6 +79,7 @@ export class ShowElementPreviewDirective {
     };
 
     merge(
+      this.pagePreviewActionsService.closeAll$$,
       timer(2000, 2000).pipe(filter(() => !this.hasHover())),
       this.pagePreviewActionsService.getHasToClose(this.id())
     )

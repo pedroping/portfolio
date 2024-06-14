@@ -2,7 +2,9 @@
   display: block;
   position: fixed;
   height: 150px;
+  max-height: 150px;
   width: 200px;
+  overflow: hidden;
   background-color: var(--light-background);
   border: 3px var(--border-01) solid;
   border-radius: 5px;
@@ -15,14 +17,44 @@
         var(--gradient-color-02) 100%);
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     padding: 2px 3px;
     user-select: none;
     border-bottom: none;
+
+
+    .logo-and-name {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      height: 100%;
+
+      img {
+        height: 100%;
+        aspect-ratio: 1;
+      }
+    }
+
+    .page-name {
+      font-size: 14px;
+      color: var(--text-color-01);
+      font-weight: 500;
+    }
+
   }
 
   .content {
     height: 100%;
     width: 100%;
+    position: relative;
+
+    .overlay {
+      position: absolute;
+      z-index: 2;
+      width: 100%;
+      height: calc(100% - 25px);
+      top: 0;
+      left: 0;
+    }
   }
 }
