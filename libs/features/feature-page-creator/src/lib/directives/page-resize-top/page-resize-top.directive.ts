@@ -49,7 +49,7 @@ export class PageResizeTopDirective implements OnInit {
     );
     this.mouseMoveEvent$ = fromEvent<MouseEvent>(document, 'mousemove');
     this.mouseUpEvent$ = fromEvent<MouseEvent>(document, 'mouseup');
-    this.element$ = this._config.elementReference.element$;
+    this.element$ = this._config.element$;
     this.touchEnd$ = fromEvent<TouchEvent>(document, 'touchend');
     this.touchMove$ = fromEvent<TouchEvent>(document, 'touchmove').pipe(
       takeUntil(this.touchEnd$)
@@ -65,7 +65,7 @@ export class PageResizeTopDirective implements OnInit {
       .pipe(
         tap((event) => {
           this.startPosition = event.y;
-          this.initialYPosition = this._config.elementReference.lastPosition.y;
+          this.initialYPosition = this._config.lastPosition.y;
           this.initialElementWidth = this.element$.value?.offsetHeight ?? 0;
         }),
         switchMap(() =>
@@ -83,7 +83,7 @@ export class PageResizeTopDirective implements OnInit {
       .pipe(
         tap((event) => {
           this.startPosition = event.touches[0].pageY;
-          this.initialYPosition = this._config.elementReference.lastPosition.y;
+          this.initialYPosition = this._config.lastPosition.y;
           this.initialElementWidth = this.element$.value?.offsetHeight ?? 0;
         }),
         switchMap(() => this.touchMove$.pipe(takeUntil(this.touchEnd$))),
@@ -98,9 +98,8 @@ export class PageResizeTopDirective implements OnInit {
   }
 
   resizeElement(y: number, element: HTMLElement) {
-    if (this._config.elementReference.isFullScreen) return;
+    if (this._config.isFullScreen) return;
 
-    const elementReference = this._config.elementReference;
     const newPositionCalc = this.startPosition - y;
 
     if (y < 0) return;
@@ -116,11 +115,11 @@ export class PageResizeTopDirective implements OnInit {
 
     if (newHeight <= minHeight) return;
 
-    elementReference.lastPosition.y = this.initialYPosition - newPositionCalc;
+    this._config.lastPosition.y = this.initialYPosition - newPositionCalc;
     DomElementAdpter.setTransform(
       element,
-      Math.max(elementReference.lastPosition.x, -ELEMENT_PADDING),
-      Math.max(elementReference.lastPosition.y, -ELEMENT_PADDING)
+      Math.max(this._config.lastPosition.x, -ELEMENT_PADDING),
+      Math.max(this._config.lastPosition.y, -ELEMENT_PADDING)
     );
     this.elementsFacede.setAnyElementEvent(true);
   }

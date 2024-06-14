@@ -37,7 +37,7 @@ export class PageContentOverlayDirective implements AfterViewInit {
       mouseLeaveEvent$,
       this.eventsFacade.changeZIndex$$,
       this.elementsFacede.elements$.asObservable(),
-      this._config.elementReference.element$.pipe(take(2))
+      this._config.element$.pipe(take(2))
     )
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => this.validateOverlay());
@@ -51,24 +51,23 @@ export class PageContentOverlayDirective implements AfterViewInit {
   }
 
   validateOverlay() {
-    const elementReference = this._config.elementReference;
-    const element = elementReference.element$.value;
+    const element = this._config.element$.value;
 
     if (!element) return;
 
     const hasNoOtherElement = this.elementsFacede.isOnlyElementOpened(
-      elementReference.id
+      this._config.id
     );
 
     if (hasNoOtherElement) return this.removeOverlay();
 
     const isHiggestElement =
-      elementReference.id == this.elementsFacede.getHiggestElementId();
+      this._config.id == this.elementsFacede.getHiggestElementId();
 
     if (isHiggestElement) return this.removeOverlay();
 
     const isBehindAnotherElement = this.getIsBehindAnotherElement(
-      elementReference.id,
+      this._config.id,
       element
     );
 

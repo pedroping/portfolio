@@ -82,7 +82,7 @@ export class PageComponent implements IPageComponent, OnInit {
 
   ngOnInit(): void {
     this.name.set(this._config.name);
-    this.id.set(this._config.elementReference.id);
+    this.id.set(this._config.id);
     this.width.set(this._config.baseSizes.width + 'px');
     this.height.set(this._config.baseSizes.height + 'px');
     this.icon.set(this._config.icon ?? ELEMENT_BASE_ICON);

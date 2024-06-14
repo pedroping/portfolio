@@ -1,5 +1,5 @@
-import { IElementReference } from '@portifolio/features/feature-page-creator';
+import { IPageConfig } from '@portifolio/features/feature-page-creator';
 
 export interface IPreviewPage {
-  element?: IElementReference;
+  element?: IPageConfig;
 }

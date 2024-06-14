@@ -31,37 +31,35 @@ export class PageMaximizeDirective implements OnInit {
   ) {}
 
   @HostListener('click') onclick() {
-    const elementReference = this._config.elementReference;
-    const element = elementReference.element$.value;
+    const element = this._config.element$.value;
 
     if (!element) return;
 
-    const isFullScreen = elementReference.isFullScreen;
+    const isFullScreen = this._config.isFullScreen;
 
     if (!isFullScreen) this.setSizes();
 
     if (!element) return;
 
     this.setFullScreen(!isFullScreen, element);
-    elementReference.isFullScreen = !elementReference.isFullScreen;
+    this._config.isFullScreen = !this._config.isFullScreen;
   }
 
   ngOnInit(): void {
     const boundaryElement = this.elementsFacede.draggingBoundaryElement$.value;
     if (!boundaryElement) return;
-    const elementReference = this._config.elementReference;
     this.lastHeight = boundaryElement.offsetHeight;
 
-    this._config.elementReference.element$
+    this._config.element$
       .pipe(take(2), takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
-        if (!elementReference || !elementReference.isFullScreen) return;
-        const element = elementReference.element$.value;
+        if (!this._config || !this._config.isFullScreen) return;
+        const element = this._config.element$.value;
 
         if (!element) return;
 
         this.setSizes();
-        elementReference.opened = true;
+        this._config.opened = true;
 
         this.lastTranslet3d = DomElementAdpter.getTranslate3d(
           this._config.customX || 0,
@@ -82,15 +80,14 @@ export class PageMaximizeDirective implements OnInit {
           if (this.lastHeight === boundaryElement.offsetHeight) return;
 
           this.lastHeight = boundaryElement.offsetHeight;
-          const elementReference = this._config.elementReference;
-          const element = elementReference.element$.value;
+          const element = this._config.element$.value;
 
           if (!element) return;
 
           if (
-            !elementReference ||
-            !elementReference.isFullScreen ||
-            !elementReference.opened
+            !this._config ||
+            !this._config.isFullScreen ||
+            !this._config.opened
           )
             return;
 
@@ -100,14 +97,9 @@ export class PageMaximizeDirective implements OnInit {
         fromEvent(window, 'resize')
           .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe(() => {
-            const elementReference = this._config.elementReference;
-            const element = elementReference.element$.value;
+            const element = this._config.element$.value;
 
-            if (
-              !elementReference.isFullScreen ||
-              !elementReference.opened ||
-              !element
-            )
+            if (!this._config.isFullScreen || !this._config.opened || !element)
               return;
 
             this.setFullScreen(true, element);
@@ -169,8 +161,7 @@ export class PageMaximizeDirective implements OnInit {
   }
 
   setSizes() {
-    const elementReference = this._config.elementReference;
-    const element = elementReference.element$.value;
+    const element = this._config.element$.value;
     if (!element) return;
 
     const baseSizes = this._config.baseSizes;

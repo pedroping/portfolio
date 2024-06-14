@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { IPreviewPage } from '../../models/preview-models';
 import {
   ElementsFacede,
-  IElementReference,
+  IPageConfig,
 } from '@portifolio/features/feature-page-creator';
 import { CloseComponent } from '@portifolio/ui/ui-page-actions-buttons';
+import { IPreviewPage } from '../../models/preview-models';
 
 @Component({
   selector: 'page-preview',
@@ -14,7 +14,7 @@ import { CloseComponent } from '@portifolio/ui/ui-page-actions-buttons';
   imports: [CloseComponent],
 })
 export class PagePreviewComponent implements IPreviewPage {
-  element?: IElementReference;
+  element?: IPageConfig;
 
   constructor(private readonly elementsFacade: ElementsFacede) {}
 

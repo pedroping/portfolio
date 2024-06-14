@@ -5,16 +5,13 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import { fromEvent, takeUntil } from 'rxjs';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
-import {
-  IElementReference,
-  IPageConfig,
-} from '../../models/elements-interfaces';
-import { CONFIG_TOKEN } from '../../models/elements-token';
 import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { IPageConfig } from '../../models/elements-interfaces';
+import { CONFIG_TOKEN } from '../../models/elements-token';
 
 @Directive({
   selector: '[pageMove]',
@@ -67,8 +64,7 @@ export class PageMoveDirective implements OnInit {
   dragStart(event: MouseEvent) {
     if (this.hasPrevent(event.target as HTMLElement)) return;
 
-    const elementReference = this._config.elementReference;
-    const element = elementReference.element$.value;
+    const element = this._config.element$.value;
 
     if (!element) return;
 
@@ -86,26 +82,18 @@ export class PageMoveDirective implements OnInit {
       ELEMENT_PADDING -
       element.offsetHeight;
 
-    this.initialX = event.clientX - elementReference.lastPosition.x || 0;
-    this.initialY = event.clientY - elementReference.lastPosition.y || 0;
+    this.initialX = event.clientX - this._config.lastPosition.x || 0;
+    this.initialY = event.clientY - this._config.lastPosition.y || 0;
 
     this.drag$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((event) => {
-      this.drag(
-        event.clientX,
-        event.clientY,
-        element,
-        maxBoundX,
-        maxBoundY,
-        elementReference
-      );
+      this.drag(event.clientX, event.clientY, element, maxBoundX, maxBoundY);
     });
   }
 
   touchStart(event: TouchEvent) {
     if (this.hasPrevent(event.target as HTMLElement)) return;
 
-    const elementReference = this._config.elementReference;
-    const element = elementReference.element$.value;
+    const element = this._config.element$.value;
 
     if (!element) return;
 
@@ -123,15 +111,15 @@ export class PageMoveDirective implements OnInit {
     const maxBoundY =
       draggingBoundaryElement.offsetHeight - element.offsetHeight;
 
-    this.initialX = touchX - elementReference.lastPosition.x || 0;
-    this.initialY = touchY - elementReference.lastPosition.y || 0;
+    this.initialX = touchX - this._config.lastPosition.x || 0;
+    this.initialY = touchY - this._config.lastPosition.y || 0;
 
     this.touchMove$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((event) => {
         const X = event.touches[0].pageX;
         const Y = event.touches[0].pageY;
-        this.drag(X, Y, element, maxBoundX, maxBoundY, elementReference);
+        this.drag(X, Y, element, maxBoundX, maxBoundY);
       });
   }
 
@@ -140,10 +128,9 @@ export class PageMoveDirective implements OnInit {
     y: number,
     element: HTMLElement,
     maxBoundX: number,
-    maxBoundY: number,
-    elementReference: IElementReference
+    maxBoundY: number
   ) {
-    if (elementReference.isFullScreen) return;
+    if (this._config.isFullScreen) return;
 
     const newX = x - this.initialX;
     const newY = y - this.initialY;
@@ -153,7 +140,7 @@ export class PageMoveDirective implements OnInit {
 
     this.currentX = Math.max(-ELEMENT_PADDING, maxPositionX);
     this.currentY = Math.max(-ELEMENT_PADDING, maxPositionY);
-    elementReference.lastPosition = { x: this.currentX, y: this.currentY };
+    this._config.lastPosition = { x: this.currentX, y: this.currentY };
     this.elementsFacede.setAnyElementEvent(true);
     DomElementAdpter.removeTransition(element);
     DomElementAdpter.setTransform(element, this.currentX, this.currentY);

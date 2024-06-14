@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import {
-  IBasicElement,
-  IElementReference,
-} from '../../models/elements-interfaces';
+import { IBasicElement, IPageConfig } from '../../models/elements-interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class ElementsData {
-  elements$ = new BehaviorSubject<IElementReference[]>([]);
+  elements$ = new BehaviorSubject<IPageConfig[]>([]);
   basicElements$ = new BehaviorSubject<IBasicElement[]>([]);
   draggingBoundaryElement$ = new BehaviorSubject<HTMLElement | null>(null);
   anyElementEvent$ = new BehaviorSubject<boolean>(false);
@@ -16,12 +13,7 @@ export class ElementsData {
     this.draggingBoundaryElement$.next(element.parentElement as HTMLElement);
   }
 
-  pushElement(
-    id: number,
-    name: string,
-    icon: string,
-    element: IElementReference
-  ) {
+  pushElement(id: number, name: string, icon: string, element: IPageConfig) {
     this.elements$.next([...this.elements$.value, element]);
     this.basicElements$.next([
       ...this.basicElements$.value,

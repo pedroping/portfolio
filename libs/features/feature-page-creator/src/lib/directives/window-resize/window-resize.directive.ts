@@ -1,10 +1,10 @@
 import { DestroyRef, Directive, Inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { DomElementAdpter } from '@portifolio/utils/util-adpters';
+import { fromEvent } from 'rxjs';
+import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
-import { fromEvent, startWith, switchMap } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
-import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 
 @Directive({
   selector: '[windowResize]',
@@ -21,16 +21,11 @@ export class WindowResizeDirective implements OnInit {
     fromEvent(window, 'resize')
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
-        const element = this._config.elementReference.element$.value;
+        const element = this._config.element$.value;
         const boundaryElement =
           this.elementsFacade.draggingBoundaryElement$.value;
 
-        if (
-          !element ||
-          !boundaryElement ||
-          this._config.elementReference.isFullScreen
-        )
-          return;
+        if (!element || !boundaryElement || this._config.isFullScreen) return;
 
         const height = element.offsetHeight;
         const boundaryHeight = boundaryElement.offsetHeight;
@@ -41,7 +36,7 @@ export class WindowResizeDirective implements OnInit {
         element.style.width = Math.min(width, boundaryWidth) + 'px';
 
         if (height > boundaryHeight || width > boundaryWidth) {
-          this._config.elementReference.lastPosition = { x: 0, y: 0 };
+          this._config.lastPosition = { x: 0, y: 0 };
           DomElementAdpter.setTransform(element, 0, 0);
           console.log(height, boundaryHeight, width, boundaryWidth);
         }

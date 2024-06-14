@@ -10,7 +10,6 @@ import { PageComponent } from '../../component/page.component';
 import { ELEMENT_BASE_ICON } from '../../mocks/elements.mocks';
 import {
   IDomElementOptions,
-  IElementReference,
   IInitialConfig,
   IPageConfig,
 } from '../../models/elements-interfaces';
@@ -42,17 +41,17 @@ export class ElementCreatorService<T> {
       );
 
     const id = this.elementsData.elements$.value.length;
-    const elementReference = this.createElementReference(
-      id,
-      new BehaviorSubject<HTMLElement | null>(null),
-      domElementOptions,
-      config.customX,
-      config.customY
-    );
-
-    const pageConfig = {
+    const pageConfig: IPageConfig = {
       ...config,
-      elementReference,
+      id,
+      lastPosition: {
+        x: config.customX ?? 0,
+        y: config.customY ?? 0,
+      },
+      opened: !!domElementOptions?.opened,
+      isFullScreen: !!domElementOptions?.isFullScreen,
+      onDestroy$: new Subject<void>(),
+      element$: new BehaviorSubject<HTMLElement | null>(null),
     };
 
     const elementInjection = this.createElementInjection(data, pageConfig);
@@ -66,24 +65,20 @@ export class ElementCreatorService<T> {
 
     changeDetectorRef.detectChanges();
     DomElementAdpter.setDisplay(instance.element, !!domElementOptions?.opened);
-    this.setCustomTransform(instance.element, pageConfig, elementReference);
+    this.setCustomTransform(instance.element, pageConfig);
     this.elementsData.pushElement(
       id,
       config.name,
       config.icon ?? ELEMENT_BASE_ICON,
-      elementReference
+      pageConfig
     );
-    elementReference.element$.next(instance.element);
+    pageConfig.element$.next(instance.element);
     this.setZIndexService.setNewZIndex(id, instance.element);
 
-    return elementReference;
+    return pageConfig;
   }
 
-  setCustomTransform(
-    element: HTMLElement,
-    config: IPageConfig,
-    elementReference: IElementReference
-  ) {
+  setCustomTransform(element: HTMLElement, config: IPageConfig) {
     const boundaryElement = this.elementsData.draggingBoundaryElement$.value;
 
     if (!boundaryElement)
@@ -101,7 +96,7 @@ export class ElementCreatorService<T> {
     const maxY = Math.min(config.customY || 0, height - elementHeight);
     const maxX = Math.min(config.customX || 0, width - elementWidth);
 
-    elementReference.lastPosition = { x: maxX, y: maxY };
+    config.lastPosition = { x: maxX, y: maxY };
     DomElementAdpter.setTransform(element, maxX, maxY);
   }
 
@@ -109,26 +104,6 @@ export class ElementCreatorService<T> {
     const vcrIndex = this.elementsData.findElementIndex(id);
     this.vcr.remove(vcrIndex);
     this.elementsData.removeElement(id);
-  }
-
-  private createElementReference(
-    id: number,
-    element$: BehaviorSubject<HTMLElement | null>,
-    domElementOptions?: IDomElementOptions,
-    customX = 0,
-    customY = 0
-  ): IElementReference {
-    return {
-      id: id,
-      lastPosition: {
-        x: customX,
-        y: customY,
-      },
-      element$: element$,
-      opened: !!domElementOptions?.opened,
-      isFullScreen: !!domElementOptions?.isFullScreen,
-      onDestroy$: new Subject<void>(),
-    };
   }
 
   private createElementInjection(data: T, config: IPageConfig) {

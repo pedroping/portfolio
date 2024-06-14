@@ -49,7 +49,7 @@ export class PageResizeBottomDirective implements OnInit {
     );
     this.mouseMoveEvent$ = fromEvent<MouseEvent>(document, 'mousemove');
     this.mouseUpEvent$ = fromEvent<MouseEvent>(document, 'mouseup');
-    this.element$ = this._config.elementReference.element$;
+    this.element$ = this._config.element$;
     this.touchEnd$ = fromEvent<TouchEvent>(document, 'touchend');
     this.touchMove$ = fromEvent<TouchEvent>(document, 'touchmove').pipe(
       takeUntil(this.touchEnd$)
@@ -98,7 +98,7 @@ export class PageResizeBottomDirective implements OnInit {
   }
 
   resizeElement(y: number, element: HTMLElement) {
-    if (this._config.elementReference.isFullScreen) return;
+    if (this._config.isFullScreen) return;
 
     const boundaryHeight =
       this.elementsData.draggingBoundaryElement$.value?.offsetHeight;

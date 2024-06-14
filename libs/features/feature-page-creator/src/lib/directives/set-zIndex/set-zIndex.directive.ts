@@ -17,10 +17,8 @@ export class SetZIndexDirective {
   @HostListener('mousedown')
   @HostListener('touchstart')
   onEvent() {
-    const elementReference = this._config.elementReference;
-
-    const element = elementReference.element$.value;
-    const id = elementReference.id;
+    const element = this._config.element$.value;
+    const id = this._config.id;
 
     if (!element) return;
 

@@ -2,7 +2,7 @@ import { DestroyRef, Injectable } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
-import { IElementReference } from '../../models/elements-interfaces';
+import { IPageConfig } from '../../models/elements-interfaces';
 import { ElementsData } from '../elements-data/elements-data.service';
 import { SetZIndexService } from '../set-z-index/set-z-index.service';
 
@@ -15,49 +15,49 @@ export class PageActionsService {
   ) {}
 
   openElement(id: number) {
-    const elementReference = this.elementsData.findElement(id);
-    if (!elementReference) return;
-    if (!elementReference.opened) return this.showElement(elementReference);
-    this.validateElementPosition(elementReference);
+    const elmentConfig = this.elementsData.findElement(id);
+    if (!elmentConfig) return;
+    if (!elmentConfig.opened) return this.showElement(elmentConfig);
+    this.validateElementPosition(elmentConfig);
   }
 
-  private validateElementPosition(elementReference: IElementReference) {
+  private validateElementPosition(elmentConfig: IPageConfig) {
     const isHiggerElement =
-      elementReference.id == this.setZIndexService.getHiggestElementId();
-    const element = elementReference.element$.value;
+      elmentConfig.id == this.setZIndexService.getHiggestElementId();
+    const element = elmentConfig.element$.value;
 
     if (!element) return;
 
     const isBehindAnotherElement = this.getIsBehindAnotherElement(
-      elementReference.id,
+      elmentConfig.id,
       element
     );
 
     const onFullScreenAndNotBigger =
-      elementReference.isFullScreen && !isHiggerElement;
+      elmentConfig.isFullScreen && !isHiggerElement;
 
     const hasNoOtherElement = this.elementsData.isOnlyElementOpened(
-      elementReference.id
+      elmentConfig.id
     );
 
-    if (hasNoOtherElement) return this.minimizeElement(elementReference);
+    if (hasNoOtherElement) return this.minimizeElement(elmentConfig);
 
     if (onFullScreenAndNotBigger)
-      return this.setZIndexService.setNewZIndex(elementReference.id, element);
+      return this.setZIndexService.setNewZIndex(elmentConfig.id, element);
 
     if (isBehindAnotherElement && !isHiggerElement)
-      return this.setZIndexService.setNewZIndex(elementReference.id, element);
+      return this.setZIndexService.setNewZIndex(elmentConfig.id, element);
 
-    this.minimizeElement(elementReference);
+    this.minimizeElement(elmentConfig);
   }
 
-  private minimizeElement(elementReference: IElementReference) {
-    const element = elementReference.element$.value;
+  private minimizeElement(elmentConfig: IPageConfig) {
+    const element = elmentConfig.element$.value;
     if (!element) return;
 
-    const index = this.elementsData.findElementIndex(elementReference.id);
-    elementReference.opened = false;
-    this.elementsData.hideElement(elementReference.id);
+    const index = this.elementsData.findElementIndex(elmentConfig.id);
+    elmentConfig.opened = false;
+    this.elementsData.hideElement(elmentConfig.id);
 
     DomElementAdpter.setOnlyTransformTransition(element, 5);
     DomElementAdpter.setTransform(
@@ -73,19 +73,19 @@ export class PageActionsService {
       });
   }
 
-  private showElement(elementReference: IElementReference) {
-    elementReference.opened = true;
-    const element = elementReference.element$.value;
+  private showElement(elmentConfig: IPageConfig) {
+    elmentConfig.opened = true;
+    const element = elmentConfig.element$.value;
 
     if (!element) return;
 
-    this.elementsData.openElement(elementReference.id);
+    this.elementsData.openElement(elmentConfig.id);
 
     DomElementAdpter.setTransition(element);
     element.style.display = 'block';
-    this.setZIndexService.setNewZIndex(elementReference.id, element);
+    this.setZIndexService.setNewZIndex(elmentConfig.id, element);
 
-    if (elementReference.isFullScreen) {
+    if (elmentConfig.isFullScreen) {
       DomElementAdpter.setTransform(
         element,
         -ELEMENT_PADDING,
@@ -96,8 +96,8 @@ export class PageActionsService {
 
     DomElementAdpter.setTransform(
       element,
-      elementReference.lastPosition.x,
-      elementReference.lastPosition.y
+      elmentConfig.lastPosition.x,
+      elmentConfig.lastPosition.y
     );
 
     DomElementAdpter.afterTransitions(element)

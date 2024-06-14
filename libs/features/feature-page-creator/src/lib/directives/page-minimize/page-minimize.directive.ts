@@ -24,14 +24,12 @@ export class PageMinimizeDirective implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._config.elementReference.element$
+    this._config.element$
       .pipe(
         take(2),
         filter(
           () =>
-            !!this._config.elementReference &&
-            !this._config.elementReference.opened &&
-            !this._config.elementReference.isFullScreen
+            !!this._config && !this._config.opened && !this._config.isFullScreen
         ),
         takeUntilDestroyed(this.destroyRef)
       )
@@ -39,15 +37,14 @@ export class PageMinimizeDirective implements OnInit {
   }
 
   @HostListener('click') onclick() {
-    const elementReference = this._config.elementReference;
-    const element = elementReference.element$.value;
+    const element = this._config.element$.value;
 
     if (!element) return;
 
-    const isFullScreen = elementReference.isFullScreen;
-    const index = this.elementsFacede.findElementIndex(elementReference.id);
-    elementReference.opened = false;
-    this.elementsFacede.hideElement(elementReference.id);
+    const isFullScreen = this._config.isFullScreen;
+    const index = this.elementsFacede.findElementIndex(this._config.id);
+    this._config.opened = false;
+    this.elementsFacede.hideElement(this._config.id);
 
     DomElementAdpter.setOnlyTransformTransition(element, 5);
     DomElementAdpter.setTransform(
@@ -66,7 +63,7 @@ export class PageMinimizeDirective implements OnInit {
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe(() => {
-        elementReference.isFullScreen = isFullScreen;
+        this._config.isFullScreen = isFullScreen;
       });
   }
 }

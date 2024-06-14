@@ -38,9 +38,7 @@ export interface IElementReference extends IDomElementOptions {
   onDestroy$: Subject<void>;
 }
 
-export interface IPageConfig extends IInitialConfig {
-  elementReference: IElementReference;
-}
+export type IPageConfig = IInitialConfig & IElementReference;
 
 export type IPageMock = {
   config: IInitialConfig;
