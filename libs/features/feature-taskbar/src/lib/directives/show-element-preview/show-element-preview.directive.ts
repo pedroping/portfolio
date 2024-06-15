@@ -12,7 +12,17 @@ import {
 } from '@portifolio/features/feature-page-creator';
 import { BuildAnimation } from '@portifolio/utils/util-animations';
 import { LastZIndexService } from '@portifolio/utils/util-z-index-handler';
-import { Subject, filter, merge, takeUntil, timer } from 'rxjs';
+import {
+  Subject,
+  debounceTime,
+  filter,
+  fromEvent,
+  merge,
+  startWith,
+  take,
+  takeUntil,
+  timer
+} from 'rxjs';
 import { PagePreviewComponent } from '../../components/page-preview/page-preview.component';
 import {
   PREVIEW_GAP_LEFT,
@@ -42,8 +52,54 @@ export class ShowElementPreviewDirective {
     private readonly pagePreviewActionsService: PagePreviewActionsService
   ) {}
 
-  @HostListener('mouseenter') onHover() {
+  @HostListener('touchstart', ['$event']) onTouchStart(event: TouchEvent) {
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+
+    let hasCancel = false;
+
+    const touchLeaveEvent$ = merge(
+      fromEvent(this.elementRef.nativeElement, 'click'),
+      fromEvent(this.elementRef.nativeElement, 'touchend').pipe(take(1)),
+      fromEvent(this.elementRef.nativeElement, 'touchleave').pipe(take(1))
+    );
+
+    touchLeaveEvent$.subscribe(() => {
+      hasCancel = true;
+    });
+
+    touchLeaveEvent$
+      .pipe(startWith(undefined), debounceTime(500), take(1))
+      .subscribe(() => {
+        if (hasCancel) return;
+        this.createElement();
+      });
+  }
+
+  @HostListener('mouseenter')
+  openElementOnMouse() {
     if (this.previewOpened) return;
+
+    let hasCancel = false;
+
+    const mouseLeave$ = merge(
+      fromEvent(this.elementRef.nativeElement, 'click'),
+      fromEvent(this.elementRef.nativeElement, 'mouseleave')
+    );
+
+    mouseLeave$.subscribe(() => {
+      hasCancel = true;
+    });
+
+    mouseLeave$
+      .pipe(startWith(undefined), debounceTime(500), take(1))
+      .subscribe(() => {
+        if (hasCancel) return;
+        this.createElement();
+      });
+  }
+
+  createElement() {
     this.vcr.clear();
     this.pagePreviewActionsService.setCloseOtherMenus(this.id());
 
