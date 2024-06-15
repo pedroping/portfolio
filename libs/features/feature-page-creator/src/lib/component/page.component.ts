@@ -89,15 +89,13 @@ export class PageComponent implements IPageComponent, OnInit {
     this.height.set(this._config.baseSizes.height + 'px');
     this.icon.set(this._config.icon ?? ELEMENT_BASE_ICON);
     this.pageContent.set(this._config.pageContent ?? null);
-    this.minHeight.set(
-      this._config.baseSizes?.minHeight
-        ? this._config.baseSizes?.minHeight + 'px'
-        : BASE_HEIGHT + 'px'
-    );
-    this.minWidth.set(
-      this._config.baseSizes?.minWidth
-        ? this._config.baseSizes?.minWidth + 'px'
-        : BASE_WIDTH + 'px'
-    );
+    
+    this._config.baseSizes.minHeight =
+      this._config.baseSizes?.minHeight ?? BASE_HEIGHT;
+    this._config.baseSizes.minWidth =
+      this._config.baseSizes?.minWidth ?? BASE_WIDTH;
+
+    this.minHeight.set(this._config.baseSizes.minHeight + 'px');
+    this.minWidth.set(this._config.baseSizes.minWidth + 'px');
   }
 }

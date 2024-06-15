@@ -32,13 +32,40 @@ export class WindowResizeDirective implements OnInit {
         const width = element.offsetWidth;
         const boundaryWidth = boundaryElement.offsetWidth;
 
+        if (this._config.baseSizes.minHeight)
+          this._config.baseSizes.minHeight = Math.min(
+            this._config.baseSizes.minHeight,
+            boundaryHeight
+          );
+
+        if (this._config.baseSizes.minWidth)
+          this._config.baseSizes.minWidth = Math.min(
+            this._config.baseSizes.minWidth,
+            boundaryWidth
+          );
+
         element.style.height = Math.min(height, boundaryHeight) + 'px';
         element.style.width = Math.min(width, boundaryWidth) + 'px';
+        element.style.minWidth = this._config.baseSizes.minWidth + 'px';
+        element.style.minHeight = this._config.baseSizes.minHeight + 'px';
 
-        if (height > boundaryHeight || width > boundaryWidth) {
-          // this._config.lastPosition = { x: 0, y: 0 };
-          // DomElementAdpter.setTransform(element, 0, 0);
-        }
+        const maxBoundX = boundaryWidth - element.offsetWidth;
+        const maxBoundY = boundaryHeight - element.offsetHeight;
+
+        this._config.lastPosition.x = Math.min(
+          this._config.lastPosition.x,
+          maxBoundX
+        );
+        this._config.lastPosition.y = Math.min(
+          this._config.lastPosition.y,
+          maxBoundY
+        );
+
+        DomElementAdpter.setTransform(
+          element,
+          this._config.lastPosition.x,
+          this._config.lastPosition.y
+        );
       });
   }
 }
