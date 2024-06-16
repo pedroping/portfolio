@@ -1,6 +1,6 @@
 import { UiNewTrelloPageComponent } from '@portifolio/ui/ui-new-trello-page';
+import { IPageMock } from '@portifolio/utils/util-models';
 import { IBasicProgram } from '../models/program-models';
-import { IPageMock } from '@portifolio/features/feature-page-creator';
 
 export const ELEMENT_BASE_ICON = '/assets/images/windows-basic-folder.png';
 

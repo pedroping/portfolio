@@ -6,14 +6,14 @@ import {
   Inject,
   contentChild,
 } from '@angular/core';
-import { MenuEventsService } from '@portifolio/features/feature-inital-menu';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
+import { MenuEventsService } from '@portifolio/utils/util-events';
+import { IPageConfig } from '@portifolio/utils/util-models';
 import { fromEvent, merge, take } from 'rxjs';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { EventsFacade } from '../../facedes/events-facades/events-facade.service';
-import { IPageConfig } from "@portifolio/utils/util-models";
 import { CONFIG_TOKEN } from '../../models/elements-token';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Directive({
   selector: '[pageContentOverlay]',

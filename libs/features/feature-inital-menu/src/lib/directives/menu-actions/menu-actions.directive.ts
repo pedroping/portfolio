@@ -1,7 +1,7 @@
 import { DestroyRef, Directive, NgZone, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { fromEvent } from 'rxjs';
-import { MenuEventsService } from '../../services/menu-events/menu-events.service';
+import { MenuEventsService } from '../../../../../../utils/util-events/src/lib/menu-events/menu-events.service';
 
 @Directive({
   standalone: true,

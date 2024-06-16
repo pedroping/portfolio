@@ -1,7 +1,7 @@
 import { Directive, OnInit, ViewContainerRef } from '@angular/core';
 import { BuildAnimation } from '@portifolio/utils/util-animations';
 import { InitialMenuComponent } from '../../components/initial-menu/initial-menu.component';
-import { MenuEventsService } from '../../services/menu-events/menu-events.service';
+import { MenuEventsService } from '../../../../../../utils/util-events/src/lib/menu-events/menu-events.service';
 import { MenuActionsDirective } from '../menu-actions/menu-actions.directive';
 import { take } from 'rxjs';
 @Directive({

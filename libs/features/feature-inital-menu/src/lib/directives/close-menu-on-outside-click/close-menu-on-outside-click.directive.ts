@@ -8,7 +8,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { fromEvent, merge, skip } from 'rxjs';
 import { PREVENT_TOGGLE_ID } from '../../mocks/menu-mocks';
-import { MenuEventsService } from '../../services/menu-events/menu-events.service';
+import { MenuEventsService } from '../../../../../../utils/util-events/src/lib/menu-events/menu-events.service';
 
 @Directive({
   standalone: true,

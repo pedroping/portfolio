@@ -1,12 +1,10 @@
 import { AfterViewInit, Component, OnDestroy } from '@angular/core';
-import {
-  InitialMenuCreatorDirective,
-  MenuEventsService,
-} from '@portifolio/features/feature-inital-menu';
+import { InitialMenuCreatorDirective } from '@portifolio/features/feature-inital-menu';
 import {
   ElementsFacede,
   PageParentDirective,
 } from '@portifolio/features/feature-page-creator';
+import { MenuEventsService } from '@portifolio/utils/util-events';
 @Component({
   selector: 'workspace-page',
   templateUrl: './workspace-page.component.html',

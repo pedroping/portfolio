@@ -1,13 +1,10 @@
 import { TitleCasePipe } from '@angular/common';
 import { Component, HostListener, computed, input } from '@angular/core';
-import {
-  ElementsFacede,
-  IPageMock,
-} from '@portifolio/features/feature-page-creator';
+import { ElementsFacede } from '@portifolio/features/feature-page-creator';
+import { MenuEventsService } from '@portifolio/utils/util-events';
+import { IPageMock } from '@portifolio/utils/util-models';
 import { ELEMENT_BASE_ICON } from '../../mocks/program-mocks';
-import { MenuEventsService } from '../../services/menu-events/menu-events.service';
 import { IBasicProgram } from '../../models/program-models';
-
 @Component({
   selector: 'program',
   templateUrl: './program.component.html',
