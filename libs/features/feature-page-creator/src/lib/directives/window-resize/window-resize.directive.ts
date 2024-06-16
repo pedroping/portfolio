@@ -1,7 +1,7 @@
 import { DestroyRef, Directive, Inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
-import { fromEvent } from 'rxjs';
+import { fromEvent, merge, skip, take } from 'rxjs';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
@@ -18,7 +18,10 @@ export class WindowResizeDirective implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    fromEvent(window, 'resize')
+    merge(
+      fromEvent(window, 'resize'),
+      this._config.element$.pipe(take(2), skip(1))
+    )
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
         const element = this._config.element$.value;
