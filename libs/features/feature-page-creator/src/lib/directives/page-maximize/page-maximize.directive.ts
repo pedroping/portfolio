@@ -9,7 +9,7 @@ import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import { filter, fromEvent, take } from 'rxjs';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { OBSERVE_CONFIG } from '../../mocks/observerConfig-mocks';
-import { IPageConfig } from '../../models/elements-interfaces';
+import { IPageConfig } from "@portifolio/utils/util-models";
 import { CONFIG_TOKEN } from '../../models/elements-token';
 import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';

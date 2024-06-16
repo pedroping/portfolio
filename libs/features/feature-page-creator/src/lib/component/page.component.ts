@@ -30,7 +30,7 @@ import {
   BASE_WIDTH,
   ELEMENT_BASE_ICON,
 } from '../mocks/elements.mocks';
-import { IPageComponent, IPageConfig } from '../models/elements-interfaces';
+import { IPageComponent, IPageConfig } from "@portifolio/utils/util-models";
 import { CONFIG_TOKEN } from '../models/elements-token';
 @Component({
   selector: 'feature-page',

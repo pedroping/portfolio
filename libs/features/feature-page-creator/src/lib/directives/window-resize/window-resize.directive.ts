@@ -1,9 +1,9 @@
 import { DestroyRef, Directive, Inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
+import { IPageConfig } from '@portifolio/utils/util-models';
 import { fromEvent, merge, skip, take } from 'rxjs';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
-import { IPageConfig } from '../../models/elements-interfaces';
 import { CONFIG_TOKEN } from '../../models/elements-token';
 
 @Directive({

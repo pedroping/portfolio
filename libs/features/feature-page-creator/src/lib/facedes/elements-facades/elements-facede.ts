@@ -3,7 +3,7 @@ import {
   IDomElementOptions,
   IInitialConfig,
   IPageConfig,
-} from '../../models/elements-interfaces';
+} from '@portifolio/utils/util-models';
 import { ElementCreatorService } from '../../services/element-creator/element-creator.service';
 import { ElementsData } from '../../services/elements-data/elements-data.service';
 import { PageActionsService } from '../../services/page-actions/page-actions.service';

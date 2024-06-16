@@ -1,6 +1,6 @@
 import { Directive, HostListener, Inject } from '@angular/core';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
-import { IPageConfig } from '../../models/elements-interfaces';
+import { IPageConfig } from '@portifolio/utils/util-models';
 import { CONFIG_TOKEN } from '../../models/elements-token';
 
 @Directive({

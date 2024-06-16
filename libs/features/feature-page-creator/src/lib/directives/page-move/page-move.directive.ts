@@ -10,7 +10,7 @@ import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import { fromEvent, takeUntil } from 'rxjs';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
-import { IPageConfig } from '../../models/elements-interfaces';
+import { IPageConfig } from "@portifolio/utils/util-models";
 import { CONFIG_TOKEN } from '../../models/elements-token';
 
 @Directive({

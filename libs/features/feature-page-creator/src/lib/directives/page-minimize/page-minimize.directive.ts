@@ -8,7 +8,7 @@ import {
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import { filter, switchMap, take, tap } from 'rxjs';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
-import { IPageConfig } from '../../models/elements-interfaces';
+import { IPageConfig } from "@portifolio/utils/util-models";
 import { CONFIG_TOKEN } from '../../models/elements-token';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 

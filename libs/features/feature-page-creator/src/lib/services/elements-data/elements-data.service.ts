@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { IBasicElement, IPageConfig } from '@portifolio/utils/util-models';
 import { BehaviorSubject } from 'rxjs';
-import { IBasicElement, IPageConfig } from '../../models/elements-interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class ElementsData {

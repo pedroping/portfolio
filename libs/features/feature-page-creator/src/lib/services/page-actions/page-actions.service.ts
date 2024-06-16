@@ -2,9 +2,9 @@ import { DestroyRef, Injectable } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
-import { IPageConfig } from '../../models/elements-interfaces';
 import { ElementsData } from '../elements-data/elements-data.service';
 import { SetZIndexService } from '../set-z-index/set-z-index.service';
+import { IPageConfig } from '@portifolio/utils/util-models';
 
 @Injectable({ providedIn: 'root' })
 export class PageActionsService {

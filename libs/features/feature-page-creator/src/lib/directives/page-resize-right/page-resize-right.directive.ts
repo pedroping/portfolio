@@ -15,7 +15,7 @@ import {
 } from 'rxjs';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { BASE_WIDTH, ELEMENT_PADDING } from '../../mocks/elements.mocks';
-import { IPageConfig } from '../../models/elements-interfaces';
+import { IPageConfig } from "@portifolio/utils/util-models";
 import { CONFIG_TOKEN } from '../../models/elements-token';
 import { ElementsData } from '../../services/elements-data/elements-data.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';

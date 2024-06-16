@@ -17,7 +17,7 @@ import {
 } from 'rxjs';
 import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 import { BASE_HEIGHT, ELEMENT_PADDING } from '../../mocks/elements.mocks';
-import { IPageConfig } from '../../models/elements-interfaces';
+import { IPageConfig } from "@portifolio/utils/util-models";
 import { CONFIG_TOKEN } from '../../models/elements-token';
 
 @Directive({

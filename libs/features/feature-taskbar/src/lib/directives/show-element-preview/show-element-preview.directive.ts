@@ -6,10 +6,7 @@ import {
   computed,
   input,
 } from '@angular/core';
-import {
-  ElementsFacede,
-  IBasicElement,
-} from '@portifolio/features/feature-page-creator';
+import { ElementsFacede } from '@portifolio/features/feature-page-creator';
 import { BuildAnimation } from '@portifolio/utils/util-animations';
 import { LastZIndexService } from '@portifolio/utils/util-z-index-handler';
 import {
@@ -21,7 +18,7 @@ import {
   startWith,
   take,
   takeUntil,
-  timer
+  timer,
 } from 'rxjs';
 import { PagePreviewComponent } from '../../components/page-preview/page-preview.component';
 import {
@@ -30,6 +27,7 @@ import {
   PREVIEW_ID,
 } from '../../mocks/elements-mocks';
 import { PagePreviewActionsService } from '../../services/page-preview-actions.service';
+import { IBasicElement } from '@portifolio/utils/util-models';
 
 @Directive({
   selector: '[showElementPreview]',

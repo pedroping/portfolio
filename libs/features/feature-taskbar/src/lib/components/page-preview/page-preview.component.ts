@@ -2,12 +2,12 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import {
   ELEMENT_BASE_ICON,
   ElementsFacede,
-  IPageConfig,
 } from '@portifolio/features/feature-page-creator';
 import { CloseComponent } from '@portifolio/ui/ui-page-actions-buttons';
 import { IPreviewPage } from '../../models/preview-models';
 import { NgComponentOutlet } from '@angular/common';
 import { PagePreviewActionsService } from '../../services/page-preview-actions.service';
+import { IPageConfig } from '@portifolio/utils/util-models';
 
 @Component({
   selector: 'page-preview',

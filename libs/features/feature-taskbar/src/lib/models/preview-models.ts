@@ -1,4 +1,4 @@
-import { IPageConfig } from '@portifolio/features/feature-page-creator';
+import { IPageConfig } from "@portifolio/utils/util-models";
 
 export interface IPreviewPage {
   element?: IPageConfig;

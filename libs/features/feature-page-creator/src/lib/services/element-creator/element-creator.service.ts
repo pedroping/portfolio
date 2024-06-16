@@ -8,14 +8,14 @@ import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { PageComponent } from '../../component/page.component';
 import { ELEMENT_BASE_ICON } from '../../mocks/elements.mocks';
-import {
-  IDomElementOptions,
-  IInitialConfig,
-  IPageConfig,
-} from '../../models/elements-interfaces';
 import { CONFIG_TOKEN, DATA_TOKEN } from '../../models/elements-token';
 import { ElementsData } from '../elements-data/elements-data.service';
 import { SetZIndexService } from '../set-z-index/set-z-index.service';
+import {
+  IInitialConfig,
+  IDomElementOptions,
+  IPageConfig,
+} from '@portifolio/utils/util-models';
 @Injectable({ providedIn: 'root' })
 export class ElementCreatorService<T> {
   private vcr!: ViewContainerRef;

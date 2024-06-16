@@ -5,7 +5,6 @@ import {
 } from '@portifolio/features/feature-inital-menu';
 import {
   ElementsFacede,
-  IPageMock,
   PageParentDirective,
 } from '@portifolio/features/feature-page-creator';
 @Component({
