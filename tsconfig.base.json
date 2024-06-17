@@ -37,6 +37,9 @@
       "@portifolio/ui/ui-taskbar-action-button": [
         "libs/ui/ui-taskbar-action-button/src/index.ts"
       ],
+      "@portifolio/ui/ui-web-workers-page": [
+        "libs/ui/ui-web-workers-page/src/index.ts"
+      ],
       "@portifolio/utils/util-adpters": [
         "libs/utils/util-adpters/src/index.ts"
       ],

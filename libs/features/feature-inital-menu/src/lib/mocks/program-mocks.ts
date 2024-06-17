@@ -1,6 +1,7 @@
 import { UiNewTrelloPageComponent } from '@portifolio/ui/ui-new-trello-page';
 import { IPageMock } from '@portifolio/utils/util-models';
 import { IBasicProgram } from '../models/program-models';
+import { WebWorkersPageComponent } from '@portifolio/ui/ui-web-workers-page';
 
 export const ELEMENT_BASE_ICON = '/assets/images/windows-basic-folder.png';
 
@@ -34,6 +35,26 @@ export const PROGRAM_2_CONFIG: IPageMock = {
   domConfig: {
     opened: true,
     isFullScreen: false,
+  },
+};
+
+export const PROGRAM_3_CONFIG: IPageMock = {
+  config: {
+    name: 'Web Workers',
+    sub: 'How use web workers',
+    baseSizes: {
+      width: window.innerWidth * 0.8,
+      height: window.innerHeight * 0.8,
+      minWidth: 850,
+      minHeight: window.innerHeight * 0.5,
+    },
+    customX: 50,
+    customY: 50,
+    pageContent: WebWorkersPageComponent,
+    icon: '/assets/images/gear-icon.png',
+  },
+  domConfig: {
+    opened: true,
   },
 };
 

@@ -1,1 +1,1 @@
-export * from './lib/component/ui-new-trello-page.component';
+export * from './lib/ui/ui-new-trello-page.component';
