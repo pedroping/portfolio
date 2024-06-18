@@ -6,7 +6,6 @@ import {
   computed,
   input,
 } from '@angular/core';
-import { ElementsFacede } from '@portifolio/features/feature-page-creator';
 import { BuildAnimation } from '@portifolio/utils/util-animations';
 import { LastZIndexService } from '@portifolio/utils/util-z-index-handler';
 import {
@@ -28,6 +27,7 @@ import {
 } from '../../mocks/elements-mocks';
 import { PagePreviewActionsService } from '../../services/page-preview-actions.service';
 import { IBasicElement } from '@portifolio/utils/util-models';
+import { ElementsFacade } from '@portifolio/utils/util-facades';
 
 @Directive({
   selector: '[showElementPreview]',
@@ -44,7 +44,7 @@ export class ShowElementPreviewDirective {
   constructor(
     private readonly vcr: ViewContainerRef,
     private readonly buildAnimation: BuildAnimation,
-    private readonly elementsFacade: ElementsFacede,
+    private readonly elementsFacade: ElementsFacade,
     private readonly elementRef: ElementRef<HTMLElement>,
     private readonly lastZIndexService: LastZIndexService,
     private readonly pagePreviewActionsService: PagePreviewActionsService

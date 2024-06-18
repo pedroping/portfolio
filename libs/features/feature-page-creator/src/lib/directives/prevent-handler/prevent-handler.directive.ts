@@ -1,5 +1,5 @@
 import { Directive, ElementRef, OnInit } from '@angular/core';
-import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
+import { ElementsFacade } from '@portifolio/utils/util-facades';
 
 @Directive({
   selector: '[preventHandler]',
@@ -7,12 +7,12 @@ import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
 })
 export class PreventHandlerDirective implements OnInit {
   constructor(
-    private readonly elementsFacede: ElementsFacede,
+    private readonly ElementsFacade: ElementsFacade,
     private readonly elementRef: ElementRef<HTMLElement>
   ) {}
 
   ngOnInit(): void {
-    this.elementsFacede.pushPreventHandlerElement(
+    this.ElementsFacade.pushPreventHandlerElement(
       this.elementRef.nativeElement
     );
   }

@@ -1,10 +1,8 @@
 import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 import { InitialMenuCreatorDirective } from '@portifolio/features/feature-inital-menu';
-import {
-  ElementsFacede,
-  PageParentDirective,
-} from '@portifolio/features/feature-page-creator';
+import { PageParentDirective } from '@portifolio/features/feature-page-creator';
 import { MenuEventsService } from '@portifolio/utils/util-events';
+import { ElementsFacade } from '@portifolio/utils/util-facades';
 @Component({
   selector: 'workspace-page',
   templateUrl: './workspace-page.component.html',
@@ -14,12 +12,12 @@ import { MenuEventsService } from '@portifolio/utils/util-events';
 })
 export class WorkspacePageComponent implements OnDestroy, AfterViewInit {
   constructor(
-    private readonly elementsFacede: ElementsFacede,
+    private readonly ElementsFacade: ElementsFacade,
     private readonly menuEventsService: MenuEventsService
   ) {}
 
   ngAfterViewInit() {
-    // this.elementsFacede.createElement(
+    // this.ElementsFacade.createElement(
     //   {},
     //   {
     //     name: 'File Explore',
@@ -36,7 +34,7 @@ export class WorkspacePageComponent implements OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy() {
-    this.elementsFacede.clearAll();
+    this.ElementsFacade.clearAll();
     this.menuEventsService.setCloseMenu();
   }
 }

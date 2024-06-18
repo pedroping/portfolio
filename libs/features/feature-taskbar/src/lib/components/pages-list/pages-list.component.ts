@@ -1,6 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { ElementsFacede } from '@portifolio/features/feature-page-creator';
+import { ElementsFacade } from '@portifolio/utils/util-facades';
 import { ShowElementPreviewDirective } from '../../directives/show-element-preview/show-element-preview.directive';
 import { PagePreviewActionsService } from '../../services/page-preview-actions.service';
 @Component({
@@ -11,15 +11,15 @@ import { PagePreviewActionsService } from '../../services/page-preview-actions.s
   imports: [AsyncPipe, ShowElementPreviewDirective],
 })
 export class PagesListComponent {
-  basicElements$ = this.elementsFacede.basicElements$;
+  basicElements$ = this.ElementsFacade.basicElements$;
 
   constructor(
-    private readonly elementsFacede: ElementsFacede,
+    private readonly ElementsFacade: ElementsFacade,
     private readonly pagePreviewActionsService: PagePreviewActionsService
   ) {}
 
   handelElementClick(id: number) {
-    this.elementsFacede.openElement(id);
+    this.ElementsFacade.openElement(id);
     this.pagePreviewActionsService.setCloseAll();
   }
 }

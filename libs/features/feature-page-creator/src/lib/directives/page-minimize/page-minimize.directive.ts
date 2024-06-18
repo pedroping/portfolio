@@ -7,8 +7,8 @@ import {
 } from '@angular/core';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import { filter, switchMap, take, tap } from 'rxjs';
-import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
-import { IPageConfig } from "@portifolio/utils/util-models";
+import { ElementsFacade } from '@portifolio/utils/util-facades';
+import { IPageConfig } from '@portifolio/utils/util-models';
 import { CONFIG_TOKEN } from '../../models/elements-token';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -19,7 +19,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class PageMinimizeDirective implements OnInit {
   constructor(
     private readonly destroyRef: DestroyRef,
-    private readonly elementsFacede: ElementsFacede,
+    private readonly ElementsFacade: ElementsFacade,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {}
 
@@ -42,9 +42,9 @@ export class PageMinimizeDirective implements OnInit {
     if (!element) return;
 
     const isFullScreen = this._config.isFullScreen;
-    const index = this.elementsFacede.findElementIndex(this._config.id);
+    const index = this.ElementsFacade.findElementIndex(this._config.id);
     this._config.opened = false;
-    this.elementsFacede.hideElement(this._config.id);
+    this.ElementsFacade.hideElement(this._config.id);
 
     DomElementAdpter.setOnlyTransformTransition(element, 5);
     DomElementAdpter.setTransform(

@@ -1,5 +1,5 @@
 import { Directive, HostListener, Inject } from '@angular/core';
-import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
+import { ElementsFacade } from '@portifolio/utils/util-facades';
 import { IPageConfig } from '@portifolio/utils/util-models';
 import { CONFIG_TOKEN } from '../../models/elements-token';
 
@@ -9,12 +9,12 @@ import { CONFIG_TOKEN } from '../../models/elements-token';
 })
 export class PageCloseDirective<T> {
   constructor(
-    private readonly elementsFacede: ElementsFacede<T>,
+    private readonly ElementsFacade: ElementsFacade<T>,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {}
 
   @HostListener('click') onclick() {
     this._config.onDestroy$.next();
-    this.elementsFacede.destroyElement(this._config.id);
+    this.ElementsFacade.destroyElement(this._config.id);
   }
 }

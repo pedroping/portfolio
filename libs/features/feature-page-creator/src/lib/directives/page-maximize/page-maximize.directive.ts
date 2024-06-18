@@ -7,9 +7,9 @@ import {
 } from '@angular/core';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import { filter, fromEvent, take } from 'rxjs';
-import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
+import { ElementsFacade } from '@portifolio/utils/util-facades';
 import { OBSERVE_CONFIG } from '../../mocks/observerConfig-mocks';
-import { IPageConfig } from "@portifolio/utils/util-models";
+import { IPageConfig } from '@portifolio/utils/util-models';
 import { CONFIG_TOKEN } from '../../models/elements-token';
 import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -26,7 +26,7 @@ export class PageMaximizeDirective implements OnInit {
 
   constructor(
     private readonly destroyRef: DestroyRef,
-    private readonly elementsFacede: ElementsFacede,
+    private readonly ElementsFacade: ElementsFacade,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {}
 
@@ -46,7 +46,7 @@ export class PageMaximizeDirective implements OnInit {
   }
 
   ngOnInit(): void {
-    const boundaryElement = this.elementsFacede.draggingBoundaryElement$.value;
+    const boundaryElement = this.ElementsFacade.draggingBoundaryElement$.value;
     if (!boundaryElement) return;
     this.lastHeight = boundaryElement.offsetHeight;
 
@@ -73,7 +73,7 @@ export class PageMaximizeDirective implements OnInit {
   }
 
   createBoundaryObservers() {
-    this.elementsFacede.draggingBoundaryElement$
+    this.ElementsFacade.draggingBoundaryElement$
       .pipe(filter(Boolean), takeUntilDestroyed(this.destroyRef))
       .subscribe((boundaryElement) => {
         new MutationObserver(() => {
@@ -108,7 +108,7 @@ export class PageMaximizeDirective implements OnInit {
   }
 
   setFullScreen(hasToSet: boolean, element: HTMLElement) {
-    const boundaryElement = this.elementsFacede.draggingBoundaryElement$.value;
+    const boundaryElement = this.ElementsFacade.draggingBoundaryElement$.value;
     if (!boundaryElement) return;
 
     if (

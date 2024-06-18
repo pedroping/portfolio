@@ -15,9 +15,9 @@ import {
   takeUntil,
   tap,
 } from 'rxjs';
-import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
+import { ElementsFacade } from '@portifolio/utils/util-facades';
 import { BASE_HEIGHT, ELEMENT_PADDING } from '../../mocks/elements.mocks';
-import { IPageConfig } from "@portifolio/utils/util-models";
+import { IPageConfig } from '@portifolio/utils/util-models';
 import { CONFIG_TOKEN } from '../../models/elements-token';
 
 @Directive({
@@ -40,7 +40,7 @@ export class PageResizeTopDirective implements OnInit {
   constructor(
     private readonly destroyRef: DestroyRef,
     private readonly elementRef: ElementRef,
-    private readonly elementsFacede: ElementsFacede,
+    private readonly ElementsFacade: ElementsFacade,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {
     this.mouseDownEvent$ = fromEvent<MouseEvent>(
@@ -121,6 +121,6 @@ export class PageResizeTopDirective implements OnInit {
       Math.max(this._config.lastPosition.x, -ELEMENT_PADDING),
       Math.max(this._config.lastPosition.y, -ELEMENT_PADDING)
     );
-    this.elementsFacede.setAnyElementEvent(true);
+    this.ElementsFacade.setAnyElementEvent(true);
   }
 }

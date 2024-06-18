@@ -1,5 +1,5 @@
 import { Directive, ElementRef, OnInit, ViewContainerRef } from '@angular/core';
-import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
+import { ElementsFacade } from '@portifolio/utils/util-facades';
 
 @Directive({
   selector: 'pageParent',
@@ -9,12 +9,12 @@ export class PageParentDirective implements OnInit {
   constructor(
     private readonly vcr: ViewContainerRef,
     private readonly elementRef: ElementRef,
-    private readonly elementsFacede: ElementsFacede
+    private readonly ElementsFacade: ElementsFacade
   ) {}
 
   ngOnInit() {
-    this.elementsFacede.startCreator(this.vcr);
-    this.elementsFacede.setDraggingBoundaryElement(
+    this.ElementsFacade.startCreator(this.vcr);
+    this.ElementsFacade.setDraggingBoundaryElement(
       this.elementRef.nativeElement
     );
   }

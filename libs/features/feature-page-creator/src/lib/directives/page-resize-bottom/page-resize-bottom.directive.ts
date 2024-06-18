@@ -14,9 +14,9 @@ import {
   takeUntil,
   tap,
 } from 'rxjs';
-import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
+import { ElementsFacade } from '@portifolio/utils/util-facades';
 import { BASE_HEIGHT, ELEMENT_PADDING } from '../../mocks/elements.mocks';
-import { IPageConfig } from "@portifolio/utils/util-models";
+import { IPageConfig } from '@portifolio/utils/util-models';
 import { CONFIG_TOKEN } from '../../models/elements-token';
 import { ElementsData } from '../../services/elements-data/elements-data.service';
 
@@ -40,7 +40,7 @@ export class PageResizeBottomDirective implements OnInit {
     private readonly elementRef: ElementRef,
     private readonly destroyRef: DestroyRef,
     private readonly elementsData: ElementsData,
-    private readonly elementsFacede: ElementsFacede,
+    private readonly ElementsFacade: ElementsFacade,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {
     this.mouseDownEvent$ = fromEvent<MouseEvent>(
@@ -66,7 +66,7 @@ export class PageResizeBottomDirective implements OnInit {
         tap((event) => {
           this.startPosition = event.y;
           this.initialElementHeight = this.element$.value?.offsetHeight ?? 0;
-          this.elementsFacede.setAnyElementEvent(true);
+          this.ElementsFacade.setAnyElementEvent(true);
         }),
         switchMap(() =>
           this.mouseMoveEvent$.pipe(takeUntil(this.mouseUpEvent$))
@@ -85,7 +85,7 @@ export class PageResizeBottomDirective implements OnInit {
         tap((event) => {
           this.startPosition = event.touches[0].pageY;
           this.initialElementHeight = this.element$.value?.offsetHeight ?? 0;
-          this.elementsFacede.setAnyElementEvent(true);
+          this.ElementsFacade.setAnyElementEvent(true);
         }),
         switchMap(() => this.touchMove$.pipe(takeUntil(this.touchEnd$))),
         takeUntilDestroyed(this.destroyRef)
@@ -112,6 +112,6 @@ export class PageResizeBottomDirective implements OnInit {
     );
 
     element.style.height = newHeight + 'px';
-    this.elementsFacede.setAnyElementEvent(true);
+    this.ElementsFacade.setAnyElementEvent(true);
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PageEvents } from '../../services/page-events/page-events.service';
+import { PageEvents } from '@portifolio/features/feature-page-creator';
 
 @Injectable({ providedIn: 'root' })
 export class EventsFacade {

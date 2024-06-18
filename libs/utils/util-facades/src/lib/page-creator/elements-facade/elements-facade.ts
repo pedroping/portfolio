@@ -1,17 +1,19 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
 import {
+  ElementCreatorService,
+  ElementsData,
+  PageActionsService,
+  PreventHandlerElements,
+  SetZIndexService,
+} from '@portifolio/features/feature-page-creator';
+import {
   IDomElementOptions,
   IInitialConfig,
   IPageConfig,
 } from '@portifolio/utils/util-models';
-import { ElementCreatorService } from '../../services/element-creator/element-creator.service';
-import { ElementsData } from '../../services/elements-data/elements-data.service';
-import { PageActionsService } from '../../services/page-actions/page-actions.service';
-import { PreventHandlerElements } from '../../services/prevent-handler-elements/prevent-handler-elements.service';
-import { SetZIndexService } from '../../services/set-z-index/set-z-index.service';
 
 @Injectable({ providedIn: 'root' })
-export class ElementsFacede<T = unknown> {
+export class ElementsFacade<T = unknown> {
   constructor(
     private readonly elementsData: ElementsData,
     private readonly setZIndexService: SetZIndexService,

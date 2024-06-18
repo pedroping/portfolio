@@ -1,5 +1,5 @@
 import { Directive, HostListener, Inject } from '@angular/core';
-import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
+import { ElementsFacade } from '@portifolio/utils/util-facades';
 import { IPageConfig } from '@portifolio/utils/util-models';
 import { CONFIG_TOKEN } from '../../models/elements-token';
 
@@ -9,7 +9,7 @@ import { CONFIG_TOKEN } from '../../models/elements-token';
 })
 export class SetZIndexDirective {
   constructor(
-    private readonly elementsFacede: ElementsFacede,
+    private readonly ElementsFacade: ElementsFacade,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {}
 
@@ -22,6 +22,6 @@ export class SetZIndexDirective {
 
     if (!element) return;
 
-    this.elementsFacede.setNewZIndex(id, element);
+    this.ElementsFacade.setNewZIndex(id, element);
   }
 }

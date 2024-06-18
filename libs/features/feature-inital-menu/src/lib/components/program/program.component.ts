@@ -1,7 +1,7 @@
 import { TitleCasePipe } from '@angular/common';
 import { Component, HostListener, computed, input } from '@angular/core';
-import { ElementsFacede } from '@portifolio/features/feature-page-creator';
 import { MenuEventsService } from '@portifolio/utils/util-events';
+import { ElementsFacade } from '@portifolio/utils/util-facades';
 import { IPageMock } from '@portifolio/utils/util-models';
 import { ELEMENT_BASE_ICON } from '../../mocks/program-mocks';
 import { IBasicProgram } from '../../models/program-models';
@@ -30,7 +30,7 @@ export class ProgramComponent {
   );
 
   constructor(
-    private readonly elementsFacede: ElementsFacede,
+    private readonly ElementsFacade: ElementsFacade,
     private readonly menuEventsService: MenuEventsService
   ) {}
 
@@ -38,7 +38,7 @@ export class ProgramComponent {
     const pageConfig = this.pageConfig();
 
     if (pageConfig) {
-      this.elementsFacede.createElement(
+      this.ElementsFacade.createElement(
         {},
         pageConfig.config,
         pageConfig.domConfig

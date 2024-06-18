@@ -8,9 +8,9 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import { fromEvent, takeUntil } from 'rxjs';
-import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
+import { ElementsFacade } from '@portifolio/utils/util-facades';
 import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
-import { IPageConfig } from "@portifolio/utils/util-models";
+import { IPageConfig } from '@portifolio/utils/util-models';
 import { CONFIG_TOKEN } from '../../models/elements-token';
 
 @Directive({
@@ -46,7 +46,7 @@ export class PageMoveDirective implements OnInit {
   constructor(
     private readonly destroyRef: DestroyRef,
     private readonly elementRef: ElementRef,
-    private readonly elementsFacede: ElementsFacede,
+    private readonly ElementsFacade: ElementsFacade,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {}
 
@@ -69,7 +69,7 @@ export class PageMoveDirective implements OnInit {
     if (!element) return;
 
     const draggingBoundaryElement =
-      this.elementsFacede.draggingBoundaryElement$.value;
+      this.ElementsFacade.draggingBoundaryElement$.value;
 
     if (!draggingBoundaryElement) return;
 
@@ -98,7 +98,7 @@ export class PageMoveDirective implements OnInit {
     if (!element) return;
 
     const draggingBoundaryElement =
-      this.elementsFacede.draggingBoundaryElement$.value;
+      this.ElementsFacade.draggingBoundaryElement$.value;
 
     if (!draggingBoundaryElement) return;
 
@@ -141,12 +141,12 @@ export class PageMoveDirective implements OnInit {
     this.currentX = Math.max(-ELEMENT_PADDING, maxPositionX);
     this.currentY = Math.max(-ELEMENT_PADDING, maxPositionY);
     this._config.lastPosition = { x: this.currentX, y: this.currentY };
-    this.elementsFacede.setAnyElementEvent(true);
+    this.ElementsFacade.setAnyElementEvent(true);
     DomElementAdpter.removeTransition(element);
     DomElementAdpter.setTransform(element, this.currentX, this.currentY);
   }
 
   hasPrevent(element: HTMLElement) {
-    return this.elementsFacede.hasPreventElement(element);
+    return this.ElementsFacade.hasPreventElement(element);
   }
 }

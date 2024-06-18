@@ -3,7 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import { IPageConfig } from '@portifolio/utils/util-models';
 import { fromEvent, merge, skip, take } from 'rxjs';
-import { ElementsFacede } from '../../facedes/elements-facades/elements-facede';
+import { ElementsFacade } from '@portifolio/utils/util-facades';
 import { CONFIG_TOKEN } from '../../models/elements-token';
 
 @Directive({
@@ -13,7 +13,7 @@ import { CONFIG_TOKEN } from '../../models/elements-token';
 export class WindowResizeDirective implements OnInit {
   constructor(
     private readonly destroyRef: DestroyRef,
-    private readonly elementsFacade: ElementsFacede,
+    private readonly elementsFacade: ElementsFacade,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {}
 
