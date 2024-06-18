@@ -19,19 +19,20 @@ export class WorkspacePageComponent implements OnDestroy, AfterViewInit {
   ) {}
 
   ngAfterViewInit() {
-    this.elementsFacede.createElement(
-      {},
-      {
-        name: 'Default Page',
-        customX: 500,
-        customY: 500,
-        baseSizes: { width: 300, height: 200 },
-      },
-      {
-        opened: true,
-        isFullScreen: false,
-      }
-    );
+    // this.elementsFacede.createElement(
+    //   {},
+    //   {
+    //     name: 'File Explore',
+    //     customX: 500,
+    //     customY: 500,
+    //     baseSizes: { width: 600, height: 500, minHeight: 500, minWidth: 600 },
+    //     pageContent: FileExplorerComponent,
+    //   },
+    //   {
+    //     opened: true,
+    //     isFullScreen: false,
+    //   }
+    // );
   }
 
   ngOnDestroy() {
