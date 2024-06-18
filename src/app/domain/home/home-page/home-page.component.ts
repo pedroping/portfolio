@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TaskbarComponent } from '@portifolio/features/feature-taskbar';
-import { MenuEventsFacede } from '@portifolio/utils/util-facades';
+import { MenuEventsFacade } from '@portifolio/utils/util-facades';
 @Component({
   selector: 'home-page',
   templateUrl: './home-page.component.html',
@@ -10,9 +10,9 @@ import { MenuEventsFacede } from '@portifolio/utils/util-facades';
   imports: [TaskbarComponent, RouterModule],
 })
 export class HomePageComponent {
-  constructor(private readonly menuEventsFacede: MenuEventsFacede) {}
+  constructor(private readonly menuEventsFacade: MenuEventsFacade) {}
 
   toggleMenu() {
-    this.menuEventsFacede.toggleMenu();
+    this.menuEventsFacade.toggleMenu();
   }
 }

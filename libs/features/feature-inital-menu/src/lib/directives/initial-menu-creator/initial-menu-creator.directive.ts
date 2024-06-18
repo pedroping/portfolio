@@ -1,6 +1,6 @@
 import { Directive, OnInit, ViewContainerRef } from '@angular/core';
 import { BuildAnimation } from '@portifolio/utils/util-animations';
-import { MenuEventsFacede } from '@portifolio/utils/util-facades';
+import { MenuEventsFacade } from '@portifolio/utils/util-facades';
 import { take } from 'rxjs';
 import { InitialMenuComponent } from '../../components/initial-menu/initial-menu.component';
 import { MenuActionsDirective } from '../menu-actions/menu-actions.directive';
@@ -15,14 +15,14 @@ export class InitialMenuCreatorDirective implements OnInit {
   constructor(
     private readonly vcr: ViewContainerRef,
     private readonly buildAnimation: BuildAnimation,
-    private readonly menuEventsFacede: MenuEventsFacede
+    private readonly menuEventsFacade: MenuEventsFacade
   ) {}
 
   ngOnInit(): void {
     this.destroyMenu();
 
-    this.menuEventsFacede.openMenu$$.subscribe(() => this.createMenu());
-    this.menuEventsFacede.closeMenu$$.subscribe(() => this.destroyMenu());
+    this.menuEventsFacade.openMenu$$.subscribe(() => this.createMenu());
+    this.menuEventsFacade.closeMenu$$.subscribe(() => this.destroyMenu());
   }
 
   createMenu() {

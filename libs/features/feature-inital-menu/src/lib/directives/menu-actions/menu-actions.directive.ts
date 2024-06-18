@@ -1,6 +1,6 @@
 import { DestroyRef, Directive, NgZone, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { MenuEventsFacede } from '@portifolio/utils/util-facades';
+import { MenuEventsFacade } from '@portifolio/utils/util-facades';
 import { fromEvent } from 'rxjs';
 
 @Directive({
@@ -10,7 +10,7 @@ export class MenuActionsDirective implements OnInit {
   constructor(
     private readonly ngZone: NgZone,
     private readonly destroyRef: DestroyRef,
-    private readonly menuEventsFacede: MenuEventsFacede
+    private readonly menuEventsFacade: MenuEventsFacade
   ) {}
 
   ngOnInit(): void {
@@ -32,19 +32,19 @@ export class MenuActionsDirective implements OnInit {
 
   closeMenu() {
     this.ngZone.run(() => {
-      this.menuEventsFacede.setCloseMenu();
+      this.menuEventsFacade.setCloseMenu();
     });
   }
 
   openMenu() {
     this.ngZone.run(() => {
-      this.menuEventsFacede.setOpenMenu();
+      this.menuEventsFacade.setOpenMenu();
     });
   }
 
   toggleMenu() {
     this.ngZone.run(() => {
-      this.menuEventsFacede.toggleMenu();
+      this.menuEventsFacade.toggleMenu();
     });
   }
 }

@@ -11,7 +11,7 @@ import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import {
   ElementsFacade,
   EventsFacade,
-  MenuEventsFacede,
+  MenuEventsFacade,
 } from '@portifolio/utils/util-facades';
 import { IPageConfig } from '@portifolio/utils/util-models';
 import { fromEvent, merge, take } from 'rxjs';
@@ -28,7 +28,7 @@ export class PageContentOverlayDirective implements AfterViewInit {
     private readonly destroyRef: DestroyRef,
     private readonly eventsFacade: EventsFacade,
     private readonly ElementsFacade: ElementsFacade,
-    private readonly menuEventsFacede: MenuEventsFacede,
+    private readonly menuEventsFacade: MenuEventsFacade,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {}
 
@@ -47,7 +47,7 @@ export class PageContentOverlayDirective implements AfterViewInit {
     this.ElementsFacade.anyElementEvent$$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(this.handleBoolean);
-    this.menuEventsFacede.menuOpened$$
+    this.menuEventsFacade.menuOpened$$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(this.handleBoolean);
   }

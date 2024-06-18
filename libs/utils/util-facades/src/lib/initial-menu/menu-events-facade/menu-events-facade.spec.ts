@@ -1,16 +1,16 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { MenuEventsFacede } from './menu-events-facede';
+import { MenuEventsFacade } from './menu-events-facade';
 
-describe('Service: MenuEventsFacede', () => {
+describe('Service: MenuEventsFacade', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [MenuEventsFacede],
+      providers: [MenuEventsFacade],
     });
   });
 
-  it('should ...', inject([MenuEventsFacede], (service: MenuEventsFacede) => {
+  it('should ...', inject([MenuEventsFacade], (service: MenuEventsFacade) => {
     expect(service).toBeTruthy();
   }));
 });

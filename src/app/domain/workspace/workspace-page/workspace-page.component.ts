@@ -3,7 +3,7 @@ import { InitialMenuCreatorDirective } from '@portifolio/features/feature-inital
 import { PageParentDirective } from '@portifolio/features/feature-page-creator';
 import {
   ElementsFacade,
-  MenuEventsFacede,
+  MenuEventsFacade,
 } from '@portifolio/utils/util-facades';
 @Component({
   selector: 'workspace-page',
@@ -15,7 +15,7 @@ import {
 export class WorkspacePageComponent implements OnDestroy, AfterViewInit {
   constructor(
     private readonly ElementsFacade: ElementsFacade,
-    private readonly menuEventsFacede: MenuEventsFacede
+    private readonly menuEventsFacade: MenuEventsFacade
   ) {}
 
   ngAfterViewInit() {
@@ -37,6 +37,6 @@ export class WorkspacePageComponent implements OnDestroy, AfterViewInit {
 
   ngOnDestroy() {
     this.ElementsFacade.clearAll();
-    this.menuEventsFacede.setCloseMenu();
+    this.menuEventsFacade.setCloseMenu();
   }
 }
