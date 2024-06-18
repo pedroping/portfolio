@@ -24,9 +24,6 @@
       "@portifolio/features/feature-taskbar": [
         "libs/features/feature-taskbar/src/index.ts"
       ],
-      "@portifolio/ui/ui-file-explorer": [
-        "libs/ui/ui-file-explorer/src/index.ts"
-      ],
       "@portifolio/ui/ui-login-page": ["libs/ui/ui-login-page/src/index.ts"],
       "@portifolio/ui/ui-new-trello-page": [
         "libs/ui/ui-new-trello-page/src/index.ts"
@@ -49,7 +46,6 @@
       "@portifolio/utils/util-animations": [
         "libs/utils/util-animations/src/index.ts"
       ],
-      "@portifolio/utils/util-events": ["libs/utils/util-events/src/index.ts"],
       "@portifolio/utils/util-facades": [
         "libs/utils/util-facades/src/index.ts"
       ],

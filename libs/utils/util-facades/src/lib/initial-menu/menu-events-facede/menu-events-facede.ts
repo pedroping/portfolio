@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
-export class MenuEventsService {
+export class MenuEventsFacede {
   private readonly openMenu$ = new Subject<void>();
   private readonly closeMenu$ = new Subject<void>();
   private readonly menuAction$ = new Subject<number>();

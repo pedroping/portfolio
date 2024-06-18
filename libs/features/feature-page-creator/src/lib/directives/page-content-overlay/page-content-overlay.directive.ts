@@ -8,11 +8,13 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
-import { MenuEventsService } from '@portifolio/utils/util-events';
+import {
+  ElementsFacade,
+  EventsFacade,
+  MenuEventsFacede,
+} from '@portifolio/utils/util-facades';
 import { IPageConfig } from '@portifolio/utils/util-models';
 import { fromEvent, merge, take } from 'rxjs';
-import { ElementsFacade } from '@portifolio/utils/util-facades';
-import { EventsFacade } from '../../../../../../utils/util-facades/src/lib/page-creator/events-facades/events-facade.service';
 import { CONFIG_TOKEN } from '../../models/elements-token';
 
 @Directive({
@@ -26,7 +28,7 @@ export class PageContentOverlayDirective implements AfterViewInit {
     private readonly destroyRef: DestroyRef,
     private readonly eventsFacade: EventsFacade,
     private readonly ElementsFacade: ElementsFacade,
-    private readonly menuEventsService: MenuEventsService,
+    private readonly menuEventsFacede: MenuEventsFacede,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {}
 
@@ -45,7 +47,7 @@ export class PageContentOverlayDirective implements AfterViewInit {
     this.ElementsFacade.anyElementEvent$$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(this.handleBoolean);
-    this.menuEventsService.menuOpened$$
+    this.menuEventsFacede.menuOpened$$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(this.handleBoolean);
   }

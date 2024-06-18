@@ -1,7 +1,9 @@
 import { TitleCasePipe } from '@angular/common';
 import { Component, HostListener, computed, input } from '@angular/core';
-import { MenuEventsService } from '@portifolio/utils/util-events';
-import { ElementsFacade } from '@portifolio/utils/util-facades';
+import {
+  ElementsFacade,
+  MenuEventsFacede,
+} from '@portifolio/utils/util-facades';
 import { IPageMock } from '@portifolio/utils/util-models';
 import { ELEMENT_BASE_ICON } from '../../mocks/program-mocks';
 import { IBasicProgram } from '../../models/program-models';
@@ -31,7 +33,7 @@ export class ProgramComponent {
 
   constructor(
     private readonly ElementsFacade: ElementsFacade,
-    private readonly menuEventsService: MenuEventsService
+    private readonly menuEventsFacede: MenuEventsFacede
   ) {}
 
   @HostListener('click') onCLick() {
@@ -43,7 +45,7 @@ export class ProgramComponent {
         pageConfig.config,
         pageConfig.domConfig
       );
-      this.menuEventsService.setCloseMenu();
+      this.menuEventsFacede.setCloseMenu();
       return;
     }
 

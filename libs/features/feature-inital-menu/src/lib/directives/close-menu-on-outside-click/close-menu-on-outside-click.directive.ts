@@ -6,9 +6,9 @@ import {
   OnInit,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MenuEventsFacede } from '@portifolio/utils/util-facades';
 import { fromEvent, merge, skip } from 'rxjs';
 import { PREVENT_TOGGLE_ID } from '../../mocks/menu-mocks';
-import { MenuEventsService } from '../../../../../../utils/util-events/src/lib/menu-events/menu-events.service';
 
 @Directive({
   standalone: true,
@@ -18,7 +18,7 @@ export class CloseMenuOnOutsideClickDirective implements OnInit {
     private readonly ngZone: NgZone,
     private readonly destroyRef: DestroyRef,
     private readonly elementRef: ElementRef<HTMLElement>,
-    private readonly menuEventsService: MenuEventsService
+    private readonly menuEventsFacede: MenuEventsFacede
   ) {}
 
   ngOnInit(): void {
@@ -33,7 +33,7 @@ export class CloseMenuOnOutsideClickDirective implements OnInit {
           if (!isOutTarget || hasPrevent) return;
 
           this.ngZone.run(() => {
-            this.menuEventsService.setCloseMenu();
+            this.menuEventsFacede.setCloseMenu();
           });
         });
     });
