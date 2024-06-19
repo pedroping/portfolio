@@ -30,7 +30,7 @@ export class WorkspacePageComponent implements OnDestroy, AfterViewInit {
         pageContent: FileExplorerComponent,
       },
       {
-        opened: true,
+        opened: false,
         isFullScreen: false,
       }
     );
