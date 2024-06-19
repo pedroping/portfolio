@@ -94,6 +94,44 @@ export class PageActionsService {
       return;
     }
 
+    const boundaryElement = this.elementsData.draggingBoundaryElement$.value;
+
+    if (boundaryElement) {
+      const boundaryHeight = boundaryElement.offsetHeight;
+      const boundaryWidth = boundaryElement.offsetWidth;
+      const height = element.offsetHeight;
+      const width = element.offsetWidth;
+
+      const maxBoundX = boundaryWidth - element.offsetWidth;
+      const maxBoundY = boundaryHeight - element.offsetHeight;
+
+      if (elmentConfig.baseSizes.minHeight)
+        elmentConfig.baseSizes.minHeight = Math.min(
+          elmentConfig.baseSizes.minHeight,
+          boundaryHeight
+        );
+
+      if (elmentConfig.baseSizes.minWidth)
+        elmentConfig.baseSizes.minWidth = Math.min(
+          elmentConfig.baseSizes.minWidth,
+          boundaryWidth
+        );
+
+      element.style.height = Math.min(height, boundaryHeight) + 'px';
+      element.style.width = Math.min(width, boundaryWidth) + 'px';
+      element.style.minWidth = elmentConfig.baseSizes.minWidth + 'px';
+      element.style.minHeight = elmentConfig.baseSizes.minHeight + 'px';
+
+      elmentConfig.lastPosition.x = Math.min(
+        elmentConfig.lastPosition.x,
+        maxBoundX
+      );
+      elmentConfig.lastPosition.y = Math.min(
+        elmentConfig.lastPosition.y,
+        maxBoundY
+      );
+    }
+
     DomElementAdpter.setTransform(
       element,
       elmentConfig.lastPosition.x,
