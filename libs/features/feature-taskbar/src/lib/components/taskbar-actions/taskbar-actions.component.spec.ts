@@ -11,9 +11,8 @@ describe('TaskbarActionsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TaskbarActionsComponent ]
-    })
-    .compileComponents();
+      declarations: [TaskbarActionsComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

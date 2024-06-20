@@ -11,9 +11,8 @@ describe('PagePreviewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PagePreviewComponent ]
-    })
-    .compileComponents();
+      declarations: [PagePreviewComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

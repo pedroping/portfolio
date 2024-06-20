@@ -30,7 +30,7 @@ import {
   BASE_WIDTH,
   ELEMENT_BASE_ICON,
 } from '../mocks/elements.mocks';
-import { IPageComponent, IPageConfig } from "@portifolio/utils/util-models";
+import { IPageComponent, IPageConfig } from '@portifolio/utils/util-models';
 import { CONFIG_TOKEN } from '../models/elements-token';
 @Component({
   selector: 'feature-page',
@@ -89,7 +89,7 @@ export class PageComponent implements IPageComponent, OnInit {
     this.height.set(this._config.baseSizes.height + 'px');
     this.icon.set(this._config.icon ?? ELEMENT_BASE_ICON);
     this.pageContent.set(this._config.pageContent ?? null);
-    
+
     this._config.baseSizes.minHeight =
       this._config.baseSizes?.minHeight ?? BASE_HEIGHT;
     this._config.baseSizes.minWidth =

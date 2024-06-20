@@ -11,9 +11,8 @@ describe('WebWorkersPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WebWorkersPageComponent ]
-    })
-    .compileComponents();
+      declarations: [WebWorkersPageComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

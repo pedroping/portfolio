@@ -11,9 +11,8 @@ describe('ExplorerAdressComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExplorerAdressComponent ]
-    })
-    .compileComponents();
+      declarations: [ExplorerAdressComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

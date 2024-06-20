@@ -11,9 +11,8 @@ describe('ExploreShortcutsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExploreShortcutsComponent ]
-    })
-    .compileComponents();
+      declarations: [ExploreShortcutsComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

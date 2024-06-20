@@ -11,9 +11,8 @@ describe('UiNewTrelloPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UiNewTrelloPageComponent ]
-    })
-    .compileComponents();
+      declarations: [UiNewTrelloPageComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

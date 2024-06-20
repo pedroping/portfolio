@@ -11,9 +11,8 @@ describe('CurriculumPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CurriculumPageComponent ]
-    })
-    .compileComponents();
+      declarations: [CurriculumPageComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
