@@ -66,13 +66,8 @@ export class ElementCreatorService<T> {
     changeDetectorRef.detectChanges();
     DomElementAdpter.setDisplay(instance.element, !!domElementOptions?.opened);
     this.setCustomTransform(instance.element, pageConfig);
-    this.elementsData.pushElement(
-      id,
-      config.name,
-      config.icon ?? ELEMENT_BASE_ICON,
-      pageConfig
-    );
     pageConfig.element$.next(instance.element);
+    this.elementsData.pushElement(pageConfig);
     this.setZIndexService.setNewZIndex(id, instance.element);
 
     return pageConfig;

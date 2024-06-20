@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IBasicElement, IPageConfig } from '@portifolio/utils/util-models';
 import { BehaviorSubject } from 'rxjs';
+import { ELEMENT_BASE_ICON } from '../../mocks/elements.mocks';
 
 @Injectable({ providedIn: 'root' })
 export class ElementsData {
@@ -13,11 +14,16 @@ export class ElementsData {
     this.draggingBoundaryElement$.next(element.parentElement as HTMLElement);
   }
 
-  pushElement(id: number, name: string, icon: string, element: IPageConfig) {
+  pushElement(element: IPageConfig) {
     this.elements$.next([...this.elements$.value, element]);
     this.basicElements$.next([
       ...this.basicElements$.value,
-      { id, name, icon, opened: element.opened },
+      {
+        id: element.id,
+        name: element.name,
+        icon: element.icon ?? ELEMENT_BASE_ICON,
+        opened: element.opened,
+      },
     ]);
   }
 

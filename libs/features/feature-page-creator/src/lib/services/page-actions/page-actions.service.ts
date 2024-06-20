@@ -1,15 +1,14 @@
-import { DestroyRef, Injectable } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Injectable } from '@angular/core';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
+import { IPageConfig } from '@portifolio/utils/util-models';
+import { take } from 'rxjs';
 import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
 import { ElementsData } from '../elements-data/elements-data.service';
 import { SetZIndexService } from '../set-z-index/set-z-index.service';
-import { IPageConfig } from '@portifolio/utils/util-models';
 
 @Injectable({ providedIn: 'root' })
 export class PageActionsService {
   constructor(
-    private readonly destroyRef: DestroyRef,
     private readonly elementsData: ElementsData,
     private readonly setZIndexService: SetZIndexService
   ) {}
@@ -67,7 +66,7 @@ export class PageActionsService {
     );
 
     DomElementAdpter.afterTransitions(element)
-      .pipe(takeUntilDestroyed(this.destroyRef))
+      .pipe(take(1))
       .subscribe(() => {
         DomElementAdpter.removeTransition(element);
       });
@@ -139,7 +138,7 @@ export class PageActionsService {
     );
 
     DomElementAdpter.afterTransitions(element)
-      .pipe(takeUntilDestroyed(this.destroyRef))
+      .pipe(take(1))
       .subscribe(() => {
         element.style.display = 'block';
         DomElementAdpter.removeTransition(element);
