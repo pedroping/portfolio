@@ -73,8 +73,6 @@ export class PageActionsService {
   }
 
   private showElement(elmentConfig: IPageConfig) {
-    console.log('Show');
-
     elmentConfig.opened = true;
     const element = elmentConfig.element$.value;
 
