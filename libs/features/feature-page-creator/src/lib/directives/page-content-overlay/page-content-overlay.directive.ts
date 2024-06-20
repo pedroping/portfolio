@@ -36,10 +36,10 @@ export class PageContentOverlayDirective implements AfterViewInit {
     const mouseLeaveEvent$ = fromEvent(document, 'mouseleave');
 
     merge(
-      mouseLeaveEvent$,
       this.eventsFacade.changeZIndex$$,
       this._config.element$.pipe(take(1)),
-      this.ElementsFacade.elements$.asObservable()
+      this.ElementsFacade.elements$.asObservable(),
+      mouseLeaveEvent$.pipe(filter(() => !this.menuEventsFacade.menuOpened))
     )
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => this.validateOverlay());
