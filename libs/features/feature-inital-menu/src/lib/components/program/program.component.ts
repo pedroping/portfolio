@@ -15,21 +15,40 @@ import { IBasicProgram } from '../../models/program-models';
   imports: [TitleCasePipe],
 })
 export class ProgramComponent {
-  pageConfig = input<IPageMock>();
-  basicProgram = input<IBasicProgram>();
+  pageConfig = input<IPageMock | IBasicProgram>();
 
-  name = computed(
-    () => this.pageConfig()?.config.name ?? this.basicProgram()?.name ?? ''
-  );
-  sub = computed(
-    () => this.pageConfig()?.config.sub ?? this.basicProgram()?.sub ?? ''
-  );
-  imgSrc = computed(
-    () =>
-      this.pageConfig()?.config.icon ??
-      this.basicProgram()?.icon ??
-      ELEMENT_BASE_ICON
-  );
+  name = computed(() => {
+    const config = this.pageConfig();
+    if (!config) return '';
+
+    if (this.isBasicProgram(config)) {
+      return config.name;
+    }
+
+    return config.config.name;
+  });
+
+  sub = computed(() => {
+    const config = this.pageConfig();
+    if (!config) return '';
+
+    if (this.isBasicProgram(config)) {
+      return config.sub;
+    }
+
+    return config.config.sub;
+  });
+
+  imgSrc = computed(() => {
+    const config = this.pageConfig();
+    if (!config) return ELEMENT_BASE_ICON;
+
+    if (this.isBasicProgram(config)) {
+      return config.icon ?? ELEMENT_BASE_ICON;
+    }
+
+    return config.config.icon ?? ELEMENT_BASE_ICON;
+  });
 
   constructor(
     private readonly ElementsFacade: ElementsFacade,
@@ -37,19 +56,20 @@ export class ProgramComponent {
   ) {}
 
   @HostListener('click') onCLick() {
-    const pageConfig = this.pageConfig();
+    const config = this.pageConfig();
+    if (!config) return;
 
-    if (pageConfig) {
-      this.ElementsFacade.createElement(
-        {},
-        pageConfig.config,
-        pageConfig.domConfig
-      );
-      this.menuEventsFacade.setCloseMenu();
+    if (this.isBasicProgram(config)) {
+      window.open(config.link);
+      window.focus();
       return;
     }
 
-    window.open(this.basicProgram()?.link);
-    window.focus();
+    this.ElementsFacade.createElement({}, config.config, config.domConfig);
+    this.menuEventsFacade.setCloseMenu();
+  }
+
+  isBasicProgram(config: IPageMock | IBasicProgram): config is IBasicProgram {
+    return !!(config as IBasicProgram)?.name;
   }
 }

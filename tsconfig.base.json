@@ -30,6 +30,9 @@
       "@portifolio/ui/ui-context-menus": [
         "libs/ui/ui-context-menus/src/index.ts"
       ],
+      "@portifolio/ui/ui-curriculum-page": [
+        "libs/ui/ui-curriculum-page/src/index.ts"
+      ],
       "@portifolio/ui/ui-login-page": ["libs/ui/ui-login-page/src/index.ts"],
       "@portifolio/ui/ui-new-trello-page": [
         "libs/ui/ui-new-trello-page/src/index.ts"

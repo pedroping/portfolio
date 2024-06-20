@@ -64,10 +64,10 @@ export class ElementCreatorService<T> {
     );
 
     changeDetectorRef.detectChanges();
+    this.elementsData.pushElement(pageConfig);
     DomElementAdpter.setDisplay(instance.element, !!domElementOptions?.opened);
     this.setCustomTransform(instance.element, pageConfig);
     pageConfig.element$.next(instance.element);
-    this.elementsData.pushElement(pageConfig);
     this.setZIndexService.setNewZIndex(id, instance.element);
 
     return pageConfig;

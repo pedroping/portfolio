@@ -2,6 +2,7 @@ import { UiNewTrelloPageComponent } from '@portifolio/ui/ui-new-trello-page';
 import { IPageMock } from '@portifolio/utils/util-models';
 import { IBasicProgram } from '../models/program-models';
 import { WebWorkersPageComponent } from '@portifolio/ui/ui-web-workers-page';
+import { CurriculumPageComponent } from '@portifolio/ui/ui-curriculum-page';
 
 export const ELEMENT_BASE_ICON = '/assets/images/windows-basic-folder.png';
 
@@ -58,12 +59,33 @@ export const PROGRAM_3_CONFIG: IPageMock = {
   },
 };
 
+export const PROGRAM_4_CONFIG: IPageMock = {
+  config: {
+    name: 'Curriculum',
+    sub: 'My Curriculum',
+    baseSizes: {
+      width: window.innerWidth * 0.8,
+      height: window.innerHeight * 0.8,
+      minWidth: 850,
+      minHeight: window.innerHeight * 0.5,
+    },
+    customX: 50,
+    customY: 50,
+    pageContent: CurriculumPageComponent,
+    icon: '/assets/images/pdf-icon.png',
+  },
+  domConfig: {
+    opened: true,
+  },
+};
+
 export const GITHUB_PROGRAM: IBasicProgram = {
   name: 'GitHub',
   sub: 'Repositories',
   link: 'https://github.com/pedroping',
   icon: '/assets/images/github-icon.png',
 };
+
 export const LINKEDIN_PROGRAM: IBasicProgram = {
   name: 'LinkedIn',
   sub: 'LinkedIn Profile',

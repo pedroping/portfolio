@@ -5,12 +5,12 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
-import { filter, switchMap, take, tap } from 'rxjs';
 import { ElementsFacade } from '@portifolio/utils/util-facades';
 import { IPageConfig } from '@portifolio/utils/util-models';
+import { filter, take } from 'rxjs';
 import { CONFIG_TOKEN } from '../../models/elements-token';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Directive({
   selector: '[pageMinimize]',
@@ -41,7 +41,6 @@ export class PageMinimizeDirective implements OnInit {
 
     if (!element) return;
 
-    const isFullScreen = this._config.isFullScreen;
     const index = this.ElementsFacade.findElementIndex(this._config.id);
     this._config.opened = false;
     this.ElementsFacade.hideElement(this._config.id);
@@ -52,18 +51,5 @@ export class PageMinimizeDirective implements OnInit {
       (index + 1) * 20,
       window.innerHeight * 2.5
     );
-
-    DomElementAdpter.afterTransitions(element)
-      .pipe(
-        tap(() => {
-          DomElementAdpter.removeTransition(element);
-          element.style.display = 'none';
-        }),
-        switchMap(() => DomElementAdpter.afterTransitions(element)),
-        takeUntilDestroyed(this.destroyRef)
-      )
-      .subscribe(() => {
-        this._config.isFullScreen = isFullScreen;
-      });
   }
 }

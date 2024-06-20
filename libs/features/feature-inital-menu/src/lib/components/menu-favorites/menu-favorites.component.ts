@@ -5,6 +5,7 @@ import {
   PROGRAM_1_CONFIG,
   PROGRAM_2_CONFIG,
   PROGRAM_3_CONFIG,
+  PROGRAM_4_CONFIG,
   REPOSITORY_PROGRAM,
 } from '../../mocks/program-mocks';
 import { ProgramComponent } from '../program/program.component';
@@ -17,10 +18,13 @@ import { ProgramComponent } from '../program/program.component';
   imports: [ProgramComponent],
 })
 export class MenuFavoritesComponent {
-  program1Config = PROGRAM_1_CONFIG;
-  program2Config = PROGRAM_2_CONFIG;
-  program3Config = PROGRAM_3_CONFIG;
-  gitHubProgram = GITHUB_PROGRAM;
-  linkedinProgram = LINKEDIN_PROGRAM;
-  repositoryProgram = REPOSITORY_PROGRAM;
+  programMocks = [
+    PROGRAM_1_CONFIG,
+    PROGRAM_2_CONFIG,
+    PROGRAM_3_CONFIG,
+    PROGRAM_4_CONFIG,
+    GITHUB_PROGRAM,
+    LINKEDIN_PROGRAM,
+    REPOSITORY_PROGRAM,
+  ];
 }

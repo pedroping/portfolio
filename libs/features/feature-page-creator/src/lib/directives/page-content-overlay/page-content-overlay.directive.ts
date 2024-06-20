@@ -14,7 +14,7 @@ import {
   MenuEventsFacade,
 } from '@portifolio/utils/util-facades';
 import { IPageConfig } from '@portifolio/utils/util-models';
-import { fromEvent, merge, take } from 'rxjs';
+import { filter, fromEvent, merge, take } from 'rxjs';
 import { CONFIG_TOKEN } from '../../models/elements-token';
 
 @Directive({
@@ -38,8 +38,8 @@ export class PageContentOverlayDirective implements AfterViewInit {
     merge(
       mouseLeaveEvent$,
       this.eventsFacade.changeZIndex$$,
-      this.ElementsFacade.elements$.asObservable(),
-      this._config.element$.pipe(take(2))
+      this._config.element$.pipe(take(1)),
+      this.ElementsFacade.elements$.asObservable()
     )
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => this.validateOverlay());
@@ -47,8 +47,9 @@ export class PageContentOverlayDirective implements AfterViewInit {
     this.ElementsFacade.anyElementEvent$$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(this.handleBoolean);
+
     this.menuEventsFacade.menuOpened$$
-      .pipe(takeUntilDestroyed(this.destroyRef))
+      .pipe(takeUntilDestroyed(this.destroyRef), filter(Boolean))
       .subscribe(this.handleBoolean);
   }
 

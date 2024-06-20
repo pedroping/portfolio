@@ -26,6 +26,8 @@
     user-select: none;
     border: 3px var(--border-01) solid;
     border-bottom: none;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
 
     .logo-and-name {
       display: flex;
@@ -63,6 +65,8 @@
     border: 3px var(--border-01) solid;
     border-radius: 5px;
     border-top: none;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
 
     .overlay {
       display: none;

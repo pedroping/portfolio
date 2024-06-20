@@ -1,10 +1,7 @@
 <div class="programs-list">
-  <program [pageConfig]="program1Config" />
-  <program [pageConfig]="program3Config" />
-  <program [pageConfig]="program2Config" />
-  <program [basicProgram]="gitHubProgram" />
-  <program [basicProgram]="repositoryProgram" />
-  <program [basicProgram]="linkedinProgram" />
+  @for (program of programMocks; track $index) {
+  <program [pageConfig]="program" />
+  }
 </div>
 <div class="all-programs">
   <span>All Programs</span>

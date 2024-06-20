@@ -73,6 +73,8 @@ export class PageActionsService {
   }
 
   private showElement(elmentConfig: IPageConfig) {
+    console.log('Show');
+
     elmentConfig.opened = true;
     const element = elmentConfig.element$.value;
 
@@ -80,9 +82,8 @@ export class PageActionsService {
 
     this.elementsData.openElement(elmentConfig.id);
 
-    DomElementAdpter.setTransition(element);
     element.style.display = 'block';
-    this.setZIndexService.setNewZIndex(elmentConfig.id, element);
+    DomElementAdpter.setTransition(element);
 
     if (elmentConfig.isFullScreen) {
       DomElementAdpter.setTransform(
@@ -90,6 +91,10 @@ export class PageActionsService {
         -ELEMENT_PADDING,
         -ELEMENT_PADDING
       );
+
+      DomElementAdpter.afterTransitions(element).subscribe(() => {
+        this.setZIndexService.setNewZIndex(elmentConfig.id, element);
+      });
       return;
     }
 
@@ -138,10 +143,10 @@ export class PageActionsService {
     );
 
     DomElementAdpter.afterTransitions(element)
-      .pipe(take(1))
+      .pipe(take(2))
       .subscribe(() => {
-        element.style.display = 'block';
         DomElementAdpter.removeTransition(element);
+        this.setZIndexService.setNewZIndex(elmentConfig.id, element);
       });
   }
 
