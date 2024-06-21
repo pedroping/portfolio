@@ -11,6 +11,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter, fromEvent, merge, skip, take } from 'rxjs';
 import { DefaultContextMenuComponent } from '../components/default-context-menu/default-context-menu.component';
 import { ProgramContextMenuComponent } from '../components/program-context-menu/program-context-menu.component';
+import { MENU_GAP } from '../mocks/context-menu-mocks';
 import { AvailableContextMenus } from '../models/context-menu-models';
 
 @Directive({
@@ -42,7 +43,7 @@ export class OpenContextMenuDirective {
     const menuView = this.vcr.createComponent(menuComponent).location
       .nativeElement as HTMLElement;
 
-    const positions = { x: event.pageX, y: event.pageY };
+    const positions = { x: event.pageX + MENU_GAP, y: event.pageY };
 
     const boundarySizes = {
       width: this.elementRef.nativeElement.offsetWidth,
