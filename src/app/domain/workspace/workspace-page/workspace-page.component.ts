@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 import { FileExplorerComponent } from '@portifolio/features/feature-file-explorer';
 import { InitialMenuCreatorDirective } from '@portifolio/features/feature-inital-menu';
 import { PageParentDirective } from '@portifolio/features/feature-page-creator';
+import { OpenContextMenuDirective } from '@portifolio/ui/ui-context-menus';
 import {
   ElementsFacade,
   MenuEventsFacade,
@@ -11,7 +12,11 @@ import {
   templateUrl: './workspace-page.component.html',
   styleUrls: ['./workspace-page.component.scss'],
   standalone: true,
-  imports: [PageParentDirective, InitialMenuCreatorDirective],
+  imports: [
+    PageParentDirective,
+    InitialMenuCreatorDirective,
+    OpenContextMenuDirective,
+  ],
 })
 export class WorkspacePageComponent implements OnDestroy, AfterViewInit {
   constructor(
