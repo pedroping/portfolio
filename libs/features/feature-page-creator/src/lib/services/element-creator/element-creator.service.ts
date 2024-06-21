@@ -5,17 +5,12 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
+import { IInitialConfig, IPageConfig } from '@portifolio/utils/util-models';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { PageComponent } from '../../component/page.component';
-import { ELEMENT_BASE_ICON } from '../../mocks/elements.mocks';
 import { CONFIG_TOKEN, DATA_TOKEN } from '../../models/elements-token';
 import { ElementsData } from '../elements-data/elements-data.service';
 import { SetZIndexService } from '../set-z-index/set-z-index.service';
-import {
-  IInitialConfig,
-  IDomElementOptions,
-  IPageConfig,
-} from '@portifolio/utils/util-models';
 @Injectable({ providedIn: 'root' })
 export class ElementCreatorService<T> {
   private vcr!: ViewContainerRef;
@@ -30,11 +25,7 @@ export class ElementCreatorService<T> {
     this.vcr = vcr;
   }
 
-  createElement(
-    data: T,
-    config: IInitialConfig,
-    domElementOptions?: IDomElementOptions
-  ) {
+  createElement(data: T, config: IInitialConfig) {
     if (!this.vcr)
       throw new Error(
         'ViewContainerRef not initialized try to use startCreator function '
@@ -48,8 +39,8 @@ export class ElementCreatorService<T> {
         x: config.customX ?? 0,
         y: config.customY ?? 0,
       },
-      opened: !!domElementOptions?.opened,
-      isFullScreen: !!domElementOptions?.isFullScreen,
+      opened: !!config?.opened,
+      isFullScreen: !!config?.isFullScreen,
       onDestroy$: new Subject<void>(),
       element$: new BehaviorSubject<HTMLElement | null>(null),
     };
@@ -65,7 +56,7 @@ export class ElementCreatorService<T> {
 
     changeDetectorRef.detectChanges();
     this.elementsData.pushElement(pageConfig);
-    DomElementAdpter.setDisplay(instance.element, !!domElementOptions?.opened);
+    DomElementAdpter.setDisplay(instance.element, !!config?.opened);
     this.setCustomTransform(instance.element, pageConfig);
     pageConfig.element$.next(instance.element);
     this.setZIndexService.setNewZIndex(id, instance.element);

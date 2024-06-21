@@ -33,8 +33,6 @@ export class WorkspacePageComponent implements OnDestroy, AfterViewInit {
         customY: 500,
         baseSizes: { width: 600, height: 500, minHeight: 500, minWidth: 600 },
         pageContent: FileExplorerComponent,
-      },
-      {
         opened: false,
         isFullScreen: false,
       }

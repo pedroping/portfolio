@@ -8,11 +8,6 @@ export interface IBasicElement {
   icon?: string;
 }
 
-export interface IDomElementOptions {
-  opened: boolean;
-  isFullScreen?: boolean;
-}
-
 export interface IInitialConfig {
   name: string;
   baseSizes: {
@@ -26,9 +21,11 @@ export interface IInitialConfig {
   icon?: string;
   sub?: string;
   pageContent?: Type<unknown>;
+  opened: boolean;
+  isFullScreen?: boolean;
 }
 
-export interface IElementReference extends IDomElementOptions {
+export interface IElementReference {
   id: number;
   lastPosition: {
     x: number;
@@ -42,7 +39,6 @@ export type IPageConfig = IInitialConfig & IElementReference;
 
 export type IPageMock = {
   config: IInitialConfig;
-  domConfig: IDomElementOptions;
 };
 
 export interface IPageComponent {

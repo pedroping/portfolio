@@ -6,11 +6,7 @@ import {
   PreventHandlerElements,
   SetZIndexService,
 } from '@portifolio/features/feature-page-creator';
-import {
-  IDomElementOptions,
-  IInitialConfig,
-  IPageConfig,
-} from '@portifolio/utils/util-models';
+import { IInitialConfig, IPageConfig } from '@portifolio/utils/util-models';
 
 @Injectable({ providedIn: 'root' })
 export class ElementsFacade<T = unknown> {
@@ -26,16 +22,8 @@ export class ElementsFacade<T = unknown> {
     this.elementCreatorService.startCreator(vcr);
   }
 
-  createElement(
-    data: T,
-    config: IInitialConfig,
-    domElementOptions?: IDomElementOptions
-  ) {
-    return this.elementCreatorService.createElement(
-      data,
-      config,
-      domElementOptions
-    );
+  createElement(data: T, config: IInitialConfig) {
+    return this.elementCreatorService.createElement(data, config);
   }
 
   destroyElement(id: number) {

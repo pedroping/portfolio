@@ -1,8 +1,8 @@
+import { CurriculumPageComponent } from '@portifolio/ui/ui-curriculum-page';
 import { UiNewTrelloPageComponent } from '@portifolio/ui/ui-new-trello-page';
+import { WebWorkersPageComponent } from '@portifolio/ui/ui-web-workers-page';
 import { IPageMock } from '@portifolio/utils/util-models';
 import { IBasicProgram } from '../models/program-models';
-import { WebWorkersPageComponent } from '@portifolio/ui/ui-web-workers-page';
-import { CurriculumPageComponent } from '@portifolio/ui/ui-curriculum-page';
 
 export const ELEMENT_BASE_ICON = '/assets/images/windows-basic-folder.png';
 
@@ -20,8 +20,6 @@ export const PROGRAM_1_CONFIG: IPageMock = {
     customY: 50,
     pageContent: UiNewTrelloPageComponent,
     icon: '/assets/images/trello-icon.png',
-  },
-  domConfig: {
     opened: true,
   },
 };
@@ -32,8 +30,6 @@ export const PROGRAM_2_CONFIG: IPageMock = {
     customX: 500,
     customY: 500,
     baseSizes: { width: 300, height: 200 },
-  },
-  domConfig: {
     opened: true,
     isFullScreen: false,
   },
@@ -53,8 +49,6 @@ export const PROGRAM_3_CONFIG: IPageMock = {
     customY: 50,
     pageContent: WebWorkersPageComponent,
     icon: '/assets/images/gear-icon.png',
-  },
-  domConfig: {
     opened: true,
   },
 };
@@ -73,8 +67,6 @@ export const PROGRAM_4_CONFIG: IPageMock = {
     customY: 50,
     pageContent: CurriculumPageComponent,
     icon: '/assets/images/pdf-icon.png',
-  },
-  domConfig: {
     opened: true,
   },
 };

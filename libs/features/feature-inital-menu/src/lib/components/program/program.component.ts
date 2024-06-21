@@ -65,7 +65,7 @@ export class ProgramComponent {
       return;
     }
 
-    this.ElementsFacade.createElement({}, config.config, config.domConfig);
+    this.ElementsFacade.createElement({}, config.config);
     this.menuEventsFacade.setCloseMenu();
   }
 
