@@ -91,7 +91,7 @@ export class ElementCreatorService<T> {
     const maxY = Math.min(config.customY || 0, height - elementHeight);
     const maxX = Math.min(config.customX || 0, width - elementWidth);
 
-    config.lastPosition = { x: maxX, y: maxY };
+    config.lastPosition = { x: Math.max(0, maxX), y: Math.max(0, maxY) };
     DomElementAdpter.setTransform(element, maxX, maxY);
   }
 
