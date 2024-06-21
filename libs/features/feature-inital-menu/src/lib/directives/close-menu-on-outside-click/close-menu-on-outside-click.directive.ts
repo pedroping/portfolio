@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MenuEventsFacade } from '@portifolio/utils/util-facades';
-import { fromEvent, merge, skip } from 'rxjs';
+import { filter, fromEvent, merge, skip, take } from 'rxjs';
 import { PREVENT_TOGGLE_ID } from '../../mocks/menu-mocks';
 
 @Directive({
@@ -24,14 +24,19 @@ export class CloseMenuOnOutsideClickDirective implements OnInit {
   ngOnInit(): void {
     this.ngZone.runOutsideAngular(() => {
       merge(fromEvent(document, 'click'), fromEvent(document, 'mousedown'))
-        .pipe(skip(1), takeUntilDestroyed(this.destroyRef))
-        .subscribe((event: Event) => {
-          const isOutTarget = this.isOutTarget(event.target as HTMLElement);
-          const hasPrevent =
-            (event.target as HTMLElement).id === PREVENT_TOGGLE_ID;
+        .pipe(
+          skip(1),
+          takeUntilDestroyed(this.destroyRef),
+          filter((event) => {
+            const isOutTarget = this.isOutTarget(event.target as HTMLElement);
+            const hasPrevent =
+              (event.target as HTMLElement).id === PREVENT_TOGGLE_ID;
 
-          if (!isOutTarget || hasPrevent) return;
-
+            return isOutTarget && !hasPrevent;
+          }),
+          take(1)
+        )
+        .subscribe(() => {
           this.ngZone.run(() => {
             this.menuEventsFacade.setCloseMenu();
           });
