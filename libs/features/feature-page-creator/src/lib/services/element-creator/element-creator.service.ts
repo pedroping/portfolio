@@ -53,8 +53,8 @@ export class ElementCreatorService<T> {
         injector: elementInjection,
       }
     );
-
     changeDetectorRef.detectChanges();
+
     this.elementsData.pushElement(pageConfig);
     DomElementAdpter.setDisplay(instance.element, !!config?.opened);
     this.setCustomTransform(instance.element, pageConfig);

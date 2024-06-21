@@ -5,14 +5,14 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
-import { DomElementAdpter } from '@portifolio/utils/util-adpters';
-import { filter, fromEvent, take } from 'rxjs';
-import { ElementsFacade } from '@portifolio/utils/util-facades';
-import { OBSERVE_CONFIG } from '../../mocks/observerConfig-mocks';
-import { IPageConfig } from '@portifolio/utils/util-models';
-import { CONFIG_TOKEN } from '../../models/elements-token';
-import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { DomElementAdpter } from '@portifolio/utils/util-adpters';
+import { ElementsFacade } from '@portifolio/utils/util-facades';
+import { IPageConfig } from '@portifolio/utils/util-models';
+import { filter, fromEvent, take } from 'rxjs';
+import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
+import { OBSERVE_CONFIG } from '../../mocks/observerConfig-mocks';
+import { CONFIG_TOKEN } from '../../models/elements-token';
 
 @Directive({
   selector: '[pageMaximize]',
@@ -120,7 +120,7 @@ export class PageMaximizeDirective implements OnInit {
       return this.setBaseScreenSize(element);
 
     const transform = hasToSet
-      ? DomElementAdpter.getTranslate3d(-ELEMENT_PADDING, -ELEMENT_PADDING)
+      ? DomElementAdpter.getTranslate3d(0, 0)
       : this.lastTranslet3d;
     const width = hasToSet
       ? boundaryElement.offsetWidth + ELEMENT_PADDING * 2
@@ -131,7 +131,7 @@ export class PageMaximizeDirective implements OnInit {
 
     element.classList[hasToSet ? 'add' : 'remove']('onFullSrcreen');
 
-    this.setPropierties(element, width, height, transform);
+    this.setPropierties({ element, width, height, transform });
   }
 
   setBaseScreenSize(element: HTMLElement) {
@@ -139,24 +139,24 @@ export class PageMaximizeDirective implements OnInit {
     const height = this._config.baseSizes.height;
     const transform = this.lastTranslet3d;
 
-    this.setPropierties(element, width, height, transform);
+    this.setPropierties({ element, width, height, transform });
   }
 
-  setPropierties(
-    element: HTMLElement,
-    width: number | string,
-    height: number | string,
-    transform: string
-  ) {
-    DomElementAdpter.setTransition(element);
+  setPropierties(params: {
+    element: HTMLElement;
+    width: number | string;
+    height: number | string;
+    transform: string;
+  }) {
+    DomElementAdpter.setTransition(params.element);
 
-    element.style.width = width + 'px';
-    element.style.height = height + 'px';
-    element.style.transform = transform;
-    element.style.display = 'block';
+    params.element.style.width = params.width + 'px';
+    params.element.style.height = params.height + 'px';
+    params.element.style.transform = params.transform;
+    params.element.style.display = 'block';
 
-    DomElementAdpter.afterTransitions(element).subscribe(() => {
-      DomElementAdpter.removeTransition(element);
+    DomElementAdpter.afterTransitions(params.element).subscribe(() => {
+      DomElementAdpter.removeTransition(params.element);
     });
   }
 

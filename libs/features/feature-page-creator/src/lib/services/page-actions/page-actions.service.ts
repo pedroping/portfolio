@@ -84,11 +84,7 @@ export class PageActionsService {
     DomElementAdpter.setTransition(element);
 
     if (elmentConfig.isFullScreen) {
-      DomElementAdpter.setTransform(
-        element,
-        -ELEMENT_PADDING,
-        -ELEMENT_PADDING
-      );
+      DomElementAdpter.setTransform(element, 0, 0);
 
       DomElementAdpter.afterTransitions(element).subscribe(() => {
         this.setZIndexService.setNewZIndex(elmentConfig.id, element);
@@ -96,49 +92,7 @@ export class PageActionsService {
       return;
     }
 
-    const boundaryElement = this.elementsData.draggingBoundaryElement$.value;
-
-    if (boundaryElement) {
-      const boundaryHeight = boundaryElement.offsetHeight;
-      const boundaryWidth = boundaryElement.offsetWidth;
-      const height = element.offsetHeight;
-      const width = element.offsetWidth;
-
-      const maxBoundX = boundaryWidth - element.offsetWidth;
-      const maxBoundY = boundaryHeight - element.offsetHeight;
-
-      if (elmentConfig.baseSizes.minHeight)
-        elmentConfig.baseSizes.minHeight = Math.min(
-          elmentConfig.baseSizes.minHeight,
-          boundaryHeight
-        );
-
-      if (elmentConfig.baseSizes.minWidth)
-        elmentConfig.baseSizes.minWidth = Math.min(
-          elmentConfig.baseSizes.minWidth,
-          boundaryWidth
-        );
-
-      element.style.height = Math.min(height, boundaryHeight) + 'px';
-      element.style.width = Math.min(width, boundaryWidth) + 'px';
-      element.style.minWidth = elmentConfig.baseSizes.minWidth + 'px';
-      element.style.minHeight = elmentConfig.baseSizes.minHeight + 'px';
-
-      elmentConfig.lastPosition.x = Math.min(
-        elmentConfig.lastPosition.x,
-        maxBoundX
-      );
-      elmentConfig.lastPosition.y = Math.min(
-        elmentConfig.lastPosition.y,
-        maxBoundY
-      );
-    }
-
-    DomElementAdpter.setTransform(
-      element,
-      elmentConfig.lastPosition.x,
-      elmentConfig.lastPosition.y
-    );
+    this.setMaxPosition({ elmentConfig });
 
     DomElementAdpter.afterTransitions(element)
       .pipe(take(2))
@@ -146,6 +100,62 @@ export class PageActionsService {
         DomElementAdpter.removeTransition(element);
         this.setZIndexService.setNewZIndex(elmentConfig.id, element);
       });
+  }
+
+  setMaxPosition(params: {
+    elmentConfig: IPageConfig;
+    x?: number;
+    y?: number;
+  }) {
+    if (params.x && params.y)
+      params.elmentConfig.lastPosition = { x: params.x, y: params.y };
+
+    const element = params.elmentConfig.element$.value;
+    const boundaryElement = this.elementsData.draggingBoundaryElement$.value;
+
+    if (!element) return;
+
+    if (boundaryElement) {
+      const boundaryHeight = boundaryElement.offsetHeight + ELEMENT_PADDING * 2;
+      const boundaryWidth = boundaryElement.offsetWidth + ELEMENT_PADDING * 2;
+      const height = element.offsetHeight;
+      const width = element.offsetWidth;
+
+      const maxBoundX = Math.max(0, boundaryWidth - element.offsetWidth);
+      const maxBoundY = Math.max(0, boundaryHeight - element.offsetHeight);
+
+      if (params.elmentConfig.baseSizes.minHeight)
+        params.elmentConfig.baseSizes.minHeight = Math.min(
+          params.elmentConfig.baseSizes.minHeight,
+          boundaryHeight
+        );
+
+      if (params.elmentConfig.baseSizes.minWidth)
+        params.elmentConfig.baseSizes.minWidth = Math.min(
+          params.elmentConfig.baseSizes.minWidth,
+          boundaryWidth
+        );
+
+      element.style.height = Math.min(height, boundaryHeight) + 'px';
+      element.style.width = Math.min(width, boundaryWidth) + 'px';
+      element.style.minWidth = params.elmentConfig.baseSizes.minWidth + 'px';
+      element.style.minHeight = params.elmentConfig.baseSizes.minHeight + 'px';
+
+      params.elmentConfig.lastPosition.x = Math.min(
+        Math.max(params.elmentConfig.lastPosition.x, 0),
+        maxBoundX
+      );
+      params.elmentConfig.lastPosition.y = Math.min(
+        Math.max(params.elmentConfig.lastPosition.y, 0),
+        maxBoundY
+      );
+    }
+
+    DomElementAdpter.setTransform(
+      element,
+      params.elmentConfig.lastPosition.x,
+      params.elmentConfig.lastPosition.y
+    );
   }
 
   private getIsBehindAnotherElement(id: number, element: HTMLElement) {

@@ -8,7 +8,6 @@ export class ElementsData {
   elements$ = new BehaviorSubject<IPageConfig[]>([]);
   basicElements$ = new BehaviorSubject<IBasicElement[]>([]);
   draggingBoundaryElement$ = new BehaviorSubject<HTMLElement | null>(null);
-  anyElementEvent$ = new BehaviorSubject<boolean>(false);
 
   setDraggingBoundaryElement(element: HTMLElement) {
     this.draggingBoundaryElement$.next(element.parentElement as HTMLElement);
@@ -72,13 +71,8 @@ export class ElementsData {
     return this.elements$.value.findIndex((item) => item.id == id);
   }
 
-  setAnyElementEvent(val: boolean) {
-    this.anyElementEvent$.next(val);
-  }
-
   clearData() {
     this.elements$.next([]);
     this.basicElements$.next([]);
-    this.anyElementEvent$.next(false);
   }
 }

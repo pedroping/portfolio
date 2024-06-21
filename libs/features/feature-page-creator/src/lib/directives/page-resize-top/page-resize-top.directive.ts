@@ -118,8 +118,8 @@ export class PageResizeTopDirective implements OnInit {
     this._config.lastPosition.y = this.initialYPosition - newPositionCalc;
     DomElementAdpter.setTransform(
       element,
-      Math.max(this._config.lastPosition.x, -ELEMENT_PADDING),
-      Math.max(this._config.lastPosition.y, -ELEMENT_PADDING)
+      Math.max(this._config.lastPosition.x, 0),
+      Math.max(this._config.lastPosition.y, 0)
     );
     this.ElementsFacade.setAnyElementEvent(true);
   }

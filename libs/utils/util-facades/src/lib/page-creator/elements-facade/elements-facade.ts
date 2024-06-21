@@ -3,6 +3,7 @@ import {
   ElementCreatorService,
   ElementsData,
   PageActionsService,
+  PageEvents,
   PreventHandlerElements,
   SetZIndexService,
 } from '@portifolio/features/feature-page-creator';
@@ -11,6 +12,7 @@ import { IInitialConfig, IPageConfig } from '@portifolio/utils/util-models';
 @Injectable({ providedIn: 'root' })
 export class ElementsFacade<T = unknown> {
   constructor(
+    private readonly pageEvents: PageEvents,
     private readonly elementsData: ElementsData,
     private readonly setZIndexService: SetZIndexService,
     private readonly pageActionsService: PageActionsService,
@@ -75,13 +77,22 @@ export class ElementsFacade<T = unknown> {
   }
 
   setAnyElementEvent(val: boolean) {
-    this.elementsData.setAnyElementEvent(val);
+    this.pageEvents.setAnyElementEvent(val);
+  }
+
+  setMaxPosition(params: {
+    elmentConfig: IPageConfig;
+    x?: number;
+    y?: number;
+  }) {
+    this.pageActionsService.setMaxPosition(params);
   }
 
   clearAll() {
     this.elementCreatorService.clearData();
     this.elementsData.clearData();
     this.setZIndexService.clearData();
+    this.pageEvents.clearEvents();
   }
 
   get elements$() {
@@ -97,6 +108,6 @@ export class ElementsFacade<T = unknown> {
   }
 
   get anyElementEvent$$() {
-    return this.elementsData.anyElementEvent$.asObservable();
+    return this.pageEvents.anyElementEvent$$;
   }
 }

@@ -7,10 +7,10 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
-import { fromEvent, takeUntil } from 'rxjs';
 import { ElementsFacade } from '@portifolio/utils/util-facades';
-import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
 import { IPageConfig } from '@portifolio/utils/util-models';
+import { fromEvent, takeUntil } from 'rxjs';
+import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
 import { CONFIG_TOKEN } from '../../models/elements-token';
 
 @Directive({
@@ -86,7 +86,13 @@ export class PageMoveDirective implements OnInit {
     this.initialY = event.clientY - this._config.lastPosition.y || 0;
 
     this.drag$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((event) => {
-      this.drag(event.clientX, event.clientY, element, maxBoundX, maxBoundY);
+      this.drag({
+        x: event.clientX,
+        y: event.clientY,
+        element,
+        maxBoundX,
+        maxBoundY,
+      });
     });
   }
 
@@ -117,33 +123,33 @@ export class PageMoveDirective implements OnInit {
     this.touchMove$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((event) => {
-        const X = event.touches[0].pageX;
-        const Y = event.touches[0].pageY;
-        this.drag(X, Y, element, maxBoundX, maxBoundY);
+        const x = event.touches[0].pageX;
+        const y = event.touches[0].pageY;
+        this.drag({ x, y, element, maxBoundX, maxBoundY });
       });
   }
 
-  drag(
-    x: number,
-    y: number,
-    element: HTMLElement,
-    maxBoundX: number,
-    maxBoundY: number
-  ) {
+  drag(params: {
+    x: number;
+    y: number;
+    element: HTMLElement;
+    maxBoundX: number;
+    maxBoundY: number;
+  }) {
     if (this._config.isFullScreen) return;
 
-    const newX = x - this.initialX;
-    const newY = y - this.initialY;
+    const newX = params.x - this.initialX;
+    const newY = params.y - this.initialY;
 
-    const maxPositionX = Math.min(newX, maxBoundX);
-    const maxPositionY = Math.min(newY, maxBoundY);
+    const maxPositionX = Math.min(newX, params.maxBoundX);
+    const maxPositionY = Math.min(newY, params.maxBoundY);
 
-    this.currentX = Math.max(-ELEMENT_PADDING, maxPositionX);
-    this.currentY = Math.max(-ELEMENT_PADDING, maxPositionY);
+    this.currentX = Math.max(0, Math.max(-ELEMENT_PADDING, maxPositionX));
+    this.currentY = Math.max(0, Math.max(-ELEMENT_PADDING, maxPositionY));
     this._config.lastPosition = { x: this.currentX, y: this.currentY };
     this.ElementsFacade.setAnyElementEvent(true);
-    DomElementAdpter.removeTransition(element);
-    DomElementAdpter.setTransform(element, this.currentX, this.currentY);
+    DomElementAdpter.removeTransition(params.element);
+    DomElementAdpter.setTransform(params.element, this.currentX, this.currentY);
   }
 
   hasPrevent(element: HTMLElement) {

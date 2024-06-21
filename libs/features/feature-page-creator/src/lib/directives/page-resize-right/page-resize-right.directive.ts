@@ -100,7 +100,7 @@ export class PageResizeRightDirective implements OnInit {
     if (this._config.isFullScreen) return;
     const boundaryWidth =
       this.elementsData.draggingBoundaryElement$.value?.offsetWidth;
-    if (boundaryWidth && x > boundaryWidth - ELEMENT_PADDING) return;
+    if (boundaryWidth && x > boundaryWidth - ELEMENT_PADDING * 2) return;
 
     const newPositionCalc = x - this.startPosition;
 
