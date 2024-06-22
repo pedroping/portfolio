@@ -1,7 +1,7 @@
 {
-  "name": "ui-context-menus",
+  "name": "features-feature-context-menus",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/ui/ui-context-menus/src",
+  "sourceRoot": "libs/features/feature-context-menus/src",
   "prefix": "lib",
   "projectType": "library",
   "tags": [],
@@ -10,7 +10,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/ui/ui-context-menus/jest.config.ts"
+        "jestConfig": "libs/features/feature-context-menus/jest.config.ts"
       }
     },
     "lint": {

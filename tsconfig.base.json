@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@portifolio/features/feature-context-menus": [
+        "libs/features/feature-context-menus/src/index.ts"
+      ],
       "@portifolio/features/feature-file-explorer": [
         "libs/features/feature-file-explorer/src/index.ts"
       ],
@@ -26,9 +29,6 @@
       ],
       "@portifolio/features/feature-taskbar": [
         "libs/features/feature-taskbar/src/index.ts"
-      ],
-      "@portifolio/ui/ui-context-menus": [
-        "libs/ui/ui-context-menus/src/index.ts"
       ],
       "@portifolio/ui/ui-curriculum-page": [
         "libs/ui/ui-curriculum-page/src/index.ts"

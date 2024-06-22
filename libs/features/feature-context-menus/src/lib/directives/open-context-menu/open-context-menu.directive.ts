@@ -9,10 +9,10 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter, fromEvent, merge, skip, take } from 'rxjs';
-import { DefaultContextMenuComponent } from '../components/default-context-menu/default-context-menu.component';
-import { ProgramContextMenuComponent } from '../components/program-context-menu/program-context-menu.component';
-import { MENU_GAP } from '../mocks/context-menu-mocks';
-import { AvailableContextMenus } from '../models/context-menu-models';
+import { DefaultContextMenuComponent } from '../../components/default-context-menu/default-context-menu.component';
+import { ProgramContextMenuComponent } from '../../components/program-context-menu/program-context-menu.component';
+import { MENU_GAP } from '../../mocks/context-menu-mocks';
+import { AvailableContextMenus } from '../../models/context-menu-models';
 
 @Directive({
   selector: '[openContextMenu]',

@@ -1,9 +1,9 @@
 /* eslint-disable */
 export default {
-  displayName: 'ui-context-menus',
+  displayName: 'features-feature-context-menus',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../../coverage/libs/ui/ui-context-menus',
+  coverageDirectory: '../../../coverage/libs/features/feature-context-menus',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

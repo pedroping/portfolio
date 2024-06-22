@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 import { FileExplorerComponent } from '@portifolio/features/feature-file-explorer';
 import { InitialMenuCreatorDirective } from '@portifolio/features/feature-inital-menu';
 import { PageParentDirective } from '@portifolio/features/feature-page-creator';
-import { OpenContextMenuDirective } from '@portifolio/ui/ui-context-menus';
+import { OpenContextMenuDirective } from "@portifolio/features/feature-context-menus";
 import {
   ElementsFacade,
   MenuEventsFacade,
