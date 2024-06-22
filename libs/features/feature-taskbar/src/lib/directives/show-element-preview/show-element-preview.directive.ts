@@ -17,6 +17,7 @@ import {
   startWith,
   take,
   takeUntil,
+  tap,
   timer,
 } from 'rxjs';
 import { PagePreviewComponent } from '../../components/page-preview/page-preview.component';
@@ -60,18 +61,16 @@ export class ShowElementPreviewDirective {
       fromEvent(this.elementRef.nativeElement, 'click'),
       fromEvent(this.elementRef.nativeElement, 'touchend').pipe(take(1)),
       fromEvent(this.elementRef.nativeElement, 'touchleave').pipe(take(1))
-    );
-
-    touchLeaveEvent$.subscribe(() => {
-      hasCancel = true;
-    });
+    ).pipe(tap(() => (hasCancel = true)));
 
     touchLeaveEvent$
-      .pipe(startWith(undefined), debounceTime(500), take(1))
-      .subscribe(() => {
-        if (hasCancel) return;
-        this.createElement();
-      });
+      .pipe(
+        startWith(undefined),
+        debounceTime(500),
+        filter(() => !hasCancel),
+        take(1)
+      )
+      .subscribe(() => this.createElement());
   }
 
   @HostListener('mouseenter')
@@ -83,14 +82,15 @@ export class ShowElementPreviewDirective {
     const mouseLeave$ = merge(
       fromEvent(this.elementRef.nativeElement, 'click'),
       fromEvent(this.elementRef.nativeElement, 'mouseleave')
-    );
-
-    mouseLeave$.subscribe(() => {
-      hasCancel = true;
-    });
+    ).pipe(tap(() => (hasCancel = true)));
 
     mouseLeave$
-      .pipe(startWith(undefined), debounceTime(500), take(1))
+      .pipe(
+        startWith(undefined),
+        debounceTime(500),
+        filter(() => !hasCancel),
+        take(1)
+      )
       .subscribe(() => {
         if (hasCancel) return;
         this.createElement();

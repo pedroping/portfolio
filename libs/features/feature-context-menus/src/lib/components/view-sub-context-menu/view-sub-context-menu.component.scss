@@ -1,0 +1,28 @@
+:host {
+    display: block;
+    position: fixed;
+    z-index: 1000000;
+    width: 150px;
+    background-color: var(--context-menu-backgound);
+    box-shadow: 0px 0px 2px 0px var(--black-01);
+    border: 1px solid var(--gray-01);
+  
+    section {
+      display: flex;
+      flex-direction: column;
+  
+      .option {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 2px 10px 2px 5px;
+        transition: all 50ms ease-in-out;
+        cursor: pointer;
+  
+        &:hover {
+          color: var(--text-color-01);
+          background-color: var(--gradient-color-02);
+        }
+      }
+    }
+  }
