@@ -1,0 +1,30 @@
+:host {
+  display: block;
+  width: 300px;
+  max-width: 300px;
+  height: 100%;
+  border: 5px solid var(--folder-border-01);
+
+  border-top: none;
+  border-bottom: none;
+  border-left: none;
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px 7.5px 2px 5px;
+    background-color: var(--explorer-header-background);
+
+    i {
+      margin-top: 2px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 200ms ease-in-out;
+
+      &:hover {
+        transform: scale(1.03) translateY(-1px);
+      }
+    }
+  }
+}
