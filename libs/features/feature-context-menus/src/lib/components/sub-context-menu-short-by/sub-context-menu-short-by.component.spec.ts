@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { IconsSubContextMenuComponent } from './icons-sub-context-menu.component';
+import { SubContextMenuShortByComponent } from './sub-context-menu-short-by.component';
 
-describe('IconsSubContextMenuComponent', () => {
-  let component: IconsSubContextMenuComponent;
-  let fixture: ComponentFixture<IconsSubContextMenuComponent>;
+describe('SubContextMenuShortByComponent', () => {
+  let component: SubContextMenuShortByComponent;
+  let fixture: ComponentFixture<SubContextMenuShortByComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ IconsSubContextMenuComponent ]
+      declarations: [ SubContextMenuShortByComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(IconsSubContextMenuComponent);
+    fixture = TestBed.createComponent(SubContextMenuShortByComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

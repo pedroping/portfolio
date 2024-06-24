@@ -9,8 +9,8 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter, fromEvent, merge, skip, take } from 'rxjs';
-import { DefaultContextMenuComponent } from '../../components/default-context-menu/default-context-menu.component';
-import { ProgramContextMenuComponent } from '../../components/program-context-menu/program-context-menu.component';
+import { ContextMenuDefaultComponent } from '../../components/context-menu-default/context-menu-default.component';
+import { ContextMenuProgramComponent } from '../../components/context-menu-program/context-menu-program.component';
 import { MENU_GAP, WORKSPACE_ID } from '../../mocks/context-menu-mocks';
 import { AvailableContextMenus } from '../../models/context-menu-models';
 
@@ -43,8 +43,8 @@ export class OpenContextMenuDirective {
 
     const menuComponent =
       this.menuType() === 'default'
-        ? DefaultContextMenuComponent
-        : ProgramContextMenuComponent;
+        ? ContextMenuDefaultComponent
+        : ContextMenuProgramComponent;
 
     const menuView = this.vcr.createComponent(menuComponent).location
       .nativeElement as HTMLElement;

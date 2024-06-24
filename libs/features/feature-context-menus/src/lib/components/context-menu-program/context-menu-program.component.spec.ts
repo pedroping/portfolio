@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { DefaultContextMenuComponent } from './default-context-menu.component';
+import { ContextMenuProgramComponent } from './context-menu-program.component';
 
-describe('DefaultContextMenuComponent', () => {
-  let component: DefaultContextMenuComponent;
-  let fixture: ComponentFixture<DefaultContextMenuComponent>;
+describe('ContextMenuProgramComponent', () => {
+  let component: ContextMenuProgramComponent;
+  let fixture: ComponentFixture<ContextMenuProgramComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DefaultContextMenuComponent ]
+      declarations: [ ContextMenuProgramComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DefaultContextMenuComponent);
+    fixture = TestBed.createComponent(ContextMenuProgramComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
