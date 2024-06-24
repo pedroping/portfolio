@@ -1,16 +1,16 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { ContextMenuEventsService } from './context-menu-events.service';
+import { ContextMenuEvents } from './context-menu-events.service';
 
 describe('Service: ContextMenuEvents', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ContextMenuEventsService]
+      providers: [ContextMenuEvents],
     });
   });
 
-  it('should ...', inject([ContextMenuEventsService], (service: ContextMenuEventsService) => {
+  it('should ...', inject([ContextMenuEvents], (service: ContextMenuEvents) => {
     expect(service).toBeTruthy();
   }));
 });

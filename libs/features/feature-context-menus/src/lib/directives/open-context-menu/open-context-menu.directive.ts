@@ -55,7 +55,7 @@ export class OpenContextMenuDirective {
       width: this.elementRef.nativeElement.offsetWidth,
       height: this.elementRef.nativeElement.offsetHeight,
     };
-    
+
     const menuSizes = {
       width: menuView.offsetWidth,
       height: menuView.offsetHeight,

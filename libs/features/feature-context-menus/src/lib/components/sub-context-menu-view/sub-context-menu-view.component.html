@@ -6,7 +6,11 @@
     <span>Tiles</span>
   </div>
 
-  <div class="option" [openSubContextMenu]="iconsContextMenuComponent">
+  <div
+    class="option"
+    [openSubContextMenu]="iconsContextMenuComponent"
+    [preventPreviousDestroy]="true"
+  >
     <span>Icons</span> <i class="fa-solid fa-caret-right"></i>
   </div>
 
