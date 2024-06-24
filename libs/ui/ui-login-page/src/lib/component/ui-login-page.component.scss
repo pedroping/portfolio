@@ -21,6 +21,10 @@
       height: 100%;
       position: relative;
 
+      .company {
+        margin-right: 16px;
+      }
+
       &:first-child {
         display: flex;
         align-items: flex-end;

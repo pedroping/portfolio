@@ -2,6 +2,10 @@
 @import "keyframes";
 
 .win-logo {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 5px;
+
   .company {
     font-size: 12px;
     position: relative;
