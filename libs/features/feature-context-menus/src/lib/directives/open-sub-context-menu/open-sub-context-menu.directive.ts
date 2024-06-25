@@ -8,6 +8,7 @@ import {
   ViewContainerRef,
   input,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   debounceTime,
   filter,
@@ -18,8 +19,8 @@ import {
   tap,
   timer,
 } from 'rxjs';
+import { IPositionProperties } from '../../models/context-menu-models';
 import { ContextMenuEvents } from '../../services/context-menu-events/context-menu-events.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Directive({
   selector: '[openSubContextMenu]',
@@ -70,7 +71,27 @@ export class OpenSubContextMenuDirective {
     view.style.top = rect.top + 'px';
     view.style.left = rect.left + rect.width + 'px';
 
+    this.setElementPositions(view, rect.width, { x: rect.left, y: rect.top });
     this.createDestroyTimeOut(view);
+  }
+
+  setElementPositions(
+    elementView: HTMLElement,
+    elementWidth: number,
+    elementPosition: IPositionProperties
+  ) {
+    const pageWidth = window.innerWidth;
+    const viewWidth = elementView.offsetWidth;
+    const maxBound = elementPosition.x + viewWidth;
+
+    elementView.style.top = elementPosition.y + 'px';
+
+    if (maxBound <= pageWidth) {
+      elementView.style.left = elementPosition.x + elementWidth + 'px';
+      return;
+    }
+
+    elementView.style.left = elementPosition.x - elementWidth + 'px';
   }
 
   createDestroyTimeOut(view: HTMLElement) {
