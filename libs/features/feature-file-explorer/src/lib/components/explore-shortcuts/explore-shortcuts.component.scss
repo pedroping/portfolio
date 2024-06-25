@@ -76,7 +76,7 @@
       }
     }
 
-    .search {
+    .actions {
       display: flex;
       align-items: center;
       gap: 5px;
@@ -91,6 +91,19 @@
 
       img {
         width: 40px;
+      }
+
+      &:last-of-type {
+        img {
+          width: 35px;
+        }
+      }
+
+      &.selected {
+        border-radius: 5px;
+        padding: 5px 10px;
+        background-color: var(--white-01);
+        box-shadow: inset 0px 0px 5px 0px var(--black-02);
       }
     }
   }
