@@ -6,6 +6,8 @@ import {
   OnInit,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ElementsFacade } from '@portifolio/utils/util-facades';
+import { IPageConfig } from '@portifolio/utils/util-models';
 import {
   BehaviorSubject,
   Observable,
@@ -14,11 +16,8 @@ import {
   takeUntil,
   tap,
 } from 'rxjs';
-import { ElementsFacade } from '@portifolio/utils/util-facades';
 import { BASE_HEIGHT, ELEMENT_PADDING } from '../../mocks/elements.mocks';
-import { IPageConfig } from '@portifolio/utils/util-models';
 import { CONFIG_TOKEN } from '../../models/elements-token';
-import { ElementsData } from '../../services/elements-data/elements-data.service';
 
 @Directive({
   selector: '.bottom',
@@ -39,8 +38,7 @@ export class PageResizeBottomDirective implements OnInit {
   constructor(
     private readonly elementRef: ElementRef,
     private readonly destroyRef: DestroyRef,
-    private readonly elementsData: ElementsData,
-    private readonly ElementsFacade: ElementsFacade,
+    private readonly elementsFacade: ElementsFacade,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {
     this.mouseDownEvent$ = fromEvent<MouseEvent>(
@@ -66,7 +64,7 @@ export class PageResizeBottomDirective implements OnInit {
         tap((event) => {
           this.startPosition = event.y;
           this.initialElementHeight = this.element$.value?.offsetHeight ?? 0;
-          this.ElementsFacade.setAnyElementEvent(true);
+          this.elementsFacade.setAnyElementEvent(true);
         }),
         switchMap(() =>
           this.mouseMoveEvent$.pipe(takeUntil(this.mouseUpEvent$))
@@ -85,7 +83,7 @@ export class PageResizeBottomDirective implements OnInit {
         tap((event) => {
           this.startPosition = event.touches[0].pageY;
           this.initialElementHeight = this.element$.value?.offsetHeight ?? 0;
-          this.ElementsFacade.setAnyElementEvent(true);
+          this.elementsFacade.setAnyElementEvent(true);
         }),
         switchMap(() => this.touchMove$.pipe(takeUntil(this.touchEnd$))),
         takeUntilDestroyed(this.destroyRef)
@@ -101,7 +99,7 @@ export class PageResizeBottomDirective implements OnInit {
     if (this._config.isFullScreen) return;
 
     const boundaryHeight =
-      this.elementsData.draggingBoundaryElement$.value?.offsetHeight;
+      this.elementsFacade.draggingBoundaryElement$.value?.offsetHeight;
 
     if (boundaryHeight && y > boundaryHeight - ELEMENT_PADDING * 2) return;
 
@@ -112,6 +110,6 @@ export class PageResizeBottomDirective implements OnInit {
     );
 
     element.style.height = newHeight + 'px';
-    this.ElementsFacade.setAnyElementEvent(true);
+    this.elementsFacade.setAnyElementEvent(true);
   }
 }

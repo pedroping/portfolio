@@ -40,7 +40,7 @@ export class PageResizeTopDirective implements OnInit {
   constructor(
     private readonly destroyRef: DestroyRef,
     private readonly elementRef: ElementRef,
-    private readonly ElementsFacade: ElementsFacade,
+    private readonly elementsFacade: ElementsFacade,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {
     this.mouseDownEvent$ = fromEvent<MouseEvent>(
@@ -121,6 +121,6 @@ export class PageResizeTopDirective implements OnInit {
       Math.max(this._config.lastPosition.x, 0),
       Math.max(this._config.lastPosition.y, 0)
     );
-    this.ElementsFacade.setAnyElementEvent(true);
+    this.elementsFacade.setAnyElementEvent(true);
   }
 }

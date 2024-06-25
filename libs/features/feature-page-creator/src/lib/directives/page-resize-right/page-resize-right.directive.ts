@@ -39,8 +39,7 @@ export class PageResizeRightDirective implements OnInit {
   constructor(
     private readonly destroyRef: DestroyRef,
     private readonly elementRef: ElementRef,
-    private readonly elementsData: ElementsData,
-    private readonly ElementsFacade: ElementsFacade,
+    private readonly elementsFacade: ElementsFacade,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {
     this.mouseDownEvent$ = fromEvent<MouseEvent>(
@@ -99,7 +98,7 @@ export class PageResizeRightDirective implements OnInit {
   resizeElement(x: number, element: HTMLElement) {
     if (this._config.isFullScreen) return;
     const boundaryWidth =
-      this.elementsData.draggingBoundaryElement$.value?.offsetWidth;
+      this.elementsFacade.draggingBoundaryElement$.value?.offsetWidth;
     if (boundaryWidth && x > boundaryWidth - ELEMENT_PADDING * 2) return;
 
     const newPositionCalc = x - this.startPosition;
@@ -110,6 +109,6 @@ export class PageResizeRightDirective implements OnInit {
     );
 
     element.style.width = newWidth + 'px';
-    this.ElementsFacade.setAnyElementEvent(true);
+    this.elementsFacade.setAnyElementEvent(true);
   }
 }

@@ -5,7 +5,10 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
+import { ElementsFacade } from '@portifolio/utils/util-facades';
+import { IPageConfig } from '@portifolio/utils/util-models';
 import {
   BehaviorSubject,
   Observable,
@@ -14,11 +17,8 @@ import {
   takeUntil,
   tap,
 } from 'rxjs';
-import { ElementsFacade } from '@portifolio/utils/util-facades';
-import { IPageConfig } from '@portifolio/utils/util-models';
+import { BASE_WIDTH } from '../../mocks/elements.mocks';
 import { CONFIG_TOKEN } from '../../models/elements-token';
-import { BASE_WIDTH, ELEMENT_PADDING } from '../../mocks/elements.mocks';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Directive({
   selector: '.left',
@@ -40,7 +40,7 @@ export class PageResizeLeftDirective implements OnInit {
   constructor(
     private readonly destroyRef: DestroyRef,
     private readonly elementRef: ElementRef,
-    private readonly ElementsFacade: ElementsFacade,
+    private readonly elementsFacade: ElementsFacade,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {
     this.mouseDownEvent$ = fromEvent<MouseEvent>(
@@ -109,7 +109,7 @@ export class PageResizeLeftDirective implements OnInit {
     );
     element.style.width = newWidth + 'px';
 
-    this.ElementsFacade.setAnyElementEvent(true);
+    this.elementsFacade.setAnyElementEvent(true);
     const minWidth = this._config.baseSizes.minWidth ?? BASE_WIDTH;
 
     if (newWidth <= minWidth) return;
