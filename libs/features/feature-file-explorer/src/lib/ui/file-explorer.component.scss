@@ -11,6 +11,11 @@
       display: flex;
       align-items: center;
       height: 100%;
+      overflow-x: hidden;
+
+      createFoldersSection {
+        display: none;
+      }
 
       .folders {
         width: 100%;

@@ -1,14 +1,45 @@
-import { Directive, signal } from '@angular/core';
+import { DestroyRef, Directive, OnInit, ViewContainerRef } from '@angular/core';
+import { FileExplorerFacade } from '../../facade/file-explorer-facade.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { startWith } from 'rxjs';
+import { FolderComponent } from '../../components/folder/folder.component';
+import { BuildAnimation } from '@portifolio/utils/util-animations';
 
 @Directive({
-  selector: '[createFoldersSection]',
+  selector: 'createFoldersSection',
   standalone: true,
-  host: {
-    '[class.selected]': 'active()',
-  },
 })
-export class CreateFoldersSectionDirective {
-  active = signal<Boolean>(false);
+export class CreateFoldersSectionDirective implements OnInit {
+  lastView?: HTMLElement;
 
-  constructor() {}
+  constructor(
+    private readonly vcr: ViewContainerRef,
+    private readonly destroyRef: DestroyRef,
+    private readonly buildAnimation: BuildAnimation,
+    private readonly fileExplorerFacade: FileExplorerFacade
+  ) {}
+
+  ngOnInit(): void {
+    this.fileExplorerFacade.menuState$$
+      .pipe(
+        startWith(this.fileExplorerFacade.menuState),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe((val) => {
+        if (val) {
+          this.vcr.clear();
+          this.lastView = this.vcr.createComponent(FolderComponent).location
+            .nativeElement as HTMLElement;
+          this.buildAnimation.animate('enterAnimationX', this.lastView);
+
+          return;
+        }
+
+        if (!this.lastView) return this.vcr.clear();
+
+        this.buildAnimation
+          .animate('leaveAnimationX', this.lastView)
+          .subscribe(() => this.vcr.clear());
+      });
+  }
 }
