@@ -16,6 +16,7 @@ import {
   merge,
   startWith,
   take,
+  takeUntil,
   tap,
   timer,
 } from 'rxjs';
@@ -30,7 +31,6 @@ export class OpenSubContextMenuDirective {
   menuComponent = input.required<Type<unknown>>({
     alias: 'openSubContextMenu',
   });
-  preventPreviousDestroy = input<boolean>(false);
 
   constructor(
     private readonly ngZone: NgZone,
@@ -48,11 +48,14 @@ export class OpenSubContextMenuDirective {
       'mouseleave'
     ).pipe(tap(() => (preventShow = true)));
 
+    const click$ = fromEvent(this.elementRef.nativeElement, 'click');
+
     mouseLeave$
       .pipe(
         startWith(undefined),
         debounceTime(500),
         take(1),
+        takeUntil(click$),
         filter(() => !preventShow)
       )
       .subscribe(() => this.openMenu());
@@ -68,7 +71,7 @@ export class OpenSubContextMenuDirective {
   openMenu() {
     this.vcr.clear();
 
-    if (!this.preventPreviousDestroy()) this.contextMenuEvents.setCleatAll();
+    this.contextMenuEvents.setCleatAll();
 
     const rect = this.elementRef.nativeElement.getBoundingClientRect();
 
@@ -102,10 +105,9 @@ export class OpenSubContextMenuDirective {
   }
 
   createDestroyTimeOut(view: HTMLElement) {
-    if (!this.preventPreviousDestroy())
-      this.contextMenuEvents.clearAll$$
-        .pipe(take(1), takeUntilDestroyed(this.destroyRef))
-        .subscribe(() => this.vcr.clear());
+    this.contextMenuEvents.clearAll$$
+      .pipe(take(1), takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.vcr.clear());
 
     this.ngZone.runOutsideAngular(() => {
       merge(
@@ -118,7 +120,7 @@ export class OpenSubContextMenuDirective {
             return isOutTarget;
           })
         ),
-        timer(2000, 2000).pipe(filter(() => !this.hasHover(view)))
+        timer(5000, 5000).pipe(filter(() => !this.hasHover(view)))
       )
         .pipe(take(1), takeUntilDestroyed(this.destroyRef))
         .subscribe(() =>
