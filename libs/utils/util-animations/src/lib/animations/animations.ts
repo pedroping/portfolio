@@ -11,6 +11,16 @@ export const LEAVE_ANIMATION_Y: IAnimation = [
   animate(50, style({ opacity: 1, transform: 'translateY(100%)' })),
 ];
 
+export const REVERSE_ENTER_ANIMATION_Y: IAnimation = [
+  style({ opacity: 0, transform: 'translateY(-100%)' }),
+  animate(100, style({ opacity: 1, transform: 'translateY(0)' })),
+];
+
+export const REVERSE_LEAVE_ANIMATION_Y: IAnimation = [
+  style({ opacity: 1, transform: 'translateY(0)' }),
+  animate(100, style({ opacity: 1, transform: 'translateY(-100%)' })),
+];
+
 export const ENTER_ANIMATION_X: IAnimation = [
   style({ opacity: 0, transform: 'translateX(-100%)' }),
   animate(50, style({ opacity: 1, transform: 'translateX(0)' })),
@@ -56,4 +66,6 @@ export const ALL_ANIMATIONS: { [key in IAvailableAnimations]: IAnimation } = {
   enterOpacity: ENTER_OPACITY,
   enterAnimationX: ENTER_ANIMATION_X,
   leaveAnimationX: LEAVE_ANIMATION_X,
+  reverseEnterAnimationY: REVERSE_ENTER_ANIMATION_Y,
+  reverseLeaveAnimationY: REVERSE_LEAVE_ANIMATION_Y,
 };

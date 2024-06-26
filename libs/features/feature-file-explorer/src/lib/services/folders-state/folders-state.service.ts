@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class FoldersStateService {
-  private menuState$ = new BehaviorSubject<Boolean>(false);
+  private menuState$ = new BehaviorSubject<Boolean>(true);
 
   constructor() {}
 

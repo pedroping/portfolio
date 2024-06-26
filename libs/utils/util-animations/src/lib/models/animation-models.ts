@@ -10,4 +10,6 @@ export type IAvailableAnimations =
   | 'leaveAboveAnimationY'
   | 'leaveOpacity'
   | 'enterOpacity'
-  | 'fastLeaveOpacity';
+  | 'fastLeaveOpacity'
+  | 'reverseEnterAnimationY'
+  | 'reverseLeaveAnimationY';

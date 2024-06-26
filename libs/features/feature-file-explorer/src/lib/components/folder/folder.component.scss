@@ -27,4 +27,61 @@
       }
     }
   }
+
+  .available-folders {
+    overflow: hidden;
+    .folder {
+      display: flex;
+      align-items: center;
+      padding: 2px 5px 2px 2px;
+      position: relative;
+      z-index: 15000;
+      background-color: var(--light-background);
+
+      .folder-title {
+        display: flex;
+        align-items: center;
+        gap: 1px;
+        cursor: pointer;
+
+        transition: all 200ms ease-in-out;
+
+        &:hover {
+          transform: scale(1.03) translateY(-1px);
+        }
+      }
+
+      img {
+        height: 20px;
+      }
+
+      .children-toggle {
+        padding: 1px 1.5px;
+        font-size: 6px;
+        border-radius: 2px;
+        background-color: var(--explorer-header-background);
+        transition: all 200ms ease-in-out;
+        cursor: pointer;
+        border: 1px solid var(--black-02);
+
+        &:hover {
+          transform: scale(1.03) translateY(-1px);
+        }
+      }
+    }
+
+    .no-children {
+      margin-left: 10px;
+    }
+
+    ::marker {
+      display: none;
+    }
+
+    ul {
+      list-style-type: none;
+      margin-left: 10px;
+    }
+
+  }
 }

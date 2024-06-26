@@ -2,4 +2,69 @@
   <div class="header">
     <span>Folders</span> <i class="fa-solid fa-x" folderSectionAction></i>
   </div>
+
+  <div class="available-folders">
+    <div
+      class="folder"
+      showHideFolder
+      [folderContent]="folderContent"
+      title="Desktop"
+    >
+      <div class="children-toggle" #folderToggle>
+        <i class="fa-solid fa-plus"></i>
+      </div>
+      <div class="folder-title">
+        <img
+          src="/assets/images/windows-basic-folder.png"
+          alt="Ícone de pasta"
+        />
+        <span>Desktop</span>
+      </div>
+    </div>
+
+    <ul #folderContent>
+      @for (program of root; track $index) {
+      <ng-container
+        [ngTemplateOutlet]="folder_node"
+        [ngTemplateOutletContext]="{ $implicit: program }"
+      ></ng-container>
+      }
+    </ul>
+  </div>
 </section>
+
+<ng-template #folder_node let-program>
+  <li
+    showHideFolder
+    [title]="program.title"
+    [class.no-children]="!program.children"
+  >
+    <div class="folder">
+      @if(program.children) {
+      <div class="children-toggle" #folderToggle>
+        <i class="fa-solid fa-plus"></i>
+      </div>
+      }
+      <div class="folder-title">
+        <img
+          src="/assets/images/windows-basic-folder.png"
+          alt="Ícone de pasta"
+        />
+        <span> {{ program.title }}</span>
+      </div>
+    </div>
+
+    @if(program.children) {
+    <div class="folder-content" #folderContent>
+      <ul>
+        @for (childProgram of program.children; track $index) {
+        <ng-container
+          [ngTemplateOutlet]="folder_node"
+          [ngTemplateOutletContext]="{ $implicit: childProgram }"
+        ></ng-container>
+        }
+      </ul>
+    </div>
+    }
+  </li>
+</ng-template>
