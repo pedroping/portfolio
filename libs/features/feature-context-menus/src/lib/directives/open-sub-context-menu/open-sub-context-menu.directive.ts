@@ -105,10 +105,6 @@ export class OpenSubContextMenuDirective {
   }
 
   createDestroyTimeOut(view: HTMLElement) {
-    this.contextMenuEvents.clearAll$$
-      .pipe(take(1), takeUntilDestroyed(this.destroyRef))
-      .subscribe(() => this.vcr.clear());
-
     this.ngZone.runOutsideAngular(() => {
       merge(
         fromEvent<PointerEvent>(document, 'click').pipe(
@@ -120,6 +116,7 @@ export class OpenSubContextMenuDirective {
             return isOutTarget;
           })
         ),
+        this.contextMenuEvents.clearAll$$.pipe(take(1)),
         timer(5000, 5000).pipe(filter(() => !this.hasHover(view)))
       )
         .pipe(take(1), takeUntilDestroyed(this.destroyRef))
