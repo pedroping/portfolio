@@ -58,7 +58,14 @@ export class OpenSubContextMenuDirective {
       .subscribe(() => this.openMenu());
   }
 
-  @HostListener('click') openMenu() {
+  @HostListener('click', ['$event']) clickEvent(event: Event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+
+    this.openMenu();
+  }
+
+  openMenu() {
     this.vcr.clear();
 
     if (!this.preventPreviousDestroy()) this.contextMenuEvents.setCleatAll();
