@@ -28,6 +28,10 @@
     }
   }
 
+  li[showHideFolder] {
+    overflow: hidden;
+  }
+
   .available-folders {
     overflow: hidden;
     .folder {

@@ -28,7 +28,7 @@ export class ShowHideFolderDirective implements AfterViewInit {
     private readonly buildAnimation: BuildAnimation
   ) {}
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit() {
     if (!this.toggle || !this.content) return;
 
     fromEvent(this.toggle, 'click')
