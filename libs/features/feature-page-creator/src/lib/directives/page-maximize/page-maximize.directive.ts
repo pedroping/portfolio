@@ -26,7 +26,7 @@ export class PageMaximizeDirective implements OnInit {
 
   constructor(
     private readonly destroyRef: DestroyRef,
-    private readonly ElementsFacade: ElementsFacade,
+    private readonly elementsFacade: ElementsFacade,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {}
 
@@ -46,7 +46,7 @@ export class PageMaximizeDirective implements OnInit {
   }
 
   ngOnInit(): void {
-    const boundaryElement = this.ElementsFacade.draggingBoundaryElement$.value;
+    const boundaryElement = this.elementsFacade.draggingBoundaryElement$.value;
     if (!boundaryElement) return;
     this.lastHeight = boundaryElement.offsetHeight;
 
@@ -73,7 +73,7 @@ export class PageMaximizeDirective implements OnInit {
   }
 
   createBoundaryObservers() {
-    this.ElementsFacade.draggingBoundaryElement$
+    this.elementsFacade.draggingBoundaryElement$
       .pipe(filter(Boolean), takeUntilDestroyed(this.destroyRef))
       .subscribe((boundaryElement) => {
         new MutationObserver(() => {
@@ -108,7 +108,7 @@ export class PageMaximizeDirective implements OnInit {
   }
 
   setFullScreen(hasToSet: boolean, element: HTMLElement) {
-    const boundaryElement = this.ElementsFacade.draggingBoundaryElement$.value;
+    const boundaryElement = this.elementsFacade.draggingBoundaryElement$.value;
     if (!boundaryElement) return;
 
     if (
@@ -132,6 +132,9 @@ export class PageMaximizeDirective implements OnInit {
     element.classList[hasToSet ? 'add' : 'remove']('onFullSrcreen');
 
     this.setPropierties({ element, width, height, transform });
+
+    if (!hasToSet)
+      this.elementsFacade.setMaxPosition({ elmentConfig: this._config });
   }
 
   setBaseScreenSize(element: HTMLElement) {
