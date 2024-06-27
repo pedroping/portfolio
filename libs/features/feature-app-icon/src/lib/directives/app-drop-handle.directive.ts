@@ -6,7 +6,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { IApp } from '@portifolio/utils/util-models';
+import { IApp, ITransferData } from '@portifolio/utils/util-models';
 import { fromEvent } from 'rxjs';
 import { AppIconComponent } from '../ui/app-icon.component';
 
@@ -36,8 +36,13 @@ export class AppDropHandleDirective implements OnInit {
 
   onDrop(event: DragEvent) {
     event.stopPropagation();
-    const data = JSON.parse(event.dataTransfer?.getData('text') ?? '') as IApp;
-    this.createFolder(data);
+    const data = JSON.parse(
+      event.dataTransfer?.getData('text') ?? ''
+    ) as ITransferData;
+
+    const actualId = this.elementRef.nativeElement.parentElement?.id;
+
+    if (actualId != data.parentTargetId) this.createFolder(data);
   }
 
   onOver(event: DragEvent) {

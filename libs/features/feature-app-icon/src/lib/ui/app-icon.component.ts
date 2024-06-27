@@ -25,7 +25,12 @@ export class AppIconComponent implements AfterViewInit {
   onDragStart(event: DragEvent) {
     if (!event.dataTransfer) return;
 
-    event.dataTransfer.setData('text', JSON.stringify(this.config()));
+    const id = this.elementRef.nativeElement.parentElement?.id || '';
+
+    event.dataTransfer.setData(
+      'text',
+      JSON.stringify({ ...this.config(), parentTargetId: id })
+    );
     event.dataTransfer.effectAllowed = 'move';
   }
 
@@ -36,13 +41,6 @@ export class AppIconComponent implements AfterViewInit {
     ).subscribe((event) => {
       event.preventDefault();
       event.dataTransfer!.dropEffect = 'move';
-    });
-
-    fromEvent<DragEvent>(
-      this.elementRef.nativeElement.parentElement!,
-      'drop'
-    ).subscribe((event) => {
-      console.log(event.dataTransfer?.getData('text'));
     });
   }
 }
