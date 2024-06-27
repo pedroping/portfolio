@@ -55,3 +55,20 @@
     left: 7px;
   }
 }
+
+.app-icon {
+  cursor: move;
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+
+  .thumbnails-list {
+    cursor: pointer;
+  }
+}
+
+.app-icon:active {
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
+}

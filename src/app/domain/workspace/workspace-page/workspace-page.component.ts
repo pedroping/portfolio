@@ -7,15 +7,18 @@ import {
   ElementsFacade,
   MenuEventsFacade,
 } from '@portifolio/utils/util-facades';
+import { AppIconComponent } from '@portifolio/features/feature-app-icon';
+import { IApp } from '@portifolio/utils/util-models';
 @Component({
   selector: 'workspace-page',
   templateUrl: './workspace-page.component.html',
   styleUrls: ['./workspace-page.component.scss'],
   standalone: true,
   imports: [
+    AppIconComponent,
     PageParentDirective,
-    InitialMenuCreatorDirective,
     OpenContextMenuDirective,
+    InitialMenuCreatorDirective,
   ],
 })
 export class WorkspacePageComponent implements OnDestroy, AfterViewInit {
@@ -24,19 +27,21 @@ export class WorkspacePageComponent implements OnDestroy, AfterViewInit {
     private readonly menuEventsFacade: MenuEventsFacade
   ) {}
 
+  appConfig: IApp = { name: 'Uma pagina louca de teste', logo: '' };
+
   ngAfterViewInit() {
-    this.ElementsFacade.createElement(
-      {},
-      {
-        name: 'File Explorer',
-        customX: 500,
-        customY: 500,
-        baseSizes: { width: 600, height: 500, minHeight: 500, minWidth: 600 },
-        pageContent: FileExplorerComponent,
-        opened: true,
-        isFullScreen: false,
-      }
-    );
+    // this.ElementsFacade.createElement(
+    //   {},
+    //   {
+    //     name: 'File Explorer',
+    //     customX: 500,
+    //     customY: 500,
+    //     baseSizes: { width: 600, height: 500, minHeight: 500, minWidth: 600 },
+    //     pageContent: FileExplorerComponent,
+    //     opened: true,
+    //     isFullScreen: false,
+    //   }
+    // );
   }
 
   ngOnDestroy() {
