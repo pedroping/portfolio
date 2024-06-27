@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@portifolio/features/feature-app-icon": [
+        "libs/features/feature-app-icon/src/index.ts"
+      ],
       "@portifolio/features/feature-context-menus": [
         "libs/features/feature-context-menus/src/index.ts"
       ],
