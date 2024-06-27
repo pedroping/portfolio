@@ -7,6 +7,8 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
+import { ElementsFacade } from '@portifolio/utils/util-facades';
+import { IPageConfig } from '@portifolio/utils/util-models';
 import {
   BehaviorSubject,
   Observable,
@@ -15,9 +17,7 @@ import {
   takeUntil,
   tap,
 } from 'rxjs';
-import { ElementsFacade } from '@portifolio/utils/util-facades';
-import { BASE_HEIGHT, ELEMENT_PADDING } from '../../mocks/elements.mocks';
-import { IPageConfig } from '@portifolio/utils/util-models';
+import { BASE_HEIGHT } from '../../mocks/elements.mocks';
 import { CONFIG_TOKEN } from '../../models/elements-token';
 
 @Directive({

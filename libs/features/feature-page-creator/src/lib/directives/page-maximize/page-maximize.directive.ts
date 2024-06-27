@@ -132,9 +132,6 @@ export class PageMaximizeDirective implements OnInit {
     element.classList[hasToSet ? 'add' : 'remove']('onFullSrcreen');
 
     this.setPropierties({ element, width, height, transform });
-
-    if (!hasToSet)
-      this.elementsFacade.setMaxPosition({ elmentConfig: this._config });
   }
 
   setBaseScreenSize(element: HTMLElement) {
@@ -160,7 +157,35 @@ export class PageMaximizeDirective implements OnInit {
 
     DomElementAdpter.afterTransitions(params.element).subscribe(() => {
       DomElementAdpter.removeTransition(params.element);
+      this.setMaxPositions();
     });
+  }
+
+  setMaxPositions() {
+    const boundaryElement = this.elementsFacade.draggingBoundaryElement$.value;
+    const element = this._config.element$.value;
+
+    if (!boundaryElement || !element || this._config.isFullScreen) return;
+
+    const boundaryHeight = boundaryElement.offsetHeight + ELEMENT_PADDING * 2;
+    const boundaryWidth = boundaryElement.offsetWidth + ELEMENT_PADDING * 2;
+    const maxBoundX = Math.max(0, boundaryWidth - element.offsetWidth);
+    const maxBoundY = Math.max(0, boundaryHeight - element.offsetHeight);
+
+    this._config.lastPosition.x = Math.min(
+      Math.max(this._config.lastPosition.x, 0),
+      maxBoundX
+    );
+    this._config.lastPosition.y = Math.min(
+      Math.max(this._config.lastPosition.y, 0),
+      maxBoundY
+    );
+
+    DomElementAdpter.setTransform(
+      element,
+      this._config.lastPosition.x,
+      this._config.lastPosition.y
+    );
   }
 
   setSizes() {
