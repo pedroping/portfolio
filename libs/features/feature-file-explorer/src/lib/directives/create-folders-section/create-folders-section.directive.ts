@@ -2,7 +2,7 @@ import { DestroyRef, Directive, OnInit, ViewContainerRef } from '@angular/core';
 import { FileExplorerFacade } from '../../facade/file-explorer-facade.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { startWith } from 'rxjs';
-import { FolderComponent } from '../../components/folder/folder.component';
+import { FoldersComponent } from '../../components/folders/folders.component';
 import { BuildAnimation } from '@portifolio/utils/util-animations';
 
 @Directive({
@@ -28,7 +28,7 @@ export class CreateFoldersSectionDirective implements OnInit {
       .subscribe((val) => {
         if (val) {
           this.vcr.clear();
-          this.lastView = this.vcr.createComponent(FolderComponent).location
+          this.lastView = this.vcr.createComponent(FoldersComponent).location
             .nativeElement as HTMLElement;
           this.buildAnimation.animate('enterAnimationX', this.lastView);
 

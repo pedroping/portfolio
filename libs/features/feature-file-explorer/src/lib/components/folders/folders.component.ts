@@ -5,9 +5,9 @@ import { ShowHideFolderDirective } from '../../directives/show-hide-folder/show-
 import { IFolder } from '../../models/folders-models';
 
 @Component({
-  selector: 'folder',
-  templateUrl: './folder.component.html',
-  styleUrls: ['./folder.component.scss'],
+  selector: 'folders',
+  templateUrl: './folders.component.html',
+  styleUrls: ['./folders.component.scss'],
   standalone: true,
   imports: [
     NgTemplateOutlet,
@@ -15,7 +15,7 @@ import { IFolder } from '../../models/folders-models';
     FolderSectionActionDirective,
   ],
 })
-export class FolderComponent {
+export class FoldersComponent {
   root: IFolder[] = [
     {
       title: 'Framework',

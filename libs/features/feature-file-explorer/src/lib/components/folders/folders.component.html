@@ -5,7 +5,7 @@
 
   <div class="available-folders">
     <div
-      class="folder"
+      class="folders"
       showHideFolder
       [folderContent]="folderContent"
       title="Desktop"
@@ -39,7 +39,7 @@
     [title]="program.title"
     [class.no-children]="!program.children"
   >
-    <div class="folder">
+    <div class="folders">
       @if(program.children) {
       <div class="children-toggle" #folderToggle>
         <i class="fa-solid fa-plus"></i>
