@@ -21,7 +21,7 @@ import {
   timer,
 } from 'rxjs';
 import { IPositionProperties } from '../../models/context-menu-models';
-import { ContextMenuEvents } from '../../services/context-menu-events/context-menu-events.service';
+import { ContextMenuStateService } from '../../services/context-menu-state/context-menu-state.service';
 
 @Directive({
   selector: '[openSubContextMenu]',
@@ -37,7 +37,7 @@ export class OpenSubContextMenuDirective {
     private readonly vcr: ViewContainerRef,
     private readonly destroyRef: DestroyRef,
     private readonly elementRef: ElementRef<HTMLElement>,
-    private readonly contextMenuEvents: ContextMenuEvents
+    private readonly contextMenuEvents: ContextMenuStateService
   ) {}
 
   @HostListener('mouseenter') onMouseEnter() {

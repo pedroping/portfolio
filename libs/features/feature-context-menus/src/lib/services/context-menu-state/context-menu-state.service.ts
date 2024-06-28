@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
-export class ContextMenuEvents {
+export class ContextMenuStateService {
   private clearAll$ = new Subject<void>();
 
   setCleatAll() {
