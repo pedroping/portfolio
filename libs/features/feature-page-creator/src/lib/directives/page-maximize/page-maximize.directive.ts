@@ -12,7 +12,7 @@ import { IPageConfig } from '@portifolio/utils/util-models';
 import { filter, fromEvent, take } from 'rxjs';
 import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
 import { OBSERVE_CONFIG } from '../../mocks/observerConfig-mocks';
-import { CONFIG_TOKEN } from '../../models/elements-token';
+import { CONFIG_TOKEN } from '../../../../../../utils/util-models/src/lib/page-creator-models/elements-token';
 
 @Directive({
   selector: '[pageMaximize]',

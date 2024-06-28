@@ -31,7 +31,7 @@ import {
   ELEMENT_BASE_ICON,
 } from '../mocks/elements.mocks';
 import { IPageComponent, IPageConfig } from '@portifolio/utils/util-models';
-import { CONFIG_TOKEN } from '../models/elements-token';
+import { CONFIG_TOKEN } from '../../../../../utils/util-models/src/lib/page-creator-models/elements-token';
 @Component({
   selector: 'feature-page',
   templateUrl: './page.component.html',

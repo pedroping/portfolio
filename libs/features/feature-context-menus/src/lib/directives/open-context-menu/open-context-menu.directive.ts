@@ -8,7 +8,7 @@ import {
   input,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { filter, fromEvent, merge, skip, take } from 'rxjs';
+import { Subject, filter, fromEvent, merge, skip, take, takeUntil } from 'rxjs';
 import { ContextMenuDefaultComponent } from '../../components/context-menu-default/context-menu-default.component';
 import { ContextMenuProgramComponent } from '../../components/context-menu-program/context-menu-program.component';
 import { MENU_GAP, WORKSPACE_ID } from '../../mocks/context-menu-mocks';
@@ -22,6 +22,8 @@ export class OpenContextMenuDirective {
   menuType = input.required<AvailableContextMenus>({
     alias: 'openContextMenu',
   });
+  hasView = false;
+  destroySubscription$ = new Subject<void>();
 
   constructor(
     private readonly ngZone: NgZone,
@@ -33,7 +35,7 @@ export class OpenContextMenuDirective {
   @HostListener('contextmenu', ['$event']) onClick(event: PointerEvent) {
     event.preventDefault();
     event.stopPropagation();
-    this.vcr.clear();
+    this.clearView();
 
     if (
       this.menuType() === 'default' &&
@@ -46,6 +48,7 @@ export class OpenContextMenuDirective {
         ? ContextMenuDefaultComponent
         : ContextMenuProgramComponent;
 
+    this.hasView = true;
     const menuView = this.vcr.createComponent(menuComponent).location
       .nativeElement as HTMLElement;
 
@@ -76,7 +79,6 @@ export class OpenContextMenuDirective {
       merge(fromEvent(document, 'click'), fromEvent(document, 'mousedown'))
         .pipe(
           skip(1),
-          takeUntilDestroyed(this.destroyRef),
           filter((event: Event) => {
             const isOutTarget = this.isOutTarget(
               view,
@@ -84,14 +86,24 @@ export class OpenContextMenuDirective {
             );
             return isOutTarget;
           }),
-          take(1)
+          take(1),
+          takeUntil(this.destroySubscription$),
+          takeUntilDestroyed(this.destroyRef)
         )
         .subscribe(() => {
           this.ngZone.run(() => {
-            this.vcr.clear();
+            this.clearView();
           });
         });
     });
+  }
+
+  clearView() {
+    if (!this.hasView) return;
+
+    this.vcr.clear();
+    this.hasView = false;
+    this.destroySubscription$.next();
   }
 
   isOutTarget(view: HTMLElement, target: HTMLElement) {

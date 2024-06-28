@@ -1,6 +1,6 @@
 export * from './lib/directives/page-parent/page-parent.directive';
 export * from './lib/mocks/elements.mocks';
-export * from './lib/models/elements-token';
+export * from '../../../utils/util-models/src/lib/page-creator-models/elements-token';
 export * from './lib/services/element-creator/element-creator.service';
 export * from './lib/services/elements-data/elements-data.service';
 export * from './lib/services/page-actions/page-actions.service';

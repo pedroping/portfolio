@@ -3,7 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ElementsFacade } from '@portifolio/utils/util-facades';
 import { IPageConfig } from '@portifolio/utils/util-models';
 import { fromEvent, merge, skip, take } from 'rxjs';
-import { CONFIG_TOKEN } from '../../models/elements-token';
+import { CONFIG_TOKEN } from '../../../../../../utils/util-models/src/lib/page-creator-models/elements-token';
 
 @Directive({
   selector: '[windowResize]',

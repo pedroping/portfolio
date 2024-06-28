@@ -18,7 +18,7 @@ import {
   tap,
 } from 'rxjs';
 import { BASE_WIDTH } from '../../mocks/elements.mocks';
-import { CONFIG_TOKEN } from '../../models/elements-token';
+import { CONFIG_TOKEN } from '../../../../../../utils/util-models/src/lib/page-creator-models/elements-token';
 
 @Directive({
   selector: '.left',
