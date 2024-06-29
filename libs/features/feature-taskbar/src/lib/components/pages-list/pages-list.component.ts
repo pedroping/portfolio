@@ -1,6 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { ElementsFacade } from '@portifolio/utils/util-facades';
+import { ElementsFacade } from '@portifolio/features/feature-page-creator';
 import { ShowElementPreviewDirective } from '../../directives/show-element-preview/show-element-preview.directive';
 import { PagePreviewActionsService } from '../../services/page-preview-actions.service';
 @Component({

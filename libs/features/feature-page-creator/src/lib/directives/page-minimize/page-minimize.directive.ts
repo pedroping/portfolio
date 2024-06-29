@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
-import { ElementsFacade } from '@portifolio/utils/util-facades';
+import { ElementsFacade } from '../../facades/elements-facade/elements-facade';
 import { IPageConfig } from '@portifolio/utils/util-models';
 import { filter, take } from 'rxjs';
 import { CONFIG_TOKEN } from '../../../../../../utils/util-models/src/lib/page-creator-models/elements-token';

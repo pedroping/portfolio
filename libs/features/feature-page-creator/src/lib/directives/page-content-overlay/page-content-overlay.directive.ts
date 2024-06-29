@@ -8,15 +8,10 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
-import {
-  ElementsFacade,
-  EventsFacade,
-  MenuEventsFacade,
-} from '@portifolio/utils/util-facades';
-import { IPageConfig } from '@portifolio/utils/util-models';
-import { filter, fromEvent, merge, take } from 'rxjs';
-import { CONFIG_TOKEN } from '../../../../../../utils/util-models/src/lib/page-creator-models/elements-token';
-
+import { CONFIG_TOKEN, IPageConfig } from '@portifolio/utils/util-models';
+import { map, merge, take } from 'rxjs';
+import { ElementsFacade } from '../../facades/elements-facade/elements-facade';
+import { EventsFacade } from '../../facades/events-facade/events-facade.service';
 @Directive({
   selector: '[pageContentOverlay]',
   standalone: true,
@@ -28,18 +23,14 @@ export class PageContentOverlayDirective implements AfterViewInit {
     private readonly destroyRef: DestroyRef,
     private readonly eventsFacade: EventsFacade,
     private readonly ElementsFacade: ElementsFacade,
-    private readonly menuEventsFacade: MenuEventsFacade,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {}
 
   ngAfterViewInit(): void {
-    const mouseLeaveEvent$ = fromEvent(document, 'mouseleave');
-
     merge(
       this.eventsFacade.changeZIndex$$,
       this._config.element$.pipe(take(1)),
-      this.ElementsFacade.elements$.asObservable(),
-      mouseLeaveEvent$.pipe(filter(() => !this.menuEventsFacade.menuOpened))
+      this.ElementsFacade.elements$.asObservable()
     )
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => this.validateOverlay());
@@ -48,8 +39,11 @@ export class PageContentOverlayDirective implements AfterViewInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(this.handleBoolean);
 
-    this.menuEventsFacade.menuOpened$$
-      .pipe(takeUntilDestroyed(this.destroyRef), filter(Boolean))
+    this.eventsFacade.createOverlay$$
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        map(() => true)
+      )
       .subscribe(this.handleBoolean);
   }
 

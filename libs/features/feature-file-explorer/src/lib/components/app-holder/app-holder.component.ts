@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { AppDropHandleDirective } from '@portifolio/features/feature-app-icon';
-import { DATA_TOKEN } from '@portifolio/features/feature-page-creator';
+import { DATA_TOKEN } from '@portifolio/utils/util-models';
 import { IFolderData } from '../../models/folders-models';
 
 @Component({

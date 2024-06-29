@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PageEvents } from '@portifolio/features/feature-page-creator';
+import { PageEvents } from '../../services/page-events/page-events.service';
 
 @Injectable({ providedIn: 'root' })
 export class EventsFacade {
@@ -11,5 +11,13 @@ export class EventsFacade {
 
   get changeZIndex$$() {
     return this.pageEvents.changeZIndex$$;
+  }
+
+  setCreateOverlay() {
+    this.pageEvents.setCreateOverlay();
+  }
+
+  get createOverlay$$() {
+    return this.pageEvents.createOverlay$$;
   }
 }

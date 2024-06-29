@@ -6,7 +6,9 @@ import {
   computed,
   input,
 } from '@angular/core';
+import { ElementsFacade } from '@portifolio/features/feature-page-creator';
 import { BuildAnimation } from '@portifolio/utils/util-animations';
+import { IBasicElement } from '@portifolio/utils/util-models';
 import { LastZIndexService } from '@portifolio/utils/util-z-index-handler';
 import {
   Subject,
@@ -27,8 +29,6 @@ import {
   PREVIEW_ID,
 } from '../../mocks/elements-mocks';
 import { PagePreviewActionsService } from '../../services/page-preview-actions.service';
-import { IBasicElement } from '@portifolio/utils/util-models';
-import { ElementsFacade } from '@portifolio/utils/util-facades';
 
 @Directive({
   selector: '[showElementPreview]',

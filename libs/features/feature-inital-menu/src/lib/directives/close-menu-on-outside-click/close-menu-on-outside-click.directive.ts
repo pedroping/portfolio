@@ -6,8 +6,8 @@ import {
   OnInit,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { MenuEventsFacade } from '@portifolio/utils/util-facades';
 import { filter, fromEvent, merge, skip, take } from 'rxjs';
+import { MenuEventsFacade } from '../../facades/menu-events-facade';
 import { PREVENT_TOGGLE_ID } from '../../mocks/menu-mocks';
 
 @Directive({

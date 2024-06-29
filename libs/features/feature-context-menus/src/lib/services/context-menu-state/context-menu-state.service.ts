@@ -13,3 +13,4 @@ export class ContextMenuStateService {
     return this.clearAll$.asObservable();
   }
 }
+

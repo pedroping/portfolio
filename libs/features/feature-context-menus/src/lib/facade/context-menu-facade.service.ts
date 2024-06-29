@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import {
-  ContextMenuStateService,
-  OptionSelectedService,
-} from '@portifolio/features/feature-context-menus';
 import { TAvalilableOptions } from '@portifolio/utils/util-models';
+import { ContextMenuStateService } from '../services/context-menu-state/context-menu-state.service';
+import { OptionSelectedService } from '../services/option-selected/option-selected.service';
 
 @Injectable({ providedIn: 'root' })
 export class ContextMenuFacade {

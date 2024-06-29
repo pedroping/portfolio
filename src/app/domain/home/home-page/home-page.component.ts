@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { MenuEventsFacade } from '@portifolio/features/feature-inital-menu';
 import { TaskbarComponent } from '@portifolio/features/feature-taskbar';
-import { MenuEventsFacade } from '@portifolio/utils/util-facades';
 @Component({
   selector: 'home-page',
   templateUrl: './home-page.component.html',

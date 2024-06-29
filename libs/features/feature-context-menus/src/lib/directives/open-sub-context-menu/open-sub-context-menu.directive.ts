@@ -20,8 +20,8 @@ import {
   tap,
   timer,
 } from 'rxjs';
+import { ContextMenuFacade } from '../../facade/context-menu-facade.service';
 import { IPositionProperties } from '../../models/context-menu-models';
-import { ContextMenuStateService } from '../../services/context-menu-state/context-menu-state.service';
 
 @Directive({
   selector: '[openSubContextMenu]',
@@ -37,7 +37,7 @@ export class OpenSubContextMenuDirective {
     private readonly vcr: ViewContainerRef,
     private readonly destroyRef: DestroyRef,
     private readonly elementRef: ElementRef<HTMLElement>,
-    private readonly contextMenuEvents: ContextMenuStateService
+    private readonly contextMenuFacade: ContextMenuFacade
   ) {}
 
   @HostListener('mouseenter') onMouseEnter() {
@@ -71,7 +71,7 @@ export class OpenSubContextMenuDirective {
   openMenu() {
     this.vcr.clear();
 
-    this.contextMenuEvents.setCleatAll();
+    this.contextMenuFacade.setCleatAll();
 
     const rect = this.elementRef.nativeElement.getBoundingClientRect();
 
@@ -116,7 +116,7 @@ export class OpenSubContextMenuDirective {
             return isOutTarget;
           })
         ),
-        this.contextMenuEvents.clearAll$$.pipe(take(1)),
+        this.contextMenuFacade.clearAll$$.pipe(take(1)),
         timer(5000, 5000).pipe(filter(() => !this.hasHover(view)))
       )
         .pipe(take(1), takeUntilDestroyed(this.destroyRef))

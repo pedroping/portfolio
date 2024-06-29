@@ -1,5 +1,5 @@
 import { Directive, ElementRef, OnInit } from '@angular/core';
-import { ElementsFacade } from '@portifolio/utils/util-facades';
+import { ElementsFacade } from '../../facades/elements-facade/elements-facade';
 
 @Directive({
   selector: '[preventHandler]',

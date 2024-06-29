@@ -1,10 +1,8 @@
 import { TitleCasePipe } from '@angular/common';
 import { Component, HostListener, computed, input } from '@angular/core';
-import {
-  ElementsFacade,
-  MenuEventsFacade,
-} from '@portifolio/utils/util-facades';
+import { ElementsFacade } from '@portifolio/features/feature-page-creator';
 import { IPageMock } from '@portifolio/utils/util-models';
+import { MenuEventsFacade } from '../../facades/menu-events-facade';
 import { ELEMENT_BASE_ICON } from '../../mocks/program-mocks';
 import { IBasicProgram } from '../../models/program-models';
 @Component({

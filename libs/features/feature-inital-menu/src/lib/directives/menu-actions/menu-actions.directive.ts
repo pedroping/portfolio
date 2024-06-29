@@ -1,7 +1,7 @@
 import { DestroyRef, Directive, NgZone, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { MenuEventsFacade } from '@portifolio/utils/util-facades';
 import { fromEvent } from 'rxjs';
+import { MenuEventsFacade } from '../../facades/menu-events-facade';
 
 @Directive({
   standalone: true,
