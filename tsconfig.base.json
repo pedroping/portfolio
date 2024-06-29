@@ -46,9 +46,6 @@
       "@portifolio/ui/ui-splash-screen": [
         "libs/ui/ui-splash-screen/src/index.ts"
       ],
-      "@portifolio/ui/ui-taskbar-action-button": [
-        "libs/ui/ui-taskbar-action-button/src/index.ts"
-      ],
       "@portifolio/ui/ui-web-workers-page": [
         "libs/ui/ui-web-workers-page/src/index.ts"
       ],
