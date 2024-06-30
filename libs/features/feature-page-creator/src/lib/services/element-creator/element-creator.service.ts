@@ -5,13 +5,14 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
-import { IInitialConfig, IPageConfig } from '@portifolio/utils/util-models';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { PageComponent } from '../../ui/page.component';
 import {
   CONFIG_TOKEN,
   DATA_TOKEN,
-} from '../../../../../../utils/util-models/src/lib/page-creator-models/elements-token';
+  IInitialConfig,
+  IPageConfig,
+} from '@portifolio/utils/util-models';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { PageComponent } from '../../ui/page.component';
 import { ElementsData } from '../elements-data/elements-data.service';
 import { SetZIndexService } from '../set-z-index/set-z-index.service';
 @Injectable({ providedIn: 'root' })

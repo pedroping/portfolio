@@ -16,7 +16,7 @@ import {
 import { ElementsFacade } from '../../facades/elements-facade/elements-facade';
 import { BASE_WIDTH, ELEMENT_PADDING } from '../../mocks/elements.mocks';
 import { IPageConfig } from '@portifolio/utils/util-models';
-import { CONFIG_TOKEN } from '../../../../../../utils/util-models/src/lib/page-creator-models/elements-token';
+import { CONFIG_TOKEN } from '@portifolio/utils/util-models';;
 import { ElementsData } from '../../services/elements-data/elements-data.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 

@@ -13,6 +13,11 @@ import {
   MaximizeComponent,
   MinimizeComponent,
 } from '@portifolio/ui/ui-page-actions-buttons';
+import {
+  CONFIG_TOKEN,
+  IPageComponent,
+  IPageConfig,
+} from '@portifolio/utils/util-models';
 import { PageCloseDirective } from '../directives/page-close/page-close.directive';
 import { PageContentOverlayDirective } from '../directives/page-content-overlay/page-content-overlay.directive';
 import { PageMaximizeDirective } from '../directives/page-maximize/page-maximize.directive';
@@ -30,8 +35,7 @@ import {
   BASE_WIDTH,
   ELEMENT_BASE_ICON,
 } from '../mocks/elements.mocks';
-import { IPageComponent, IPageConfig } from '@portifolio/utils/util-models';
-import { CONFIG_TOKEN } from '../../../../../utils/util-models/src/lib/page-creator-models/elements-token';
+
 @Component({
   selector: 'feature-page',
   templateUrl: './page.component.html',

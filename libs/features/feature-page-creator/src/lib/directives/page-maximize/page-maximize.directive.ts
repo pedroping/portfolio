@@ -7,12 +7,11 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
-import { ElementsFacade } from '../../facades/elements-facade/elements-facade';
-import { IPageConfig } from '@portifolio/utils/util-models';
+import { CONFIG_TOKEN, IPageConfig } from '@portifolio/utils/util-models';
 import { filter, fromEvent, take } from 'rxjs';
+import { ElementsFacade } from '../../facades/elements-facade/elements-facade';
 import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
 import { OBSERVE_CONFIG } from '../../mocks/observerConfig-mocks';
-import { CONFIG_TOKEN } from '../../../../../../utils/util-models/src/lib/page-creator-models/elements-token';
 
 @Directive({
   selector: '[pageMaximize]',

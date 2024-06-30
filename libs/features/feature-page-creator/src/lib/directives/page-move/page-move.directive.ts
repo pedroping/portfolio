@@ -11,7 +11,7 @@ import { ElementsFacade } from '../../facades/elements-facade/elements-facade';
 import { IPageConfig } from '@portifolio/utils/util-models';
 import { fromEvent, takeUntil } from 'rxjs';
 import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
-import { CONFIG_TOKEN } from '../../../../../../utils/util-models/src/lib/page-creator-models/elements-token';
+import { CONFIG_TOKEN } from '@portifolio/utils/util-models';;
 
 @Directive({
   selector: '[pageMove]',

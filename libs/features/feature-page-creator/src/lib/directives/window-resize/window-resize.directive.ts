@@ -1,9 +1,8 @@
 import { DestroyRef, Directive, Inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ElementsFacade } from '../../facades/elements-facade/elements-facade';
-import { IPageConfig } from '@portifolio/utils/util-models';
+import { CONFIG_TOKEN, IPageConfig } from '@portifolio/utils/util-models';
 import { fromEvent, merge, skip, take } from 'rxjs';
-import { CONFIG_TOKEN } from '../../../../../../utils/util-models/src/lib/page-creator-models/elements-token';
 
 @Directive({
   selector: '[windowResize]',
