@@ -8,7 +8,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IApp, ITransferData } from '@portifolio/utils/util-models';
 import { fromEvent } from 'rxjs';
-import { AppIconComponent } from '../ui/app-icon.component';
+import { AppIconComponent } from '../../ui/app-icon.component';
 
 @Directive({
   selector: '[appDropHandle]',
