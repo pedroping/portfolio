@@ -6,11 +6,9 @@ import {
   InitialMenuCreatorDirective,
   MenuEventsFacade,
 } from '@portifolio/features/feature-inital-menu';
-import {
-  ElementsFacade,
-  PageParentDirective,
-} from '@portifolio/features/feature-page-creator';
+import { ElementsFacade } from '@portifolio/features/feature-page-creator';
 import { IApp } from '@portifolio/utils/util-models';
+import { WorkspaceReferenceDirective } from '@portifolio/utils/util-workspace-reference';
 import { IFolderData } from 'libs/features/feature-file-explorer/src/lib/models/folders-models';
 @Component({
   selector: 'workspace-page',
@@ -19,9 +17,9 @@ import { IFolderData } from 'libs/features/feature-file-explorer/src/lib/models/
   standalone: true,
   imports: [
     AppIconComponent,
-    PageParentDirective,
     OpenContextMenuDirective,
     InitialMenuCreatorDirective,
+    WorkspaceReferenceDirective,
   ],
 })
 export class WorkspacePageComponent implements OnDestroy, AfterViewInit {

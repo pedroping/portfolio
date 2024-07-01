@@ -1,11 +1,11 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async } from '@angular/core/testing';
-import { PageParentDirective } from './page-parent.directive';
+import { WorkspaceReferenceDirective } from './workspace-reference.directive';
 
-describe('Directive: PageParent', () => {
+describe('Directive: WorkspaceReference', () => {
   it('should create an instance', () => {
-    const directive = new PageParentDirective();
+    const directive = new WorkspaceReferenceDirective();
     expect(directive).toBeTruthy();
   });
 });

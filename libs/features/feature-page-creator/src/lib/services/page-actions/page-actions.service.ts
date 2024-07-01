@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import { IPageConfig } from '@portifolio/utils/util-models';
+import { WorkspaceReferenceFacade } from '@portifolio/utils/util-workspace-reference';
 import { take } from 'rxjs';
 import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
 import { ElementsData } from '../elements-data/elements-data.service';
@@ -10,7 +11,8 @@ import { SetZIndexService } from '../set-z-index/set-z-index.service';
 export class PageActionsService {
   constructor(
     private readonly elementsData: ElementsData,
-    private readonly setZIndexService: SetZIndexService
+    private readonly setZIndexService: SetZIndexService,
+    private readonly workspaceReferenceFacade: WorkspaceReferenceFacade
   ) {}
 
   openElement(id: number) {
@@ -111,7 +113,7 @@ export class PageActionsService {
       params.elmentConfig.lastPosition = { x: params.x, y: params.y };
 
     const element = params.elmentConfig.element$.value;
-    const boundaryElement = this.elementsData.draggingBoundaryElement$.value;
+    const boundaryElement = this.workspaceReferenceFacade.element;
 
     if (!element) return;
 

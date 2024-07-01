@@ -18,20 +18,12 @@ export class ElementsFacade<T = unknown> {
     private readonly elementCreatorService: ElementCreatorService<T>
   ) {}
 
-  startCreator(vcr: ViewContainerRef) {
-    this.elementCreatorService.startCreator(vcr);
-  }
-
   createElement(data: T, config: IInitialConfig) {
     return this.elementCreatorService.createElement(data, config);
   }
 
   destroyElement(id: number) {
     this.elementCreatorService.destroyElement(id);
-  }
-
-  setDraggingBoundaryElement(elementRef: HTMLElement) {
-    this.elementsData.setDraggingBoundaryElement(elementRef);
   }
 
   openElement(id: number) {
@@ -99,10 +91,6 @@ export class ElementsFacade<T = unknown> {
 
   get basicElements$() {
     return this.elementsData.basicElements$;
-  }
-
-  get draggingBoundaryElement$() {
-    return this.elementsData.draggingBoundaryElement$;
   }
 
   get anyElementEvent$$() {

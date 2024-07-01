@@ -8,6 +8,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import { CONFIG_TOKEN, IPageConfig } from '@portifolio/utils/util-models';
+import { WorkspaceReferenceFacade } from '@portifolio/utils/util-workspace-reference';
 import { filter, fromEvent, take } from 'rxjs';
 import { ElementsFacade } from '../../facades/elements-facade/elements-facade';
 import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
@@ -26,7 +27,8 @@ export class PageMaximizeDirective implements OnInit {
   constructor(
     private readonly destroyRef: DestroyRef,
     private readonly elementsFacade: ElementsFacade,
-    @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
+    @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig,
+    private readonly workspaceReferenceFacade: WorkspaceReferenceFacade
   ) {}
 
   @HostListener('click') onclick() {
@@ -45,7 +47,7 @@ export class PageMaximizeDirective implements OnInit {
   }
 
   ngOnInit(): void {
-    const boundaryElement = this.elementsFacade.draggingBoundaryElement$.value;
+    const boundaryElement = this.workspaceReferenceFacade.element;
     if (!boundaryElement) return;
     this.lastHeight = boundaryElement.offsetHeight;
 
@@ -72,7 +74,7 @@ export class PageMaximizeDirective implements OnInit {
   }
 
   createBoundaryObservers() {
-    this.elementsFacade.draggingBoundaryElement$
+    this.workspaceReferenceFacade.element$$
       .pipe(filter(Boolean), takeUntilDestroyed(this.destroyRef))
       .subscribe((boundaryElement) => {
         new MutationObserver(() => {
@@ -107,7 +109,7 @@ export class PageMaximizeDirective implements OnInit {
   }
 
   setFullScreen(hasToSet: boolean, element: HTMLElement) {
-    const boundaryElement = this.elementsFacade.draggingBoundaryElement$.value;
+    const boundaryElement = this.workspaceReferenceFacade.element;
     if (!boundaryElement) return;
 
     if (
@@ -161,7 +163,7 @@ export class PageMaximizeDirective implements OnInit {
   }
 
   setMaxPositions() {
-    const boundaryElement = this.elementsFacade.draggingBoundaryElement$.value;
+    const boundaryElement = this.workspaceReferenceFacade.element;
     const element = this._config.element$.value;
 
     if (!boundaryElement || !element || this._config.isFullScreen) return;

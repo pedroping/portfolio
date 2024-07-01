@@ -4,10 +4,10 @@ import {
   ElementRef,
   HostListener,
   NgZone,
-  ViewContainerRef,
   input,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { WorkspaceReferenceFacade } from '@portifolio/utils/util-workspace-reference';
 import { Subject, filter, fromEvent, merge, skip, take, takeUntil } from 'rxjs';
 import { ContextMenuDefaultComponent } from '../../components/context-menu-default/context-menu-default.component';
 import { ContextMenuProgramComponent } from '../../components/context-menu-program/context-menu-program.component';
@@ -24,12 +24,13 @@ export class OpenContextMenuDirective {
   });
   hasView = false;
   destroySubscription$ = new Subject<void>();
+  menuId?: number;
 
   constructor(
     private readonly ngZone: NgZone,
-    private readonly vcr: ViewContainerRef,
     private readonly destroyRef: DestroyRef,
-    private readonly elementRef: ElementRef<HTMLElement>
+    private readonly elementRef: ElementRef<HTMLElement>,
+    private readonly workspaceReferenceFacade: WorkspaceReferenceFacade
   ) {}
 
   @HostListener('contextmenu', ['$event']) onClick(event: PointerEvent) {
@@ -49,7 +50,11 @@ export class OpenContextMenuDirective {
         : ContextMenuProgramComponent;
 
     this.hasView = true;
-    const menuView = this.vcr.createComponent(menuComponent).location
+    const component =
+      this.workspaceReferenceFacade.createComponent(menuComponent);
+
+    this.menuId = component.index;
+    const menuView = component.componentRef.location
       .nativeElement as HTMLElement;
 
     const positions = { x: event.pageX + MENU_GAP, y: event.pageY };
@@ -105,11 +110,13 @@ export class OpenContextMenuDirective {
   }
 
   clearView() {
-    if (!this.hasView) return;
-
-    this.vcr.clear();
-    this.hasView = false;
     this.destroySubscription$.next();
+
+    if (!this.hasView || !this.menuId) return;
+
+    this.hasView = false;
+    this.workspaceReferenceFacade.clear(this.menuId);
+    this.menuId = undefined;
   }
 
   isOutTarget(view: HTMLElement, target: HTMLElement) {

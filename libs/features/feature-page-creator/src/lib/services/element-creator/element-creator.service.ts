@@ -1,9 +1,4 @@
-import {
-  EnvironmentInjector,
-  Injectable,
-  Injector,
-  ViewContainerRef,
-} from '@angular/core';
+import { EnvironmentInjector, Injectable, Injector } from '@angular/core';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import {
   CONFIG_TOKEN,
@@ -11,34 +6,24 @@ import {
   IInitialConfig,
   IPageConfig,
 } from '@portifolio/utils/util-models';
+import { WorkspaceReferenceFacade } from '@portifolio/utils/util-workspace-reference';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { PageComponent } from '../../ui/page.component';
 import { ElementsData } from '../elements-data/elements-data.service';
 import { SetZIndexService } from '../set-z-index/set-z-index.service';
 @Injectable({ providedIn: 'root' })
 export class ElementCreatorService<T> {
-  private vcr!: ViewContainerRef;
-
   constructor(
     private readonly elementsData: ElementsData,
     private readonly injector: EnvironmentInjector,
-    private readonly setZIndexService: SetZIndexService
+    private readonly setZIndexService: SetZIndexService,
+    private readonly workspaceReferenceFacade: WorkspaceReferenceFacade<PageComponent>
   ) {}
 
-  startCreator(vcr: ViewContainerRef) {
-    this.vcr = vcr;
-  }
-
   createElement(data: T, config: IInitialConfig) {
-    if (!this.vcr)
-      throw new Error(
-        'ViewContainerRef not initialized try to use startCreator function '
-      );
-
-    const id = this.elementsData.elements$.value.length;
     const pageConfig: IPageConfig = {
       ...config,
-      id,
+      id: -1,
       lastPosition: {
         x: config.customX ?? 0,
         y: config.customY ?? 0,
@@ -50,26 +35,29 @@ export class ElementCreatorService<T> {
     };
 
     const elementInjection = this.createElementInjection(data, pageConfig);
-    const { changeDetectorRef, instance } = this.vcr.createComponent(
-      PageComponent,
-      {
-        index: id,
-        injector: elementInjection,
-      }
-    );
-    changeDetectorRef.detectChanges();
+    const { componentRef, index } =
+      this.workspaceReferenceFacade.createComponent(
+        PageComponent,
+        elementInjection
+      );
+
+    componentRef.changeDetectorRef.detectChanges();
+    pageConfig.id = index;
 
     this.elementsData.pushElement(pageConfig);
-    DomElementAdpter.setDisplay(instance.element, !!config?.opened);
-    this.setCustomTransform(instance.element, pageConfig);
-    pageConfig.element$.next(instance.element);
-    this.setZIndexService.setNewZIndex(id, instance.element);
+    DomElementAdpter.setDisplay(
+      componentRef.instance.element,
+      !!config?.opened
+    );
+    this.setCustomTransform(componentRef.instance.element, pageConfig);
+    pageConfig.element$.next(componentRef.instance.element);
+    this.setZIndexService.setNewZIndex(index, componentRef.instance.element);
 
     return pageConfig;
   }
 
   setCustomTransform(element: HTMLElement, config: IPageConfig) {
-    const boundaryElement = this.elementsData.draggingBoundaryElement$.value;
+    const boundaryElement = this.workspaceReferenceFacade.element;
 
     if (!boundaryElement)
       return DomElementAdpter.setTransform(
@@ -92,7 +80,7 @@ export class ElementCreatorService<T> {
 
   destroyElement(id: number) {
     const vcrIndex = this.elementsData.findElementIndex(id);
-    this.vcr.remove(vcrIndex);
+    this.workspaceReferenceFacade.clear(vcrIndex);
     this.elementsData.removeElement(id);
   }
 
@@ -107,6 +95,6 @@ export class ElementCreatorService<T> {
   }
 
   clearData() {
-    this.vcr.clear();
+    this.workspaceReferenceFacade.clear();
   }
 }

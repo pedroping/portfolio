@@ -7,11 +7,6 @@ import { ELEMENT_BASE_ICON } from '../../mocks/elements.mocks';
 export class ElementsData {
   elements$ = new BehaviorSubject<IPageConfig[]>([]);
   basicElements$ = new BehaviorSubject<IBasicElement[]>([]);
-  draggingBoundaryElement$ = new BehaviorSubject<HTMLElement | null>(null);
-
-  setDraggingBoundaryElement(element: HTMLElement) {
-    this.draggingBoundaryElement$.next(element.parentElement as HTMLElement);
-  }
 
   pushElement(element: IPageConfig) {
     this.elements$.next([...this.elements$.value, element]);

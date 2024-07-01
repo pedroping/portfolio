@@ -11,8 +11,8 @@ import { ElementsFacade } from '../../facades/elements-facade/elements-facade';
 import { IPageConfig } from '@portifolio/utils/util-models';
 import { fromEvent, takeUntil } from 'rxjs';
 import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
-import { CONFIG_TOKEN } from '@portifolio/utils/util-models';;
-
+import { CONFIG_TOKEN } from '@portifolio/utils/util-models';
+import { WorkspaceReferenceFacade } from '@portifolio/utils/util-workspace-reference';
 @Directive({
   selector: '[pageMove]',
   standalone: true,
@@ -46,8 +46,9 @@ export class PageMoveDirective implements OnInit {
   constructor(
     private readonly destroyRef: DestroyRef,
     private readonly elementRef: ElementRef,
-    private readonly ElementsFacade: ElementsFacade,
-    @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
+    private readonly elementsFacade: ElementsFacade,
+    @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig,
+    private readonly workspaceReferenceFacade: WorkspaceReferenceFacade
   ) {}
 
   ngOnInit(): void {
@@ -68,8 +69,7 @@ export class PageMoveDirective implements OnInit {
 
     if (!element) return;
 
-    const draggingBoundaryElement =
-      this.ElementsFacade.draggingBoundaryElement$.value;
+    const draggingBoundaryElement = this.workspaceReferenceFacade.element;
 
     if (!draggingBoundaryElement) return;
 
@@ -103,8 +103,7 @@ export class PageMoveDirective implements OnInit {
 
     if (!element) return;
 
-    const draggingBoundaryElement =
-      this.ElementsFacade.draggingBoundaryElement$.value;
+    const draggingBoundaryElement = this.workspaceReferenceFacade.element;
 
     if (!draggingBoundaryElement) return;
 
@@ -147,12 +146,12 @@ export class PageMoveDirective implements OnInit {
     this.currentX = Math.max(0, Math.max(-ELEMENT_PADDING, maxPositionX));
     this.currentY = Math.max(0, Math.max(-ELEMENT_PADDING, maxPositionY));
     this._config.lastPosition = { x: this.currentX, y: this.currentY };
-    this.ElementsFacade.setAnyElementEvent(true);
+    this.elementsFacade.setAnyElementEvent(true);
     DomElementAdpter.removeTransition(params.element);
     DomElementAdpter.setTransform(params.element, this.currentX, this.currentY);
   }
 
   hasPrevent(element: HTMLElement) {
-    return this.ElementsFacade.hasPreventElement(element);
+    return this.elementsFacade.hasPreventElement(element);
   }
 }

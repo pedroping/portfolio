@@ -17,8 +17,8 @@ import {
   tap,
 } from 'rxjs';
 import { BASE_HEIGHT, ELEMENT_PADDING } from '../../mocks/elements.mocks';
-import { CONFIG_TOKEN } from '@portifolio/utils/util-models';;
-
+import { CONFIG_TOKEN } from '@portifolio/utils/util-models';
+import { WorkspaceReferenceFacade } from '@portifolio/utils/util-workspace-reference';
 @Directive({
   selector: '.bottom',
   standalone: true,
@@ -39,7 +39,8 @@ export class PageResizeBottomDirective implements OnInit {
     private readonly elementRef: ElementRef,
     private readonly destroyRef: DestroyRef,
     private readonly elementsFacade: ElementsFacade,
-    @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
+    @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig,
+    private readonly workspaceReferenceFacade: WorkspaceReferenceFacade
   ) {
     this.mouseDownEvent$ = fromEvent<MouseEvent>(
       this.elementRef.nativeElement,
@@ -98,8 +99,7 @@ export class PageResizeBottomDirective implements OnInit {
   resizeElement(y: number, element: HTMLElement) {
     if (this._config.isFullScreen) return;
 
-    const boundaryHeight =
-      this.elementsFacade.draggingBoundaryElement$.value?.offsetHeight;
+    const boundaryHeight = this.workspaceReferenceFacade.element.offsetHeight;
 
     if (boundaryHeight && y > boundaryHeight - ELEMENT_PADDING * 2) return;
 

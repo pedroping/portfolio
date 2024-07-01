@@ -16,9 +16,10 @@ import {
 import { ElementsFacade } from '../../facades/elements-facade/elements-facade';
 import { BASE_WIDTH, ELEMENT_PADDING } from '../../mocks/elements.mocks';
 import { IPageConfig } from '@portifolio/utils/util-models';
-import { CONFIG_TOKEN } from '@portifolio/utils/util-models';;
+import { CONFIG_TOKEN } from '@portifolio/utils/util-models';
 import { ElementsData } from '../../services/elements-data/elements-data.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { WorkspaceReferenceFacade } from '@portifolio/utils/util-workspace-reference';
 
 @Directive({
   selector: '.right',
@@ -40,7 +41,8 @@ export class PageResizeRightDirective implements OnInit {
     private readonly destroyRef: DestroyRef,
     private readonly elementRef: ElementRef,
     private readonly elementsFacade: ElementsFacade,
-    @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
+    @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig,
+    private readonly workspaceReferenceFacade: WorkspaceReferenceFacade
   ) {
     this.mouseDownEvent$ = fromEvent<MouseEvent>(
       this.elementRef.nativeElement,
@@ -97,8 +99,7 @@ export class PageResizeRightDirective implements OnInit {
 
   resizeElement(x: number, element: HTMLElement) {
     if (this._config.isFullScreen) return;
-    const boundaryWidth =
-      this.elementsFacade.draggingBoundaryElement$.value?.offsetWidth;
+    const boundaryWidth = this.workspaceReferenceFacade.element.offsetWidth;
     if (boundaryWidth && x > boundaryWidth - ELEMENT_PADDING * 2) return;
 
     const newPositionCalc = x - this.startPosition;
