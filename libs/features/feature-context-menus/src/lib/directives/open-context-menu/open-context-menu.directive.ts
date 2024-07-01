@@ -1,7 +1,6 @@
 import {
   DestroyRef,
   Directive,
-  ElementRef,
   HostListener,
   NgZone,
   input,
@@ -13,6 +12,7 @@ import { ContextMenuDefaultComponent } from '../../components/context-menu-defau
 import { ContextMenuProgramComponent } from '../../components/context-menu-program/context-menu-program.component';
 import { MENU_GAP, WORKSPACE_ID } from '../../mocks/context-menu-mocks';
 import { AvailableContextMenus } from '../../models/context-menu-models';
+import { LastZIndexService } from '@portifolio/utils/util-z-index-handler';
 
 @Directive({
   selector: '[openContextMenu]',
@@ -29,7 +29,7 @@ export class OpenContextMenuDirective {
   constructor(
     private readonly ngZone: NgZone,
     private readonly destroyRef: DestroyRef,
-    private readonly elementRef: ElementRef<HTMLElement>,
+    private readonly lastZIndexService: LastZIndexService,
     private readonly workspaceReferenceFacade: WorkspaceReferenceFacade
   ) {}
 
@@ -60,8 +60,8 @@ export class OpenContextMenuDirective {
     const positions = { x: event.pageX + MENU_GAP, y: event.pageY };
 
     const boundarySizes = {
-      width: this.elementRef.nativeElement.offsetWidth,
-      height: this.elementRef.nativeElement.offsetHeight,
+      width: this.workspaceReferenceFacade.element.offsetWidth,
+      height: this.workspaceReferenceFacade.element.offsetHeight,
     };
 
     const menuSizes = {
@@ -81,6 +81,8 @@ export class OpenContextMenuDirective {
       (this.menuType() === 'default'
         ? Math.min(positions.x, maxBounds.x)
         : positions.x) + 'px';
+
+    menuView.style.zIndex = this.lastZIndexService.createNewZIndex();
 
     this.createOutsideClickDestroy(menuView);
   }

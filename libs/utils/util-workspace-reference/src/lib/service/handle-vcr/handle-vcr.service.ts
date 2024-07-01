@@ -12,7 +12,6 @@ export class HandleVcrService<T> {
 
   createComponent(component: Type<T>, injection?: Injector): IComponent<T> {
     const index = this.newIndex;
-    console.log(index);
 
     const componentRef =
       this.workspaceReferenceDataService.vcr.createComponent<T>(component, {
