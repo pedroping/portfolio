@@ -2,13 +2,14 @@ import {
   Directive,
   ElementRef,
   HostListener,
+  OnInit,
   ViewContainerRef,
-  computed,
   input,
+  signal,
 } from '@angular/core';
 import { ElementsFacade } from '@portifolio/features/feature-page-creator';
 import { BuildAnimation } from '@portifolio/utils/util-animations';
-import { IBasicElement } from '@portifolio/utils/util-models';
+import { IBasicElement, IInitialConfig } from '@portifolio/utils/util-models';
 import { LastZIndexService } from '@portifolio/utils/util-z-index-handler';
 import {
   Subject,
@@ -23,12 +24,12 @@ import {
   timer,
 } from 'rxjs';
 import { PagePreviewComponent } from '../../components/page-preview/page-preview.component';
+import { TaskbarFacade } from '../../facades/taskbar-facade.service';
 import {
   PREVIEW_GAP_LEFT,
   PREVIEW_GAP_TOP,
   PREVIEW_ID,
 } from '../../mocks/elements-mocks';
-import { PagePreviewActionsService } from '../../services/page-preview-actions.service';
 
 @Directive({
   selector: '[showElementPreview]',
@@ -37,21 +38,24 @@ import { PagePreviewActionsService } from '../../services/page-preview-actions.s
     '[id]': 'id()',
   },
 })
-export class ShowElementPreviewDirective {
+export class ShowElementPreviewDirective implements OnInit {
   previewOpened = false;
-  element = input.required<IBasicElement>({ alias: 'showElementPreview' });
-  id = computed(() => PREVIEW_ID + this.element().id);
+  element = input.required<IInitialConfig | IBasicElement>();
+  id = signal<string>('');
+  elementId?: number;
 
   constructor(
     private readonly vcr: ViewContainerRef,
+    private readonly taskbarFacade: TaskbarFacade,
     private readonly buildAnimation: BuildAnimation,
     private readonly elementsFacade: ElementsFacade,
     private readonly elementRef: ElementRef<HTMLElement>,
-    private readonly lastZIndexService: LastZIndexService,
-    private readonly pagePreviewActionsService: PagePreviewActionsService
+    private readonly lastZIndexService: LastZIndexService
   ) {}
 
   @HostListener('touchstart', ['$event']) onTouchStart(event: TouchEvent) {
+    if (!this.elementId && this.elementId != 0) return;
+
     event.stopPropagation();
     event.stopImmediatePropagation();
 
@@ -75,6 +79,7 @@ export class ShowElementPreviewDirective {
 
   @HostListener('mouseenter')
   openElementOnMouse() {
+    if (!this.elementId && this.elementId != 0) return;
     if (this.previewOpened) return;
 
     let hasCancel = false;
@@ -97,9 +102,22 @@ export class ShowElementPreviewDirective {
       });
   }
 
+  ngOnInit(): void {
+    const element = this.element();
+
+    if (this.isBasicElement(element)) this.setIds(element.id);
+  }
+
+  setIds(id?: number) {
+    this.elementId = id;
+    this.id.set(id == undefined ? '' : PREVIEW_ID + id);
+  }
+
   createElement() {
+    if (!this.elementId && this.elementId != 0) return;
+
     this.vcr.clear();
-    this.pagePreviewActionsService.setCloseOtherMenus(this.id());
+    this.taskbarFacade.setCloseOtherMenus(this.id());
 
     this.previewOpened = true;
 
@@ -114,7 +132,8 @@ export class ShowElementPreviewDirective {
     view.style.top = rect.top - PREVIEW_GAP_TOP + 'px';
     view.style.zIndex = this.lastZIndexService.createNewZIndex();
 
-    const elementReference = this.elementsFacade.getElement(this.element().id);
+    const elementReference = this.elementsFacade.getElement(this.elementId);
+
     instance.element = elementReference;
 
     this.buildAnimation.animate('enterAnimationY', view);
@@ -133,9 +152,9 @@ export class ShowElementPreviewDirective {
     };
 
     merge(
-      this.pagePreviewActionsService.closeAll$$,
+      this.taskbarFacade.closeAll$$,
       timer(2000, 2000).pipe(filter(() => !this.hasHover())),
-      this.pagePreviewActionsService.getHasToClose(this.id())
+      this.taskbarFacade.getHasToClose(this.id())
     )
       .pipe(takeUntil(close$))
       .subscribe(() => closeElement());
@@ -146,6 +165,14 @@ export class ShowElementPreviewDirective {
 
     return Array.from(onHoverElements).some(
       (element) => element.id === this.id()
+    );
+  }
+
+  isBasicElement(
+    element: IBasicElement | IInitialConfig
+  ): element is IBasicElement {
+    return (
+      !!(element as IBasicElement).id || (element as IBasicElement).id == 0
     );
   }
 }

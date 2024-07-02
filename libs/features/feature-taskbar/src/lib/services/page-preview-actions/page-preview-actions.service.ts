@@ -5,7 +5,6 @@ import { Subject, filter } from 'rxjs';
 export class PagePreviewActionsService {
   private closeOtherMenus$ = new Subject<string>();
   private closeAll$ = new Subject<void>();
-  closeAll$$ = this.closeAll$.asObservable();
 
   setCloseOtherMenus(id: string) {
     this.closeOtherMenus$.next(id);
@@ -13,6 +12,10 @@ export class PagePreviewActionsService {
 
   setCloseAll() {
     this.closeAll$.next();
+  }
+
+  get closeAll$$() {
+    return this.closeAll$.asObservable();
   }
 
   getHasToClose(id: string) {

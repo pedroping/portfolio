@@ -17,17 +17,24 @@ export class ElementsData {
         name: element.name,
         icon: element.icon ?? ELEMENT_BASE_ICON,
         opened: element.opened,
+        onDestroy$: element.onDestroy$,
+        onMaximaze$: element.onMaximaze$,
+        onMinimize$: element.onMinimize$,
       },
     ]);
   }
 
   removeElement(id: number) {
+    const element = this.elements$.value.find((val) => val.id === id);
+    element?.onDestroy$.next();
+
     const filteredElements = this.elements$.value.filter(
       (element) => element.id != id
     );
     const filteredBasicElements = this.basicElements$.value.filter(
       (element) => element.id != id
     );
+
     this.elements$.next(filteredElements);
     this.basicElements$.next(filteredBasicElements);
   }
@@ -41,21 +48,25 @@ export class ElementsData {
   }
 
   openElement(id: number) {
-    const openedElement = this.basicElements$.value.find(
-      (val) => val.id === id
-    );
-    if (!openedElement) return;
+    const basicElement = this.basicElements$.value.find((val) => val.id === id);
+    const element = this.elements$.value.find((val) => val.id === id);
 
-    openedElement.opened = true;
+    if (!basicElement || !element) return;
+
+    element.opened = true;
+    basicElement.opened = true;
+    basicElement.onMaximaze$.next();
   }
 
   hideElement(id: number) {
-    const openedElement = this.basicElements$.value.find(
-      (val) => val.id === id
-    );
-    if (!openedElement) return;
+    const basicElement = this.basicElements$.value.find((val) => val.id === id);
+    const element = this.elements$.value.find((val) => val.id === id);
 
-    openedElement.opened = false;
+    if (!basicElement || !element) return;
+
+    element.opened = false;
+    basicElement.opened = false;
+    basicElement.onMinimize$.next();
   }
 
   findElement(id: number) {

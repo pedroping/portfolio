@@ -1,11 +1,13 @@
 import { NgComponentOutlet } from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
-import { ELEMENT_BASE_ICON } from '@portifolio/features/feature-page-creator';
+import {
+  ELEMENT_BASE_ICON,
+  ElementsFacade,
+} from '@portifolio/features/feature-page-creator';
 import { CloseComponent } from '@portifolio/ui/ui-page-actions-buttons';
-import { ElementsFacade } from '@portifolio/features/feature-page-creator';
 import { IPageConfig } from '@portifolio/utils/util-models';
+import { TaskbarFacade } from '../../facades/taskbar-facade.service';
 import { IPreviewPage } from '../../models/preview-models';
-import { PagePreviewActionsService } from '../../services/page-preview-actions.service';
 
 @Component({
   selector: 'page-preview',
@@ -19,8 +21,8 @@ export class PagePreviewComponent implements IPreviewPage, OnInit {
   icon = ELEMENT_BASE_ICON;
 
   constructor(
-    private readonly elementsFacade: ElementsFacade,
-    private readonly pagePreviewActionsService: PagePreviewActionsService
+    private readonly taskbarFacade: TaskbarFacade,
+    private readonly elementsFacade: ElementsFacade
   ) {}
 
   @HostListener('click') onClick() {
@@ -29,12 +31,12 @@ export class PagePreviewComponent implements IPreviewPage, OnInit {
         this.element.id,
         this.element.element$.value
       );
-      this.pagePreviewActionsService.setCloseAll();
+      this.taskbarFacade.setCloseAll();
       return;
     }
 
-    this.elementsFacade.openElement(this.element?.id ?? -1);
-    this.pagePreviewActionsService.setCloseAll();
+    this.elementsFacade.validateElementOpened(this.element?.id ?? -1);
+    this.taskbarFacade.setCloseAll();
   }
 
   ngOnInit(): void {
@@ -43,5 +45,6 @@ export class PagePreviewComponent implements IPreviewPage, OnInit {
 
   closeElement() {
     this.elementsFacade.destroyElement(this.element?.id ?? -1);
+    this.taskbarFacade.setCloseAll();
   }
 }

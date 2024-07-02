@@ -6,6 +6,9 @@ export interface IBasicElement {
   name: string;
   opened: boolean;
   icon?: string;
+  onDestroy$: Subject<void>;
+  onMinimize$: Subject<void>;
+  onMaximaze$: Subject<void>;
 }
 
 export interface IInitialConfig {
@@ -33,6 +36,8 @@ export interface IElementReference {
   };
   element$: BehaviorSubject<HTMLElement | null>;
   onDestroy$: Subject<void>;
+  onMinimize$: Subject<void>;
+  onMaximaze$: Subject<void>;
 }
 
 export type IPageConfig = IInitialConfig & IElementReference;

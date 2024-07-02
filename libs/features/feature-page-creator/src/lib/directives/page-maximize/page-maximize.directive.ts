@@ -60,8 +60,7 @@ export class PageMaximizeDirective implements OnInit {
         if (!element) return;
 
         this.setSizes();
-        this._config.opened = true;
-
+        this.elementsFacade.openElement(this._config.id);
         this.lastTranslet3d = DomElementAdpter.getTranslate3d(
           this._config.customX || 0,
           this._config.customY || 0

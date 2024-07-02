@@ -15,7 +15,7 @@ export class PageActionsService {
     private readonly workspaceReferenceFacade: WorkspaceReferenceFacade
   ) {}
 
-  openElement(id: number) {
+  validateElementOpened(id: number) {
     const elmentConfig = this.elementsData.findElement(id);
     if (!elmentConfig) return;
     if (!elmentConfig.opened) return this.showElement(elmentConfig);
@@ -52,13 +52,12 @@ export class PageActionsService {
     this.minimizeElement(elmentConfig);
   }
 
-  private minimizeElement(elmentConfig: IPageConfig) {
-    const element = elmentConfig.element$.value;
+  private minimizeElement(elementConfig: IPageConfig) {
+    const element = elementConfig.element$.value;
     if (!element) return;
 
-    const index = this.elementsData.findElementIndex(elmentConfig.id);
-    elmentConfig.opened = false;
-    this.elementsData.hideElement(elmentConfig.id);
+    const index = this.elementsData.findElementIndex(elementConfig.id);
+    this.elementsData.hideElement(elementConfig.id);
 
     DomElementAdpter.setOnlyTransformTransition(element, 5);
     DomElementAdpter.setTransform(
@@ -75,7 +74,6 @@ export class PageActionsService {
   }
 
   private showElement(elmentConfig: IPageConfig) {
-    elmentConfig.opened = true;
     const element = elmentConfig.element$.value;
 
     if (!element) return;

@@ -5,36 +5,4 @@
   width: 100%;
   overflow-x: auto;
   margin-right: 10px;
-
-  .element {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: 5px;
-    color: var(--text-color-01);
-    font-size: 14px;
-    cursor: pointer;
-    border-radius: 5px;
-    height: 28px;
-    background: linear-gradient(157deg,
-        var(--gradient-color-16) 5%,
-        var(--gradient-color-17) 17%,
-        var(--gradient-color-18) 30%,
-        var(--gradient-color-19) 82%);
-    transition: all 200ms ease-in-out;
-
-    box-shadow: inset 0px 0px 5px 2px var(--shadow-color-04);
-
-    &.opened {
-      box-shadow: 2px 3px 4px 0px var(--shadow-color-05);
-    }
-
-    &:hover {
-      transform: scale(1.03) translateY(-1px);
-    }
-
-    img {
-      width: 25px;
-    }
-  }
 }

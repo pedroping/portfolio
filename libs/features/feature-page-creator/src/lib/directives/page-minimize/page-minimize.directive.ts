@@ -18,7 +18,7 @@ import { filter, take } from 'rxjs';
 export class PageMinimizeDirective implements OnInit {
   constructor(
     private readonly destroyRef: DestroyRef,
-    private readonly ElementsFacade: ElementsFacade,
+    private readonly elementsFacade: ElementsFacade,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {}
 
@@ -40,9 +40,9 @@ export class PageMinimizeDirective implements OnInit {
 
     if (!element) return;
 
-    const index = this.ElementsFacade.findElementIndex(this._config.id);
-    this._config.opened = false;
-    this.ElementsFacade.hideElement(this._config.id);
+    const index = this.elementsFacade.findElementIndex(this._config.id);
+    this.elementsFacade.hideElement(this._config.id);
+    this._config.onMinimize$.next();
 
     DomElementAdpter.setOnlyTransformTransition(element, 5);
     DomElementAdpter.setTransform(

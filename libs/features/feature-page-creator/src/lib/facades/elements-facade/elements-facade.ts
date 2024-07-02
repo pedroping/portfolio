@@ -1,4 +1,4 @@
-import { Injectable, ViewContainerRef } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { IInitialConfig, IPageConfig } from '@portifolio/utils/util-models';
 import { ElementCreatorService } from '../../services/element-creator/element-creator.service';
 import { ElementsData } from '../../services/elements-data/elements-data.service';
@@ -26,8 +26,12 @@ export class ElementsFacade<T = unknown> {
     this.elementCreatorService.destroyElement(id);
   }
 
+  validateElementOpened(id: number) {
+    this.pageActionsService.validateElementOpened(id);
+  }
+
   openElement(id: number) {
-    this.pageActionsService.openElement(id);
+    this.elementsData.openElement(id);
   }
 
   hideElement(id: number) {

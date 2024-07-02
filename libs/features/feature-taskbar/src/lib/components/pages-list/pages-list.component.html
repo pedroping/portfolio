@@ -1,10 +1,6 @@
-@for (item of basicElements$ | async; track $index) {
-<div
-  class="element"
-  (click)="handelElementClick(item.id)"
-  [class.opened]="item.opened"
-  [showElementPreview]="item"
->
-  <img [src]="item.icon" alt="Ícone de uma pasta de arquivo" />
-</div>
+@for (item of fixedElements; track $index) {
+<taskbar-element [element]="item" />
+
+} @for (item of basicElements$ | async; track $index) {
+<taskbar-element [element]="item" />
 }

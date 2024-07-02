@@ -8,6 +8,7 @@ import { appRoutes } from './app.routes';
 import { provideServiceWorker } from '@angular/service-worker';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { HttpClientModule } from '@angular/common/http';
+import { IMAGE_CONFIG } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,5 +19,12 @@ export const appConfig: ApplicationConfig = {
     }),
     provideAnimationsAsync(),
     importProvidersFrom(HttpClientModule),
+    {
+      provide: IMAGE_CONFIG,
+      useValue: {
+        disableImageSizeWarning: true,
+        disableImageLazyLoadWarning: true,
+      },
+    },
   ],
 };

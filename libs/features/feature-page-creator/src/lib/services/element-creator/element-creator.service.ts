@@ -32,6 +32,8 @@ export class ElementCreatorService<T> {
       isFullScreen: !!config?.isFullScreen,
       onDestroy$: new Subject<void>(),
       element$: new BehaviorSubject<HTMLElement | null>(null),
+      onMinimize$: new Subject<void>(),
+      onMaximaze$: new Subject<void>(),
     };
 
     const elementInjection = this.createElementInjection(data, pageConfig);
