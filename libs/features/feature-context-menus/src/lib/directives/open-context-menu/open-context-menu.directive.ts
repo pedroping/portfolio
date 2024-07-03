@@ -3,6 +3,7 @@ import {
   Directive,
   HostListener,
   NgZone,
+  ViewRef,
   input,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -24,7 +25,7 @@ export class OpenContextMenuDirective {
   });
   hasView = false;
   destroySubscription$ = new Subject<void>();
-  menuId?: number;
+  hostView?: ViewRef;
 
   constructor(
     private readonly ngZone: NgZone,
@@ -53,7 +54,7 @@ export class OpenContextMenuDirective {
     const component =
       this.workspaceReferenceFacade.createComponent(menuComponent);
 
-    this.menuId = component.index;
+    this.hostView = component.componentRef.hostView;
     const menuView = component.componentRef.location
       .nativeElement as HTMLElement;
 
@@ -114,11 +115,11 @@ export class OpenContextMenuDirective {
   clearView() {
     this.destroySubscription$.next();
 
-    if (!this.hasView || !this.menuId) return;
+    if (!this.hasView || !this.hostView) return;
 
     this.hasView = false;
-    this.workspaceReferenceFacade.clear(this.menuId);
-    this.menuId = undefined;
+    this.workspaceReferenceFacade.clear(this.hostView);
+    this.hostView = undefined;
   }
 
   isOutTarget(view: HTMLElement, target: HTMLElement) {

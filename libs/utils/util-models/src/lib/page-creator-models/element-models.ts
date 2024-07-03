@@ -1,4 +1,4 @@
-import { Type } from '@angular/core';
+import { Type, ViewRef } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 export interface IBasicElement {
@@ -34,6 +34,7 @@ export interface IElementReference {
     x: number;
     y: number;
   };
+  hostView$: BehaviorSubject<ViewRef | null>;
   element$: BehaviorSubject<HTMLElement | null>;
   onDestroy$: Subject<void>;
   onMinimize$: Subject<void>;

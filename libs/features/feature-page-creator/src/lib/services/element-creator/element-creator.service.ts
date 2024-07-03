@@ -1,4 +1,9 @@
-import { EnvironmentInjector, Injectable, Injector } from '@angular/core';
+import {
+  EnvironmentInjector,
+  Injectable,
+  Injector,
+  ViewRef,
+} from '@angular/core';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import {
   CONFIG_TOKEN,
@@ -21,9 +26,11 @@ export class ElementCreatorService<T> {
   ) {}
 
   createElement(data: T, config: IInitialConfig) {
+    const index = this.elementsData.elements$.value.length;
+
     const pageConfig: IPageConfig = {
       ...config,
-      id: -1,
+      id: index,
       lastPosition: {
         x: config.customX ?? 0,
         y: config.customY ?? 0,
@@ -32,19 +39,18 @@ export class ElementCreatorService<T> {
       isFullScreen: !!config?.isFullScreen,
       onDestroy$: new Subject<void>(),
       element$: new BehaviorSubject<HTMLElement | null>(null),
+      hostView$: new BehaviorSubject<ViewRef | null>(null),
       onMinimize$: new Subject<void>(),
       onMaximaze$: new Subject<void>(),
     };
 
     const elementInjection = this.createElementInjection(data, pageConfig);
-    const { componentRef, index } =
-      this.workspaceReferenceFacade.createComponent(
-        PageComponent,
-        elementInjection
-      );
+    const { componentRef } = this.workspaceReferenceFacade.createComponent(
+      PageComponent,
+      elementInjection
+    );
 
     componentRef.changeDetectorRef.detectChanges();
-    pageConfig.id = index;
 
     this.elementsData.pushElement(pageConfig);
     DomElementAdpter.setDisplay(
@@ -52,6 +58,7 @@ export class ElementCreatorService<T> {
       !!config?.opened
     );
     this.setCustomTransform(componentRef.instance.element, pageConfig);
+    pageConfig.hostView$.next(componentRef.hostView);
     pageConfig.element$.next(componentRef.instance.element);
     this.setZIndexService.setNewZIndex(index, componentRef.instance.element);
 
@@ -81,8 +88,11 @@ export class ElementCreatorService<T> {
   }
 
   destroyElement(id: number) {
-    const vcrIndex = this.elementsData.findElementIndex(id);
-    this.workspaceReferenceFacade.clear(vcrIndex);
+    const element = this.elementsData.findElement(id);
+
+    if (element?.hostView$.value)
+      this.workspaceReferenceFacade.clear(element?.hostView$.value);
+
     this.elementsData.removeElement(id);
   }
 

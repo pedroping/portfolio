@@ -1,7 +1,13 @@
-import { Injectable, Injector, Type, ViewContainerRef } from '@angular/core';
+import {
+  Injectable,
+  Injector,
+  Type,
+  ViewContainerRef,
+  ViewRef,
+} from '@angular/core';
+import { IComponent } from '../models/handle-vcr-models';
 import { HandleVcrService } from '../service/handle-vcr/handle-vcr.service';
 import { WorkspaceReferenceDataService } from '../service/workspace-reference-data/workspace-reference-data.service';
-import { IComponent } from '../models/handle-vcr-models';
 
 @Injectable({ providedIn: 'root' })
 export class WorkspaceReferenceFacade<T = unknown> {
@@ -14,8 +20,8 @@ export class WorkspaceReferenceFacade<T = unknown> {
     return this.handleVcrService.createComponent(component, injection);
   }
 
-  clear(id?: number) {
-    this.handleVcrService.clear(id);
+  clear(hostView?: ViewRef) {
+    this.handleVcrService.clear(hostView);
   }
 
   setElement(element: HTMLElement) {
