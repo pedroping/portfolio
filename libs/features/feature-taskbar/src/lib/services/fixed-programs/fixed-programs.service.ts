@@ -11,6 +11,10 @@ export class FixedProgramsService {
     this.hideFixed$.next([...this.hideFixed, id]);
   }
 
+  removeId(id: number) {
+    this.hideFixed$.next(this.hideFixed.filter((elementId) => elementId != id));
+  }
+
   get hideFixed() {
     return this.hideFixed$.value;
   }

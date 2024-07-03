@@ -13,6 +13,10 @@ export class TaskbarFacade {
     this.fixedProgramsService.setNew(id);
   }
 
+  removeId(id: number) {
+    this.fixedProgramsService.removeId(id);
+  }
+
   get hideFixed() {
     return this.fixedProgramsService.hideFixed;
   }
