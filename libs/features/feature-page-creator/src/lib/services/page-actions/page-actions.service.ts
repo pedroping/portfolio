@@ -29,13 +29,11 @@ export class PageActionsService {
 
     if (!element) return;
 
-    const isBehindAnotherElement = this.getIsBehindAnotherElement(
-      elmentConfig.id,
-      element
-    );
-
     const onFullScreenAndNotBigger =
       elmentConfig.isFullScreen && !isHiggerElement;
+
+    if (onFullScreenAndNotBigger)
+      return this.setZIndexService.setNewZIndex(elmentConfig.id, element);
 
     const hasNoOtherElement = this.elementsData.isOnlyElementOpened(
       elmentConfig.id
@@ -43,8 +41,10 @@ export class PageActionsService {
 
     if (hasNoOtherElement) return this.minimizeElement(elmentConfig);
 
-    if (onFullScreenAndNotBigger)
-      return this.setZIndexService.setNewZIndex(elmentConfig.id, element);
+    const isBehindAnotherElement = this.getIsBehindAnotherElement(
+      elmentConfig.id,
+      element
+    );
 
     if (isBehindAnotherElement && !isHiggerElement)
       return this.setZIndexService.setNewZIndex(elmentConfig.id, element);
@@ -124,15 +124,18 @@ export class PageActionsService {
       const maxBoundX = Math.max(0, boundaryWidth - element.offsetWidth);
       const maxBoundY = Math.max(0, boundaryHeight - element.offsetHeight);
 
-      if (params.elmentConfig.baseSizes.minHeight)
+      const minHeight = params.elmentConfig.baseSizes.minHeight;
+      const minWidth = params.elmentConfig.baseSizes.minWidth;
+
+      if (minHeight)
         params.elmentConfig.baseSizes.minHeight = Math.min(
-          params.elmentConfig.baseSizes.minHeight,
+          minHeight,
           boundaryHeight
         );
 
-      if (params.elmentConfig.baseSizes.minWidth)
+      if (minWidth)
         params.elmentConfig.baseSizes.minWidth = Math.min(
-          params.elmentConfig.baseSizes.minWidth,
+          minWidth,
           boundaryWidth
         );
 

@@ -27,10 +27,9 @@ export class ElementCreatorService<T> {
 
   createElement(data: T, config: IInitialConfig) {
     const index = this.elementsData.elements$.value.length;
-
     const pageConfig = this.getPageConfig(config, index);
-
     const elementInjection = this.createElementInjection(data, pageConfig);
+
     const { componentRef } = this.workspaceReferenceFacade.createComponent(
       PageComponent,
       elementInjection
@@ -43,6 +42,7 @@ export class ElementCreatorService<T> {
       componentRef.instance.element,
       !!config?.opened
     );
+
     this.setCustomTransform(componentRef.instance.element, pageConfig);
     pageConfig.hostView$.next(componentRef.hostView);
     pageConfig.element$.next(componentRef.instance.element);

@@ -17,7 +17,7 @@ export class ElementsData {
   }
 
   removeElement(id: number) {
-    const element = this.elements$.value.find((val) => val.id === id);
+    const element = this.findElement(id);
     element?.onDestroy$.next();
 
     const filteredElements = this.elements$.value.filter(

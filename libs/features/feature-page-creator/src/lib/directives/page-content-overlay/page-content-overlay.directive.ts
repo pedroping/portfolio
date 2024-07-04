@@ -35,15 +35,11 @@ export class PageContentOverlayDirective implements AfterViewInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => this.validateOverlay());
 
-    this.ElementsFacade.anyElementEvent$$
+    merge(
+      this.ElementsFacade.anyElementEvent$$,
+      this.eventsFacade.createOverlay$$.pipe(map(() => true))
+    )
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(this.handleBoolean);
-
-    this.eventsFacade.createOverlay$$
-      .pipe(
-        takeUntilDestroyed(this.destroyRef),
-        map(() => true)
-      )
       .subscribe(this.handleBoolean);
   }
 
@@ -68,9 +64,9 @@ export class PageContentOverlayDirective implements AfterViewInit {
       element
     );
 
-    if (isBehindAnotherElement) return this.addOverlay();
+    if (!isBehindAnotherElement) return this.removeOverlay();
 
-    this.removeOverlay();
+    this.addOverlay();
   }
 
   getIsBehindAnotherElement(id: number, element: HTMLElement) {
