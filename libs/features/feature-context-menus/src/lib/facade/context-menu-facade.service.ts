@@ -4,9 +4,9 @@ import { ContextMenuStateService } from '../services/context-menu-state/context-
 import { OptionSelectedService } from '../services/option-selected/option-selected.service';
 
 @Injectable({ providedIn: 'root' })
-export class ContextMenuFacade {
+export class ContextMenuFacade<T> {
   constructor(
-    private readonly optionSelectedService: OptionSelectedService,
+    private readonly optionSelectedService: OptionSelectedService<T>,
     private readonly contextMenuStateService: ContextMenuStateService
   ) {}
 
@@ -18,8 +18,8 @@ export class ContextMenuFacade {
     this.contextMenuStateService.setClearDefault();
   }
 
-  setOptionSelected(option: TAvalilableOptions) {
-    this.optionSelectedService.setOptionSelected(option);
+  setOptionSelected(option: TAvalilableOptions, data?: T) {
+    this.optionSelectedService.setOptionSelected(option, data);
   }
 
   get clearDefault$$() {

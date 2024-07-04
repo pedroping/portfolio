@@ -12,7 +12,10 @@ import { Subject, filter, fromEvent, merge, skip, take, takeUntil } from 'rxjs';
 import { ContextMenuDefaultComponent } from '../../components/context-menu-default/context-menu-default.component';
 import { ContextMenuProgramComponent } from '../../components/context-menu-program/context-menu-program.component';
 import { MENU_GAP, WORKSPACE_ID } from '../../mocks/context-menu-mocks';
-import { AvailableContextMenus } from '../../models/context-menu-models';
+import {
+  AvailableContextMenus,
+  DefaultMenu,
+} from '../../models/context-menu-models';
 import { LastZIndexService } from '@portifolio/utils/util-z-index-handler';
 import { ContextMenuFacade } from '../../facade/context-menu-facade.service';
 
@@ -20,18 +23,19 @@ import { ContextMenuFacade } from '../../facade/context-menu-facade.service';
   selector: '[openContextMenu]',
   standalone: true,
 })
-export class OpenContextMenuDirective {
+export class OpenContextMenuDirective<T> {
   menuType = input<AvailableContextMenus>('program', {
     alias: 'openContextMenu',
   });
+  data = input<T>();
   destroySubscription$ = new Subject<void>();
   hostView?: ViewRef;
 
   constructor(
     private readonly ngZone: NgZone,
     private readonly destroyRef: DestroyRef,
-    private readonly contextMenuFacade: ContextMenuFacade,
     private readonly lastZIndexService: LastZIndexService,
+    private readonly contextMenuFacade: ContextMenuFacade<T>,
     private readonly workspaceReferenceFacade: WorkspaceReferenceFacade
   ) {}
 
@@ -55,9 +59,12 @@ export class OpenContextMenuDirective {
     const component =
       this.workspaceReferenceFacade.createComponent(menuComponent);
 
-    this.hostView = component.componentRef.hostView;
+    const instance = component.componentRef.instance as DefaultMenu<T>;
     const menuView = component.componentRef.location
       .nativeElement as HTMLElement;
+
+    instance.data = this.data();
+    this.hostView = component.componentRef.hostView;
 
     const positions = { x: event.pageX + MENU_GAP, y: event.pageY };
 

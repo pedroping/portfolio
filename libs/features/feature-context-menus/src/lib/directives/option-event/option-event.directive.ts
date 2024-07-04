@@ -1,21 +1,35 @@
-import { Directive, HostListener, input } from '@angular/core';
-import { TAvalilableOptions } from '@portifolio/utils/util-models';
+import {
+  AfterViewInit,
+  DestroyRef,
+  Directive,
+  contentChildren,
+  input,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { merge } from 'rxjs';
 import { ContextMenuFacade } from '../../facade/context-menu-facade.service';
+import { OptionDirective } from '../option/option.directive';
 
 @Directive({
-  selector: '.option',
+  selector: '[optionEvent]',
   standalone: true,
 })
-export class OptionEventDirective {
-  optionName = input<TAvalilableOptions>();
+export class OptionEventDirective<T> implements AfterViewInit {
+  data = input<T | undefined>(undefined, { alias: 'optionEvent' });
+  options = contentChildren(OptionDirective);
 
-  constructor(private readonly contextMenuFacade: ContextMenuFacade) {}
+  constructor(
+    private readonly destroyRef: DestroyRef,
+    private readonly contextMenuFacade: ContextMenuFacade<T>
+  ) {}
 
-  @HostListener('click') onClick() {
-    const name = this.optionName();
+  ngAfterViewInit(): void {
+    const optionsEvents = this.options().map((option) => option.onClick$$);
 
-    if (!name) return;
-
-    this.contextMenuFacade.setOptionSelected(name);
+    merge(...optionsEvents)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((event) =>
+        this.contextMenuFacade.setOptionSelected(event, this.data())
+      );
   }
 }

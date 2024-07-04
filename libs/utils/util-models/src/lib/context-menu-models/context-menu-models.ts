@@ -19,3 +19,8 @@ export type TAvalilableOptions =
   | 'program-cut'
   | 'program-delete'
   | 'program-rename';
+
+export interface IOptionEvent<T> {
+  option: TAvalilableOptions;
+  data?: T;
+}

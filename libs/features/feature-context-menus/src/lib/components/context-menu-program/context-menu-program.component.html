@@ -1,28 +1,28 @@
-<section id="context-menu">
-  <div class="option">
+<section id="context-menu" [optionEvent]="data">
+  <div class="option" option="program-open">
     <span>Open</span>
   </div>
-  <div class="option">
+  <div class="option" option="program-explore">
     <span>Explore</span>
   </div>
 
   <div class="line"></div>
 
-  <div class="option">
+  <div class="option" option="program-copy">
     <span>Copy</span>
   </div>
 
-  <div class="option">
+  <div class="option" option="program-cut">
     <span>Cut</span>
   </div>
 
   <div class="line"></div>
 
-  <div class="option">
+  <div class="option" option="program-delete">
     <span>Delete</span>
   </div>
 
-  <div class="option">
+  <div class="option" option="program-rename">
     <span>Rename</span>
   </div>
 </section>

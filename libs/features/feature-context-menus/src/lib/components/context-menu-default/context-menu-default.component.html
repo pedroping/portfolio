@@ -1,4 +1,4 @@
-<section id="context-menu">
+<section id="context-menu" [optionEvent]="data">
   <div class="option" [openSubContextMenu]="viewContextMenuComponent">
     <span>View</span> <i class="fa-solid fa-caret-right"></i>
   </div>
@@ -8,7 +8,7 @@
 
   <div class="line"></div>
 
-  <div class="option">
+  <div class="option" option="refresh-icons">
     <span>Refresh Icons</span>
   </div>
 
@@ -18,7 +18,7 @@
     <span>New</span> <i class="fa-solid fa-caret-right"></i>
   </div>
 
-  <div class="option">
+  <div class="option" option="personalize">
     <span>Personalize</span>
   </div>
 </section>

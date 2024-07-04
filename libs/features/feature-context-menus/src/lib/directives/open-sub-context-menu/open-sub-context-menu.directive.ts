@@ -27,7 +27,7 @@ import { IPositionProperties } from '../../models/context-menu-models';
   selector: '[openSubContextMenu]',
   standalone: true,
 })
-export class OpenSubContextMenuDirective {
+export class OpenSubContextMenuDirective<T> {
   menuComponent = input.required<Type<unknown>>({
     alias: 'openSubContextMenu',
   });
@@ -37,7 +37,7 @@ export class OpenSubContextMenuDirective {
     private readonly vcr: ViewContainerRef,
     private readonly destroyRef: DestroyRef,
     private readonly elementRef: ElementRef<HTMLElement>,
-    private readonly contextMenuFacade: ContextMenuFacade
+    private readonly contextMenuFacade: ContextMenuFacade<T>
   ) {}
 
   @HostListener('mouseenter') onMouseEnter() {

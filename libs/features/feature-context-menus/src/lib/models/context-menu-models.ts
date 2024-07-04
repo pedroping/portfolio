@@ -9,3 +9,7 @@ export interface IPositionProperties {
   x: number;
   y: number;
 }
+
+export interface DefaultMenu<T> {
+  data?: T;
+}
