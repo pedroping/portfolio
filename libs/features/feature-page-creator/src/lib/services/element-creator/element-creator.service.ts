@@ -28,21 +28,7 @@ export class ElementCreatorService<T> {
   createElement(data: T, config: IInitialConfig) {
     const index = this.elementsData.elements$.value.length;
 
-    const pageConfig: IPageConfig = {
-      ...config,
-      id: index,
-      lastPosition: {
-        x: config.customX ?? 0,
-        y: config.customY ?? 0,
-      },
-      opened: !!config?.opened,
-      isFullScreen: !!config?.isFullScreen,
-      onDestroy$: new Subject<void>(),
-      element$: new BehaviorSubject<HTMLElement | null>(null),
-      hostView$: new BehaviorSubject<ViewRef | null>(null),
-      onMinimize$: new Subject<void>(),
-      onMaximaze$: new Subject<void>(),
-    };
+    const pageConfig = this.getPageConfig(config, index);
 
     const elementInjection = this.createElementInjection(data, pageConfig);
     const { componentRef } = this.workspaceReferenceFacade.createComponent(
@@ -96,6 +82,10 @@ export class ElementCreatorService<T> {
     this.elementsData.removeElement(id);
   }
 
+  clearData() {
+    this.workspaceReferenceFacade.clear();
+  }
+
   private createElementInjection(data: T, config: IPageConfig) {
     return Injector.create({
       providers: [
@@ -106,7 +96,21 @@ export class ElementCreatorService<T> {
     });
   }
 
-  clearData() {
-    this.workspaceReferenceFacade.clear();
+  private getPageConfig(config: IInitialConfig, index: number) {
+    return {
+      ...config,
+      id: index,
+      lastPosition: {
+        x: config.customX ?? 0,
+        y: config.customY ?? 0,
+      },
+      opened: !!config?.opened,
+      isFullScreen: !!config?.isFullScreen,
+      onDestroy$: new Subject<void>(),
+      element$: new BehaviorSubject<HTMLElement | null>(null),
+      hostView$: new BehaviorSubject<ViewRef | null>(null),
+      onMinimize$: new Subject<void>(),
+      onMaximaze$: new Subject<void>(),
+    };
   }
 }

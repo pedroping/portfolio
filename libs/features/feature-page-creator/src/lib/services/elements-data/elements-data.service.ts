@@ -12,15 +12,7 @@ export class ElementsData {
     this.elements$.next([...this.elements$.value, element]);
     this.basicElements$.next([
       ...this.basicElements$.value,
-      {
-        id: element.id,
-        name: element.name,
-        icon: element.icon ?? ELEMENT_BASE_ICON,
-        opened: element.opened,
-        onDestroy$: element.onDestroy$,
-        onMaximaze$: element.onMaximaze$,
-        onMinimize$: element.onMinimize$,
-      },
+      this.getNewBasicElement(element),
     ]);
   }
 
@@ -48,8 +40,8 @@ export class ElementsData {
   }
 
   openElement(id: number) {
-    const basicElement = this.basicElements$.value.find((val) => val.id === id);
-    const element = this.elements$.value.find((val) => val.id === id);
+    const basicElement = this.findBasicElement(id);
+    const element = this.findElement(id);
 
     if (!basicElement || !element) return;
 
@@ -59,8 +51,8 @@ export class ElementsData {
   }
 
   hideElement(id: number) {
-    const basicElement = this.basicElements$.value.find((val) => val.id === id);
-    const element = this.elements$.value.find((val) => val.id === id);
+    const basicElement = this.findBasicElement(id);
+    const element = this.findElement(id);
 
     if (!basicElement || !element) return;
 
@@ -73,6 +65,10 @@ export class ElementsData {
     return this.elements$.value.find((item) => item.id == id);
   }
 
+  findBasicElement(id: number) {
+    return this.basicElements$.value.find((item) => item.id == id);
+  }
+
   findElementIndex(id: number) {
     return this.elements$.value.findIndex((item) => item.id == id);
   }
@@ -80,5 +76,17 @@ export class ElementsData {
   clearData() {
     this.elements$.next([]);
     this.basicElements$.next([]);
+  }
+
+  private getNewBasicElement(element: IPageConfig) {
+    return {
+      id: element.id,
+      name: element.name,
+      icon: element.icon ?? ELEMENT_BASE_ICON,
+      opened: element.opened,
+      onDestroy$: element.onDestroy$,
+      onMaximaze$: element.onMaximaze$,
+      onMinimize$: element.onMinimize$,
+    };
   }
 }
