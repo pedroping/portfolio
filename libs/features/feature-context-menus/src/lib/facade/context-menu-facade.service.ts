@@ -14,12 +14,20 @@ export class ContextMenuFacade {
     this.contextMenuStateService.setCleatAll();
   }
 
-  get clearAll$$() {
-    return this.contextMenuStateService.clearAll$$;
+  setClearDefault() {
+    this.contextMenuStateService.setClearDefault();
   }
 
   setOptionSelected(option: TAvalilableOptions) {
     this.optionSelectedService.setOptionSelected(option);
+  }
+
+  get clearDefault$$() {
+    return this.contextMenuStateService.clearDefault$$;
+  }
+
+  get clearAll$$() {
+    return this.contextMenuStateService.clearAll$$;
   }
 
   get optionSelected$$() {

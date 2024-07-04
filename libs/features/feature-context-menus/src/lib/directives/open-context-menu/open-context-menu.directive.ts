@@ -14,6 +14,7 @@ import { ContextMenuProgramComponent } from '../../components/context-menu-progr
 import { MENU_GAP, WORKSPACE_ID } from '../../mocks/context-menu-mocks';
 import { AvailableContextMenus } from '../../models/context-menu-models';
 import { LastZIndexService } from '@portifolio/utils/util-z-index-handler';
+import { ContextMenuFacade } from '../../facade/context-menu-facade.service';
 
 @Directive({
   selector: '[openContextMenu]',
@@ -23,13 +24,13 @@ export class OpenContextMenuDirective {
   menuType = input<AvailableContextMenus>('program', {
     alias: 'openContextMenu',
   });
-  hasView = false;
   destroySubscription$ = new Subject<void>();
   hostView?: ViewRef;
 
   constructor(
     private readonly ngZone: NgZone,
     private readonly destroyRef: DestroyRef,
+    private readonly contextMenuFacade: ContextMenuFacade,
     private readonly lastZIndexService: LastZIndexService,
     private readonly workspaceReferenceFacade: WorkspaceReferenceFacade
   ) {}
@@ -37,6 +38,7 @@ export class OpenContextMenuDirective {
   @HostListener('contextmenu', ['$event']) onClick(event: PointerEvent) {
     event.preventDefault();
     event.stopPropagation();
+    this.contextMenuFacade.setClearDefault();
     this.clearView();
 
     if (
@@ -50,7 +52,6 @@ export class OpenContextMenuDirective {
         ? ContextMenuDefaultComponent
         : ContextMenuProgramComponent;
 
-    this.hasView = true;
     const component =
       this.workspaceReferenceFacade.createComponent(menuComponent);
 
@@ -89,6 +90,13 @@ export class OpenContextMenuDirective {
   }
 
   createOutsideClickDestroy(view: HTMLElement) {
+    this.contextMenuFacade.clearDefault$$
+      .pipe(
+        takeUntil(this.destroySubscription$),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe(() => this.clearView());
+
     this.ngZone.runOutsideAngular(() => {
       merge(fromEvent(document, 'click'), fromEvent(document, 'mousedown'))
         .pipe(
@@ -115,9 +123,8 @@ export class OpenContextMenuDirective {
   clearView() {
     this.destroySubscription$.next();
 
-    if (!this.hasView || !this.hostView) return;
+    if (!this.hostView) return;
 
-    this.hasView = false;
     this.workspaceReferenceFacade.clear(this.hostView);
     this.hostView = undefined;
   }

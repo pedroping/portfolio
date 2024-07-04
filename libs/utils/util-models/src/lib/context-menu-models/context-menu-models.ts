@@ -12,4 +12,10 @@ export type TAvalilableOptions =
   | 'short-by-size'
   | 'short-by-modification Date'
   | 'new-folder'
-  | 'new-shortcut';
+  | 'new-shortcut'
+  | 'program-open'
+  | 'program-explore'
+  | 'program-copy'
+  | 'program-cut'
+  | 'program-delete'
+  | 'program-rename';
