@@ -15,5 +15,7 @@ export class OptionEventDirective {
     const name = this.optionName();
 
     if (!name) return;
+
+    this.contextMenuFacade.setOptionSelected(name);
   }
 }

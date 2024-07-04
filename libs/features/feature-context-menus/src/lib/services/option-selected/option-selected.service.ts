@@ -6,8 +6,6 @@ import { Subject } from 'rxjs';
 export class OptionSelectedService {
   private optionSelected$ = new Subject<TAvalilableOptions>();
 
-  constructor() {}
-
   setOptionSelected(option: TAvalilableOptions) {
     this.optionSelected$.next(option);
   }
