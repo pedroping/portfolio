@@ -4,10 +4,10 @@
   max-width: 300px;
   height: 100%;
   border: 5px solid var(--folder-border-01);
-
   border-top: none;
   border-bottom: none;
   border-left: none;
+  overflow-y: auto;
 
   .header {
     display: flex;
