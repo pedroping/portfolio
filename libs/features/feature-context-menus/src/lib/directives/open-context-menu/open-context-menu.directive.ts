@@ -84,14 +84,8 @@ export class OpenContextMenuDirective {
       y: boundarySizes.height - menuSizes.height,
     };
 
-    menuView.style.top =
-      (this.menuType() === 'default'
-        ? Math.min(positions.y, maxBounds.y)
-        : positions.y) + 'px';
-    menuView.style.left =
-      (this.menuType() === 'default'
-        ? Math.min(positions.x, maxBounds.x)
-        : positions.x) + 'px';
+    menuView.style.top = Math.min(positions.y, maxBounds.y) + 'px';
+    menuView.style.left = Math.min(positions.x, maxBounds.x) + 'px';
 
     menuView.style.zIndex = this.lastZIndexService.createNewZIndex();
 
