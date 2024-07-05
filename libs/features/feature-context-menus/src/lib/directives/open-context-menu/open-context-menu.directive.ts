@@ -23,11 +23,11 @@ import { ContextMenuFacade } from '../../facade/context-menu-facade.service';
   selector: '[openContextMenu]',
   standalone: true,
 })
-export class OpenContextMenuDirective<T> {
+export class OpenContextMenuDirective {
   menuType = input<AvailableContextMenus>('program', {
     alias: 'openContextMenu',
   });
-  data = input<T>();
+  id = input.required<number | string>();
   destroySubscription$ = new Subject<void>();
   hostView?: ViewRef;
 
@@ -35,7 +35,7 @@ export class OpenContextMenuDirective<T> {
     private readonly ngZone: NgZone,
     private readonly destroyRef: DestroyRef,
     private readonly lastZIndexService: LastZIndexService,
-    private readonly contextMenuFacade: ContextMenuFacade<T>,
+    private readonly contextMenuFacade: ContextMenuFacade<number | string>,
     private readonly workspaceReferenceFacade: WorkspaceReferenceFacade
   ) {}
 
@@ -59,11 +59,13 @@ export class OpenContextMenuDirective<T> {
     const component =
       this.workspaceReferenceFacade.createComponent(menuComponent);
 
-    const instance = component.componentRef.instance as DefaultMenu<T>;
+    const instance = component.componentRef.instance as DefaultMenu<
+      number | string
+    >;
     const menuView = component.componentRef.location
       .nativeElement as HTMLElement;
 
-    instance.data = this.data();
+    instance.data = this.id();
     this.hostView = component.componentRef.hostView;
 
     const positions = { x: event.pageX + MENU_GAP, y: event.pageY };

@@ -12,9 +12,9 @@ import { fromEvent } from 'rxjs';
   selector: '[iconDropEventsHandle]',
   standalone: true,
 })
-export class IconDropEventsHandleDirective<T> implements AfterViewInit {
+export class IconDropEventsHandleDirective implements AfterViewInit {
   config = input.required<IApp>();
-  data = input<T>();
+  id = input.required<string | number>();
 
   constructor(private readonly elementRef: ElementRef) {}
 
@@ -29,7 +29,7 @@ export class IconDropEventsHandleDirective<T> implements AfterViewInit {
       JSON.stringify({
         ...this.config(),
         parentTargetId: id,
-        data: this.data(),
+        id: this.id(),
       })
     );
     event.dataTransfer.effectAllowed = 'move';

@@ -2,8 +2,9 @@ export interface IApp {
   name: string;
   logo: string;
 }
-
-export interface ITransferData<T> extends IApp {
+export interface IDropEvent {
   parentTargetId: string;
-  data: T;
+  id: number | string;
 }
+
+export type ITransferData = IApp & IDropEvent;
