@@ -1,5 +1,8 @@
 import { AfterViewInit, Component, OnDestroy } from '@angular/core';
-import { AppIconComponent } from '@portifolio/features/feature-app-icon';
+import {
+  AppDropHandleDirective,
+  AppIconComponent,
+} from '@portifolio/features/feature-app-icon';
 import { OpenContextMenuDirective } from '@portifolio/features/feature-context-menus';
 import { FileExplorerComponent } from '@portifolio/features/feature-file-explorer';
 import {
@@ -20,6 +23,7 @@ import { IFolderData } from 'libs/features/feature-file-explorer/src/lib/models/
     OpenContextMenuDirective,
     InitialMenuCreatorDirective,
     WorkspaceReferenceDirective,
+    AppDropHandleDirective,
   ],
 })
 export class WorkspacePageComponent implements OnDestroy, AfterViewInit {

@@ -6,7 +6,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { IApp, ITransferData } from '@portifolio/utils/util-models';
+import { ITransferData } from '@portifolio/utils/util-models';
 import { fromEvent } from 'rxjs';
 import { AppIconComponent } from '../../ui/app-icon.component';
 
@@ -14,7 +14,7 @@ import { AppIconComponent } from '../../ui/app-icon.component';
   selector: '[appDropHandle]',
   standalone: true,
 })
-export class AppDropHandleDirective implements OnInit {
+export class AppDropHandleDirective<T> implements OnInit {
   constructor(
     private readonly vcr: ViewContainerRef,
     private readonly destroyRef: DestroyRef,
@@ -36,13 +36,13 @@ export class AppDropHandleDirective implements OnInit {
 
   onDrop(event: DragEvent) {
     event.stopPropagation();
-    const data = JSON.parse(
+    const dropContent = JSON.parse(
       event.dataTransfer?.getData('text') ?? ''
-    ) as ITransferData;
+    ) as ITransferData<T>;
 
     const actualId = this.elementRef.nativeElement.parentElement?.id;
 
-    if (actualId != data.parentTargetId) this.createFolder(data);
+    if (actualId != dropContent.parentTargetId) this.createFolder(dropContent);
   }
 
   onOver(event: DragEvent) {
@@ -50,8 +50,9 @@ export class AppDropHandleDirective implements OnInit {
     if (event.dataTransfer) event.dataTransfer.dropEffect = 'move';
   }
 
-  createFolder(data: IApp) {
+  createFolder(dropContent: ITransferData<T>) {
     const compoent = this.vcr.createComponent(AppIconComponent);
-    compoent.setInput('config', data);
+    compoent.setInput('config', dropContent);
+    compoent.setInput('data', dropContent.data);
   }
 }

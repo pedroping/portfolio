@@ -12,8 +12,9 @@ import { fromEvent } from 'rxjs';
   selector: '[iconDropEventsHandle]',
   standalone: true,
 })
-export class IconDropEventsHandleDirective implements AfterViewInit {
+export class IconDropEventsHandleDirective<T> implements AfterViewInit {
   config = input.required<IApp>();
+  data = input<T>();
 
   constructor(private readonly elementRef: ElementRef) {}
 
@@ -25,7 +26,11 @@ export class IconDropEventsHandleDirective implements AfterViewInit {
 
     event.dataTransfer.setData(
       'text',
-      JSON.stringify({ ...this.config(), parentTargetId: id })
+      JSON.stringify({
+        ...this.config(),
+        parentTargetId: id,
+        data: this.data(),
+      })
     );
     event.dataTransfer.effectAllowed = 'move';
   }
@@ -37,7 +42,7 @@ export class IconDropEventsHandleDirective implements AfterViewInit {
 
     fromEvent<DragEvent>(parentElement, 'dragover').subscribe((event) => {
       event.preventDefault();
-      
+
       if (!event?.dataTransfer) return;
 
       event.dataTransfer.dropEffect = 'move';

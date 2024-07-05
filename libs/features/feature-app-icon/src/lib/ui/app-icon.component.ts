@@ -9,8 +9,11 @@ import { OpenContextMenuDirective } from '@portifolio/features/feature-context-m
   styleUrls: ['./app-icon.component.scss'],
   standalone: true,
   hostDirectives: [
-    { directive: IconDropEventsHandleDirective, inputs: ['config'] },
-    { directive: OpenContextMenuDirective, inputs: ['openContextMenu'] },
+    { directive: IconDropEventsHandleDirective, inputs: ['config', 'data'] },
+    {
+      directive: OpenContextMenuDirective,
+      inputs: ['openContextMenu', 'data'],
+    },
   ],
   host: {
     id: 'app-icon',

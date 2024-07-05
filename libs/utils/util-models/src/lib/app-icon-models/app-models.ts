@@ -3,6 +3,7 @@ export interface IApp {
   logo: string;
 }
 
-export interface ITransferData extends IApp {
+export interface ITransferData<T> extends IApp {
   parentTargetId: string;
+  data: T;
 }
