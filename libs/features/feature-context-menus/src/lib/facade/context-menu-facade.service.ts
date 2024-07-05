@@ -22,6 +22,10 @@ export class ContextMenuFacade<T> {
     this.optionSelectedService.setOptionSelected(option, data);
   }
 
+  getEventByOption(option: TAvalilableOptions) {
+    return this.optionSelectedService.getEventByOption(option);
+  }
+
   get clearDefault$$() {
     return this.contextMenuStateService.clearDefault$$;
   }

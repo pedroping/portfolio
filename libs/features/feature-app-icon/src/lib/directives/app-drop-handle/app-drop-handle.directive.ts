@@ -29,18 +29,20 @@ export class AppDropHandleDirective implements OnInit {
 
     fromEvent<DragEvent>(parentElement, 'drop')
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(this.onDrop.bind(this));
+      .subscribe((event) => this.onDrop(event));
 
     fromEvent<DragEvent>(parentElement, 'dragover')
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(this.onOver.bind(this));
+      .subscribe((event) => this.onOver(event));
   }
 
   onDrop(event: DragEvent) {
     event.stopPropagation();
-    const dropContent = JSON.parse(
-      event.dataTransfer?.getData('text') ?? ''
-    ) as ITransferData;
+    const eventData = event.dataTransfer?.getData('text');
+
+    if (!eventData) return;
+
+    const dropContent = JSON.parse(eventData) as ITransferData;
 
     const actualId = this.elementRef.nativeElement.parentElement?.id;
 
