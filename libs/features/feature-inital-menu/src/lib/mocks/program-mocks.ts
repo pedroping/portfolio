@@ -1,3 +1,4 @@
+import { FileExplorerComponent } from '@portifolio/features/feature-file-explorer';
 import { CurriculumPageComponent } from '@portifolio/ui/ui-curriculum-page';
 import { UiNewTrelloPageComponent } from '@portifolio/ui/ui-new-trello-page';
 import { WebWorkersPageComponent } from '@portifolio/ui/ui-web-workers-page';
@@ -25,11 +26,13 @@ export const PROGRAM_1_CONFIG: IPageMock = {
 };
 
 export const PROGRAM_2_CONFIG: IPageMock = {
+  data: { folderId: 0 },
   config: {
-    name: 'Default Page',
+    name: 'File Explorer',
     customX: 500,
     customY: 500,
-    baseSizes: { width: 300, height: 200 },
+    baseSizes: { width: 600, height: 500, minHeight: 500, minWidth: 600 },
+    pageContent: FileExplorerComponent,
     opened: true,
     isFullScreen: false,
   },

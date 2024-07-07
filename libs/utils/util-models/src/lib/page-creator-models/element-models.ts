@@ -43,8 +43,9 @@ export interface IElementReference {
 
 export type IPageConfig = IInitialConfig & IElementReference;
 
-export type IPageMock = {
+export type IPageMock<T = unknown> = {
   config: IInitialConfig;
+  data?: T;
 };
 
 export interface IPageComponent {
