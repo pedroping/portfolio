@@ -3,3 +3,4 @@ export * from './lib/components/context-menu-program/context-menu-program.compon
 export * from './lib/directives/open-context-menu/open-context-menu.directive';
 export * from './lib/services/context-menu-state/context-menu-state.service';
 export * from './lib/services/option-selected/option-selected.service';
+export * from './lib/facade/context-menu-facade.service';

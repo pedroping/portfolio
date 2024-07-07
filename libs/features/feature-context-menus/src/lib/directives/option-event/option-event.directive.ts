@@ -28,8 +28,9 @@ export class OptionEventDirective<T> implements AfterViewInit {
 
     merge(...optionsEvents)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((event) =>
-        this.contextMenuFacade.setOptionSelected(event, this.data())
-      );
+      .subscribe((event) => {
+        this.contextMenuFacade.setOptionSelected(event, this.data());
+        this.contextMenuFacade.setClearDefault();
+      });
   }
 }

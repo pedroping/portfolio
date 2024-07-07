@@ -1,0 +1,11 @@
+@if ( showRenameInput$ | async) {
+<input
+  type="text"
+  #renameInput
+  draggable="false"
+  [formControl]="renameControl"
+/>
+
+} @else {
+<h4>{{ title() }}</h4>
+}
