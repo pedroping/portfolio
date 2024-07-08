@@ -10,7 +10,7 @@ import {
   MenuEventsFacade,
 } from '@portifolio/features/feature-inital-menu';
 import { ElementsFacade } from '@portifolio/features/feature-page-creator';
-import { IApp, IFolderData } from '@portifolio/utils/util-models';
+import { IBasicApp, IFolderData } from '@portifolio/utils/util-models';
 import { WorkspaceReferenceDirective } from '@portifolio/utils/util-workspace-reference';
 
 @Component({
@@ -32,7 +32,7 @@ export class WorkspacePageComponent implements OnDestroy, AfterViewInit {
     private readonly ElementsFacade: ElementsFacade<IFolderData>
   ) {}
 
-  appConfig: IApp = { name: 'Uma pagina louca de teste', logo: '' };
+  appConfig: IBasicApp = { name: 'Uma pagina louca de teste', logo: '' };
 
   ngAfterViewInit() {
     this.ElementsFacade.createElement(

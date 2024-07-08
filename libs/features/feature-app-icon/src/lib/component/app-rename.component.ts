@@ -9,7 +9,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { IApp, IOptionEvent } from '@portifolio/utils/util-models';
+import { IBasicApp, IOptionEvent } from '@portifolio/utils/util-models';
 import { fromEvent, Observable, Subject, take, takeUntil } from 'rxjs';
 
 @Component({
@@ -21,12 +21,12 @@ import { fromEvent, Observable, Subject, take, takeUntil } from 'rxjs';
 })
 export class AppRenameComponent implements OnInit {
   title = signal<string>('');
-  config = input.required<IApp>();
+  config = input.required<IBasicApp>();
   input = viewChild<ElementRef<HTMLElement>>('renameInput');
   renameEvent$ = input.required<Observable<IOptionEvent<string | number>>>();
 
   showRenameInput$ = new Subject<boolean>();
-  renameControl = new FormControl<string>(''); 
+  renameControl = new FormControl<string>('');
 
   constructor(private readonly elementRef: ElementRef<HTMLElement>) {
     effect(() => {

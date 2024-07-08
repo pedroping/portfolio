@@ -5,7 +5,7 @@ import {
   HostListener,
   input,
 } from '@angular/core';
-import { IApp } from '@portifolio/utils/util-models';
+import { IBasicApp } from '@portifolio/utils/util-models';
 import { fromEvent } from 'rxjs';
 
 @Directive({
@@ -13,7 +13,7 @@ import { fromEvent } from 'rxjs';
   standalone: true,
 })
 export class IconDropEventsHandleDirective implements AfterViewInit {
-  config = input.required<IApp>();
+  config = input.required<IBasicApp>();
   id = input.required<string | number>();
 
   constructor(private readonly elementRef: ElementRef) {}

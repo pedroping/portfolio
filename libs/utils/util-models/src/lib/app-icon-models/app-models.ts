@@ -1,4 +1,4 @@
-export interface IApp {
+export interface IBasicApp {
   name: string;
   logo: string;
 }
@@ -7,4 +7,4 @@ export interface IDropEvent {
   id: number | string;
 }
 
-export type ITransferData = IApp & IDropEvent;
+export type IApp = IBasicApp & IDropEvent;

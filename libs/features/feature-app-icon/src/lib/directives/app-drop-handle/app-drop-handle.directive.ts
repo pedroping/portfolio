@@ -6,7 +6,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ITransferData } from '@portifolio/utils/util-models';
+import { IApp } from '@portifolio/utils/util-models';
 import { fromEvent } from 'rxjs';
 import { AppIconComponent } from '../../ui/app-icon.component';
 import { DropEventsService } from '../../services/drop-events.service';
@@ -42,7 +42,7 @@ export class AppDropHandleDirective implements OnInit {
 
     if (!eventData) return;
 
-    const dropContent = JSON.parse(eventData) as ITransferData;
+    const dropContent = JSON.parse(eventData) as IApp;
 
     const actualId = this.elementRef.nativeElement.parentElement?.id;
 
@@ -60,7 +60,7 @@ export class AppDropHandleDirective implements OnInit {
     if (event.dataTransfer) event.dataTransfer.dropEffect = 'move';
   }
 
-  createFolder(dropContent: ITransferData) {
+  createFolder(dropContent: IApp) {
     const compoent = this.vcr.createComponent(AppIconComponent);
     compoent.setInput('config', dropContent);
     compoent.setInput('id', dropContent.id);
