@@ -1,9 +1,9 @@
 <section id="workspace" openContextMenu="default">
   <workspace-reference />
   <initial-menu-creator />
-  <div appDropHandle></div>
+  <div [appDropHandle]="0"></div>
 
-  @for (file of appsConfig; let index = $index; track index) {
-  <app-icon [config]="file" [id]="index" />
+  @for (file of files$ | async; let index = $index; track file.name) {
+  <app-icon [config]="file" [id]="file.id" />
   }
 </section>

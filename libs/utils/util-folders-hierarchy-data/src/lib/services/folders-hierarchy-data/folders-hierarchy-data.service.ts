@@ -7,22 +7,6 @@ export class FoldersHierarchyDataService {
   lastId = 0;
   private allFolders$ = new BehaviorSubject<IFolder[]>([]);
 
-  findFolder(id: number, folders = this.allFolders): IFolder | undefined {
-    let hasFolder: IFolder | undefined = undefined;
-
-    for (let i = 0; i < folders.length; i++) {
-      if (folders[i].id === id) hasFolder = folders[i];
-    }
-
-    if (hasFolder) return hasFolder;
-
-    for (let i = 0; i < folders.length; i++) {
-      if (folders[i].children) return this.findFolder(id, folders[i].children);
-    }
-
-    return hasFolder;
-  }
-
   createNewFolder(title: string, parentId?: number) {
     const newFolder: IFolder = {
       title,
@@ -44,7 +28,67 @@ export class FoldersHierarchyDataService {
     return newFolder;
   }
 
-  renameFolder(id: number, newTitle: string) {
+  findFolder(
+    id: number | string,
+    folders = this.allFolders
+  ): IFolder | undefined {
+    let hasFolder: IFolder | undefined = undefined;
+
+    for (let i = 0; i < folders.length; i++) {
+      if (folders[i].id === id) hasFolder = folders[i];
+    }
+
+    if (hasFolder) return hasFolder;
+
+    for (let i = 0; i < folders.length; i++) {
+      if (folders[i].children) return this.findFolder(id, folders[i].children);
+    }
+
+    return hasFolder;
+  }
+
+  removeFolder(id: number, folders = this.allFolders): void {
+    for (let i = 0; i < folders.length; i++) {
+      if (folders[i].id === id) {
+        const index = folders.findIndex((folder) => folder.id == id);
+        folders.splice(index, 1);
+        return;
+      }
+    }
+
+    for (let i = 0; i < folders.length; i++) {
+      if (folders[i].children)
+        return this.removeFolder(id, folders[i].children);
+    }
+
+    return;
+  }
+
+  moveFolder(id: number, newFolderPlacement: number) {
+    const folder = this.findFolder(id);
+
+    if (!folder) return;
+
+    this.removeFolder(id);
+
+    if (newFolderPlacement == 0) {
+      this.allFolders.push(folder);
+      this.allFolders$.next(this.allFolders);
+      return;
+    }
+
+    const newFolderPlace = this.findFolder(newFolderPlacement);
+
+    if (!newFolderPlace) return;
+
+    if (!newFolderPlace.children) newFolderPlace.children = [];
+
+    newFolderPlace.children.push(folder);
+
+    this.allFolders$.next(this.allFolders);
+  }
+
+  renameFolder(id: number | string, newTitle: string) {
     const folder = this.findFolder(id);
 
     if (!folder) return;

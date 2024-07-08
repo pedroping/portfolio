@@ -5,7 +5,7 @@ import {
   HostListener,
   input,
 } from '@angular/core';
-import { IBasicApp } from '@portifolio/utils/util-models';
+import { IApp } from '@portifolio/utils/util-models';
 import { fromEvent } from 'rxjs';
 
 @Directive({
@@ -13,7 +13,7 @@ import { fromEvent } from 'rxjs';
   standalone: true,
 })
 export class IconDropEventsHandleDirective implements AfterViewInit {
-  config = input.required<IBasicApp>();
+  config = input.required<IApp>();
   id = input.required<string | number>();
 
   constructor(private readonly elementRef: ElementRef) {}
@@ -29,7 +29,6 @@ export class IconDropEventsHandleDirective implements AfterViewInit {
       JSON.stringify({
         ...this.config(),
         parentTargetId: id,
-        id: this.id(),
       })
     );
     event.dataTransfer.effectAllowed = 'move';

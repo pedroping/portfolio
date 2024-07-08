@@ -4,12 +4,13 @@ import {
   Directive,
   ElementRef,
   contentChild,
+  effect,
   input,
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BuildAnimation } from '@portifolio/utils/util-animations';
-import { fromEvent } from 'rxjs';
+import { Subject, fromEvent, takeUntil } from 'rxjs';
 
 @Directive({
   selector: '[showHideFolder]',
@@ -23,16 +24,31 @@ export class ShowHideFolderDirective implements AfterViewInit {
   folderContentSelected =
     contentChild<ElementRef<HTMLElement>>('folderContent');
 
+  destroySubscribers$ = new Subject<void>();
+
   constructor(
     private readonly destroyRef: DestroyRef,
     private readonly buildAnimation: BuildAnimation
-  ) {}
+  ) {
+    effect(() => {
+      this.destroySubscribers$.next();
+      this.createEvents();
+    });
+  }
 
   ngAfterViewInit() {
+    this.destroySubscribers$.next();
+    this.createEvents();
+  }
+
+  createEvents() {
     if (!this.toggle || !this.content) return;
 
     fromEvent(this.toggle, 'click')
-      .pipe(takeUntilDestroyed(this.destroyRef))
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        takeUntil(this.destroySubscribers$)
+      )
       .subscribe(() => {
         this.state.update((val) => !val);
 

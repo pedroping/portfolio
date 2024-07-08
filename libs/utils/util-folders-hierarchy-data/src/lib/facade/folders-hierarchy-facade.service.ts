@@ -18,12 +18,24 @@ export class FoldersHierarchyFacade {
     return this.foldersHierarchyDataService.createNewFolder(title, parentId);
   }
 
-  renameFolder(id: number, newTitle: string) {
+  renameFolder(id: number | string, newTitle: string) {
     this.foldersHierarchyDataService.renameFolder(id, newTitle);
   }
 
-  setNewFile(file: Omit<IApp, 'id' | 'parentTargetId'>) {
-    this.filesDataService.setNewFile(file);
+  renameFile(id: number, newTitle: string) {
+    this.filesDataService.renameFile(id, newTitle);
+  }
+
+  setNewFile(file: Omit<IApp, 'id' | 'parentTargetId'>): IApp {
+    return this.filesDataService.setNewFile(file);
+  }
+
+  changeFolderId(id: number, folderId: number) {
+    this.filesDataService.changeFolderId(id, folderId);
+  }
+
+  moveFolder(id: number, newFolderPlacement: number) {
+    this.foldersHierarchyDataService.moveFolder(id, newFolderPlacement);
   }
 
   getFileByFolder(folderId: number) {

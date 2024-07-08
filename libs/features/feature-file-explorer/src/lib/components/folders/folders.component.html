@@ -37,10 +37,10 @@
   <li
     showHideFolder
     [title]="program.title"
-    [class.no-children]="!program.children"
+    [class.no-children]="!program.children || program.children.length <= 0"
   >
     <div class="folders">
-      @if(program.children) {
+      @if(program.children && program.children.length > 0) {
       <div class="children-toggle" #folderToggle>
         <i class="fa-solid fa-plus"></i>
       </div>
@@ -54,7 +54,7 @@
       </div>
     </div>
 
-    @if(program.children) {
+    @if(program.children && program.children.length > 0) {
     <div class="folder-content" #folderContent>
       <ul>
         @for (childProgram of program.children; track $index) {

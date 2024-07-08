@@ -1,5 +1,5 @@
 import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
 import { FolderSectionActionDirective } from '../../directives/folder-section-action/folder-section-action.directive';
 import { ShowHideFolderDirective } from '../../directives/show-hide-folder/show-hide-folder.directive';

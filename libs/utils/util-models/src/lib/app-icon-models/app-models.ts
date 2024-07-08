@@ -4,10 +4,11 @@ export interface IBasicApp {
   logo: string;
   type: IFoldersType;
   folderId: number;
+  isFolderId?: number;
 }
 export interface IDropEvent {
   parentTargetId?: string;
-  id: number | string;
+  id: number;
 }
 
 export type IApp = IBasicApp & IDropEvent;

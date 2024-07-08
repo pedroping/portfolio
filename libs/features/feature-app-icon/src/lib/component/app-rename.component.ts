@@ -10,8 +10,16 @@ import {
 } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
-import { IBasicApp, IOptionEvent } from '@portifolio/utils/util-models';
-import { fromEvent, Observable, Subject, take, takeUntil } from 'rxjs';
+import { IApp, IOptionEvent } from '@portifolio/utils/util-models';
+import {
+  filter,
+  fromEvent,
+  merge,
+  Observable,
+  Subject,
+  take,
+  takeUntil,
+} from 'rxjs';
 
 @Component({
   selector: 'app-rename',
@@ -22,11 +30,11 @@ import { fromEvent, Observable, Subject, take, takeUntil } from 'rxjs';
 })
 export class AppRenameComponent implements OnInit {
   title = signal<string>('');
-  config = input.required<IBasicApp>();
-  fileId = input.required<number | undefined>();
+  config = input.required<IApp>();
   input = viewChild<ElementRef<HTMLElement>>('renameInput');
   renameEvent$ = input.required<Observable<IOptionEvent<string | number>>>();
 
+  destroyEvents$ = new Subject<void>();
   showRenameInput$ = new Subject<boolean>();
   renameControl = new FormControl<string>('');
 
@@ -37,6 +45,7 @@ export class AppRenameComponent implements OnInit {
     effect(() => {
       const nativeElement = this.input()?.nativeElement;
 
+      this.destroyEvents$.next();
       if (nativeElement) this.setInputsEvents(nativeElement);
     });
   }
@@ -54,20 +63,23 @@ export class AppRenameComponent implements OnInit {
     input.focus();
     this.renameControl.setValue(this.title());
 
-    fromEvent(input, 'focusout')
-      .pipe(take(1))
+    merge(
+      fromEvent(input, 'focusout'),
+      fromEvent<KeyboardEvent>(input, 'keydown').pipe(
+        filter((ev) => ev.key === 'Enter')
+      )
+    )
+      .pipe(take(1), takeUntil(this.destroyEvents$))
       .subscribe(() => this.setEvent());
 
-    fromEvent(this.elementRef.nativeElement, 'dragstart')
-      .pipe(take(1))
+    merge(
+      fromEvent(this.elementRef.nativeElement, 'dragstart'),
+      fromEvent<KeyboardEvent>(input, 'keydown').pipe(
+        filter((ev) => ev.key === 'Escape')
+      )
+    )
+      .pipe(take(1), takeUntil(this.destroyEvents$))
       .subscribe(() => this.cancelEvent());
-
-    fromEvent<KeyboardEvent>(input, 'keydown')
-      .pipe(takeUntil(this.showRenameInput$))
-      .subscribe((event) => {
-        if (event.key == 'Enter') this.setEvent();
-        if (event.key == 'Escape') this.cancelEvent();
-      });
   }
 
   cancelEvent() {
@@ -76,13 +88,17 @@ export class AppRenameComponent implements OnInit {
   }
 
   setEvent() {
-    const id = this.fileId();
-    const inputValue = this.renameControl.value;
-    if (inputValue) this.title.set(inputValue);
-    this.config().name = this.title();
+    this.destroyEvents$.next();
 
-    if (id || id === 0)
-      this.foldersHierarchyFacade.renameFolder(id, this.title());
+    const isFolderId = this.config().isFolderId;
+    const inputValue = this.renameControl.value;
+
+    if (inputValue) this.title.set(inputValue);
+
+    if (isFolderId || isFolderId === 0)
+      this.foldersHierarchyFacade.renameFolder(isFolderId, this.title());
+
+    this.foldersHierarchyFacade.renameFile(this.config().id, this.title());
 
     this.renameControl.reset();
     this.showRenameInput$.next(false);

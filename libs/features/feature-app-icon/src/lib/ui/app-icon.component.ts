@@ -3,7 +3,7 @@ import {
   ContextMenuFacade,
   OpenContextMenuDirective,
 } from '@portifolio/features/feature-context-menus';
-import { IBasicApp, IOptionEvent } from '@portifolio/utils/util-models';
+import { IApp, IOptionEvent } from '@portifolio/utils/util-models';
 import { Observable, filter, merge, take } from 'rxjs';
 import { AppRenameComponent } from '../component/app-rename.component';
 import { IconDropEventsHandleDirective } from '../directives/icon-drop-events-handle/icon-drop-events-handle.directive';
@@ -29,7 +29,7 @@ import { DropEventsService } from '../services/drop-events.service';
   imports: [AppRenameComponent],
 })
 export class AppIconComponent implements OnInit {
-  config = input.required<IBasicApp>();
+  config = input.required<IApp>();
   id = input.required<string | number>();
 
   title = computed(() => this.config().name);
@@ -39,7 +39,6 @@ export class AppIconComponent implements OnInit {
   renameEvent$: Observable<IOptionEvent<string | number>> = new Observable<
     IOptionEvent<string | number>
   >();
-  fileId?: number;
 
   constructor(
     private readonly elementRef: ElementRef<HTMLElement>,

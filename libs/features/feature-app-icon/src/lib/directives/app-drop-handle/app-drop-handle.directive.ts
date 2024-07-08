@@ -4,23 +4,28 @@ import {
   ElementRef,
   OnInit,
   ViewContainerRef,
+  input,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
 import { IApp } from '@portifolio/utils/util-models';
 import { fromEvent } from 'rxjs';
-import { AppIconComponent } from '../../ui/app-icon.component';
 import { DropEventsService } from '../../services/drop-events.service';
+import { AppIconComponent } from '../../ui/app-icon.component';
 
 @Directive({
   selector: '[appDropHandle]',
   standalone: true,
 })
 export class AppDropHandleDirective implements OnInit {
+  folderId = input.required<number>({ alias: 'appDropHandle' });
+
   constructor(
     private readonly vcr: ViewContainerRef,
     private readonly destroyRef: DestroyRef,
     private readonly elementRef: ElementRef<HTMLElement>,
-    private readonly dropEventsService: DropEventsService
+    private readonly dropEventsService: DropEventsService,
+    private readonly foldersHierarchyFacade: FoldersHierarchyFacade
   ) {}
 
   ngOnInit(): void {
@@ -46,13 +51,25 @@ export class AppDropHandleDirective implements OnInit {
 
     const actualId = this.elementRef.nativeElement.parentElement?.id;
 
-    if (actualId == dropContent.parentTargetId) return;
+    if (
+      actualId == dropContent.parentTargetId ||
+      dropContent.folderId == this.folderId()
+    )
+      return;
+
+    this.foldersHierarchyFacade.changeFolderId(dropContent.id, this.folderId());
+
+    if (dropContent.isFolderId || dropContent.isFolderId == 0) {
+      this.foldersHierarchyFacade.moveFolder(
+        dropContent.isFolderId,
+        this.folderId()
+      );
+    }
 
     this.dropEventsService.setDropEvent({
       id: dropContent.id,
       parentTargetId: dropContent.parentTargetId,
     });
-    this.createFolder(dropContent);
   }
 
   onOver(event: DragEvent) {

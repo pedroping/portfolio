@@ -1,4 +1,12 @@
-import { AfterViewInit, Component, OnDestroy } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import {
   AppDropHandleDirective,
   AppIconComponent,
@@ -13,6 +21,7 @@ import { ElementsFacade } from '@portifolio/features/feature-page-creator';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
 import { IBasicApp, IFolderData } from '@portifolio/utils/util-models';
 import { WorkspaceReferenceDirective } from '@portifolio/utils/util-workspace-reference';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'workspace-page',
@@ -20,15 +29,20 @@ import { WorkspaceReferenceDirective } from '@portifolio/utils/util-workspace-re
   styleUrls: ['./workspace-page.component.scss'],
   standalone: true,
   imports: [
+    AsyncPipe,
     AppIconComponent,
     OpenContextMenuDirective,
     InitialMenuCreatorDirective,
     WorkspaceReferenceDirective,
     AppDropHandleDirective,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WorkspacePageComponent implements OnDestroy, AfterViewInit {
+export class WorkspacePageComponent
+  implements OnDestroy, OnInit, AfterViewInit
+{
   constructor(
+    private readonly cdr: ChangeDetectorRef,
     private readonly menuEventsFacade: MenuEventsFacade,
     private readonly ElementsFacade: ElementsFacade<IFolderData>,
     private readonly foldersHierarchyFacade: FoldersHierarchyFacade
@@ -49,13 +63,22 @@ export class WorkspacePageComponent implements OnDestroy, AfterViewInit {
     },
   ];
 
-  ngAfterViewInit() {
-    this.appsConfig.forEach((app) => {
-      if (app.type == 'folder')
-        this.foldersHierarchyFacade.createFolder(app.name);
-      this.foldersHierarchyFacade.setNewFile(app);
-    });
+  files$ = this.foldersHierarchyFacade
+    .getFileByFolder(0)
+    .pipe(tap(() => this.cdr.detectChanges()));
 
+  ngOnInit(): void {
+    this.appsConfig.forEach((app) => {
+      const file = this.foldersHierarchyFacade.setNewFile(app);
+      if (app.type == 'folder') {
+        const folder = this.foldersHierarchyFacade.createFolder(app.name);
+
+        file.isFolderId = folder?.id;
+      }
+    });
+  }
+
+  ngAfterViewInit() {
     this.ElementsFacade.createElement(
       { folderId: 0 },
       {
@@ -68,6 +91,24 @@ export class WorkspacePageComponent implements OnDestroy, AfterViewInit {
         isFullScreen: false,
       }
     );
+
+    const id = this.foldersHierarchyFacade.createFolder(
+      'Explorador de arquivos 2'
+    )?.id;
+
+    if (id)
+      this.ElementsFacade.createElement(
+        { folderId: id },
+        {
+          name: 'Explorador de arquivos 2',
+          customX: 200,
+          customY: 200,
+          baseSizes: { width: 600, height: 500, minHeight: 500, minWidth: 600 },
+          pageContent: FileExplorerComponent,
+          opened: true,
+          isFullScreen: false,
+        }
+      );
   }
 
   ngOnDestroy() {
