@@ -32,7 +32,11 @@ export class WorkspacePageComponent implements OnDestroy, AfterViewInit {
     private readonly ElementsFacade: ElementsFacade<IFolderData>
   ) {}
 
-  appConfig: IBasicApp = { name: 'Uma pagina louca de teste', logo: '' };
+  appConfig: IBasicApp = {
+    name: 'Uma pagina louca de teste',
+    logo: '',
+    type: 'folder',
+  };
 
   ngAfterViewInit() {
     this.ElementsFacade.createElement(

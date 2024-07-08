@@ -20,8 +20,6 @@ export class FoldersComponent {
   allFolders$$ = this.foldersHierarchyFacade.allFolders$$;
 
   constructor(private readonly foldersHierarchyFacade: FoldersHierarchyFacade) {
-    this.foldersHierarchyFacade.createFolder('Teste');
-
     console.log(this.foldersHierarchyFacade.allFolders);
   }
 }

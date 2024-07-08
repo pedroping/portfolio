@@ -31,19 +31,27 @@ export class FoldersHierarchyDataService {
 
     if (!parentId && parentId != 0) {
       this.allFolders.push(newFolder);
-      return;
+      return newFolder;
     }
 
     const folder = this.findFolder(parentId);
 
+    if (!folder) return undefined;
+
+    if (!folder.children) folder.children = [];
+    folder.children.push(newFolder);
+
+    return newFolder;
+  }
+
+  renameFolder(id: number, newTitle: string) {
+    const folder = this.findFolder(id);
+
     if (!folder) return;
 
-    if (!folder.children) {
-      folder.children = [newFolder];
-      return;
-    }
+    folder.title = newTitle;
 
-    folder.children.push(newFolder);
+    this.allFolders$.next(this.allFolders);
   }
 
   get newId() {

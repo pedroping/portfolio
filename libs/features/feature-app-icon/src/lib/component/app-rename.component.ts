@@ -9,6 +9,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
 import { IBasicApp, IOptionEvent } from '@portifolio/utils/util-models';
 import { fromEvent, Observable, Subject, take, takeUntil } from 'rxjs';
 
@@ -22,13 +23,17 @@ import { fromEvent, Observable, Subject, take, takeUntil } from 'rxjs';
 export class AppRenameComponent implements OnInit {
   title = signal<string>('');
   config = input.required<IBasicApp>();
+  fileId = input.required<number | undefined>();
   input = viewChild<ElementRef<HTMLElement>>('renameInput');
   renameEvent$ = input.required<Observable<IOptionEvent<string | number>>>();
 
   showRenameInput$ = new Subject<boolean>();
   renameControl = new FormControl<string>('');
 
-  constructor(private readonly elementRef: ElementRef<HTMLElement>) {
+  constructor(
+    private readonly elementRef: ElementRef<HTMLElement>,
+    private readonly foldersHierarchyFacade: FoldersHierarchyFacade
+  ) {
     effect(() => {
       const nativeElement = this.input()?.nativeElement;
 
@@ -71,9 +76,14 @@ export class AppRenameComponent implements OnInit {
   }
 
   setEvent() {
+    const id = this.fileId();
     const inputValue = this.renameControl.value;
     if (inputValue) this.title.set(inputValue);
     this.config().name = this.title();
+
+    if (id || id === 0)
+      this.foldersHierarchyFacade.renameFolder(id, this.title());
+
     this.renameControl.reset();
     this.showRenameInput$.next(false);
   }

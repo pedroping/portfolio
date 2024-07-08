@@ -12,7 +12,11 @@ export class FoldersHierarchyFacade {
   }
 
   createFolder(title: string, parentId?: number) {
-    this.foldersHierarchyDataService.createNewFolder(title, parentId);
+    return this.foldersHierarchyDataService.createNewFolder(title, parentId);
+  }
+
+  renameFolder(id: number, newTitle: string) {
+    this.foldersHierarchyDataService.renameFolder(id, newTitle);
   }
 
   get allFolders$$() {
