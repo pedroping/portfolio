@@ -9,13 +9,20 @@ import { Subject, filter } from 'rxjs';
 export class OptionSelectedService<T> {
   private optionSelected$ = new Subject<IOptionEvent<T>>();
 
-  setOptionSelected(option: TAvalilableOptions, data?: T) {
-    this.optionSelected$.next({ option, data });
+  setOptionSelected(
+    option: TAvalilableOptions,
+    parentId: string | number,
+    data?: T
+  ) {
+    this.optionSelected$.next({ option, data, parentId });
   }
 
-  getEventByOption(option: TAvalilableOptions) {
+  getEventByOption(option: TAvalilableOptions, parentId?: string | number) {
     return this.optionSelected$$.pipe(
-      filter((event) => event.option === option)
+      filter(
+        (event) =>
+          event.option === option && !!parentId && event.parentId == parentId
+      )
     );
   }
 

@@ -15,6 +15,7 @@ import { OptionDirective } from '../option/option.directive';
   standalone: true,
 })
 export class OptionEventDirective<T> implements AfterViewInit {
+  parentId = input.required<string | number>();
   data = input<T | undefined>(undefined, { alias: 'optionEvent' });
   options = contentChildren(OptionDirective);
 
@@ -29,7 +30,11 @@ export class OptionEventDirective<T> implements AfterViewInit {
     merge(...optionsEvents)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((event) => {
-        this.contextMenuFacade.setOptionSelected(event, this.data());
+        this.contextMenuFacade.setOptionSelected(
+          event,
+          this.parentId(),
+          this.data()
+        );
         this.contextMenuFacade.setClearDefault();
       });
   }

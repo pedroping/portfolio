@@ -18,12 +18,16 @@ export class ContextMenuFacade<T> {
     this.contextMenuStateService.setClearDefault();
   }
 
-  setOptionSelected(option: TAvalilableOptions, data?: T) {
-    this.optionSelectedService.setOptionSelected(option, data);
+  setOptionSelected(
+    option: TAvalilableOptions,
+    parentId: string | number,
+    data?: T
+  ) {
+    this.optionSelectedService.setOptionSelected(option, parentId, data);
   }
 
-  getEventByOption(option: TAvalilableOptions) {
-    return this.optionSelectedService.getEventByOption(option);
+  getEventByOption(option: TAvalilableOptions, parentId?: string | number) {
+    return this.optionSelectedService.getEventByOption(option, parentId);
   }
 
   get clearDefault$$() {

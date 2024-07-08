@@ -12,4 +12,5 @@ import { OptionDirective } from '../../directives/option/option.directive';
 })
 export class ContextMenuProgramComponent<T> implements DefaultMenu<T> {
   data?: T;
+  parentId: string | number = '';
 }

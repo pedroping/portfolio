@@ -3,7 +3,7 @@
   <initial-menu-creator />
   <div appDropHandle></div>
 
-  @for (file of appsConfig; track $index) {
-  <app-icon [config]="file" [id]="0" />
+  @for (file of appsConfig; let index = $index; track index) {
+  <app-icon [config]="file" [id]="index" />
   }
 </section>

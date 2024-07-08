@@ -22,5 +22,6 @@ export type TAvalilableOptions =
 
 export interface IOptionEvent<T> {
   option: TAvalilableOptions;
+  parentId: string | number;
   data?: T;
 }

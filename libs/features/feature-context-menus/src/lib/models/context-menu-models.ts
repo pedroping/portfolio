@@ -12,4 +12,5 @@ export interface IPositionProperties {
 
 export interface DefaultMenu<T> {
   data?: T;
+  parentId: number | string;
 }

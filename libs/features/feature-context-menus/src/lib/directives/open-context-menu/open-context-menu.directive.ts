@@ -1,6 +1,7 @@
 import {
   DestroyRef,
   Directive,
+  ElementRef,
   HostListener,
   NgZone,
   ViewRef,
@@ -34,9 +35,10 @@ export class OpenContextMenuDirective {
   constructor(
     private readonly ngZone: NgZone,
     private readonly destroyRef: DestroyRef,
+    private readonly elementRef: ElementRef<HTMLElement>,
     private readonly lastZIndexService: LastZIndexService,
-    private readonly contextMenuFacade: ContextMenuFacade<number | string>,
-    private readonly workspaceReferenceFacade: WorkspaceReferenceFacade
+    private readonly workspaceReferenceFacade: WorkspaceReferenceFacade,
+    private readonly contextMenuFacade: ContextMenuFacade<number | string>
   ) {}
 
   @HostListener('contextmenu', ['$event']) onClick(event: PointerEvent) {
@@ -57,9 +59,9 @@ export class OpenContextMenuDirective {
         ? ContextMenuDefaultComponent
         : ContextMenuProgramComponent;
 
+    const parentId = this.elementRef.nativeElement.parentElement?.id ?? '';
     const component =
       this.workspaceReferenceFacade.createComponent(menuComponent);
-
     const instance = component.componentRef.instance as DefaultMenu<
       number | string
     >;
@@ -67,6 +69,7 @@ export class OpenContextMenuDirective {
       .nativeElement as HTMLElement;
 
     instance.data = this.id();
+    instance.parentId = parentId;
     this.hostView = component.componentRef.hostView;
 
     const positions = { x: event.pageX + MENU_GAP, y: event.pageY };

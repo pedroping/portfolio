@@ -20,4 +20,5 @@ export class ContextMenuDefaultComponent<T> implements DefaultMenu<T> {
   subContextMenuNewComponent = SubContextMenuNewComponent;
 
   data?: T;
+  parentId: string | number = '';
 }
