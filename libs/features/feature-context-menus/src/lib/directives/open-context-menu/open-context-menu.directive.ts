@@ -42,6 +42,7 @@ export class OpenContextMenuDirective {
   @HostListener('contextmenu', ['$event']) onClick(event: PointerEvent) {
     event.preventDefault();
     event.stopPropagation();
+
     this.contextMenuFacade.setClearDefault();
     this.clearView();
 

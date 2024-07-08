@@ -10,6 +10,7 @@ import {
   MenuEventsFacade,
 } from '@portifolio/features/feature-inital-menu';
 import { ElementsFacade } from '@portifolio/features/feature-page-creator';
+import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
 import { IBasicApp, IFolderData } from '@portifolio/utils/util-models';
 import { WorkspaceReferenceDirective } from '@portifolio/utils/util-workspace-reference';
 
@@ -29,16 +30,32 @@ import { WorkspaceReferenceDirective } from '@portifolio/utils/util-workspace-re
 export class WorkspacePageComponent implements OnDestroy, AfterViewInit {
   constructor(
     private readonly menuEventsFacade: MenuEventsFacade,
-    private readonly ElementsFacade: ElementsFacade<IFolderData>
+    private readonly ElementsFacade: ElementsFacade<IFolderData>,
+    private readonly foldersHierarchyFacade: FoldersHierarchyFacade
   ) {}
 
-  appConfig: IBasicApp = {
-    name: 'Uma pagina louca de teste',
-    logo: '',
-    type: 'folder',
-  };
+  appsConfig: IBasicApp[] = [
+    {
+      name: 'Uma pagina louca de teste',
+      logo: '',
+      type: 'folder',
+      folderId: 0,
+    },
+    {
+      name: 'Curriculum',
+      logo: '/assets/images/pdf-icon.png',
+      type: 'file',
+      folderId: 0,
+    },
+  ];
 
   ngAfterViewInit() {
+    this.appsConfig.forEach((app) => {
+      if (app.type == 'folder')
+        this.foldersHierarchyFacade.createFolder(app.name);
+      this.foldersHierarchyFacade.setNewFile(app);
+    });
+
     this.ElementsFacade.createElement(
       { folderId: 0 },
       {

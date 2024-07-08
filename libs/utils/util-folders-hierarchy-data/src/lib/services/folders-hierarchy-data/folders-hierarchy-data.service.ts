@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { IApp, IFolder } from '@portifolio/utils/util-models';
+import { IFolder } from '@portifolio/utils/util-models';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class FoldersHierarchyDataService {
-  lastId = 1;
+  lastId = 0;
   private allFolders$ = new BehaviorSubject<IFolder[]>([]);
 
   findFolder(id: number, folders = this.allFolders): IFolder | undefined {

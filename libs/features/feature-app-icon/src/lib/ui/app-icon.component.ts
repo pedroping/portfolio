@@ -1,26 +1,14 @@
-import {
-  Component,
-  ElementRef,
-  Inject,
-  OnInit,
-  computed,
-  input,
-} from '@angular/core';
+import { Component, ElementRef, OnInit, computed, input } from '@angular/core';
 import {
   ContextMenuFacade,
   OpenContextMenuDirective,
 } from '@portifolio/features/feature-context-menus';
-import {
-  DATA_TOKEN,
-  IBasicApp,
-  IFolderData,
-} from '@portifolio/utils/util-models';
+import { IBasicApp } from '@portifolio/utils/util-models';
 import { filter, merge, take } from 'rxjs';
 import { AppRenameComponent } from '../component/app-rename.component';
 import { IconDropEventsHandleDirective } from '../directives/icon-drop-events-handle/icon-drop-events-handle.directive';
 import { APP_BASE_ICON } from '../mocks/app-mocks';
 import { DropEventsService } from '../services/drop-events.service';
-import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
 @Component({
   selector: 'app-icon',
   templateUrl: './app-icon.component.html',
@@ -56,19 +44,10 @@ export class AppIconComponent implements OnInit {
   constructor(
     private readonly elementRef: ElementRef<HTMLElement>,
     private readonly dropEventsService: DropEventsService,
-    private readonly foldersHierarchyFacade: FoldersHierarchyFacade,
     private readonly contextMenuFacade: ContextMenuFacade<string | number>
   ) {}
 
   ngOnInit(): void {
-    if (this.config().type == 'folder') {
-      const newFolderId = this.foldersHierarchyFacade.createFolder(
-        this.config().name
-      )?.id;
-
-      this.fileId = newFolderId;
-    }
-
     merge(
       this.contextMenuFacade.getEventByOption('program-delete'),
       this.dropEventsService.getEspecificEvent(this.id())

@@ -2,5 +2,8 @@
   <workspace-reference />
   <initial-menu-creator />
   <div appDropHandle></div>
-  <app-icon [config]="appConfig" [id]="0" />
+
+  @for (file of appsConfig; track $index) {
+  <app-icon [config]="file" [id]="0" />
+  }
 </section>
