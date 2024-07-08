@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
+import { IFolder } from '@portifolio/utils/util-models';
 import { BehaviorSubject } from 'rxjs';
-import { IFolder } from '../../models/folders-models';
 
 @Injectable({ providedIn: 'root' })
-export class FoldersDataService {
+export class FoldersHierarchyDataService {
   lastId = 0;
   private allFolders$ = new BehaviorSubject<IFolder[]>([]);
 

@@ -10,9 +10,9 @@ import {
   MenuEventsFacade,
 } from '@portifolio/features/feature-inital-menu';
 import { ElementsFacade } from '@portifolio/features/feature-page-creator';
-import { IApp } from '@portifolio/utils/util-models';
+import { IApp, IFolderData } from '@portifolio/utils/util-models';
 import { WorkspaceReferenceDirective } from '@portifolio/utils/util-workspace-reference';
-import { IFolderData } from 'libs/features/feature-file-explorer/src/lib/models/folders-models';
+
 @Component({
   selector: 'workspace-page',
   templateUrl: './workspace-page.component.html',

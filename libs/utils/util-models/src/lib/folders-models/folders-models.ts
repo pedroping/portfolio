@@ -1,7 +1,7 @@
 export interface IFolder {
+  id: number;
   title: string;
   children?: IFolder[];
-  id: number;
 }
 
 export interface IFolderData {
