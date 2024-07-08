@@ -1,16 +1,16 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { FoldersStateService } from './folders-state.service';
+import { FoldersViewStateService } from './folders-view-state.service';
 
 describe('Service: FoldersState', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [FoldersStateService]
+      providers: [FoldersViewStateService]
     });
   });
 
-  it('should ...', inject([FoldersStateService], (service: FoldersStateService) => {
+  it('should ...', inject([FoldersViewStateService], (service: FoldersViewStateService) => {
     expect(service).toBeTruthy();
   }));
 });

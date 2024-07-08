@@ -2,12 +2,10 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
-export class FoldersStateService {
-  private menuState$ = new BehaviorSubject<Boolean>(true);
+export class FoldersViewStateService {
+  private menuState$ = new BehaviorSubject<boolean>(true);
 
-  constructor() {}
-
-  setState(val: Boolean) {
+  setState(val: boolean) {
     this.menuState$.next(val);
   }
 
