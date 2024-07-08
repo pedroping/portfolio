@@ -29,10 +29,12 @@ export class InitialMenuCreatorDirective implements OnInit {
 
   createMenu() {
     this.destroyMenu();
-    const { location } = this.vcr.createComponent(InitialMenuComponent);
+    const { location, changeDetectorRef } =
+      this.vcr.createComponent(InitialMenuComponent);
     this.menuElement = location.nativeElement;
     this.buildAnimation.animate('enterAnimationY', location.nativeElement);
     this.eventsFacade.setCreateOverlay();
+    changeDetectorRef.detectChanges();
   }
 
   destroyMenu() {

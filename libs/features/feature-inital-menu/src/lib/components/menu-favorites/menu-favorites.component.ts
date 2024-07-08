@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
   GITHUB_PROGRAM,
   LINKEDIN_PROGRAM,
@@ -16,6 +16,7 @@ import { ProgramComponent } from '../program/program.component';
   styleUrls: ['./menu-favorites.component.scss'],
   standalone: true,
   imports: [ProgramComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MenuFavoritesComponent {
   programMocks = [
