@@ -76,9 +76,9 @@ export class ElementCreatorService<T> {
   destroyElement(id: number) {
     const element = this.elementsData.findElement(id);
 
-    if (element?.hostView$.value)
-      this.workspaceReferenceFacade.clear(element?.hostView$.value);
+    if (!element?.hostView$.value) return;
 
+    this.workspaceReferenceFacade.clear(element.hostView$.value);
     this.elementsData.removeElement(id);
   }
 

@@ -5,8 +5,6 @@ import { BehaviorSubject } from 'rxjs';
 export class FixedProgramsService {
   private hideFixed$ = new BehaviorSubject<number[]>([]);
 
-  constructor() {}
-
   setNew(id: number) {
     this.hideFixed$.next([...this.hideFixed, id]);
   }
