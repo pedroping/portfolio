@@ -9,6 +9,7 @@
       showHideFolder
       [folderContent]="folderContent"
       title="Desktop"
+      [class.selected]="id === 0"
     >
       <div class="children-toggle" #folderToggle>
         <i class="fa-solid fa-plus"></i>
@@ -39,7 +40,7 @@
     [title]="program.title"
     [class.no-children]="!program.children || program.children.length <= 0"
   >
-    <div class="folders">
+    <div class="folders" [class.selected]="id === program.id">
       @if(program.children && program.children.length > 0) {
       <div class="children-toggle" #folderToggle>
         <i class="fa-solid fa-plus"></i>

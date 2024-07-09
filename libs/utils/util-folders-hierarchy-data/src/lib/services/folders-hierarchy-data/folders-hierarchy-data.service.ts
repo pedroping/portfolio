@@ -94,8 +94,10 @@ export class FoldersHierarchyDataService {
     if (!folder) return;
 
     folder.title = newTitle;
+    const allFolders = this.allFolders;
 
-    this.allFolders$.next(this.allFolders);
+    this.allFolders$.next([]);
+    this.allFolders$.next(allFolders);
   }
 
   get newId() {

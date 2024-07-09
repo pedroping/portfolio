@@ -35,7 +35,8 @@ export class FilesDataService {
     file.name = newTitle;
 
     const files = this.allFiles;
-
+    
+    this.allFiles$.next([]);
     this.allFiles$.next(files);
   }
 
@@ -47,6 +48,8 @@ export class FilesDataService {
     file.folderId = folderId;
 
     const files = this.allFiles;
+
+    this.allFiles$.next([]);
     this.allFiles$.next(files);
   }
 
@@ -55,6 +58,6 @@ export class FilesDataService {
   }
 
   get allFiles$$() {
-    return this.allFiles$.asObservable();
+    return this.allFiles$;
   }
 }

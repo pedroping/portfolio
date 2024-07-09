@@ -3,7 +3,7 @@
   <initial-menu-creator />
   <div [appDropHandle]="0"></div>
 
-  @for (file of files$ | async; let index = $index; track file.name) {
+  @for (file of files$ | async; track file.name) {
   <app-icon [config]="file" [id]="file.id" />
   }
 </section>

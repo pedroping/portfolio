@@ -9,7 +9,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import { CONFIG_TOKEN, IPageConfig } from '@portifolio/utils/util-models';
-import { map, merge, take } from 'rxjs';
+import { fromEvent, map, merge, take } from 'rxjs';
 import { ElementsFacade } from '../../facades/elements-facade/elements-facade';
 import { EventsFacade } from '../../facades/events-facade/events-facade.service';
 @Directive({
@@ -22,7 +22,7 @@ export class PageContentOverlayDirective implements AfterViewInit {
   constructor(
     private readonly destroyRef: DestroyRef,
     private readonly eventsFacade: EventsFacade,
-    private readonly ElementsFacade: ElementsFacade,
+    private readonly elementsFacade: ElementsFacade,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
   ) {}
 
@@ -30,17 +30,31 @@ export class PageContentOverlayDirective implements AfterViewInit {
     merge(
       this.eventsFacade.changeZIndex$$,
       this._config.element$.pipe(take(1)),
-      this.ElementsFacade.elements$.asObservable()
+      this.elementsFacade.elements$.asObservable()
     )
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => this.validateOverlay());
 
     merge(
-      this.ElementsFacade.anyElementEvent$$,
+      this.elementsFacade.anyElementEvent$$,
       this.eventsFacade.createOverlay$$.pipe(map(() => true))
     )
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(this.handleBoolean);
+
+    const overlay = this.overlay()?.nativeElement;
+
+    if (!overlay) return;
+
+    fromEvent(overlay, 'dragover')
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        const element = this._config.element$.value;
+
+        if (!element) return;
+
+        this.elementsFacade.setNewZIndex(this._config.id, element);
+      });
   }
 
   validateOverlay() {
@@ -48,14 +62,14 @@ export class PageContentOverlayDirective implements AfterViewInit {
 
     if (!element) return;
 
-    const hasNoOtherElement = this.ElementsFacade.isOnlyElementOpened(
+    const hasNoOtherElement = this.elementsFacade.isOnlyElementOpened(
       this._config.id
     );
 
     if (hasNoOtherElement) return this.removeOverlay();
 
     const isHiggestElement =
-      this._config.id == this.ElementsFacade.getHiggestElementId();
+      this._config.id == this.elementsFacade.getHiggestElementId();
 
     if (isHiggestElement) return this.removeOverlay();
 
@@ -70,7 +84,7 @@ export class PageContentOverlayDirective implements AfterViewInit {
   }
 
   getIsBehindAnotherElement(id: number, element: HTMLElement) {
-    return !!this.ElementsFacade.elements$.value
+    return !!this.elementsFacade.elements$.value
       .filter((item) => item.id != id)
       .filter((item) => !!item.opened)
       .map(
