@@ -43,9 +43,7 @@ export class AppIconComponent implements OnInit {
   logo = computed(() => this.config().logo || APP_BASE_ICON);
 
   parentId?: number | string;
-  renameEvent$: Observable<IOptionEvent<string | number>> = new Observable<
-    IOptionEvent<string | number>
-  >();
+  renameEvent$ = new Observable<IOptionEvent<string | number>>();
 
   constructor(
     private readonly destroyRef: DestroyRef,
