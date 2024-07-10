@@ -1,13 +1,11 @@
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import {
-  AppDropHandleDirective,
-  AppIconComponent,
-} from '@portifolio/features/feature-app-icon';
+import { AppIconComponent } from '@portifolio/features/feature-app-icon';
 import {
   OpenContextMenuDirective,
   WORKSPACE_ID,
 } from '@portifolio/features/feature-context-menus';
+import { IconDropHandleDirective } from '@portifolio/features/feature-icon-drop-handle';
 import { ElementsFacade } from '@portifolio/features/feature-page-creator';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
 import { IFolderData } from '@portifolio/utils/util-models';
@@ -19,7 +17,7 @@ import { BASIC_FOLDER, FOLDER_02 } from '../mocks/workspace-mocks';
   templateUrl: './workspace.component.html',
   styleUrls: ['./workspace.component.scss'],
   standalone: true,
-  imports: [AppDropHandleDirective, AppIconComponent, AsyncPipe],
+  imports: [IconDropHandleDirective, AppIconComponent, AsyncPipe],
   hostDirectives: [
     { directive: OpenContextMenuDirective, inputs: ['id', 'openContextMenu'] },
   ],

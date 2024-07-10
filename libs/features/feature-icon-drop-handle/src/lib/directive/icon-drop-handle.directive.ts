@@ -2,22 +2,21 @@ import {
   DestroyRef,
   Directive,
   ElementRef,
-  OnInit,
-  ViewContainerRef,
   input,
+  ViewContainerRef,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { AppIconComponent } from '@portifolio/features/feature-app-icon';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
 import { IApp } from '@portifolio/utils/util-models';
 import { fromEvent } from 'rxjs';
-import { AppIconComponent } from '../../ui/app-icon.component';
 
 @Directive({
-  selector: '[appDropHandle]',
+  selector: '[iconDropHandle]',
   standalone: true,
 })
-export class AppDropHandleDirective implements OnInit {
-  folderId = input.required<number>({ alias: 'appDropHandle' });
+export class IconDropHandleDirective {
+  folderId = input.required<number>({ alias: 'iconDropHandle' });
 
   constructor(
     private readonly vcr: ViewContainerRef,

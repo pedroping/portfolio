@@ -6,6 +6,7 @@ import {
   computed,
   input,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   ContextMenuFacade,
   OpenContextMenuDirective,
@@ -13,9 +14,8 @@ import {
 import { IApp, IOptionEvent } from '@portifolio/utils/util-models';
 import { Observable, filter } from 'rxjs';
 import { AppRenameComponent } from '../component/app-rename.component';
-import { IconDropEventsHandleDirective } from '../directives/icon-drop-events-handle/icon-drop-events-handle.directive';
+import { IconDropEventsHandleDirective } from '../directive/icon-drop-events-handle.directive';
 import { APP_BASE_ICON } from '../mocks/app-mocks';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-icon',
   templateUrl: './app-icon.component.html',

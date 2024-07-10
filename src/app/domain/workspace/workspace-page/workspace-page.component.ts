@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
-import { AppDropHandleDirective } from '@portifolio/features/feature-app-icon';
 import {
   InitialMenuCreatorDirective,
   MenuEventsFacade,
@@ -16,7 +15,6 @@ import { WorkspaceReferenceDirective } from '@portifolio/utils/util-workspace-re
   imports: [
     InitialMenuCreatorDirective,
     WorkspaceReferenceDirective,
-    AppDropHandleDirective,
     WorkspaceComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
