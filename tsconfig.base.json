@@ -33,6 +33,9 @@
       "@portifolio/features/feature-taskbar": [
         "libs/features/feature-taskbar/src/index.ts"
       ],
+      "@portifolio/features/feature-workspace": [
+        "libs/features/feature-workspace/src/index.ts"
+      ],
       "@portifolio/ui/ui-curriculum-page": [
         "libs/ui/ui-curriculum-page/src/index.ts"
       ],
