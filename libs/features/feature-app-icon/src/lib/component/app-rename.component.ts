@@ -63,23 +63,10 @@ export class AppRenameComponent implements OnInit {
     input.focus();
     this.renameControl.setValue(this.title());
 
-    merge(
-      fromEvent(input, 'focusout'),
-      fromEvent<KeyboardEvent>(input, 'keydown').pipe(
-        filter((ev) => ev.key === 'Enter')
-      )
-    )
-      .pipe(take(1), takeUntil(this.destroyEvents$))
-      .subscribe(() => this.setEvent());
+    const { cancelEvents, setEvents } = this.getInputEvents(input);
 
-    merge(
-      fromEvent(this.elementRef.nativeElement, 'dragstart'),
-      fromEvent<KeyboardEvent>(input, 'keydown').pipe(
-        filter((ev) => ev.key === 'Escape')
-      )
-    )
-      .pipe(take(1), takeUntil(this.destroyEvents$))
-      .subscribe(() => this.cancelEvent());
+    setEvents.subscribe(() => this.setEvent());
+    cancelEvents.subscribe(() => this.cancelEvent());
   }
 
   cancelEvent() {
@@ -102,5 +89,23 @@ export class AppRenameComponent implements OnInit {
 
     this.renameControl.reset();
     this.showRenameInput$.next(false);
+  }
+
+  getInputEvents(input: HTMLElement) {
+    const cancelEvents = merge(
+      fromEvent(this.elementRef.nativeElement, 'dragstart'),
+      fromEvent<KeyboardEvent>(input, 'keydown').pipe(
+        filter((ev) => ev.key === 'Escape')
+      )
+    ).pipe(take(1), takeUntil(this.destroyEvents$));
+
+    const setEvents = merge(
+      fromEvent(input, 'focusout'),
+      fromEvent<KeyboardEvent>(input, 'keydown').pipe(
+        filter((ev) => ev.key === 'Enter')
+      )
+    ).pipe(take(1), takeUntil(this.destroyEvents$));
+
+    return { cancelEvents, setEvents };
   }
 }

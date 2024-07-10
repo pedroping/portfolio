@@ -10,7 +10,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
 import { IApp } from '@portifolio/utils/util-models';
 import { fromEvent } from 'rxjs';
-import { DropEventsService } from '../../services/drop-events.service';
 import { AppIconComponent } from '../../ui/app-icon.component';
 
 @Directive({
@@ -24,7 +23,6 @@ export class AppDropHandleDirective implements OnInit {
     private readonly vcr: ViewContainerRef,
     private readonly destroyRef: DestroyRef,
     private readonly elementRef: ElementRef<HTMLElement>,
-    private readonly dropEventsService: DropEventsService,
     private readonly foldersHierarchyFacade: FoldersHierarchyFacade
   ) {}
 
@@ -48,43 +46,30 @@ export class AppDropHandleDirective implements OnInit {
     if (!eventData) return;
 
     const dropContent = JSON.parse(eventData) as IApp;
-
     const actualId = this.elementRef.nativeElement.parentElement?.id;
+    const folderId = this.folderId();
 
     if (
       actualId == dropContent.parentTargetId ||
-      dropContent.folderId == this.folderId() ||
-      dropContent.isFolderId === this.folderId()
+      dropContent.folderId == folderId ||
+      dropContent.isFolderId === folderId
     )
       return;
 
     if (dropContent.isFolderId || dropContent.isFolderId == 0) {
       const hasSameChild = this.foldersHierarchyFacade.hasSameChild(
         dropContent.isFolderId,
-        this.folderId()
+        folderId
       );
 
       if (hasSameChild) return;
 
-      this.foldersHierarchyFacade.changeFolderId(
-        dropContent.id,
-        this.folderId()
-      );
-      this.foldersHierarchyFacade.moveFolder(
-        dropContent.isFolderId,
-        this.folderId()
-      );
-    } else {
-      this.foldersHierarchyFacade.changeFolderId(
-        dropContent.id,
-        this.folderId()
-      );
+      this.foldersHierarchyFacade.changeFolderId(dropContent.id, folderId);
+      this.foldersHierarchyFacade.moveFolder(dropContent.isFolderId, folderId);
+      return;
     }
 
-    this.dropEventsService.setDropEvent({
-      id: dropContent.id,
-      parentTargetId: dropContent.parentTargetId,
-    });
+    this.foldersHierarchyFacade.changeFolderId(dropContent.id, folderId);
   }
 
   onOver(event: DragEvent) {
