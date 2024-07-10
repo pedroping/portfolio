@@ -4,7 +4,10 @@ import {
   AppDropHandleDirective,
   AppIconComponent,
 } from '@portifolio/features/feature-app-icon';
-import { OpenContextMenuDirective } from '@portifolio/features/feature-context-menus';
+import {
+  OpenContextMenuDirective,
+  WORKSPACE_ID,
+} from '@portifolio/features/feature-context-menus';
 import { ElementsFacade } from '@portifolio/features/feature-page-creator';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
 import { IFolderData } from '@portifolio/utils/util-models';
@@ -21,7 +24,7 @@ import { BASIC_FOLDER, FOLDER_02 } from '../mocks/workspace-mocks';
     { directive: OpenContextMenuDirective, inputs: ['id', 'openContextMenu'] },
   ],
   host: {
-    id: 'workspace',
+    id: WORKSPACE_ID,
   },
 })
 export class WorkspaceComponent implements OnInit {
