@@ -50,7 +50,7 @@ export class FilesDataService {
     const files = this.allFiles;
 
     this.allFiles$.next([]);
-    this.allFiles$.next(files);
+    this.allFiles$.next(files);    
   }
 
   get allFiles() {
