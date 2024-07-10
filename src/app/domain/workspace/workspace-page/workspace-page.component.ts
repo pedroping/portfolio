@@ -1,10 +1,5 @@
-import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
-import {
-  AppDropHandleDirective,
-  AppIconComponent,
-} from '@portifolio/features/feature-app-icon';
-import { OpenContextMenuDirective } from '@portifolio/features/feature-context-menus';
+import { AppDropHandleDirective } from '@portifolio/features/feature-app-icon';
 import {
   InitialMenuCreatorDirective,
   MenuEventsFacade,
@@ -19,9 +14,6 @@ import { WorkspaceReferenceDirective } from '@portifolio/utils/util-workspace-re
   styleUrls: ['./workspace-page.component.scss'],
   standalone: true,
   imports: [
-    AsyncPipe,
-    AppIconComponent,
-    OpenContextMenuDirective,
     InitialMenuCreatorDirective,
     WorkspaceReferenceDirective,
     AppDropHandleDirective,

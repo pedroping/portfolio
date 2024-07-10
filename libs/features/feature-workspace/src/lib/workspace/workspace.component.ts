@@ -1,19 +1,15 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import {
   AppDropHandleDirective,
   AppIconComponent,
 } from '@portifolio/features/feature-app-icon';
+import { OpenContextMenuDirective } from '@portifolio/features/feature-context-menus';
 import { ElementsFacade } from '@portifolio/features/feature-page-creator';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
 import { IFolderData } from '@portifolio/utils/util-models';
 import { tap } from 'rxjs';
-import { BASIC_FOLDER, FOLDER_01, FOLDER_02 } from '../mocks/workspace-mocks';
+import { BASIC_FOLDER, FOLDER_02 } from '../mocks/workspace-mocks';
 
 @Component({
   selector: 'workspace',
@@ -21,8 +17,14 @@ import { BASIC_FOLDER, FOLDER_01, FOLDER_02 } from '../mocks/workspace-mocks';
   styleUrls: ['./workspace.component.scss'],
   standalone: true,
   imports: [AppDropHandleDirective, AppIconComponent, AsyncPipe],
+  hostDirectives: [
+    { directive: OpenContextMenuDirective, inputs: ['id', 'openContextMenu'] },
+  ],
+  host: {
+    id: 'workspace',
+  },
 })
-export class WorkspaceComponent implements OnInit, AfterViewInit {
+export class WorkspaceComponent implements OnInit {
   appsConfig = BASIC_FOLDER;
 
   files$ = this.foldersHierarchyFacade
@@ -42,17 +44,13 @@ export class WorkspaceComponent implements OnInit, AfterViewInit {
         const folder = this.foldersHierarchyFacade.createFolder(app.name);
 
         file.isFolderId = folder?.id;
+
+        if (folder?.id)
+          this.elementsFacade.createElement(
+            { folderId: folder?.id },
+            FOLDER_02
+          );
       }
     });
-  }
-
-  ngAfterViewInit() {
-    this.elementsFacade.createElement({ folderId: 0 }, FOLDER_01);
-
-    const id = this.foldersHierarchyFacade.createFolder(
-      'Explorador de arquivos 2'
-    )?.id;
-
-    if (id) this.elementsFacade.createElement({ folderId: id }, FOLDER_02);
   }
 }

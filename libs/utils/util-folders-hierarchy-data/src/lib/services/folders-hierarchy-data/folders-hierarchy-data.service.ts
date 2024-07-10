@@ -88,6 +88,16 @@ export class FoldersHierarchyDataService {
     this.allFolders$.next(this.allFolders);
   }
 
+  hasSameChild(id: number, newFolderPlacement: number) {
+    const folder = this.findFolder(id);
+
+    if (!folder || !folder.children) return false;
+
+    const hasChild = this.findFolder(newFolderPlacement, folder.children);
+
+    return !!hasChild;
+  }
+
   renameFolder(id: number | string, newTitle: string) {
     const folder = this.findFolder(id);
 

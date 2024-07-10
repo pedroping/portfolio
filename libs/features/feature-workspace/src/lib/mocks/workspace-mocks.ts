@@ -3,7 +3,7 @@ import { IBasicApp } from '@portifolio/utils/util-models';
 
 export const BASIC_FOLDER: IBasicApp[] = [
   {
-    name: 'Uma pagina louca de teste',
+    name: 'Page 01',
     logo: '',
     type: 'folder',
     folderId: 0,
@@ -12,6 +12,12 @@ export const BASIC_FOLDER: IBasicApp[] = [
     name: 'Curriculum',
     logo: '/assets/images/pdf-icon.png',
     type: 'file',
+    folderId: 0,
+  },
+  {
+    name: 'Page 02',
+    logo: '',
+    type: 'folder',
     folderId: 0,
   },
 ];

@@ -53,15 +53,30 @@ export class AppDropHandleDirective implements OnInit {
 
     if (
       actualId == dropContent.parentTargetId ||
-      dropContent.folderId == this.folderId()
+      dropContent.folderId == this.folderId() ||
+      dropContent.isFolderId === this.folderId()
     )
       return;
 
-    this.foldersHierarchyFacade.changeFolderId(dropContent.id, this.folderId());
-
     if (dropContent.isFolderId || dropContent.isFolderId == 0) {
+      const hasSameChild = this.foldersHierarchyFacade.hasSameChild(
+        dropContent.isFolderId,
+        this.folderId()
+      );
+
+      if (hasSameChild) return;
+
+      this.foldersHierarchyFacade.changeFolderId(
+        dropContent.id,
+        this.folderId()
+      );
       this.foldersHierarchyFacade.moveFolder(
         dropContent.isFolderId,
+        this.folderId()
+      );
+    } else {
+      this.foldersHierarchyFacade.changeFolderId(
+        dropContent.id,
         this.folderId()
       );
     }

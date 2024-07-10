@@ -42,6 +42,13 @@ export class FoldersHierarchyFacade {
     return this.filesDataService.getFileByFolder(folderId);
   }
 
+  hasSameChild(id: number, newFolderPlacement: number) {
+    return this.foldersHierarchyDataService.hasSameChild(
+      id,
+      newFolderPlacement
+    );
+  }
+
   get allFiles() {
     return this.filesDataService.allFiles;
   }
