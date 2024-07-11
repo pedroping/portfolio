@@ -13,5 +13,9 @@
     "jest.config.ts",
     "src/**/*.test.ts"
   ],
-  "include": ["src/**/*.ts", "src/lib/facade/context-menu-facade.service.spec.ts", "src/lib/facade/context-menu-facade.service.ts"]
+  "include": [
+    "src/**/*.ts",
+    "src/lib/facade/context-menu-facade.service.spec.ts",
+    "src/lib/facade/context-menu-facade.service.ts"
+  ]
 }
