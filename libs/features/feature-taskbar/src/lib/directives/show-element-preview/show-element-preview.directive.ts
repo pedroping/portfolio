@@ -50,7 +50,7 @@ export class ShowElementPreviewDirective implements OnInit {
     private readonly buildAnimation: BuildAnimation,
     private readonly elementsFacade: ElementsFacade,
     private readonly elementRef: ElementRef<HTMLElement>,
-    private readonly lastZIndexService: LastZIndexService
+    private readonly lastZIndexService: LastZIndexService,
   ) {}
 
   @HostListener('touchstart', ['$event']) onTouchStart(event: TouchEvent) {
@@ -64,7 +64,7 @@ export class ShowElementPreviewDirective implements OnInit {
     const touchLeaveEvent$ = merge(
       fromEvent(this.elementRef.nativeElement, 'click'),
       fromEvent(this.elementRef.nativeElement, 'touchend').pipe(take(1)),
-      fromEvent(this.elementRef.nativeElement, 'touchleave').pipe(take(1))
+      fromEvent(this.elementRef.nativeElement, 'touchleave').pipe(take(1)),
     ).pipe(tap(() => (hasCancel = true)));
 
     touchLeaveEvent$
@@ -72,7 +72,7 @@ export class ShowElementPreviewDirective implements OnInit {
         startWith(undefined),
         debounceTime(500),
         filter(() => !hasCancel),
-        take(1)
+        take(1),
       )
       .subscribe(() => this.createElement());
   }
@@ -86,7 +86,7 @@ export class ShowElementPreviewDirective implements OnInit {
 
     const mouseLeave$ = merge(
       fromEvent(this.elementRef.nativeElement, 'click'),
-      fromEvent(this.elementRef.nativeElement, 'mouseleave')
+      fromEvent(this.elementRef.nativeElement, 'mouseleave'),
     ).pipe(tap(() => (hasCancel = true)));
 
     mouseLeave$
@@ -94,7 +94,7 @@ export class ShowElementPreviewDirective implements OnInit {
         startWith(undefined),
         debounceTime(500),
         filter(() => !hasCancel),
-        take(1)
+        take(1),
       )
       .subscribe(() => {
         if (hasCancel) return;
@@ -154,7 +154,7 @@ export class ShowElementPreviewDirective implements OnInit {
     merge(
       this.taskbarFacade.closeAll$$,
       timer(2000, 2000).pipe(filter(() => !this.hasHover())),
-      this.taskbarFacade.getHasToClose(this.id())
+      this.taskbarFacade.getHasToClose(this.id()),
     )
       .pipe(takeUntil(close$))
       .subscribe(() => closeElement());
@@ -164,12 +164,12 @@ export class ShowElementPreviewDirective implements OnInit {
     const onHoverElements = document.querySelectorAll(':hover');
 
     return Array.from(onHoverElements).some(
-      (element) => element.id === this.id()
+      (element) => element.id === this.id(),
     );
   }
 
   isBasicElement(
-    element: IBasicElement | IInitialConfig
+    element: IBasicElement | IInitialConfig,
   ): element is IBasicElement {
     return (
       !!(element as IBasicElement).id || (element as IBasicElement).id == 0

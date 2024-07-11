@@ -22,7 +22,7 @@ export class IconDropHandleDirective {
     private readonly vcr: ViewContainerRef,
     private readonly destroyRef: DestroyRef,
     private readonly elementRef: ElementRef<HTMLElement>,
-    private readonly foldersHierarchyFacade: FoldersHierarchyFacade
+    private readonly foldersHierarchyFacade: FoldersHierarchyFacade,
   ) {}
 
   ngOnInit(): void {
@@ -58,7 +58,7 @@ export class IconDropHandleDirective {
     if (dropContent.isFolderId || dropContent.isFolderId == 0) {
       const hasSameChild = this.foldersHierarchyFacade.hasSameChild(
         dropContent.isFolderId,
-        folderId
+        folderId,
       );
 
       if (hasSameChild) return;

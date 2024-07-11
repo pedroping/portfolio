@@ -6,11 +6,14 @@ import { OptionSelectedService } from './option-selected.service';
 describe('Service: OptionSelected', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [OptionSelectedService]
+      providers: [OptionSelectedService],
     });
   });
 
-  it('should ...', inject([OptionSelectedService], (service: OptionSelectedService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should ...', inject(
+    [OptionSelectedService],
+    (service: OptionSelectedService) => {
+      expect(service).toBeTruthy();
+    },
+  ));
 });

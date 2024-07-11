@@ -7,7 +7,7 @@ import { IApp } from '@portifolio/utils/util-models';
 export class FoldersHierarchyFacade {
   constructor(
     private readonly filesDataService: FilesDataService,
-    private readonly foldersHierarchyDataService: FoldersHierarchyDataService
+    private readonly foldersHierarchyDataService: FoldersHierarchyDataService,
   ) {}
 
   findFolder(id: number) {
@@ -45,7 +45,7 @@ export class FoldersHierarchyFacade {
   hasSameChild(id: number, newFolderPlacement: number) {
     return this.foldersHierarchyDataService.hasSameChild(
       id,
-      newFolderPlacement
+      newFolderPlacement,
     );
   }
 

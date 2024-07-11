@@ -12,7 +12,7 @@ export class PageActionsService {
   constructor(
     private readonly elementsData: ElementsData,
     private readonly setZIndexService: SetZIndexService,
-    private readonly workspaceReferenceFacade: WorkspaceReferenceFacade
+    private readonly workspaceReferenceFacade: WorkspaceReferenceFacade,
   ) {}
 
   validateElementOpened(id: number) {
@@ -36,14 +36,14 @@ export class PageActionsService {
       return this.setZIndexService.setNewZIndex(elmentConfig.id, element);
 
     const hasNoOtherElement = this.elementsData.isOnlyElementOpened(
-      elmentConfig.id
+      elmentConfig.id,
     );
 
     if (hasNoOtherElement) return this.minimizeElement(elmentConfig);
 
     const isBehindAnotherElement = this.getIsBehindAnotherElement(
       elmentConfig.id,
-      element
+      element,
     );
 
     if (isBehindAnotherElement && !isHiggerElement)
@@ -63,7 +63,7 @@ export class PageActionsService {
     DomElementAdpter.setTransform(
       element,
       (index + 1) * 20,
-      window.innerHeight * 2.5
+      window.innerHeight * 2.5,
     );
 
     DomElementAdpter.afterTransitions(element)
@@ -130,13 +130,13 @@ export class PageActionsService {
       if (minHeight)
         params.elmentConfig.baseSizes.minHeight = Math.min(
           minHeight,
-          boundaryHeight
+          boundaryHeight,
         );
 
       if (minWidth)
         params.elmentConfig.baseSizes.minWidth = Math.min(
           minWidth,
-          boundaryWidth
+          boundaryWidth,
         );
 
       element.style.height = Math.min(height, boundaryHeight) + 'px';
@@ -146,18 +146,18 @@ export class PageActionsService {
 
       params.elmentConfig.lastPosition.x = Math.min(
         Math.max(params.elmentConfig.lastPosition.x, 0),
-        maxBoundX
+        maxBoundX,
       );
       params.elmentConfig.lastPosition.y = Math.min(
         Math.max(params.elmentConfig.lastPosition.y, 0),
-        maxBoundY
+        maxBoundY,
       );
     }
 
     DomElementAdpter.setTransform(
       element,
       params.elmentConfig.lastPosition.x,
-      params.elmentConfig.lastPosition.y
+      params.elmentConfig.lastPosition.y,
     );
   }
 
@@ -169,7 +169,7 @@ export class PageActionsService {
         (item) =>
           item.element$.value &&
           DomElementAdpter.elementAboveOther(item.element$.value, element) &&
-          DomElementAdpter.validateFullScreen(item.element$.value, element)
+          DomElementAdpter.validateFullScreen(item.element$.value, element),
       )
       .find((result) => !!result);
   }

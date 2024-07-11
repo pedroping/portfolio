@@ -14,6 +14,6 @@ describe('Service: PageActions', () => {
     [PageActionsService],
     (service: PageActionsService) => {
       expect(service).toBeTruthy();
-    }
+    },
   ));
 });

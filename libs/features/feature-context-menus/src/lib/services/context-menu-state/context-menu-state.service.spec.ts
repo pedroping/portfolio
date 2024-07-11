@@ -10,7 +10,10 @@ describe('Service: ContextMenuStateService', () => {
     });
   });
 
-  it('should ...', inject([ContextMenuStateService], (service: ContextMenuStateService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should ...', inject(
+    [ContextMenuStateService],
+    (service: ContextMenuStateService) => {
+      expect(service).toBeTruthy();
+    },
+  ));
 });

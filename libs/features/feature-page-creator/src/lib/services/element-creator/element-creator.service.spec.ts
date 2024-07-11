@@ -14,6 +14,6 @@ describe('Service: ElementCreator', () => {
     [ElementCreatorService],
     (service: ElementCreatorService<unknown>) => {
       expect(service).toBeTruthy();
-    }
+    },
   ));
 });

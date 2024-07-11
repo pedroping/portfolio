@@ -10,8 +10,8 @@
   </div>
 </header>
 <section pageContentOverlay>
-  @if(pageContent()) {
-  <ng-container [ngComponentOutlet]="pageContent()"></ng-container>
+  @if (pageContent()) {
+    <ng-container [ngComponentOutlet]="pageContent()"></ng-container>
   }
   <div class="overlay" #overlay></div>
 </section>

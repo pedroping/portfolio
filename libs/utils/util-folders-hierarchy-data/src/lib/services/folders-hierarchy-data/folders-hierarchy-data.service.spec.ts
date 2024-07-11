@@ -6,11 +6,14 @@ import { FoldersHierarchyDataService } from './folders-hierarchy-data.service';
 describe('Service: FoldersData', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [FoldersHierarchyDataService]
+      providers: [FoldersHierarchyDataService],
     });
   });
 
-  it('should ...', inject([FoldersHierarchyDataService], (service: FoldersHierarchyDataService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should ...', inject(
+    [FoldersHierarchyDataService],
+    (service: FoldersHierarchyDataService) => {
+      expect(service).toBeTruthy();
+    },
+  ));
 });

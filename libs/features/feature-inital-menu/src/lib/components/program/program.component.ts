@@ -50,7 +50,7 @@ export class ProgramComponent {
 
   constructor(
     private readonly ElementsFacade: ElementsFacade,
-    private readonly menuEventsFacade: MenuEventsFacade
+    private readonly menuEventsFacade: MenuEventsFacade,
   ) {}
 
   @HostListener('click') onCLick() {

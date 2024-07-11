@@ -37,7 +37,7 @@ export class OpenSubContextMenuDirective<T> {
     private readonly vcr: ViewContainerRef,
     private readonly destroyRef: DestroyRef,
     private readonly elementRef: ElementRef<HTMLElement>,
-    private readonly contextMenuFacade: ContextMenuFacade<T>
+    private readonly contextMenuFacade: ContextMenuFacade<T>,
   ) {}
 
   @HostListener('mouseenter') onMouseEnter() {
@@ -45,7 +45,7 @@ export class OpenSubContextMenuDirective<T> {
 
     const mouseLeave$ = fromEvent(
       this.elementRef.nativeElement,
-      'mouseleave'
+      'mouseleave',
     ).pipe(tap(() => (preventShow = true)));
 
     const click$ = fromEvent(this.elementRef.nativeElement, 'click');
@@ -56,7 +56,7 @@ export class OpenSubContextMenuDirective<T> {
         debounceTime(500),
         take(1),
         takeUntil(click$),
-        filter(() => !preventShow)
+        filter(() => !preventShow),
       )
       .subscribe(() => this.openMenu());
   }
@@ -88,7 +88,7 @@ export class OpenSubContextMenuDirective<T> {
   setElementPositions(
     elementView: HTMLElement,
     elementWidth: number,
-    elementPosition: IPositionProperties
+    elementPosition: IPositionProperties,
   ) {
     const pageWidth = window.innerWidth;
     const viewWidth = elementView.offsetWidth;
@@ -111,19 +111,19 @@ export class OpenSubContextMenuDirective<T> {
           filter((event) => {
             const isOutTarget = this.isOutTarget(
               view,
-              event.target as HTMLElement
+              event.target as HTMLElement,
             );
             return isOutTarget;
-          })
+          }),
         ),
         this.contextMenuFacade.clearAll$$.pipe(take(1)),
-        timer(5000, 5000).pipe(filter(() => !this.hasHover(view)))
+        timer(5000, 5000).pipe(filter(() => !this.hasHover(view))),
       )
         .pipe(take(1), takeUntilDestroyed(this.destroyRef))
         .subscribe(() =>
           this.ngZone.run(() => {
             this.vcr.clear();
-          })
+          }),
         );
     });
   }
@@ -134,7 +134,7 @@ export class OpenSubContextMenuDirective<T> {
     return Array.from(onHoverElements).some(
       (element) =>
         view?.contains(element) ||
-        this.elementRef.nativeElement.contains(element)
+        this.elementRef.nativeElement.contains(element),
     );
   }
 

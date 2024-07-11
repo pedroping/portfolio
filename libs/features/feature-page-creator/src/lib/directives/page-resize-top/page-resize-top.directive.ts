@@ -18,7 +18,7 @@ import {
   tap,
 } from 'rxjs';
 import { BASE_HEIGHT } from '../../mocks/elements.mocks';
-import { CONFIG_TOKEN } from '@portifolio/utils/util-models';;
+import { CONFIG_TOKEN } from '@portifolio/utils/util-models';
 
 @Directive({
   selector: '.top',
@@ -41,22 +41,22 @@ export class PageResizeTopDirective implements OnInit {
     private readonly destroyRef: DestroyRef,
     private readonly elementRef: ElementRef,
     private readonly elementsFacade: ElementsFacade,
-    @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
+    @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig,
   ) {
     this.mouseDownEvent$ = fromEvent<MouseEvent>(
       this.elementRef.nativeElement,
-      'mousedown'
+      'mousedown',
     );
     this.mouseMoveEvent$ = fromEvent<MouseEvent>(document, 'mousemove');
     this.mouseUpEvent$ = fromEvent<MouseEvent>(document, 'mouseup');
     this.element$ = this._config.element$;
     this.touchEnd$ = fromEvent<TouchEvent>(document, 'touchend');
     this.touchMove$ = fromEvent<TouchEvent>(document, 'touchmove').pipe(
-      takeUntil(this.touchEnd$)
+      takeUntil(this.touchEnd$),
     );
     this.touchStart$ = fromEvent<TouchEvent>(
       this.elementRef.nativeElement,
-      'touchstart'
+      'touchstart',
     );
   }
 
@@ -69,9 +69,9 @@ export class PageResizeTopDirective implements OnInit {
           this.initialElementWidth = this.element$.value?.offsetHeight ?? 0;
         }),
         switchMap(() =>
-          this.mouseMoveEvent$.pipe(takeUntil(this.mouseUpEvent$))
+          this.mouseMoveEvent$.pipe(takeUntil(this.mouseUpEvent$)),
         ),
-        takeUntilDestroyed(this.destroyRef)
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe((event) => {
         const element = this.element$.value;
@@ -87,7 +87,7 @@ export class PageResizeTopDirective implements OnInit {
           this.initialElementWidth = this.element$.value?.offsetHeight ?? 0;
         }),
         switchMap(() => this.touchMove$.pipe(takeUntil(this.touchEnd$))),
-        takeUntilDestroyed(this.destroyRef)
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe((event) => {
         const element = this.element$.value;
@@ -106,7 +106,7 @@ export class PageResizeTopDirective implements OnInit {
 
     const newHeight = Math.max(
       this.initialElementWidth + newPositionCalc,
-      Math.min(this._config.baseSizes.minHeight ?? BASE_HEIGHT, BASE_HEIGHT)
+      Math.min(this._config.baseSizes.minHeight ?? BASE_HEIGHT, BASE_HEIGHT),
     );
 
     element.style.height = newHeight + 'px';
@@ -119,7 +119,7 @@ export class PageResizeTopDirective implements OnInit {
     DomElementAdpter.setTransform(
       element,
       Math.max(this._config.lastPosition.x, 0),
-      Math.max(this._config.lastPosition.y, 0)
+      Math.max(this._config.lastPosition.y, 0),
     );
     this.elementsFacade.setAnyElementEvent(true);
   }

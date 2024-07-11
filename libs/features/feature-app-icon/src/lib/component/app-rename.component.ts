@@ -40,7 +40,7 @@ export class AppRenameComponent implements OnInit {
 
   constructor(
     private readonly elementRef: ElementRef<HTMLElement>,
-    private readonly foldersHierarchyFacade: FoldersHierarchyFacade
+    private readonly foldersHierarchyFacade: FoldersHierarchyFacade,
   ) {
     effect(() => {
       const nativeElement = this.input()?.nativeElement;
@@ -95,15 +95,15 @@ export class AppRenameComponent implements OnInit {
     const cancelEvents = merge(
       fromEvent(this.elementRef.nativeElement, 'dragstart'),
       fromEvent<KeyboardEvent>(input, 'keydown').pipe(
-        filter((ev) => ev.key === 'Escape')
-      )
+        filter((ev) => ev.key === 'Escape'),
+      ),
     ).pipe(take(1), takeUntil(this.destroyEvents$));
 
     const setEvents = merge(
       fromEvent(input, 'focusout'),
       fromEvent<KeyboardEvent>(input, 'keydown').pipe(
-        filter((ev) => ev.key === 'Enter')
-      )
+        filter((ev) => ev.key === 'Enter'),
+      ),
     ).pipe(take(1), takeUntil(this.destroyEvents$));
 
     return { cancelEvents, setEvents };

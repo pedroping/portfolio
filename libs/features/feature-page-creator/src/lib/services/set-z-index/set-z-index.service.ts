@@ -10,7 +10,7 @@ export class SetZIndexService {
   constructor(
     private readonly pageEvents: PageEvents,
     private readonly elementsData: ElementsData,
-    private readonly lastZIndexService: LastZIndexService
+    private readonly lastZIndexService: LastZIndexService,
   ) {}
 
   setNewZIndex(id: string | number, element?: HTMLElement) {

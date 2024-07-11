@@ -10,9 +10,14 @@
     font-size: 12px;
     font-weight: 400;
     color: var(--text-color-01);
-    text-shadow: 2px 0 var(--black-02), -2px 0 var(--black-02),
-      0 2px var(--black-02), 0 -2px var(--black-02), 1px 1px var(--black-02),
-      -1px -1px var(--black-02), 1px -1px var(--black-02),
+    text-shadow:
+      2px 0 var(--black-02),
+      -2px 0 var(--black-02),
+      0 2px var(--black-02),
+      0 -2px var(--black-02),
+      1px 1px var(--black-02),
+      -1px -1px var(--black-02),
+      1px -1px var(--black-02),
       -1px 1px var(--black-02);
     text-align: center;
     overflow: hidden;

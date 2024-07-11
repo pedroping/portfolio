@@ -8,12 +8,12 @@ import { ElementsFacade } from '../../facades/elements-facade/elements-facade';
 export class PreventHandlerDirective implements OnInit {
   constructor(
     private readonly ElementsFacade: ElementsFacade,
-    private readonly elementRef: ElementRef<HTMLElement>
+    private readonly elementRef: ElementRef<HTMLElement>,
   ) {}
 
   ngOnInit(): void {
     this.ElementsFacade.pushPreventHandlerElement(
-      this.elementRef.nativeElement
+      this.elementRef.nativeElement,
     );
   }
 }

@@ -12,16 +12,17 @@
   .header {
     height: 25px;
     box-shadow: 3px 2px 3px var(--shadow-color-02) inset;
-    background: linear-gradient(to bottom,
-        var(--gradient-color-01) 0%,
-        var(--gradient-color-02) 100%);
+    background: linear-gradient(
+      to bottom,
+      var(--gradient-color-01) 0%,
+      var(--gradient-color-02) 100%
+    );
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 2px 3px;
     user-select: none;
     border-bottom: none;
-
 
     .logo-and-name {
       display: flex;
@@ -40,7 +41,6 @@
       color: var(--text-color-01);
       font-weight: 500;
     }
-
   }
 
   .content {

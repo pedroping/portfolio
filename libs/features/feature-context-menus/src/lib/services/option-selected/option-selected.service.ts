@@ -12,7 +12,7 @@ export class OptionSelectedService<T> {
   setOptionSelected(
     option: TAvalilableOptions,
     parentId: string | number,
-    data?: T
+    data?: T,
   ) {
     this.optionSelected$.next({ option, data, parentId });
   }
@@ -21,8 +21,8 @@ export class OptionSelectedService<T> {
     return this.optionSelected$$.pipe(
       filter(
         (event) =>
-          event.option === option && !!parentId && event.parentId == parentId
-      )
+          event.option === option && !!parentId && event.parentId == parentId,
+      ),
     );
   }
 

@@ -25,10 +25,10 @@
 
     <ul #folderContent>
       @for (program of allFolders$$ | async; track $index) {
-      <ng-container
-        [ngTemplateOutlet]="folder_node"
-        [ngTemplateOutletContext]="{ $implicit: program }"
-      ></ng-container>
+        <ng-container
+          [ngTemplateOutlet]="folder_node"
+          [ngTemplateOutletContext]="{ $implicit: program }"
+        ></ng-container>
       }
     </ul>
   </div>
@@ -41,10 +41,10 @@
     [class.no-children]="!program.children || program.children.length <= 0"
   >
     <div class="folders" [class.selected]="id === program.id">
-      @if(program.children && program.children.length > 0) {
-      <div class="children-toggle" #folderToggle>
-        <i class="fa-solid fa-plus"></i>
-      </div>
+      @if (program.children && program.children.length > 0) {
+        <div class="children-toggle" #folderToggle>
+          <i class="fa-solid fa-plus"></i>
+        </div>
       }
       <div class="folder-title">
         <img
@@ -55,17 +55,17 @@
       </div>
     </div>
 
-    @if(program.children && program.children.length > 0) {
-    <div class="folder-content" #folderContent>
-      <ul>
-        @for (childProgram of program.children; track $index) {
-        <ng-container
-          [ngTemplateOutlet]="folder_node"
-          [ngTemplateOutletContext]="{ $implicit: childProgram }"
-        ></ng-container>
-        }
-      </ul>
-    </div>
+    @if (program.children && program.children.length > 0) {
+      <div class="folder-content" #folderContent>
+        <ul>
+          @for (childProgram of program.children; track $index) {
+            <ng-container
+              [ngTemplateOutlet]="folder_node"
+              [ngTemplateOutletContext]="{ $implicit: childProgram }"
+            ></ng-container>
+          }
+        </ul>
+      </div>
     }
   </li>
 </ng-template>

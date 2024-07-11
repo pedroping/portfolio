@@ -21,10 +21,10 @@ export class ElementsData {
     element?.onDestroy$.next();
 
     const filteredElements = this.elements$.value.filter(
-      (element) => element.id != id
+      (element) => element.id != id,
     );
     const filteredBasicElements = this.basicElements$.value.filter(
-      (element) => element.id != id
+      (element) => element.id != id,
     );
 
     this.elements$.next(filteredElements);

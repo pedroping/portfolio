@@ -6,11 +6,14 @@ import { FixedProgramsService } from './fixed-programs.service';
 describe('Service: FixedPrograms', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [FixedProgramsService]
+      providers: [FixedProgramsService],
     });
   });
 
-  it('should ...', inject([FixedProgramsService], (service: FixedProgramsService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should ...', inject(
+    [FixedProgramsService],
+    (service: FixedProgramsService) => {
+      expect(service).toBeTruthy();
+    },
+  ));
 });

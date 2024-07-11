@@ -17,14 +17,14 @@ export class PagesListComponent {
   basicElements$ = this.elementsFacade.basicElements$.pipe(
     switchMap((elements) =>
       this.taskbarFacade.hideFixed$$.pipe(
-        map((ids) => elements.filter((element) => !ids.includes(element.id)))
-      )
-    )
+        map((ids) => elements.filter((element) => !ids.includes(element.id))),
+      ),
+    ),
   );
   fixedElements = FIXED_ICONS;
 
   constructor(
     private readonly taskbarFacade: TaskbarFacade,
-    private readonly elementsFacade: ElementsFacade
+    private readonly elementsFacade: ElementsFacade,
   ) {}
 }

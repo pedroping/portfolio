@@ -22,7 +22,7 @@ export class ElementCreatorService<T> {
     private readonly elementsData: ElementsData,
     private readonly injector: EnvironmentInjector,
     private readonly setZIndexService: SetZIndexService,
-    private readonly workspaceReferenceFacade: WorkspaceReferenceFacade<PageComponent>
+    private readonly workspaceReferenceFacade: WorkspaceReferenceFacade<PageComponent>,
   ) {}
 
   createElement(data: T, config: IInitialConfig) {
@@ -32,7 +32,7 @@ export class ElementCreatorService<T> {
 
     const { componentRef } = this.workspaceReferenceFacade.createComponent(
       PageComponent,
-      elementInjection
+      elementInjection,
     );
 
     componentRef.changeDetectorRef.detectChanges();
@@ -40,7 +40,7 @@ export class ElementCreatorService<T> {
     this.elementsData.pushElement(pageConfig);
     DomElementAdpter.setDisplay(
       componentRef.instance.element,
-      !!config?.opened
+      !!config?.opened,
     );
 
     this.setCustomTransform(componentRef.instance.element, pageConfig);
@@ -58,7 +58,7 @@ export class ElementCreatorService<T> {
       return DomElementAdpter.setTransform(
         element,
         config.customX || 0,
-        config.customY || 0
+        config.customY || 0,
       );
 
     const height = boundaryElement.offsetHeight;

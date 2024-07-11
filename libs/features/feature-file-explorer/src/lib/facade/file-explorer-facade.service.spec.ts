@@ -14,6 +14,6 @@ describe('Service: FileExplorerFacade', () => {
     [FileExplorerFacade],
     (service: FileExplorerFacade) => {
       expect(service).toBeTruthy();
-    }
+    },
   ));
 });

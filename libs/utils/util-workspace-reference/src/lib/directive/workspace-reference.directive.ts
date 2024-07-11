@@ -9,7 +9,7 @@ export class WorkspaceReferenceDirective {
   constructor(
     private readonly vcr: ViewContainerRef,
     private readonly elementRef: ElementRef<HTMLElement>,
-    private readonly workspaceReferenceFacade: WorkspaceReferenceFacade
+    private readonly workspaceReferenceFacade: WorkspaceReferenceFacade,
   ) {
     this.workspaceReferenceFacade.setVcr(this.vcr);
   }
@@ -17,7 +17,7 @@ export class WorkspaceReferenceDirective {
   ngOnInit() {
     this.workspaceReferenceFacade.setElement(
       this.elementRef.nativeElement.parentElement ??
-        this.elementRef.nativeElement
+        this.elementRef.nativeElement,
     );
   }
 }

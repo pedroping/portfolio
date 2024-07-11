@@ -10,7 +10,7 @@ import { UiSplashScreenComponent } from '../components/ui-splash-screen/ui-splas
 export class ShowScreenDirective implements OnInit {
   constructor(
     private readonly vcr: ViewContainerRef,
-    private readonly buildAnimation: BuildAnimation
+    private readonly buildAnimation: BuildAnimation,
   ) {}
 
   ngOnInit(): void {
@@ -20,7 +20,7 @@ export class ShowScreenDirective implements OnInit {
       'mousemove',
       () => {
         ('');
-      }
+      },
     );
     this.htmlElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';

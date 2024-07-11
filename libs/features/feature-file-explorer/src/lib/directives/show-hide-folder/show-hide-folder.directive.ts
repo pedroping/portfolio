@@ -28,7 +28,7 @@ export class ShowHideFolderDirective implements AfterViewInit {
 
   constructor(
     private readonly destroyRef: DestroyRef,
-    private readonly buildAnimation: BuildAnimation
+    private readonly buildAnimation: BuildAnimation,
   ) {
     effect(() => {
       this.destroySubscribers$.next();
@@ -47,7 +47,7 @@ export class ShowHideFolderDirective implements AfterViewInit {
     fromEvent(this.toggle, 'click')
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        takeUntil(this.destroySubscribers$)
+        takeUntil(this.destroySubscribers$),
       )
       .subscribe(() => {
         this.state.update((val) => !val);

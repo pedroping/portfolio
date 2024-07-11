@@ -17,7 +17,7 @@ export class InitialMenuCreatorDirective implements OnInit {
     private readonly vcr: ViewContainerRef,
     private readonly eventsFacade: EventsFacade,
     private readonly buildAnimation: BuildAnimation,
-    private readonly menuEventsFacade: MenuEventsFacade
+    private readonly menuEventsFacade: MenuEventsFacade,
   ) {}
 
   ngOnInit(): void {

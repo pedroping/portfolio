@@ -1,6 +1,6 @@
 @for (item of fixedElements; track $index) {
-<taskbar-element [element]="item" />
-
-} @for (item of basicElements$ | async; track $index) {
-<taskbar-element [element]="item" />
+  <taskbar-element [element]="item" />
+}
+@for (item of basicElements$ | async; track $index) {
+  <taskbar-element [element]="item" />
 }

@@ -35,7 +35,7 @@ export class WorkspaceComponent implements OnInit {
   constructor(
     private readonly cdr: ChangeDetectorRef,
     private readonly elementsFacade: ElementsFacade<IFolderData>,
-    private readonly foldersHierarchyFacade: FoldersHierarchyFacade
+    private readonly foldersHierarchyFacade: FoldersHierarchyFacade,
   ) {}
 
   ngOnInit(): void {
@@ -49,7 +49,7 @@ export class WorkspaceComponent implements OnInit {
         if (folder?.id)
           this.elementsFacade.createElement(
             { folderId: folder?.id },
-            FOLDER_02
+            FOLDER_02,
           );
       }
     });

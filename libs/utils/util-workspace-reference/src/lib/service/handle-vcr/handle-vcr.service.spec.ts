@@ -6,7 +6,7 @@ import { HandleVcrService } from './handle-vcr.service';
 describe('Service: HandleVcr', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [HandleVcrService]
+      providers: [HandleVcrService],
     });
   });
 

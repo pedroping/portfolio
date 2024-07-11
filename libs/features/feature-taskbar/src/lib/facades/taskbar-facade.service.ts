@@ -6,7 +6,7 @@ import { FixedProgramsService } from '../services/fixed-programs/fixed-programs.
 export class TaskbarFacade {
   constructor(
     private readonly fixedProgramsService: FixedProgramsService,
-    private readonly pagePreviewActionsService: PagePreviewActionsService
+    private readonly pagePreviewActionsService: PagePreviewActionsService,
   ) {}
 
   setNew(id: number) {

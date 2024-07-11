@@ -14,7 +14,8 @@
     align-items: center;
     gap: 15px;
     height: 65px;
-    box-shadow: -2px -2px 5px var(--shadow-color-03) inset,
+    box-shadow:
+      -2px -2px 5px var(--shadow-color-03) inset,
       0px -2px 5px var(--shadow-color-03);
     background: linear-gradient(
       to bottom,
@@ -57,7 +58,8 @@
   .menu-footer {
     height: 43px;
     background: linear-gradient(to top, #245edb 0%, #0c8dea 100%);
-    box-shadow: -2px -2px 5px var(--shadow-color-03) inset,
+    box-shadow:
+      -2px -2px 5px var(--shadow-color-03) inset,
       3px 3px 5px var(--shadow-color-03);
   }
 }

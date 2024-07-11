@@ -15,7 +15,7 @@ export class ElementsFacade<T = unknown> {
     private readonly setZIndexService: SetZIndexService,
     private readonly pageActionsService: PageActionsService,
     private readonly preventHandlerElements: PreventHandlerElements,
-    private readonly elementCreatorService: ElementCreatorService<T>
+    private readonly elementCreatorService: ElementCreatorService<T>,
   ) {}
 
   createElement(data: T, config: IInitialConfig) {

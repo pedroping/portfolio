@@ -14,6 +14,6 @@ describe('Service: WorkspaceReferenceFacade', () => {
     [WorkspaceReferenceFacade],
     (service: WorkspaceReferenceFacade) => {
       expect(service).toBeTruthy();
-    }
+    },
   ));
 });

@@ -11,9 +11,8 @@ describe('SubContextMenuShortByComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SubContextMenuShortByComponent ]
-    })
-    .compileComponents();
+      declarations: [SubContextMenuShortByComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

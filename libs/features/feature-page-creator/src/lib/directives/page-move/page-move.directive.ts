@@ -28,19 +28,19 @@ export class PageMoveDirective implements OnInit {
   dragEnd$ = fromEvent<MouseEvent>(document, 'mouseup');
   dragStart$ = fromEvent<MouseEvent>(
     this.elementRef.nativeElement,
-    'mousedown'
+    'mousedown',
   );
   drag$ = fromEvent<MouseEvent>(document, 'mousemove').pipe(
-    takeUntil(this.dragEnd$)
+    takeUntil(this.dragEnd$),
   );
 
   touchEnd$ = fromEvent<TouchEvent>(document, 'touchend');
   touchMove$ = fromEvent<TouchEvent>(document, 'touchmove').pipe(
-    takeUntil(this.touchEnd$)
+    takeUntil(this.touchEnd$),
   );
   touchStart$ = fromEvent<TouchEvent>(
     this.elementRef.nativeElement,
-    'touchstart'
+    'touchstart',
   );
 
   constructor(
@@ -48,7 +48,7 @@ export class PageMoveDirective implements OnInit {
     private readonly elementRef: ElementRef,
     private readonly elementsFacade: ElementsFacade,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig,
-    private readonly workspaceReferenceFacade: WorkspaceReferenceFacade
+    private readonly workspaceReferenceFacade: WorkspaceReferenceFacade,
   ) {}
 
   ngOnInit(): void {

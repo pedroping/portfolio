@@ -8,7 +8,7 @@ import { ElementsFacade } from '../../facades/elements-facade/elements-facade';
 export class PageCloseDirective<T> {
   constructor(
     private readonly ElementsFacade: ElementsFacade<T>,
-    @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
+    @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig,
   ) {}
 
   @HostListener('click') onclick() {

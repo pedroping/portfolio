@@ -11,9 +11,8 @@ describe('SubContextMenuViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SubContextMenuViewComponent ]
-    })
-    .compileComponents();
+      declarations: [SubContextMenuViewComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

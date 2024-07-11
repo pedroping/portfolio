@@ -7,7 +7,7 @@ import { OptionSelectedService } from '../services/option-selected/option-select
 export class ContextMenuFacade<T> {
   constructor(
     private readonly optionSelectedService: OptionSelectedService<T>,
-    private readonly contextMenuStateService: ContextMenuStateService
+    private readonly contextMenuStateService: ContextMenuStateService,
   ) {}
 
   setCleatAll() {
@@ -21,7 +21,7 @@ export class ContextMenuFacade<T> {
   setOptionSelected(
     option: TAvalilableOptions,
     parentId: string | number,
-    data?: T
+    data?: T,
   ) {
     this.optionSelectedService.setOptionSelected(option, parentId, data);
   }

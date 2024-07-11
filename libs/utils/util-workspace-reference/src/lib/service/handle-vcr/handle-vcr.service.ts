@@ -5,7 +5,7 @@ import { IComponent } from '../../models/handle-vcr-models';
 @Injectable({ providedIn: 'root' })
 export class HandleVcrService<T> {
   constructor(
-    private readonly workspaceReferenceDataService: WorkspaceReferenceDataService
+    private readonly workspaceReferenceDataService: WorkspaceReferenceDataService,
   ) {}
 
   createComponent(component: Type<T>, injection?: Injector): IComponent<T> {

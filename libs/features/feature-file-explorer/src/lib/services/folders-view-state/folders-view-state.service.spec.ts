@@ -6,11 +6,14 @@ import { FoldersViewStateService } from './folders-view-state.service';
 describe('Service: FoldersState', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [FoldersViewStateService]
+      providers: [FoldersViewStateService],
     });
   });
 
-  it('should ...', inject([FoldersViewStateService], (service: FoldersViewStateService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should ...', inject(
+    [FoldersViewStateService],
+    (service: FoldersViewStateService) => {
+      expect(service).toBeTruthy();
+    },
+  ));
 });

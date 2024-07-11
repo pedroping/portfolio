@@ -11,9 +11,8 @@ describe('TaskbarElementComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TaskbarElementComponent ]
-    })
-    .compileComponents();
+      declarations: [TaskbarElementComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

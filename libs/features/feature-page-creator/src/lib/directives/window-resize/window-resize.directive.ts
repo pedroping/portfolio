@@ -12,13 +12,13 @@ export class WindowResizeDirective implements OnInit {
   constructor(
     private readonly destroyRef: DestroyRef,
     private readonly elementsFacade: ElementsFacade,
-    @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
+    @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig,
   ) {}
 
   ngOnInit(): void {
     merge(
       fromEvent(window, 'resize'),
-      this._config.element$.pipe(take(2), skip(1))
+      this._config.element$.pipe(take(2), skip(1)),
     )
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {

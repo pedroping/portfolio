@@ -27,7 +27,7 @@ export class AppHolderComponent {
   constructor(
     private readonly cdr: ChangeDetectorRef,
     private readonly foldersHierarchyFacade: FoldersHierarchyFacade,
-    @Optional() @Inject(DATA_TOKEN) private readonly data: IFolderData
+    @Optional() @Inject(DATA_TOKEN) private readonly data: IFolderData,
   ) {
     this.id = data?.folderId ?? 0;
     this.files$$ = this.foldersHierarchyFacade

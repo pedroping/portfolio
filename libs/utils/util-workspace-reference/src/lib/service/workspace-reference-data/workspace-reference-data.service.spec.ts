@@ -6,11 +6,14 @@ import { WorkspaceReferenceDataService } from './workspace-reference-data.servic
 describe('Service: WorkspaceReferenceData', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [WorkspaceReferenceDataService]
+      providers: [WorkspaceReferenceDataService],
     });
   });
 
-  it('should ...', inject([WorkspaceReferenceDataService], (service: WorkspaceReferenceDataService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should ...', inject(
+    [WorkspaceReferenceDataService],
+    (service: WorkspaceReferenceDataService) => {
+      expect(service).toBeTruthy();
+    },
+  ));
 });

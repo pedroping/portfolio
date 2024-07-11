@@ -36,11 +36,19 @@
     }
 
     &:first-child .icon {
-      background: linear-gradient(to bottom, var(--gradient-log-off-btn-01) 0%, var(--gradient-log-off-btn-02) 100%);
+      background: linear-gradient(
+        to bottom,
+        var(--gradient-log-off-btn-01) 0%,
+        var(--gradient-log-off-btn-02) 100%
+      );
     }
 
     &:last-child .icon {
-      background: linear-gradient(to bottom, var(--gradiant-close-btn-01) 0%, var(--gradiant-close-btn-02) 100%);
+      background: linear-gradient(
+        to bottom,
+        var(--gradiant-close-btn-01) 0%,
+        var(--gradiant-close-btn-02) 100%
+      );
     }
 
     span {

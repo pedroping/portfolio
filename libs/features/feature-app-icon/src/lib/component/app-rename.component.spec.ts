@@ -11,9 +11,8 @@ describe('AppRenameComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AppRenameComponent ]
-    })
-    .compileComponents();
+      declarations: [AppRenameComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

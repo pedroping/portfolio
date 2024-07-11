@@ -21,7 +21,7 @@ export class OptionEventDirective<T> implements AfterViewInit {
 
   constructor(
     private readonly destroyRef: DestroyRef,
-    private readonly contextMenuFacade: ContextMenuFacade<T>
+    private readonly contextMenuFacade: ContextMenuFacade<T>,
   ) {}
 
   ngAfterViewInit(): void {
@@ -33,7 +33,7 @@ export class OptionEventDirective<T> implements AfterViewInit {
         this.contextMenuFacade.setOptionSelected(
           event,
           this.parentId(),
-          this.data()
+          this.data(),
         );
         this.contextMenuFacade.setClearDefault();
       });

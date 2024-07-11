@@ -48,7 +48,7 @@ export class AppIconComponent implements OnInit {
   constructor(
     private readonly destroyRef: DestroyRef,
     private readonly elementRef: ElementRef<HTMLElement>,
-    private readonly contextMenuFacade: ContextMenuFacade<string | number>
+    private readonly contextMenuFacade: ContextMenuFacade<string | number>,
   ) {}
 
   ngOnInit(): void {
@@ -58,7 +58,7 @@ export class AppIconComponent implements OnInit {
       .getEventByOption('program-rename', this.parentId)
       .pipe(
         filter((event) => event.data === this.id()),
-        takeUntilDestroyed(this.destroyRef)
+        takeUntilDestroyed(this.destroyRef),
       );
   }
 }

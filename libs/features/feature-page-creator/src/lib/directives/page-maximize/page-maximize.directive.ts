@@ -28,7 +28,7 @@ export class PageMaximizeDirective implements OnInit {
     private readonly destroyRef: DestroyRef,
     private readonly elementsFacade: ElementsFacade,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig,
-    private readonly workspaceReferenceFacade: WorkspaceReferenceFacade
+    private readonly workspaceReferenceFacade: WorkspaceReferenceFacade,
   ) {}
 
   @HostListener('click') onclick() {
@@ -63,7 +63,7 @@ export class PageMaximizeDirective implements OnInit {
         this.elementsFacade.openElement(this._config.id);
         this.lastTranslet3d = DomElementAdpter.getTranslate3d(
           this._config.customX || 0,
-          this._config.customY || 0
+          this._config.customY || 0,
         );
 
         this.setFullScreen(true, element);
@@ -174,17 +174,17 @@ export class PageMaximizeDirective implements OnInit {
 
     this._config.lastPosition.x = Math.min(
       Math.max(this._config.lastPosition.x, 0),
-      maxBoundX
+      maxBoundX,
     );
     this._config.lastPosition.y = Math.min(
       Math.max(this._config.lastPosition.y, 0),
-      maxBoundY
+      maxBoundY,
     );
 
     DomElementAdpter.setTransform(
       element,
       this._config.lastPosition.x,
-      this._config.lastPosition.y
+      this._config.lastPosition.y,
     );
   }
 

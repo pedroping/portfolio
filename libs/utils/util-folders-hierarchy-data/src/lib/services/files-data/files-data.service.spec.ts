@@ -6,7 +6,7 @@ import { FilesDataService } from './files-data.service';
 describe('Service: FilesData', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [FilesDataService]
+      providers: [FilesDataService],
     });
   });
 

@@ -65,7 +65,7 @@ export class DomElementAdpter {
   static afterTransitions(element: HTMLElement) {
     return fromEvent<TransitionEvent>(element, 'transitionstart').pipe(
       debounceTime(100),
-      take(1)
+      take(1),
     );
   }
 }

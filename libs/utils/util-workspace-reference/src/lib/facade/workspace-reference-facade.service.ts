@@ -13,7 +13,7 @@ import { WorkspaceReferenceDataService } from '../service/workspace-reference-da
 export class WorkspaceReferenceFacade<T = unknown> {
   constructor(
     private readonly handleVcrService: HandleVcrService<T>,
-    private readonly workspaceReferenceDataService: WorkspaceReferenceDataService
+    private readonly workspaceReferenceDataService: WorkspaceReferenceDataService,
   ) {}
 
   createComponent(component: Type<T>, injection?: Injector): IComponent<T> {

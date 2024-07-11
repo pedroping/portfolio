@@ -22,7 +22,7 @@ export class FoldersComponent {
 
   constructor(
     private readonly foldersHierarchyFacade: FoldersHierarchyFacade,
-    @Optional() @Inject(DATA_TOKEN) private readonly data: IFolderData
+    @Optional() @Inject(DATA_TOKEN) private readonly data: IFolderData,
   ) {
     this.id = data?.folderId ?? 0;
   }

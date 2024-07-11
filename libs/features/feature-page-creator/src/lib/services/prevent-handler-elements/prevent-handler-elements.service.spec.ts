@@ -14,6 +14,6 @@ describe('Service: PreventHandlerElements', () => {
     [PreventHandlerElements],
     (service: PreventHandlerElements) => {
       expect(service).toBeTruthy();
-    }
+    },
   ));
 });

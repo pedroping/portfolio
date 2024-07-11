@@ -22,7 +22,7 @@ import { WorkspaceReferenceDirective } from '@portifolio/utils/util-workspace-re
 export class WorkspacePageComponent implements OnDestroy {
   constructor(
     private readonly menuEventsFacade: MenuEventsFacade,
-    private readonly elementsFacade: ElementsFacade<IFolderData>
+    private readonly elementsFacade: ElementsFacade<IFolderData>,
   ) {}
 
   ngOnDestroy() {

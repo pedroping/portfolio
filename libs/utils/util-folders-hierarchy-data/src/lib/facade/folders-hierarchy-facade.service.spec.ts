@@ -14,6 +14,6 @@ describe('Service: FoldersHierarchyFacade', () => {
     [FoldersHierarchyFacade],
     (service: FoldersHierarchyFacade) => {
       expect(service).toBeTruthy();
-    }
+    },
   ));
 });

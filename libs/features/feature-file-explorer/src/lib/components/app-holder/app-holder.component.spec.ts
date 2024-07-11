@@ -11,9 +11,8 @@ describe('AppHolderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AppHolderComponent ]
-    })
-    .compileComponents();
+      declarations: [AppHolderComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

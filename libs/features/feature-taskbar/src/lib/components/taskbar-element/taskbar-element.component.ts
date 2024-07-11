@@ -49,7 +49,7 @@ export class TaskbarElementComponent implements OnInit {
     private readonly destroyRef: DestroyRef,
     private readonly taskbarFacade: TaskbarFacade,
     private readonly elementsFacade: ElementsFacade,
-    private readonly showElementPreviewDirective: ShowElementPreviewDirective
+    private readonly showElementPreviewDirective: ShowElementPreviewDirective,
   ) {}
 
   ngOnInit(): void {
@@ -107,7 +107,7 @@ export class TaskbarElementComponent implements OnInit {
   }
 
   isInitialConfig(
-    element: IBasicElement | IInitialConfig
+    element: IBasicElement | IInitialConfig,
   ): element is IInitialConfig {
     return !!(element as IInitialConfig).baseSizes;
   }

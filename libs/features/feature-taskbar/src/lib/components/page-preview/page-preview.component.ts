@@ -22,14 +22,14 @@ export class PagePreviewComponent implements IPreviewPage, OnInit {
 
   constructor(
     private readonly taskbarFacade: TaskbarFacade,
-    private readonly elementsFacade: ElementsFacade
+    private readonly elementsFacade: ElementsFacade,
   ) {}
 
   @HostListener('click') onClick() {
     if (this.element?.opened && this.element.element$.value) {
       this.elementsFacade.setNewZIndex(
         this.element.id,
-        this.element.element$.value
+        this.element.element$.value,
       );
       this.taskbarFacade.setCloseAll();
       return;

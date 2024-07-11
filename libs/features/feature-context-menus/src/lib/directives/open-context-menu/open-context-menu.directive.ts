@@ -38,7 +38,7 @@ export class OpenContextMenuDirective {
     private readonly elementRef: ElementRef<HTMLElement>,
     private readonly lastZIndexService: LastZIndexService,
     private readonly workspaceReferenceFacade: WorkspaceReferenceFacade,
-    private readonly contextMenuFacade: ContextMenuFacade<number | string>
+    private readonly contextMenuFacade: ContextMenuFacade<number | string>,
   ) {}
 
   @HostListener('contextmenu', ['$event']) onClick(event: PointerEvent) {
@@ -46,7 +46,6 @@ export class OpenContextMenuDirective {
     event.stopPropagation();
 
     console.log('afssaf', (event.target as HTMLElement).id);
-    
 
     this.contextMenuFacade.setClearDefault();
     this.clearView();
@@ -103,7 +102,7 @@ export class OpenContextMenuDirective {
     this.contextMenuFacade.clearDefault$$
       .pipe(
         takeUntil(this.destroySubscription$),
-        takeUntilDestroyed(this.destroyRef)
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe(() => this.clearView());
 
@@ -114,13 +113,13 @@ export class OpenContextMenuDirective {
           filter((event: Event) => {
             const isOutTarget = this.isOutTarget(
               view,
-              event.target as HTMLElement
+              event.target as HTMLElement,
             );
             return isOutTarget;
           }),
           take(1),
           takeUntil(this.destroySubscription$),
-          takeUntilDestroyed(this.destroyRef)
+          takeUntilDestroyed(this.destroyRef),
         )
         .subscribe(() => {
           this.ngZone.run(() => {

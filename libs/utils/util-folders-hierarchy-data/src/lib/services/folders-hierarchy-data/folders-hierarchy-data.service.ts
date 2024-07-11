@@ -30,7 +30,7 @@ export class FoldersHierarchyDataService {
 
   findFolder(
     id: number | string,
-    folders = this.allFolders
+    folders = this.allFolders,
   ): IFolder | undefined {
     let hasFolder: IFolder | undefined = undefined;
 

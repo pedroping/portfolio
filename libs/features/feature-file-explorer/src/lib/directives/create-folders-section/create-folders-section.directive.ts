@@ -16,14 +16,14 @@ export class CreateFoldersSectionDirective implements OnInit {
     private readonly vcr: ViewContainerRef,
     private readonly destroyRef: DestroyRef,
     private readonly buildAnimation: BuildAnimation,
-    private readonly fileExplorerFacade: FileExplorerFacade
+    private readonly fileExplorerFacade: FileExplorerFacade,
   ) {}
 
   ngOnInit(): void {
     this.fileExplorerFacade.menuState$$
       .pipe(
         startWith(this.fileExplorerFacade.menuState),
-        takeUntilDestroyed(this.destroyRef)
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe((val) => {
         if (val) {

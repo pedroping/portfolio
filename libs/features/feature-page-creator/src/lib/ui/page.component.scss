@@ -15,9 +15,11 @@
     height: var(--page-header-height);
     box-shadow: 3px 2px 3px var(--shadow-color-02) inset;
     border-radius: 5px;
-    background: linear-gradient(to bottom,
-        var(--gradient-color-01) 0%,
-        var(--gradient-color-02) 100%);
+    background: linear-gradient(
+      to bottom,
+      var(--gradient-color-01) 0%,
+      var(--gradient-color-02) 100%
+    );
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -50,7 +52,7 @@
       display: flex;
       gap: 2px;
 
-      &>* {
+      & > * {
         z-index: 11;
       }
     }

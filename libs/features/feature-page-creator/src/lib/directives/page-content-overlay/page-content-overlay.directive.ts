@@ -23,21 +23,21 @@ export class PageContentOverlayDirective implements AfterViewInit {
     private readonly destroyRef: DestroyRef,
     private readonly eventsFacade: EventsFacade,
     private readonly elementsFacade: ElementsFacade,
-    @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
+    @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig,
   ) {}
 
   ngAfterViewInit(): void {
     merge(
       this.eventsFacade.changeZIndex$$,
       this._config.element$.pipe(take(1)),
-      this.elementsFacade.elements$.asObservable()
+      this.elementsFacade.elements$.asObservable(),
     )
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => this.validateOverlay());
 
     merge(
       this.elementsFacade.anyElementEvent$$,
-      this.eventsFacade.createOverlay$$.pipe(map(() => true))
+      this.eventsFacade.createOverlay$$.pipe(map(() => true)),
     )
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(this.handleBoolean);
@@ -63,7 +63,7 @@ export class PageContentOverlayDirective implements AfterViewInit {
     if (!element) return;
 
     const hasNoOtherElement = this.elementsFacade.isOnlyElementOpened(
-      this._config.id
+      this._config.id,
     );
 
     if (hasNoOtherElement) return this.removeOverlay();
@@ -75,7 +75,7 @@ export class PageContentOverlayDirective implements AfterViewInit {
 
     const isBehindAnotherElement = this.getIsBehindAnotherElement(
       this._config.id,
-      element
+      element,
     );
 
     if (!isBehindAnotherElement) return this.removeOverlay();
@@ -91,7 +91,7 @@ export class PageContentOverlayDirective implements AfterViewInit {
         (item) =>
           item.element$.value &&
           +item.element$.value.style.zIndex > +element.style.zIndex &&
-          !!DomElementAdpter.elementAboveOther(item.element$.value, element)
+          !!DomElementAdpter.elementAboveOther(item.element$.value, element),
       )
       .find((result) => !!result);
   }

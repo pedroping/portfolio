@@ -24,7 +24,7 @@ export class FolderSectionActionDirective implements OnInit {
 
   constructor(
     private readonly destroyRef: DestroyRef,
-    private readonly fileExplorerFacade: FileExplorerFacade
+    private readonly fileExplorerFacade: FileExplorerFacade,
   ) {}
 
   ngOnInit(): void {

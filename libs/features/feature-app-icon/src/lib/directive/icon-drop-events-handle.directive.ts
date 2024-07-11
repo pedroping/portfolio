@@ -29,7 +29,7 @@ export class IconDropEventsHandleDirective implements AfterViewInit {
       JSON.stringify({
         ...this.config(),
         parentTargetId: id,
-      })
+      }),
     );
     event.dataTransfer.effectAllowed = 'move';
   }

@@ -14,6 +14,6 @@ describe('Service: PagePreviewActions', () => {
     [PagePreviewActionsService],
     (service: PagePreviewActionsService) => {
       expect(service).toBeTruthy();
-    }
+    },
   ));
 });

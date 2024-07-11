@@ -19,7 +19,7 @@ export class PageMinimizeDirective implements OnInit {
   constructor(
     private readonly destroyRef: DestroyRef,
     private readonly elementsFacade: ElementsFacade,
-    @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig
+    @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig,
   ) {}
 
   ngOnInit(): void {
@@ -28,9 +28,11 @@ export class PageMinimizeDirective implements OnInit {
         take(2),
         filter(
           () =>
-            !!this._config && !this._config.opened && !this._config.isFullScreen
+            !!this._config &&
+            !this._config.opened &&
+            !this._config.isFullScreen,
         ),
-        takeUntilDestroyed(this.destroyRef)
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe(() => this.onclick());
   }
@@ -48,7 +50,7 @@ export class PageMinimizeDirective implements OnInit {
     DomElementAdpter.setTransform(
       element,
       (index + 1) * 20,
-      window.innerHeight * 2.5
+      window.innerHeight * 2.5,
     );
   }
 }

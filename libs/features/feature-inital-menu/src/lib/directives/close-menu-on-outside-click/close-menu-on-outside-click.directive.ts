@@ -18,7 +18,7 @@ export class CloseMenuOnOutsideClickDirective implements OnInit {
     private readonly ngZone: NgZone,
     private readonly destroyRef: DestroyRef,
     private readonly elementRef: ElementRef<HTMLElement>,
-    private readonly menuEventsFacade: MenuEventsFacade
+    private readonly menuEventsFacade: MenuEventsFacade,
   ) {}
 
   ngOnInit(): void {
@@ -34,7 +34,7 @@ export class CloseMenuOnOutsideClickDirective implements OnInit {
 
             return isOutTarget && !hasPrevent;
           }),
-          take(1)
+          take(1),
         )
         .subscribe(() => {
           this.ngZone.run(() => {

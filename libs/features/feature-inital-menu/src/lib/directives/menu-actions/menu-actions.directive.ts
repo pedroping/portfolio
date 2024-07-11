@@ -10,7 +10,7 @@ export class MenuActionsDirective implements OnInit {
   constructor(
     private readonly ngZone: NgZone,
     private readonly destroyRef: DestroyRef,
-    private readonly menuEventsFacade: MenuEventsFacade
+    private readonly menuEventsFacade: MenuEventsFacade,
   ) {}
 
   ngOnInit(): void {
