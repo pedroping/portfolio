@@ -70,6 +70,6 @@ export class FilesDataService {
   }
 
   get allFiles$$() {
-    return this.allFiles$;
+    return this.allFiles$.asObservable();
   }
 }
