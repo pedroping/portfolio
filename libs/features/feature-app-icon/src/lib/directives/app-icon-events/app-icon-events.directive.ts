@@ -8,8 +8,9 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ContextMenuFacade } from '@portifolio/features/feature-context-menus';
+import { ElementsFacade } from '@portifolio/features/feature-page-creator';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
-import { IApp, IOptionEvent } from '@portifolio/utils/util-models';
+import { IApp, IFolderData, IOptionEvent } from '@portifolio/utils/util-models';
 import { filter, Observable, pipe } from 'rxjs';
 
 @Directive({
@@ -25,6 +26,7 @@ export class AppIconEventsDirective implements OnInit {
   constructor(
     private readonly destroyRef: DestroyRef,
     private readonly elementRef: ElementRef<HTMLElement>,
+    private readonly elementsFacade: ElementsFacade<IFolderData>,
     private readonly foldersHierarchyFacade: FoldersHierarchyFacade,
     private readonly contextMenuFacade: ContextMenuFacade<string | number>,
   ) {}
@@ -56,8 +58,11 @@ export class AppIconEventsDirective implements OnInit {
 
   handleDelete() {
     this.foldersHierarchyFacade.deleteFile(this.id());
-
     const isFolderId = this.config().isFolderId;
+    const hasPageId = this.config().hasPageId;
+
+    if (hasPageId || hasPageId == 0)
+      this.elementsFacade.destroyElement(hasPageId);
 
     if (this.config().type != 'folder' || (!isFolderId && isFolderId != 0))
       return;
