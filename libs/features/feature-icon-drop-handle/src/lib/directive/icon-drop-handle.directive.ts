@@ -50,7 +50,7 @@ export class IconDropHandleDirective {
 
     if (
       actualId == dropContent.parentTargetId ||
-      dropContent.folderId == folderId ||
+      dropContent.parentFolderId == folderId ||
       dropContent.isFolderId === folderId
     )
       return;

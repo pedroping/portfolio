@@ -46,11 +46,13 @@ export class WorkspaceComponent implements OnInit {
 
         file.isFolderId = folder?.id;
 
-        if (folder?.id)
-          this.elementsFacade.createElement(
+        if (folder?.id) {
+          const page = this.elementsFacade.createElement(
             { folderId: folder?.id },
             FOLDER_02,
           );
+          file.hasPageId = page.id;
+        }
       }
     });
   }

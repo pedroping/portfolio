@@ -6,19 +6,19 @@ export const BASIC_FOLDER: IBasicApp[] = [
     name: 'Page 01',
     logo: '',
     type: 'folder',
-    folderId: 0,
+    parentFolderId: 0,
   },
   {
     name: 'Curriculum',
     logo: '/assets/images/pdf-icon.png',
     type: 'file',
-    folderId: 0,
+    parentFolderId: 0,
   },
   {
     name: 'Page 02',
     logo: '',
     type: 'folder',
-    folderId: 0,
+    parentFolderId: 0,
   },
 ];
 

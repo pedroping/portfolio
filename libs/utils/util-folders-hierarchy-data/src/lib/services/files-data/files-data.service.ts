@@ -19,7 +19,7 @@ export class FilesDataService {
   getFileByFolder(folderId: number) {
     return this.allFiles$$.pipe(
       startWith(this.allFiles),
-      map((files) => files.filter((file) => file.folderId === folderId)),
+      map((files) => files.filter((file) => file.parentFolderId === folderId)),
     );
   }
 
@@ -45,7 +45,7 @@ export class FilesDataService {
 
     if (!file) return;
 
-    file.folderId = folderId;
+    file.parentFolderId = folderId;
 
     const files = this.allFiles;
 
@@ -60,7 +60,7 @@ export class FilesDataService {
 
   deleteFilesByFolder(folderId: number) {
     const filteredFiles = this.allFiles.filter(
-      (file) => file.folderId != folderId,
+      (file) => file.parentFolderId != folderId,
     );
     this.allFiles$.next(filteredFiles);
   }

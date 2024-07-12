@@ -3,8 +3,9 @@ export interface IBasicApp {
   name: string;
   logo: string;
   type: IFoldersType;
-  folderId: number;
+  parentFolderId: number;
   isFolderId?: number;
+  hasPageId?: number;
 }
 export interface IDropEvent {
   parentTargetId?: string;
