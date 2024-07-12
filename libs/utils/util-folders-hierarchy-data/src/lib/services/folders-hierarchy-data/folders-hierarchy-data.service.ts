@@ -1,11 +1,18 @@
 import { Injectable } from '@angular/core';
-import { IFolder } from '@portifolio/utils/util-models';
+import { IFolder, IFolderData } from '@portifolio/utils/util-models';
 import { BehaviorSubject } from 'rxjs';
+import { FilesDataService } from '../files-data/files-data.service';
+import { ElementsFacade } from '@portifolio/features/feature-page-creator';
 
 @Injectable({ providedIn: 'root' })
 export class FoldersHierarchyDataService {
   lastId = 0;
   private allFolders$ = new BehaviorSubject<IFolder[]>([]);
+
+  constructor(
+    private readonly filesDataService: FilesDataService,
+    private readonly elementsFacade: ElementsFacade<IFolderData>,
+  ) {}
 
   createNewFolder(title: string, parentId?: number) {
     const newFolder: IFolder = {
@@ -43,10 +50,18 @@ export class FoldersHierarchyDataService {
     return undefined;
   }
 
-  deleteFolder(id: number, folders = this.allFolders): void {
+  deleteFolder(
+    id: number,
+    folders = this.allFolders,
+    preventChildDelete?: boolean,
+  ): void {
     for (let i = 0; i < folders.length; i++) {
       if (folders[i].id === id) {
         const index = folders.findIndex((folder) => folder.id == id);
+        const folder = folders.find((folder) => folder.id == id);
+
+        if (folder && !preventChildDelete) this.deleteFolderChildrens(folder);
+
         folders.splice(index, 1);
         return;
       }
@@ -54,10 +69,28 @@ export class FoldersHierarchyDataService {
 
     for (let i = 0; i < folders.length; i++) {
       if (folders[i].children)
-        return this.deleteFolder(id, folders[i].children);
+        return this.deleteFolder(id, folders[i].children, preventChildDelete);
     }
 
     return;
+  }
+
+  deleteFolderChildrens(folder: IFolder) {
+    const folderId = folder.id;
+
+    const folderFile = this.filesDataService.getFolderFile(folderId);
+    const hasPageId = folderFile?.hasPageId;
+
+    if (hasPageId || hasPageId == 0)
+      this.elementsFacade.destroyElement(hasPageId);
+
+    this.filesDataService.deleteFilesByFolder(folderId);
+
+    if (!folder.children) return;
+
+    for (let i = 0; i < folder.children.length; i++) {
+      this.deleteFolderChildrens(folder.children[i]);
+    }
   }
 
   moveFolder(id: number, newFolderPlacement: number) {
@@ -65,7 +98,7 @@ export class FoldersHierarchyDataService {
 
     if (!folder) return;
 
-    this.deleteFolder(id);
+    this.deleteFolder(id, undefined, true);
 
     if (newFolderPlacement == 0) {
       this.allFolders.push(folder);

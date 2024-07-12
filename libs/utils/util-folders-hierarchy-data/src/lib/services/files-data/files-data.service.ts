@@ -23,6 +23,10 @@ export class FilesDataService {
     );
   }
 
+  getFolderFile(folderId: number) {
+    return this.allFiles.find((file) => file.isFolderId === folderId);
+  }
+
   getFile(id: number) {
     return this.allFiles.find((file) => file.id === id);
   }
@@ -60,7 +64,7 @@ export class FilesDataService {
 
   deleteFilesByFolder(folderId: number) {
     const filteredFiles = this.allFiles.filter(
-      (file) => file.parentFolderId != folderId,
+      (file) => file.parentFolderId != folderId || file.type == 'folder',
     );
     this.allFiles$.next(filteredFiles);
   }
