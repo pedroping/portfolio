@@ -47,7 +47,7 @@ export class FoldersHierarchyDataService {
     return hasFolder;
   }
 
-  removeFolder(id: number, folders = this.allFolders): void {
+  deleteFolder(id: number, folders = this.allFolders): void {
     for (let i = 0; i < folders.length; i++) {
       if (folders[i].id === id) {
         const index = folders.findIndex((folder) => folder.id == id);
@@ -58,7 +58,7 @@ export class FoldersHierarchyDataService {
 
     for (let i = 0; i < folders.length; i++) {
       if (folders[i].children)
-        return this.removeFolder(id, folders[i].children);
+        return this.deleteFolder(id, folders[i].children);
     }
 
     return;
@@ -69,7 +69,7 @@ export class FoldersHierarchyDataService {
 
     if (!folder) return;
 
-    this.removeFolder(id);
+    this.deleteFolder(id);
 
     if (newFolderPlacement == 0) {
       this.allFolders.push(folder);

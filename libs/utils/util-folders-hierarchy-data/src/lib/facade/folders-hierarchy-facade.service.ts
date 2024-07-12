@@ -49,6 +49,18 @@ export class FoldersHierarchyFacade {
     );
   }
 
+  deleteFolder(id: number) {
+    this.foldersHierarchyDataService.deleteFolder(id);
+  }
+
+  deleteFile(id: number) {
+    this.filesDataService.deleteFile(id);
+  }
+
+  deleteFilesByFolder(folderId: number) {
+    this.filesDataService.deleteFilesByFolder(folderId);
+  }
+
   get allFiles() {
     return this.filesDataService.allFiles;
   }

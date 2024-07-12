@@ -45,8 +45,6 @@ export class OpenContextMenuDirective {
     event.preventDefault();
     event.stopPropagation();
 
-    console.log('afssaf', (event.target as HTMLElement).id);
-
     this.contextMenuFacade.setClearDefault();
     this.clearView();
 

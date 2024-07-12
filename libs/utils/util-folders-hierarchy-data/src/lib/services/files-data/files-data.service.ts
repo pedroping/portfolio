@@ -53,6 +53,18 @@ export class FilesDataService {
     this.allFiles$.next(files);
   }
 
+  deleteFile(id: number) {
+    const filteredFiles = this.allFiles.filter((file) => file.id != id);
+    this.allFiles$.next(filteredFiles);
+  }
+
+  deleteFilesByFolder(folderId: number) {
+    const filteredFiles = this.allFiles.filter(
+      (file) => file.folderId != folderId,
+    );
+    this.allFiles$.next(filteredFiles);
+  }
+
   get allFiles() {
     return this.allFiles$.value;
   }

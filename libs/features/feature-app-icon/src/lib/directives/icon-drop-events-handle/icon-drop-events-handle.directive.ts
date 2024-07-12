@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  computed,
   Directive,
   ElementRef,
   HostListener,
@@ -14,7 +15,7 @@ import { fromEvent } from 'rxjs';
 })
 export class IconDropEventsHandleDirective implements AfterViewInit {
   config = input.required<IApp>();
-  id = input.required<string | number>();
+  id = computed(() => this.config().id);
 
   constructor(private readonly elementRef: ElementRef) {}
 
