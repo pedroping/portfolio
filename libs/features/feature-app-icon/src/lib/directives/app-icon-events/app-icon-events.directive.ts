@@ -1,5 +1,4 @@
 import {
-  computed,
   DestroyRef,
   Directive,
   ElementRef,
@@ -7,7 +6,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ContextMenuFacade } from '@portifolio/features/feature-context-menus';
+import {
+  ContextMenuFacade,
+  OpenContextMenuDirective,
+} from '@portifolio/features/feature-context-menus';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
 import { IApp, IOptionEvent } from '@portifolio/utils/util-models';
 import { filter, Observable, pipe } from 'rxjs';
@@ -15,13 +17,17 @@ import { filter, Observable, pipe } from 'rxjs';
 @Directive({
   selector: '[appIconEvents]',
   standalone: true,
+  hostDirectives: [
+    {
+      directive: OpenContextMenuDirective,
+      inputs: ['openContextMenu', 'id'],
+    },
+  ],
 })
 export class AppIconEventsDirective implements OnInit {
   config = input.required<IApp>();
-  id = computed(() => this.config().id);
-
-  deleteEvent$ = new Observable<IOptionEvent<string | number>>();
-
+  id = input.required<string | number>();
+  parentId = this.elementRef.nativeElement.parentElement?.id;
   constructor(
     private readonly destroyRef: DestroyRef,
     private readonly elementRef: ElementRef<HTMLElement>,
@@ -30,13 +36,22 @@ export class AppIconEventsDirective implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const parentId = this.elementRef.nativeElement.parentElement?.id;
-
-    this.deleteEvent$ = this.contextMenuFacade
-      .getEventByOption('program-delete', parentId)
-      .pipe(this.destroy, this.filterEvent);
-
     this.deleteEvent$.subscribe(() => this.handleDelete());
+  }
+
+  handleDelete() {
+    const isFolderId = this.config().isFolderId;
+
+    if ((this.config().type == 'folder' && isFolderId) || isFolderId == 0)
+      this.foldersHierarchyFacade.deleteFolder(isFolderId);
+
+    this.foldersHierarchyFacade.deleteFile(this.config().id);
+  }
+
+  get deleteEvent$() {
+    return this.contextMenuFacade
+      .getEventByOption('program-delete', this.parentId)
+      .pipe(this.destroy, this.filterEvent);
   }
 
   get filterEvent() {
@@ -52,14 +67,5 @@ export class AppIconEventsDirective implements OnInit {
       Observable<IOptionEvent<string | number>>,
       Observable<IOptionEvent<string | number>>
     >(takeUntilDestroyed(this.destroyRef));
-  }
-
-  handleDelete() {
-    const isFolderId = this.config().isFolderId;
-
-    if ((this.config().type == 'folder' && isFolderId) || isFolderId == 0)
-      this.foldersHierarchyFacade.deleteFolder(isFolderId);
-
-    this.foldersHierarchyFacade.deleteFile(this.id());
   }
 }

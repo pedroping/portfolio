@@ -1,6 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import {
   Component,
+  DestroyRef,
   effect,
   ElementRef,
   input,
@@ -8,18 +9,12 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ContextMenuFacade } from '@portifolio/features/feature-context-menus';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
-import { IApp, IOptionEvent } from '@portifolio/utils/util-models';
-import {
-  filter,
-  fromEvent,
-  merge,
-  Observable,
-  Subject,
-  take,
-  takeUntil,
-} from 'rxjs';
+import { IApp } from '@portifolio/utils/util-models';
+import { filter, fromEvent, merge, Subject, take, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-rename',
@@ -31,15 +26,17 @@ import {
 export class AppRenameComponent implements OnInit {
   title = signal<string>('');
   config = input.required<IApp>();
+  id = input.required<string | number>();
   input = viewChild<ElementRef<HTMLElement>>('renameInput');
-  renameEvent$ = input.required<Observable<IOptionEvent<string | number>>>();
 
   destroyEvents$ = new Subject<void>();
   showRenameInput$ = new Subject<boolean>();
   renameControl = new FormControl<string>('');
 
   constructor(
+    private readonly destroyRef: DestroyRef,
     private readonly elementRef: ElementRef<HTMLElement>,
+    private readonly contextMenuFacade: ContextMenuFacade<string | number>,
     private readonly foldersHierarchyFacade: FoldersHierarchyFacade,
   ) {
     effect(() => {
@@ -51,10 +48,9 @@ export class AppRenameComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const title = this.config().name;
-    if (title) this.title.set(title);
+    this.title.set(this.config().name ?? '');
 
-    this.renameEvent$().subscribe((event) => {
+    this.renameEvent$.subscribe((event) => {
       if (event) this.showRenameInput$.next(true);
     });
   }
@@ -107,5 +103,17 @@ export class AppRenameComponent implements OnInit {
     ).pipe(take(1), takeUntil(this.destroyEvents$));
 
     return { cancelEvents, setEvents };
+  }
+
+  get renameEvent$() {
+    const parentId =
+      this.elementRef.nativeElement.parentElement?.parentElement?.id ?? '';
+
+    return this.contextMenuFacade
+      .getEventByOption('program-rename', parentId)
+      .pipe(
+        filter((event) => event.data === this.id()),
+        takeUntilDestroyed(this.destroyRef),
+      );
   }
 }
