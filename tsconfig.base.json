@@ -24,9 +24,6 @@
       "@portifolio/features/feature-file-explorer": [
         "libs/features/feature-file-explorer/src/index.ts"
       ],
-      "@portifolio/features/feature-icon-drop-handle": [
-        "libs/features/feature-icon-drop-handle/src/index.ts"
-      ],
       "@portifolio/features/feature-inital-menu": [
         "libs/features/feature-inital-menu/src/index.ts"
       ],
@@ -60,6 +57,9 @@
       ],
       "@portifolio/utils/util-animations": [
         "libs/utils/util-animations/src/index.ts"
+      ],
+      "@portifolio/utils/util-app-drop-handle": [
+        "libs/utils/util-app-drop-handle/src/index.ts"
       ],
       "@portifolio/utils/util-folders-hierarchy-data": [
         "libs/utils/util-folders-hierarchy-data/src/index.ts"

@@ -1,9 +1,9 @@
 /* eslint-disable */
 export default {
-  displayName: 'features-feature-icon-drop-handle',
+  displayName: 'utils-util-app-drop-handle',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../../coverage/libs/features/feature-icon-drop-handle',
+  coverageDirectory: '../../../coverage/libs/utils/util-app-drop-handle',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

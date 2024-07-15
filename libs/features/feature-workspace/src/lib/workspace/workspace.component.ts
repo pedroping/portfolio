@@ -5,8 +5,8 @@ import {
   OpenContextMenuDirective,
   WORKSPACE_ID,
 } from '@portifolio/features/feature-context-menus';
-import { IconDropHandleDirective } from '@portifolio/features/feature-icon-drop-handle';
 import { ElementsFacade } from '@portifolio/features/feature-page-creator';
+import { AppDropHandleDirective } from '@portifolio/utils/util-app-drop-handle';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
 import { IFolderData } from '@portifolio/utils/util-models';
 import { tap } from 'rxjs';
@@ -17,7 +17,7 @@ import { BASIC_FOLDER, FOLDER_02 } from '../mocks/workspace-mocks';
   templateUrl: './workspace.component.html',
   styleUrls: ['./workspace.component.scss'],
   standalone: true,
-  imports: [IconDropHandleDirective, AppIconComponent, AsyncPipe],
+  imports: [AppDropHandleDirective, AppIconComponent, AsyncPipe],
   hostDirectives: [
     { directive: OpenContextMenuDirective, inputs: ['id', 'openContextMenu'] },
   ],

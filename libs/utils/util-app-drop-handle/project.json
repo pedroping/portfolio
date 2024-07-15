@@ -1,7 +1,7 @@
 {
-  "name": "features-feature-icon-drop-handle",
+  "name": "utils-util-app-drop-handle",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/features/feature-icon-drop-handle/src",
+  "sourceRoot": "libs/utils/util-app-drop-handle/src",
   "prefix": "lib",
   "projectType": "library",
   "tags": [],
@@ -10,7 +10,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/features/feature-icon-drop-handle/jest.config.ts"
+        "jestConfig": "libs/utils/util-app-drop-handle/jest.config.ts"
       }
     },
     "lint": {

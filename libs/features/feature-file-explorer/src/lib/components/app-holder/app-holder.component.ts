@@ -7,7 +7,7 @@ import {
   Optional,
 } from '@angular/core';
 import { AppIconComponent } from '@portifolio/features/feature-app-icon';
-import { IconDropHandleDirective } from '@portifolio/features/feature-icon-drop-handle';
+import { AppDropHandleDirective } from '@portifolio/utils/util-app-drop-handle';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
 import { DATA_TOKEN, IApp, IFolderData } from '@portifolio/utils/util-models';
 import { Observable, tap } from 'rxjs';
@@ -17,7 +17,7 @@ import { Observable, tap } from 'rxjs';
   templateUrl: './app-holder.component.html',
   styleUrls: ['./app-holder.component.scss'],
   standalone: true,
-  imports: [IconDropHandleDirective, AsyncPipe, AppIconComponent],
+  imports: [AppDropHandleDirective, AsyncPipe, AppIconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppHolderComponent {

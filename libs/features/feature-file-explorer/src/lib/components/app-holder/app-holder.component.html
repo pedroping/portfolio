@@ -1,5 +1,5 @@
 <section [id]="'file-explorer-' + id">
-  <div [iconDropHandle]="id"></div>
+  <div [dropHandle]="id"></div>
 
   @for (file of files$$ | async; track file) {
     <app-icon [config]="file" [id]="file.name" />

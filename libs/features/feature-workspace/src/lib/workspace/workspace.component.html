@@ -1,4 +1,4 @@
-<div [iconDropHandle]="0"></div>
+<div [dropHandle]="0"></div>
 
 @for (file of files$ | async; track file.name) {
   <app-icon [config]="file" [id]="file.id" />

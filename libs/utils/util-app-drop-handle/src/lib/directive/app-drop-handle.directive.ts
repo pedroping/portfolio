@@ -12,11 +12,11 @@ import { IApp } from '@portifolio/utils/util-models';
 import { fromEvent } from 'rxjs';
 
 @Directive({
-  selector: '[iconDropHandle]',
+  selector: '[dropHandle]',
   standalone: true,
 })
-export class IconDropHandleDirective {
-  folderId = input.required<number>({ alias: 'iconDropHandle' });
+export class AppDropHandleDirective {
+  folderId = input.required<number>({ alias: 'dropHandle' });
 
   constructor(
     private readonly vcr: ViewContainerRef,
