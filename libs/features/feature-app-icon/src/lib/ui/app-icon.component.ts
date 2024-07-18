@@ -4,6 +4,7 @@ import { AppRenameComponent } from '../component/app-rename.component';
 import { AppIconEventsDirective } from '../directives/app-icon-events/app-icon-events.directive';
 import { IconDropEventsHandleDirective } from '../directives/icon-drop-events-handle/icon-drop-events-handle.directive';
 import { APP_BASE_ICON } from '../mocks/app-mocks';
+import { PageHandleDirective } from '../directives/page-handle/page-handle.directive';
 
 @Component({
   selector: 'app-icon',
@@ -11,6 +12,7 @@ import { APP_BASE_ICON } from '../mocks/app-mocks';
   styleUrls: ['./app-icon.component.scss'],
   standalone: true,
   hostDirectives: [
+    { directive: PageHandleDirective, inputs: ['config'] },
     { directive: AppIconEventsDirective, inputs: ['config', 'id'] },
     { directive: IconDropEventsHandleDirective, inputs: ['config'] },
   ],

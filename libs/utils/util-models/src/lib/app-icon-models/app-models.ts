@@ -1,3 +1,7 @@
+import {
+  IInitialConfig
+} from '../page-creator-models/element-models';
+
 export type IFoldersType = 'file' | 'folder';
 export interface IBasicApp {
   name: string;
@@ -6,6 +10,8 @@ export interface IBasicApp {
   parentFolderId: number;
   isFolderId?: number;
   hasPageId?: number;
+  initialPageConfig?: IInitialConfig;
+  pageConfigId?: number;
 }
 export interface IDropEvent {
   parentTargetId?: string;

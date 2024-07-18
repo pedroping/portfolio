@@ -5,12 +5,10 @@ import {
   OpenContextMenuDirective,
   WORKSPACE_ID,
 } from '@portifolio/features/feature-context-menus';
-import { ElementsFacade } from '@portifolio/features/feature-page-creator';
 import { AppDropHandleDirective } from '@portifolio/utils/util-app-drop-handle';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
-import { IFolderData } from '@portifolio/utils/util-models';
 import { tap } from 'rxjs';
-import { BASIC_FOLDER, FOLDER_02 } from '../mocks/workspace-mocks';
+import { BASIC_FOLDER } from '../mocks/workspace-mocks';
 
 @Component({
   selector: 'workspace',
@@ -34,26 +32,12 @@ export class WorkspaceComponent implements OnInit {
 
   constructor(
     private readonly cdr: ChangeDetectorRef,
-    private readonly elementsFacade: ElementsFacade<IFolderData>,
     private readonly foldersHierarchyFacade: FoldersHierarchyFacade,
   ) {}
 
   ngOnInit(): void {
     this.appsConfig.forEach((app) => {
-      const file = this.foldersHierarchyFacade.setNewFile(app);
-      if (app.type == 'folder') {
-        const folder = this.foldersHierarchyFacade.createFolder(app.name);
-
-        file.isFolderId = folder?.id;
-
-        if (folder?.id) {
-          const page = this.elementsFacade.createElement(
-            { folderId: folder?.id },
-            FOLDER_02,
-          );
-          file.hasPageId = page.id;
-        }
-      }
+      this.foldersHierarchyFacade.setNewFile(app);
     });
   }
 }

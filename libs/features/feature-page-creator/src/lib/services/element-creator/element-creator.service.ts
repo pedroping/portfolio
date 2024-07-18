@@ -25,7 +25,7 @@ export class ElementCreatorService<T> {
     private readonly workspaceReferenceFacade: WorkspaceReferenceFacade<PageComponent>,
   ) {}
 
-  createElement(data: T, config: IInitialConfig) {
+  createElement(data: T, config: IInitialConfig): IPageConfig {
     const index = this.elementsData.elements$.value.length;
     const pageConfig = this.getPageConfig(config, index);
     const elementInjection = this.createElementInjection(data, pageConfig);
