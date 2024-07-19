@@ -27,7 +27,7 @@ import { filter, Observable, pipe } from 'rxjs';
 export class AppIconEventsDirective implements OnInit {
   config = input.required<IApp>();
   id = input.required<string | number>();
-  parentId = this.elementRef.nativeElement.parentElement?.id;
+
   constructor(
     private readonly destroyRef: DestroyRef,
     private readonly elementRef: ElementRef<HTMLElement>,
@@ -49,8 +49,9 @@ export class AppIconEventsDirective implements OnInit {
   }
 
   get deleteEvent$() {
+    const parentId = this.elementRef.nativeElement.parentElement?.id;
     return this.contextMenuFacade
-      .getEventByOption('program-delete', this.parentId)
+      .getEventByOption('program-delete', parentId)
       .pipe(this.destroy, this.filterEvent);
   }
 
