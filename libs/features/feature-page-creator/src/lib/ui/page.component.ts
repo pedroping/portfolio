@@ -1,4 +1,4 @@
-import { NgComponentOutlet } from '@angular/common';
+import { AsyncPipe, NgComponentOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -18,6 +18,7 @@ import {
   IPageComponent,
   IPageConfig,
 } from '@portifolio/utils/util-models';
+import { Observable, startWith } from 'rxjs';
 import { PageCloseDirective } from '../directives/page-close/page-close.directive';
 import { PageContentOverlayDirective } from '../directives/page-content-overlay/page-content-overlay.directive';
 import { PageMaximizeDirective } from '../directives/page-maximize/page-maximize.directive';
@@ -42,6 +43,7 @@ import {
   styleUrls: ['./page.component.scss'],
   standalone: true,
   imports: [
+    AsyncPipe,
     CloseComponent,
     MinimizeComponent,
     MaximizeComponent,
@@ -59,7 +61,6 @@ import {
   ],
   host: {
     '[attr.page-id]': 'id()',
-    '[attr.page-name]': 'name()',
     '[style.width]': 'width()',
     '[style.height]': 'height()',
     '[style.minWidth]': 'minWidth()',
@@ -70,7 +71,7 @@ import {
 })
 export class PageComponent implements IPageComponent, OnInit {
   id = signal<number>(-1);
-  name = signal<string>('');
+  name$ = new Observable<string>();
   icon = signal<string>('');
   width = signal<string>('auto');
   height = signal<string>('auto');
@@ -87,12 +88,12 @@ export class PageComponent implements IPageComponent, OnInit {
   }
 
   ngOnInit(): void {
-    this.name.set(this._config.name);
     this.id.set(this._config.id);
     this.width.set(this._config.baseSizes.width + 'px');
     this.height.set(this._config.baseSizes.height + 'px');
     this.icon.set(this._config.icon ?? ELEMENT_BASE_ICON);
     this.pageContent.set(this._config.pageContent ?? null);
+    this.name$ = this._config.renameElement$.pipe(startWith(this._config.name));
 
     this._config.baseSizes.minHeight =
       this._config.baseSizes?.minHeight ?? BASE_HEIGHT;

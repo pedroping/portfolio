@@ -34,6 +34,8 @@ export class PageHandleDirective implements OnInit {
 
     if (!initialConfig) return;
 
+    initialConfig.name = this.config().name;
+
     if (this.config().type == 'folder') {
       const folder = this.foldersHierarchyFacade.createFolder(
         this.config().name,

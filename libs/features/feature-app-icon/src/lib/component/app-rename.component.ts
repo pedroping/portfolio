@@ -12,6 +12,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContextMenuFacade } from '@portifolio/features/feature-context-menus';
+import { ElementsFacade } from '@portifolio/features/feature-page-creator';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
 import { IApp } from '@portifolio/utils/util-models';
 import { filter, fromEvent, merge, Subject, take, takeUntil } from 'rxjs';
@@ -35,9 +36,10 @@ export class AppRenameComponent implements OnInit {
 
   constructor(
     private readonly destroyRef: DestroyRef,
+    private readonly elementsFacade: ElementsFacade,
     private readonly elementRef: ElementRef<HTMLElement>,
-    private readonly contextMenuFacade: ContextMenuFacade<string | number>,
     private readonly foldersHierarchyFacade: FoldersHierarchyFacade,
+    private readonly contextMenuFacade: ContextMenuFacade<string | number>,
   ) {
     effect(() => {
       const nativeElement = this.input()?.nativeElement;
@@ -76,12 +78,23 @@ export class AppRenameComponent implements OnInit {
     const isFolderId = this.config().isFolderId;
     const inputValue = this.renameControl.value;
 
-    if (inputValue) this.title.set(inputValue);
+    this.title.set(inputValue ?? '');
+    this.config().name = inputValue ?? '';
 
     if (isFolderId || isFolderId === 0)
       this.foldersHierarchyFacade.renameFolder(isFolderId, this.title());
 
     this.foldersHierarchyFacade.renameFile(this.config().id, this.title());
+
+    const pageConfigId = this.config().pageConfigId;
+
+    if (pageConfigId || pageConfigId == 0) {
+      const pageConfig = this.elementsFacade.getElement(pageConfigId);
+
+      if (!pageConfig) return;
+
+      pageConfig.renameElement$.next(inputValue ?? '');
+    }
 
     this.renameControl.reset();
     this.showRenameInput$.next(false);

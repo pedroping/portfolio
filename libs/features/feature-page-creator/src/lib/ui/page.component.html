@@ -1,7 +1,7 @@
 <header pageMove>
   <div class="logo-and-name">
     <img [src]="icon()" alt="Ícone da pagina" draggable="false" />
-    <div class="page-name">{{ name() }}</div>
+    <div class="page-name">{{ name$ | async }}</div>
   </div>
   <div class="header-actions">
     <ui-page-actions-buttons-minimize preventHandler pageMinimize />

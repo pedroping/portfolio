@@ -96,7 +96,7 @@ export class ElementCreatorService<T> {
     });
   }
 
-  private getPageConfig(config: IInitialConfig, index: number) {
+  private getPageConfig(config: IInitialConfig, index: number): IPageConfig {
     return {
       ...config,
       id: index,
@@ -111,6 +111,7 @@ export class ElementCreatorService<T> {
       hostView$: new BehaviorSubject<ViewRef | null>(null),
       onMinimize$: new Subject<void>(),
       onMaximaze$: new Subject<void>(),
+      renameElement$: new Subject<string>(),
     };
   }
 }

@@ -39,6 +39,7 @@ export interface IElementReference {
   onDestroy$: Subject<void>;
   onMinimize$: Subject<void>;
   onMaximaze$: Subject<void>;
+  renameElement$: Subject<string>;
 }
 
 export type IPageConfig = IInitialConfig & IElementReference;

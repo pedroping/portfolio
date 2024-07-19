@@ -9,7 +9,6 @@ export interface IBasicApp {
   type: IFoldersType;
   parentFolderId: number;
   isFolderId?: number;
-  hasPageId?: number;
   initialPageConfig?: IInitialConfig;
   pageConfigId?: number;
 }

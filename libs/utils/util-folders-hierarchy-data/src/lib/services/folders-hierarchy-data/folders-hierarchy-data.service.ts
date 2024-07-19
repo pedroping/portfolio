@@ -79,10 +79,10 @@ export class FoldersHierarchyDataService {
     const folderId = folder.id;
 
     const folderFile = this.filesDataService.getFolderFile(folderId);
-    const hasPageId = folderFile?.hasPageId;
+    const pageConfigId = folderFile?.pageConfigId;
 
-    if (hasPageId || hasPageId == 0)
-      this.elementsFacade.destroyElement(hasPageId);
+    if (pageConfigId || pageConfigId == 0)
+      this.elementsFacade.destroyElement(pageConfigId);
 
     this.filesDataService.deleteFilesByFolder(folderId);
 
