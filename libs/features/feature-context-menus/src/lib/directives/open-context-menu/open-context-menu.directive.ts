@@ -9,16 +9,15 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { WorkspaceReferenceFacade } from '@portifolio/utils/util-workspace-reference';
+import { LastZIndexService } from '@portifolio/utils/util-z-index-handler';
 import { Subject, filter, fromEvent, merge, skip, take, takeUntil } from 'rxjs';
-import { ContextMenuDefaultComponent } from '../../components/context-menu-default/context-menu-default.component';
-import { ContextMenuProgramComponent } from '../../components/context-menu-program/context-menu-program.component';
-import { MENU_GAP, WORKSPACE_ID } from '../../mocks/context-menu-mocks';
+import { ContextMenuFacade } from '../../facade/context-menu-facade.service';
+import { MENU_GAP } from '../../mocks/context-menu-mocks';
 import {
   AvailableContextMenus,
   DefaultMenu,
+  getContextMenu,
 } from '../../models/context-menu-models';
-import { LastZIndexService } from '@portifolio/utils/util-z-index-handler';
-import { ContextMenuFacade } from '../../facade/context-menu-facade.service';
 
 @Directive({
   selector: '[openContextMenu]',
@@ -48,16 +47,7 @@ export class OpenContextMenuDirective {
     this.contextMenuFacade.setClearDefault();
     this.clearView();
 
-    if (
-      this.menuType() === 'default' &&
-      (event.target as HTMLElement).id != WORKSPACE_ID
-    )
-      return;
-
-    const menuComponent =
-      this.menuType() === 'default'
-        ? ContextMenuDefaultComponent
-        : ContextMenuProgramComponent;
+    const menuComponent = getContextMenu<number | string>(this.menuType());
 
     const parentId = this.elementRef.nativeElement.parentElement?.id ?? '';
     const component =
