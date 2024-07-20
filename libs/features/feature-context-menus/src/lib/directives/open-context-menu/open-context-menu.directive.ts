@@ -15,7 +15,7 @@ import { ContextMenuFacade } from '../../facade/context-menu-facade.service';
 import { MENU_GAP } from '../../mocks/context-menu-mocks';
 import {
   AvailableContextMenus,
-  DefaultMenu,
+  IContextMenu,
   getContextMenu,
 } from '../../models/context-menu-models';
 
@@ -53,7 +53,7 @@ export class OpenContextMenuDirective {
 
     const component =
       this.workspaceReferenceFacade.createComponent(menuComponent);
-    const instance = component.componentRef.instance as DefaultMenu<
+    const instance = component.componentRef.instance as IContextMenu<
       number | string
     >;
     const menuView = component.componentRef.location

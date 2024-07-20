@@ -1,8 +1,18 @@
 <section id="context-menu" [optionEvent]="data" [parentId]="parentId">
-  <div class="option" [openSubContextMenu]="viewContextMenuComponent">
+  <div
+    class="option"
+    [openSubContextMenu]="viewContextMenuComponent"
+    [id]="data"
+    [parentId]="parentId"
+  >
     <span>View</span> <i class="fa-solid fa-caret-right"></i>
   </div>
-  <div class="option" [openSubContextMenu]="shortBySubContextMenuComponent">
+  <div
+    class="option"
+    [openSubContextMenu]="shortBySubContextMenuComponent"
+    [id]="data"
+    [parentId]="parentId"
+  >
     <span>Short By</span> <i class="fa-solid fa-caret-right"></i>
   </div>
 
@@ -20,7 +30,12 @@
 
   <div class="line"></div>
 
-  <div class="option" [openSubContextMenu]="subContextMenuNewComponent">
+  <div
+    class="option"
+    [openSubContextMenu]="subContextMenuNewComponent"
+    [id]="data"
+    [parentId]="parentId"
+  >
     <span>New</span> <i class="fa-solid fa-caret-right"></i>
   </div>
 

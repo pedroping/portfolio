@@ -14,14 +14,14 @@ export interface IPositionProperties {
   y: number;
 }
 
-export interface DefaultMenu<T> {
+export interface IContextMenu<T> {
   data?: T;
   parentId: number | string;
 }
 
 export function getContextMenu<T>(key: AvailableContextMenus) {
   const AVAILABLE_CONTEXT_MENUS: {
-    [key in AvailableContextMenus]: Type<DefaultMenu<T>>;
+    [key in AvailableContextMenus]: Type<IContextMenu<T>>;
   } = {
     default: ContextMenuDefaultComponent,
     program: ContextMenuProgramComponent,

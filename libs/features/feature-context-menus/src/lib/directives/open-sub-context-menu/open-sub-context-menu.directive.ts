@@ -21,7 +21,10 @@ import {
   timer,
 } from 'rxjs';
 import { ContextMenuFacade } from '../../facade/context-menu-facade.service';
-import { IPositionProperties } from '../../models/context-menu-models';
+import {
+  IContextMenu,
+  IPositionProperties,
+} from '../../models/context-menu-models';
 
 @Directive({
   selector: '[openSubContextMenu]',
@@ -31,6 +34,8 @@ export class OpenSubContextMenuDirective<T> {
   menuComponent = input.required<Type<unknown>>({
     alias: 'openSubContextMenu',
   });
+  id = input.required<T>();
+  parentId = input.required<string | number>();
 
   constructor(
     private readonly ngZone: NgZone,
@@ -75,8 +80,14 @@ export class OpenSubContextMenuDirective<T> {
 
     const rect = this.elementRef.nativeElement.getBoundingClientRect();
 
-    const view = this.vcr.createComponent(this.menuComponent()).location
-      .nativeElement as HTMLElement;
+    const { location, instance } = this.vcr.createComponent(
+      this.menuComponent(),
+    );
+
+    const view = location.nativeElement as HTMLElement;
+
+    (instance as IContextMenu<T>).data = this.id();
+    (instance as IContextMenu<T>).parentId = this.parentId();
 
     view.style.top = rect.top + 'px';
     view.style.left = rect.left + rect.width + 'px';

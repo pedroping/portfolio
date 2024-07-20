@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DefaultMenu } from '../../models/context-menu-models';
+import { IContextMenu } from '../../models/context-menu-models';
 import { OptionEventDirective } from '../../directives/option-event/option-event.directive';
 import { OptionDirective } from '../../directives/option/option.directive';
 
@@ -10,7 +10,7 @@ import { OptionDirective } from '../../directives/option/option.directive';
   standalone: true,
   imports: [OptionEventDirective, OptionDirective],
 })
-export class ContextMenuProgramComponent<T> implements DefaultMenu<T> {
+export class ContextMenuProgramComponent<T> implements IContextMenu<T> {
   data?: T;
   parentId: string | number = '';
 }

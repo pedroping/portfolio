@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { OpenSubContextMenuDirective } from '../../directives/open-sub-context-menu/open-sub-context-menu.directive';
+import { IContextMenu } from '../../models/context-menu-models';
 
 @Component({
   selector: 'sub-context-menu-view',
   templateUrl: './sub-context-menu-view.component.html',
   styleUrls: ['./sub-context-menu-view.component.scss'],
   standalone: true,
-  imports: [OpenSubContextMenuDirective],
 })
-export class SubContextMenuViewComponent {}
+export class SubContextMenuViewComponent<T> implements IContextMenu<T> {
+  data?: T;
+  parentId: string | number = '';
+}
