@@ -37,16 +37,22 @@ export class PageHandleDirective implements OnInit {
     initialConfig.name = this.config().name;
 
     if (this.config().type == 'folder') {
-      const folder = this.foldersHierarchyFacade.createFolder(
-        this.config().name,
-      );
-      if (!folder) return;
+      if (!this.config().isFolderId && this.config().isFolderId != 0) {
+        const folder = this.foldersHierarchyFacade.createFolder(
+          this.config().name,
+        );
+        if (!folder) return;
 
-      this.config().isFolderId = folder?.id;
+        this.config().isFolderId = folder?.id;
+      }
+
+      const isFolderId = this.config().isFolderId;
+
+      if (!isFolderId) return;
 
       const pageConfig = this.elementsFacade.createElement(
         {
-          folderId: folder.id,
+          folderId: isFolderId,
         },
         initialConfig,
       );

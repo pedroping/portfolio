@@ -26,7 +26,6 @@ import { filter, Observable, pipe } from 'rxjs';
 })
 export class AppIconEventsDirective implements OnInit {
   config = input.required<IApp>();
-  id = input.required<string | number>();
 
   constructor(
     private readonly destroyRef: DestroyRef,
@@ -58,7 +57,8 @@ export class AppIconEventsDirective implements OnInit {
   get filterEvent() {
     return pipe(
       filter(
-        (event: IOptionEvent<string | number>) => event.data === this.id(),
+        (event: IOptionEvent<string | number>) =>
+          event.data === this.config().id,
       ),
     );
   }

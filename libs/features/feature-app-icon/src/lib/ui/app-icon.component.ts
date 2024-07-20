@@ -5,7 +5,6 @@ import { AppIconEventsDirective } from '../directives/app-icon-events/app-icon-e
 import { IconDropEventsHandleDirective } from '../directives/icon-drop-events-handle/icon-drop-events-handle.directive';
 import { APP_BASE_ICON } from '../mocks/app-mocks';
 import { PageHandleDirective } from '../directives/page-handle/page-handle.directive';
-
 @Component({
   selector: 'app-icon',
   templateUrl: './app-icon.component.html',
@@ -13,7 +12,7 @@ import { PageHandleDirective } from '../directives/page-handle/page-handle.direc
   standalone: true,
   hostDirectives: [
     { directive: PageHandleDirective, inputs: ['config'] },
-    { directive: AppIconEventsDirective, inputs: ['config', 'id'] },
+    { directive: AppIconEventsDirective, inputs: ['config'] },
     { directive: IconDropEventsHandleDirective, inputs: ['config'] },
   ],
   host: {
