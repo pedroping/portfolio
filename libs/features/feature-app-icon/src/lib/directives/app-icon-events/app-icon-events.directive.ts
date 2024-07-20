@@ -13,6 +13,7 @@ import {
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
 import { IApp, IOptionEvent } from '@portifolio/utils/util-models';
 import { filter, Observable, pipe } from 'rxjs';
+import { PageHandleDirective } from '../page-handle/page-handle.directive';
 
 @Directive({
   selector: '[appIconEvents]',
@@ -30,12 +31,14 @@ export class AppIconEventsDirective implements OnInit {
   constructor(
     private readonly destroyRef: DestroyRef,
     private readonly elementRef: ElementRef<HTMLElement>,
+    private readonly pageHandleDirective: PageHandleDirective,
     private readonly foldersHierarchyFacade: FoldersHierarchyFacade,
     private readonly contextMenuFacade: ContextMenuFacade<string | number>,
   ) {}
 
   ngOnInit(): void {
     this.deleteEvent$.subscribe(() => this.handleDelete());
+    this.openEvent$.subscribe(() => this.pageHandleDirective.onClick());
   }
 
   handleDelete() {
@@ -49,8 +52,17 @@ export class AppIconEventsDirective implements OnInit {
 
   get deleteEvent$() {
     const parentId = this.elementRef.nativeElement.parentElement?.id;
+
     return this.contextMenuFacade
       .getEventByOption('program-delete', parentId)
+      .pipe(this.destroy, this.filterEvent);
+  }
+
+  get openEvent$() {
+    const parentId = this.elementRef.nativeElement.parentElement?.id;
+
+    return this.contextMenuFacade
+      .getEventByOption('program-open', parentId)
       .pipe(this.destroy, this.filterEvent);
   }
 

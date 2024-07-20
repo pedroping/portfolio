@@ -49,7 +49,8 @@ export class OpenContextMenuDirective {
 
     const menuComponent = getContextMenu<number | string>(this.menuType());
 
-    const parentId = this.elementRef.nativeElement.parentElement?.id ?? '';
+    const parentId = this.elementRef.nativeElement.parentElement?.id || '';
+
     const component =
       this.workspaceReferenceFacade.createComponent(menuComponent);
     const instance = component.componentRef.instance as DefaultMenu<

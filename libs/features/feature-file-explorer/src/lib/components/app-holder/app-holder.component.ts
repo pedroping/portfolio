@@ -5,11 +5,13 @@ import {
   Component,
   Inject,
   Optional,
+  signal,
 } from '@angular/core';
 import { AppIconComponent } from '@portifolio/features/feature-app-icon';
 import { AppDropHandleDirective } from '@portifolio/utils/util-app-drop-handle';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
 import { DATA_TOKEN, IApp, IFolderData } from '@portifolio/utils/util-models';
+import { OpenContextMenuDirective } from '@portifolio/features/feature-context-menus';
 import { Observable, tap } from 'rxjs';
 
 @Component({
@@ -17,11 +19,19 @@ import { Observable, tap } from 'rxjs';
   templateUrl: './app-holder.component.html',
   styleUrls: ['./app-holder.component.scss'],
   standalone: true,
-  imports: [AppDropHandleDirective, AsyncPipe, AppIconComponent],
+  imports: [
+    AppDropHandleDirective,
+    AsyncPipe,
+    AppIconComponent,
+    OpenContextMenuDirective,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+  '[id]': "'file-explorer-' + id()",
+  },
 })
 export class AppHolderComponent {
-  id: number;
+  id = signal<number>(-1);
   files$$: Observable<IApp[]>;
 
   constructor(
@@ -29,9 +39,9 @@ export class AppHolderComponent {
     private readonly foldersHierarchyFacade: FoldersHierarchyFacade,
     @Optional() @Inject(DATA_TOKEN) private readonly data: IFolderData,
   ) {
-    this.id = data?.folderId ?? 0;
+    this.id.set(data?.folderId ?? 0);
     this.files$$ = this.foldersHierarchyFacade
-      .getFileByFolder(this.id)
+      .getFileByFolder(this.id())
       .pipe(tap(() => this.cdr.detectChanges()));
   }
 }

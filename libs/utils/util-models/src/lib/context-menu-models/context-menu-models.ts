@@ -1,6 +1,7 @@
 export type TAvalilableOptions =
   | 'refresh-icons'
   | 'personalize'
+  | 'paste'
   | 'view-big-icons'
   | 'view-medium-icons'
   | 'view-small-icons'
@@ -12,7 +13,6 @@ export type TAvalilableOptions =
   | 'short-by-size'
   | 'short-by-modification Date'
   | 'new-folder'
-  | 'new-shortcut'
   | 'program-open'
   | 'program-explore'
   | 'program-copy'

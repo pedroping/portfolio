@@ -1,4 +1,4 @@
-import { Directive, HostListener, input, output } from '@angular/core';
+import { Directive, HostListener, input } from '@angular/core';
 import { TAvalilableOptions } from '@portifolio/utils/util-models';
 import { Subject } from 'rxjs';
 
