@@ -4,10 +4,8 @@ import {
   ElementRef,
   input,
   OnInit,
-  ViewContainerRef,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { AppIconComponent } from '@portifolio/features/feature-app-icon';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
 import { IApp } from '@portifolio/utils/util-models';
 import { fromEvent } from 'rxjs';
@@ -17,10 +15,10 @@ import { fromEvent } from 'rxjs';
   standalone: true,
 })
 export class AppDropHandleDirective implements OnInit {
-  folderId = input.required<number>({ alias: 'dropHandle' });
+  folderId = input<number | undefined>(undefined, { alias: 'dropHandle' });
+  config = input<IApp>();
 
   constructor(
-    private readonly vcr: ViewContainerRef,
     private readonly destroyRef: DestroyRef,
     private readonly elementRef: ElementRef<HTMLElement>,
     private readonly foldersHierarchyFacade: FoldersHierarchyFacade,
@@ -46,8 +44,20 @@ export class AppDropHandleDirective implements OnInit {
     if (!eventData) return;
 
     const dropContent = JSON.parse(eventData) as IApp;
-    const actualId = this.elementRef.nativeElement.parentElement?.id;
-    const folderId = this.folderId();
+    const actualId =
+      this.config()?.isFolderId ??
+      this.elementRef.nativeElement.parentElement?.id;
+    const folderId = this.folderId() ?? this.config()?.isFolderId;
+
+    this.moveElement(dropContent, folderId, actualId);
+  }
+
+  moveElement(
+    dropContent: IApp,
+    folderId?: number,
+    actualId?: string | number,
+  ) {
+    if (!folderId && folderId != 0) return;
 
     if (
       actualId == dropContent.parentTargetId ||
@@ -75,11 +85,5 @@ export class AppDropHandleDirective implements OnInit {
   onOver(event: DragEvent) {
     event.preventDefault();
     if (event.dataTransfer) event.dataTransfer.dropEffect = 'move';
-  }
-
-  createFolder(dropContent: IApp) {
-    const compoent = this.vcr.createComponent(AppIconComponent);
-    compoent.setInput('config', dropContent);
-    compoent.setInput('id', dropContent.id);
   }
 }

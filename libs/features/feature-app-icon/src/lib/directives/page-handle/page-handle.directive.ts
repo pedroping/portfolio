@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ElementsFacade } from '@portifolio/features/feature-page-creator';
+import { AppDropHandleDirective } from '@portifolio/utils/util-app-drop-handle';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
 import { IApp, IFolderData } from '@portifolio/utils/util-models';
 import { take } from 'rxjs';
@@ -14,6 +15,9 @@ import { take } from 'rxjs';
 @Directive({
   selector: '[pageHandle]',
   standalone: true,
+  hostDirectives: [
+    { directive: AppDropHandleDirective, inputs: ['dropHandle', 'config'] },
+  ],
 })
 export class PageHandleDirective implements OnInit {
   config = input.required<IApp>();
@@ -37,15 +41,6 @@ export class PageHandleDirective implements OnInit {
     initialConfig.name = this.config().name;
 
     if (this.config().type == 'folder') {
-      if (!this.config().isFolderId && this.config().isFolderId != 0) {
-        const folder = this.foldersHierarchyFacade.createFolder(
-          this.config().name,
-        );
-        if (!folder) return;
-
-        this.config().isFolderId = folder?.id;
-      }
-
       const isFolderId = this.config().isFolderId;
 
       if (!isFolderId) return;
@@ -72,6 +67,20 @@ export class PageHandleDirective implements OnInit {
 
   ngOnInit(): void {
     this.createPageEvents();
+    this.createFolder();
+  }
+
+  createFolder() {
+    if (this.config().type != 'folder') return;
+
+    if (!this.config().isFolderId && this.config().isFolderId != 0) {
+      const folder = this.foldersHierarchyFacade.createFolder(
+        this.config().name,
+      );
+      if (!folder) return;
+
+      this.config().isFolderId = folder?.id;
+    }
   }
 
   handlePageId(id: number) {
