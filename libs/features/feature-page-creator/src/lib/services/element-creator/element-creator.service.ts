@@ -27,7 +27,7 @@ export class ElementCreatorService<T> {
 
   createElement(data: T, config: IInitialConfig): IPageConfig {
     const index = this.elementsData.elements$.value.length;
-    const pageConfig = this.getPageConfig(config, index);
+    const pageConfig = this.getPageConfig(config, index, data);
     const elementInjection = this.createElementInjection(data, pageConfig);
 
     const { componentRef } = this.workspaceReferenceFacade.createComponent(
@@ -96,7 +96,11 @@ export class ElementCreatorService<T> {
     });
   }
 
-  private getPageConfig(config: IInitialConfig, index: number): IPageConfig {
+  private getPageConfig(
+    config: IInitialConfig,
+    index: number,
+    data: T,
+  ): IPageConfig {
     return {
       ...config,
       id: index,
@@ -104,6 +108,7 @@ export class ElementCreatorService<T> {
         x: config.customX ?? 0,
         y: config.customY ?? 0,
       },
+      data: data,
       opened: !!config?.opened,
       isFullScreen: !!config?.isFullScreen,
       onDestroy$: new Subject<void>(),

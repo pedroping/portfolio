@@ -28,7 +28,7 @@ export interface IInitialConfig {
   isFullScreen?: boolean;
 }
 
-export interface IElementReference {
+export interface IElementReference<T> {
   id: number;
   lastPosition: {
     x: number;
@@ -40,9 +40,10 @@ export interface IElementReference {
   onMinimize$: Subject<void>;
   onMaximaze$: Subject<void>;
   renameElement$: Subject<string>;
+  data?: T;
 }
 
-export type IPageConfig = IInitialConfig & IElementReference;
+export type IPageConfig<T = unknown> = IInitialConfig & IElementReference<T>;
 
 export type IPageMock<T = unknown> = {
   config: IInitialConfig;

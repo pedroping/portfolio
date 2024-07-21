@@ -14,7 +14,7 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContextMenuFacade } from '@portifolio/features/feature-context-menus';
 import { ElementsFacade } from '@portifolio/features/feature-page-creator';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
-import { IApp } from '@portifolio/utils/util-models';
+import { IApp, IFolderData } from '@portifolio/utils/util-models';
 import { filter, fromEvent, merge, Subject, take, takeUntil } from 'rxjs';
 
 @Component({
@@ -86,18 +86,20 @@ export class AppRenameComponent implements OnInit {
 
     this.foldersHierarchyFacade.renameFile(this.config().id, this.title());
 
-    const pageConfigId = this.config().pageConfigId;
+    const allRenames$ = this.getAllPagesWithId(this.config().isFolderId ?? -1);
 
-    if (pageConfigId || pageConfigId == 0) {
-      const pageConfig = this.elementsFacade.getElement(pageConfigId);
-
-      if (!pageConfig) return;
-
-      pageConfig.renameElement$.next(inputValue ?? '');
-    }
+    allRenames$.forEach(rename$ => rename$.next(inputValue ?? ''))
 
     this.renameControl.reset();
     this.showRenameInput$.next(false);
+  }
+
+  getAllPagesWithId(id: number) {
+    const allPages = this.elementsFacade.elements$.value.filter((element) => {
+      return (element.data as IFolderData)?.folderId == id;
+    });
+
+    return allPages.map((element) => element.renameElement$);
   }
 
   getInputEvents(input: HTMLElement) {
