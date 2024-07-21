@@ -7,11 +7,11 @@ import {
   Optional,
   signal,
 } from '@angular/core';
-import { AppIconComponent } from '@portifolio/features/feature-app-icon';
+import { OpenContextMenuDirective } from '@portifolio/features/feature-context-menus';
 import { AppDropHandleDirective } from '@portifolio/utils/util-app-drop-handle';
+import { FolderHandleComponent } from '@portifolio/utils/util-folder-handle';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
 import { DATA_TOKEN, IApp, IFolderData } from '@portifolio/utils/util-models';
-import { OpenContextMenuDirective } from '@portifolio/features/feature-context-menus';
 import { Observable, tap } from 'rxjs';
 import { FILE_EXPLORER_ID } from '../../mocks/file-explorer-mocks';
 
@@ -23,13 +23,10 @@ import { FILE_EXPLORER_ID } from '../../mocks/file-explorer-mocks';
   imports: [
     AppDropHandleDirective,
     AsyncPipe,
-    AppIconComponent,
+    FolderHandleComponent,
     OpenContextMenuDirective,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {
-    '[id]': "fileExplorerId + id()",
-  },
 })
 export class AppHolderComponent {
   id = signal<number>(-1);

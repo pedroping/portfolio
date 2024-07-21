@@ -61,6 +61,9 @@
       "@portifolio/utils/util-app-drop-handle": [
         "libs/utils/util-app-drop-handle/src/index.ts"
       ],
+      "@portifolio/utils/util-folder-handle": [
+        "libs/utils/util-folder-handle/src/index.ts"
+      ],
       "@portifolio/utils/util-folders-hierarchy-data": [
         "libs/utils/util-folders-hierarchy-data/src/index.ts"
       ],

@@ -1,9 +1,5 @@
 <section [id]="fileExplorerId + id()" openContextMenu="default">
   <div [dropHandle]="id()"></div>
 
-  <div class="folders" [id]="fileExplorerId + id()">
-    @for (file of files$$ | async; track file.name) {
-      <app-icon [config]="file" [id]="file.id" />
-    }
-  </div>
+  <folder-handle [parentId]="fileExplorerId + id()" [folderId]="id()" />
 </section>

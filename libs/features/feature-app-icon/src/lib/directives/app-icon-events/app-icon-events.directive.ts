@@ -27,6 +27,7 @@ import { PageHandleDirective } from '../page-handle/page-handle.directive';
 })
 export class AppIconEventsDirective implements OnInit {
   config = input.required<IApp>();
+  parentId = this.elementRef.nativeElement.parentElement?.id;
 
   constructor(
     private readonly destroyRef: DestroyRef,
@@ -37,6 +38,7 @@ export class AppIconEventsDirective implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.parentId = this.elementRef.nativeElement.parentElement?.id;
     this.deleteEvent$.subscribe(() => this.handleDelete());
     this.openEvent$.subscribe(() => this.pageHandleDirective.onClick());
   }
@@ -51,18 +53,20 @@ export class AppIconEventsDirective implements OnInit {
   }
 
   get deleteEvent$() {
-    const parentId = this.elementRef.nativeElement.parentElement?.id;
-
     return this.contextMenuFacade
-      .getEventByOption('program-delete', parentId)
+      .getEventByOption('program-delete', this.parentId)
+      .pipe(this.destroy, this.filterEvent);
+  }
+
+  get exploreEvent$() {
+    return this.contextMenuFacade
+      .getEventByOption('program-explore', this.parentId)
       .pipe(this.destroy, this.filterEvent);
   }
 
   get openEvent$() {
-    const parentId = this.elementRef.nativeElement.parentElement?.id;
-
     return this.contextMenuFacade
-      .getEventByOption('program-open', parentId)
+      .getEventByOption('program-open', this.parentId)
       .pipe(this.destroy, this.filterEvent);
   }
 
