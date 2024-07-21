@@ -25,7 +25,10 @@ export class AppDropHandleDirective implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const parentElement = this.elementRef.nativeElement.parentElement;
+    const parentElement = this.config()
+      ? this.elementRef.nativeElement
+      : this.elementRef.nativeElement.parentElement;
+
     if (!parentElement) return;
 
     fromEvent<DragEvent>(parentElement, 'drop')
@@ -38,7 +41,8 @@ export class AppDropHandleDirective implements OnInit {
   }
 
   onDrop(event: DragEvent) {
-    event.stopPropagation();
+    event.stopImmediatePropagation();
+
     const eventData = event.dataTransfer?.getData('text');
 
     if (!eventData) return;

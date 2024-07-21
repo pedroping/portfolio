@@ -1,7 +1,7 @@
-<section [id]="'file-explorer-' + id()" openContextMenu="default">
+<section [id]="fileExplorerId + id()" openContextMenu="default">
   <div [dropHandle]="id()"></div>
 
-  <div class="folders" [id]="'file-explorer-' + id()">
+  <div class="folders" [id]="fileExplorerId + id()">
     @for (file of files$$ | async; track file.name) {
       <app-icon [config]="file" [id]="file.id" />
     }

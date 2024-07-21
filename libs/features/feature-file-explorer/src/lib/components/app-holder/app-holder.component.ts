@@ -13,6 +13,7 @@ import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy
 import { DATA_TOKEN, IApp, IFolderData } from '@portifolio/utils/util-models';
 import { OpenContextMenuDirective } from '@portifolio/features/feature-context-menus';
 import { Observable, tap } from 'rxjs';
+import { FILE_EXPLORER_ID } from '../../mocks/file-explorer-mocks';
 
 @Component({
   selector: 'app-holder',
@@ -27,12 +28,13 @@ import { Observable, tap } from 'rxjs';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-  '[id]': "'file-explorer-' + id()",
+    '[id]': "fileExplorerId + id()",
   },
 })
 export class AppHolderComponent {
   id = signal<number>(-1);
   files$$: Observable<IApp[]>;
+  fileExplorerId = FILE_EXPLORER_ID;
 
   constructor(
     private readonly cdr: ChangeDetectorRef,

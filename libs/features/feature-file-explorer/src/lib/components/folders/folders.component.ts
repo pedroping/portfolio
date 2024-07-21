@@ -25,5 +25,9 @@ export class FoldersComponent {
     @Optional() @Inject(DATA_TOKEN) private readonly data: IFolderData,
   ) {
     this.id = data?.folderId ?? 0;
+
+
+    console.log(this.data);
+    
   }
 }

@@ -13,7 +13,7 @@ export const FOLDER_01: IInitialConfig = {
 };
 
 export const FOLDER_02: IInitialConfig = {
-  name: 'Explorador de arquivos 2',
+  name: 'Desktop',
   customX: 200,
   customY: 200,
   baseSizes: { width: 600, height: 500, minHeight: 500, minWidth: 600 },
