@@ -72,7 +72,8 @@ export class TaskbarElementComponent implements OnInit {
       .subscribe(() => this.setElementClass());
 
     this.config.onDestroy$.subscribe(() => {
-      if (this.config?.id) this.taskbarFacade.removeId(this.config.id);
+      if (this.config?.id || this.config?.id == 0)
+        this.taskbarFacade.removeId(this.config.id);
       this.config = undefined;
       this.showElementPreviewDirective.setIds();
       this.elementClass.set('fixed-element');
