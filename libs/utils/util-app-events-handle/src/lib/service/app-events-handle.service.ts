@@ -8,22 +8,17 @@ import { FOLDER_MOCK } from '../mocks/app-events-handle-mocks';
 @Injectable({ providedIn: 'root' })
 export class AppEventsHandleService {
   constructor(
-    private readonly elementFacade: ElementsFacade<IFolderData>,
+    private readonly elementFacade: ElementsFacade<IFolderData | undefined>,
     private readonly contextMenuFacade: ContextMenuFacade<number>,
     private readonly foldersHierarchyFacade: FoldersHierarchyFacade,
   ) {}
 
   startDomain() {
-    this.contextMenuFacade.optionSelected$$.subscribe((event) => {
-      console.log(event);
-      console.log(this.foldersHierarchyFacade.allFiles);
-    });
-
+    this.deleteEvent$$.subscribe((event) => this.handleDeleteEvent(event));
     this.exploreEvent$$.subscribe((event) => this.handleExploreEvent(event));
   }
 
   handleExploreEvent(event: IOptionEvent<number>) {
-    debugger;
     if (!event?.data && event?.data != 0) return;
 
     const file = this.foldersHierarchyFacade.getFile(event.data);
@@ -35,7 +30,30 @@ export class AppEventsHandleService {
     this.elementFacade.createElement({ folderId: parentFolderId }, FOLDER_MOCK);
   }
 
+  handleDeleteEvent(event: IOptionEvent<number>) {
+    if (!event?.data && event?.data != 0) return;
+
+    const file = this.foldersHierarchyFacade.getFile(event.data);
+
+    if (!file) return;
+
+    const isFolderId = file.isFolderId;
+
+    if ((file.type == 'folder' && isFolderId) || isFolderId == 0)
+      this.foldersHierarchyFacade.deleteFolder(isFolderId);
+
+    this.foldersHierarchyFacade.deleteFile(file.id);
+  }
+
   get exploreEvent$$() {
     return this.contextMenuFacade.getEventByOption('program-explore');
+  }
+
+  get openEvent$$() {
+    return this.contextMenuFacade.getEventByOption('program-open');
+  }
+
+  get deleteEvent$$() {
+    return this.contextMenuFacade.getEventByOption('program-delete');
   }
 }
