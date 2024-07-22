@@ -61,6 +61,9 @@
       "@portifolio/utils/util-app-drop-handle": [
         "libs/utils/util-app-drop-handle/src/index.ts"
       ],
+      "@portifolio/utils/util-app-events-handle": [
+        "libs/utils/util-app-events-handle/src/index.ts"
+      ],
       "@portifolio/utils/util-folder-handle": [
         "libs/utils/util-folder-handle/src/index.ts"
       ],

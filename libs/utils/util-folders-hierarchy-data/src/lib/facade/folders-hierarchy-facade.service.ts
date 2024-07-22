@@ -14,6 +14,10 @@ export class FoldersHierarchyFacade {
     return this.foldersHierarchyDataService.findFolder(id);
   }
 
+  getFile(id: number) {
+    return this.filesDataService.getFile(id);
+  }
+
   createFolder(title: string, parentId?: number) {
     return this.foldersHierarchyDataService.createNewFolder(title, parentId);
   }

@@ -1,14 +1,28 @@
+import { IMAGE_CONFIG } from '@angular/common';
+import { provideHttpClient } from '@angular/common/http';
 import {
+  APP_INITIALIZER,
   ApplicationConfig,
-  importProvidersFrom,
+  ENVIRONMENT_INITIALIZER,
+  FactoryProvider,
+  inject,
   isDevMode,
 } from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { appRoutes } from './app.routes';
-import { provideServiceWorker } from '@angular/service-worker';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { HttpClientModule } from '@angular/common/http';
-import { IMAGE_CONFIG } from '@angular/common';
+import { provideRouter } from '@angular/router';
+import { provideServiceWorker } from '@angular/service-worker';
+import { AppEventsHandleFacade } from '@portifolio/utils/util-app-events-handle';
+import { appRoutes } from './app.routes';
+
+export const APP_EVENT_TOKEN: FactoryProvider = {
+  provide: APP_INITIALIZER,
+  useFactory: () => {
+    const appEventsHandle = inject(AppEventsHandleFacade);
+
+    return () => appEventsHandle.startDomain();
+  },
+  multi: true,
+};
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,7 +32,7 @@ export const appConfig: ApplicationConfig = {
       registrationStrategy: 'registerWhenStable:30000',
     }),
     provideAnimationsAsync(),
-    importProvidersFrom(HttpClientModule),
+    provideHttpClient(),
     {
       provide: IMAGE_CONFIG,
       useValue: {
@@ -26,5 +40,6 @@ export const appConfig: ApplicationConfig = {
         disableImageLazyLoadWarning: true,
       },
     },
+    APP_EVENT_TOKEN,
   ],
 };
