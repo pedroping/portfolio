@@ -22,6 +22,7 @@ export class FoldersHierarchyDataService {
 
     if (!parentId && parentId != 0) {
       this.allFolders.push(newFolder);
+      this.allFolders$.next(this.allFolders);
       return newFolder;
     }
 
@@ -32,6 +33,7 @@ export class FoldersHierarchyDataService {
     if (!folder.children) folder.children = [];
     folder.children.push(newFolder);
 
+    this.allFolders$.next(this.allFolders);
     return newFolder;
   }
 
