@@ -1,16 +1,18 @@
 import {
   DestroyRef,
   Directive,
+  ElementRef,
   HostListener,
   input,
   OnInit,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ContextMenuFacade } from '@portifolio/features/feature-context-menus';
 import { ElementsFacade } from '@portifolio/features/feature-page-creator';
 import { AppDropHandleDirective } from '@portifolio/utils/util-app-drop-handle';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
 import { IApp, IFolderData } from '@portifolio/utils/util-models';
-import { take } from 'rxjs';
+import { filter, take } from 'rxjs';
 
 @Directive({
   selector: '[pageHandle]',
@@ -21,11 +23,14 @@ import { take } from 'rxjs';
 })
 export class PageHandleDirective implements OnInit {
   config = input.required<IApp>();
+  parentId = this.elementRef.nativeElement.parentElement?.id;
 
   constructor(
     private readonly destroyRef: DestroyRef,
+    private readonly elementRef: ElementRef<HTMLElement>,
     private readonly foldersHierarchyFacade: FoldersHierarchyFacade,
     private readonly elementsFacade: ElementsFacade<IFolderData | undefined>,
+    private readonly contextMenuFacade: ContextMenuFacade<string | number>,
   ) {}
 
   @HostListener('dblclick') onClick() {
@@ -66,6 +71,8 @@ export class PageHandleDirective implements OnInit {
   }
 
   ngOnInit(): void {
+    this.parentId = this.elementRef.nativeElement.parentElement?.id;
+    this.openEvent$.subscribe(() => this.onClick());
     this.createPageEvents();
     this.createFolder();
   }
@@ -76,6 +83,9 @@ export class PageHandleDirective implements OnInit {
     if (!this.config().isFolderId && this.config().isFolderId != 0) {
       const folder = this.foldersHierarchyFacade.createFolder(
         this.config().name,
+        this.config().parentFolderId == 0
+          ? undefined
+          : this.config().parentFolderId,
       );
       if (!folder) return;
 
@@ -101,5 +111,14 @@ export class PageHandleDirective implements OnInit {
       .subscribe(() => {
         this.config().pageConfigId = undefined;
       });
+  }
+
+  get openEvent$() {
+    return this.contextMenuFacade
+      .getEventByOption('program-open', this.parentId)
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        filter((event) => event.data === this.config().id),
+      );
   }
 }

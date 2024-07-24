@@ -16,7 +16,7 @@ import { FileExplorerFacade } from '../../facade/file-explorer-facade.service';
   },
 })
 export class FolderSectionActionDirective implements OnInit {
-  active = signal<Boolean>(false);
+  active = signal<boolean>(false);
 
   @HostListener('click') onClick() {
     this.fileExplorerFacade.toggleState();

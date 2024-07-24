@@ -17,7 +17,7 @@ import { Subject, fromEvent, takeUntil } from 'rxjs';
   standalone: true,
 })
 export class ShowHideFolderDirective implements AfterViewInit {
-  state = signal<Boolean>(true);
+  state = signal<boolean>(true);
   title = input<string>('');
   folderContent = input<HTMLElement | undefined | null>();
   folderToggle = contentChild<ElementRef<HTMLElement>>('folderToggle');
@@ -52,17 +52,19 @@ export class ShowHideFolderDirective implements AfterViewInit {
       .subscribe(() => {
         this.state.update((val) => !val);
 
-        if (this.state()) {
-          this.content!.style.display = 'block';
-          this.buildAnimation.animate('reverseEnterAnimationY', this.content!);
+        if (!this.content) return;
 
+        if (this.state()) {
+          this.content.style.display = 'block';
+          this.buildAnimation.animate('reverseEnterAnimationY', this.content);
           return;
         }
 
         this.buildAnimation
-          .animate('reverseLeaveAnimationY', this.content!)
+          .animate('reverseLeaveAnimationY', this.content)
           .subscribe(() => {
-            this.content!.style.display = 'none';
+            if (!this.content) return;
+            this.content.style.display = 'none';
           });
       });
   }

@@ -14,6 +14,10 @@ export class FoldersHierarchyFacade {
     return this.foldersHierarchyDataService.findFolder(id);
   }
 
+  getFile(id: number) {
+    return this.filesDataService.getFile(id);
+  }
+
   createFolder(title: string, parentId?: number) {
     return this.foldersHierarchyDataService.createNewFolder(title, parentId);
   }
@@ -36,6 +40,10 @@ export class FoldersHierarchyFacade {
 
   moveFolder(id: number, newFolderPlacement: number) {
     this.foldersHierarchyDataService.moveFolder(id, newFolderPlacement);
+  }
+
+  getFileByFolder$(folderId: number) {
+    return this.filesDataService.getFileByFolder$(folderId);
   }
 
   getFileByFolder(folderId: number) {

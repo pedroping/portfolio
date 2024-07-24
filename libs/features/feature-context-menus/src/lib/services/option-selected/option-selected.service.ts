@@ -21,7 +21,8 @@ export class OptionSelectedService<T> {
     return this.optionSelected$$.pipe(
       filter(
         (event) =>
-          event.option === option && !!parentId && event.parentId == parentId,
+          event.option === option &&
+          (parentId || parentId == 0 ? event.parentId == parentId : true),
       ),
     );
   }

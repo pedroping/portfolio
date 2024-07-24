@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ElementsFacade } from '@portifolio/features/feature-page-creator';
-import {
-    IFolderData,
-    IPageConfig
-} from '@portifolio/utils/util-models';
+import { IFolderData, IPageConfig } from '@portifolio/utils/util-models';
 import { FOLDER_MOCK } from '../../mocks/file-explorer-mocks';
+import { FileExplorerComponent } from '../../ui/file-explorer.component';
 
 @Injectable({ providedIn: 'root' })
 export class CreateFolderPageService {
@@ -21,6 +19,7 @@ export class CreateFolderPageService {
     const newPageConfig = FOLDER_MOCK;
 
     newPageConfig.name = folderTitle;
+    newPageConfig.pageContent = FileExplorerComponent;
 
     if (pageConfig) {
       newPageConfig.customX = pageConfig.lastPosition.x;
