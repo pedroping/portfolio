@@ -16,10 +16,15 @@ export class FilesDataService {
     return newFile;
   }
 
-  getFileByFolder(folderId: number) {
+  getFileByFolder$(folderId: number) {
     return this.allFiles$$.pipe(
       startWith(this.allFiles),
       map((files) => files.filter((file) => file.parentFolderId === folderId)),
+    );
+  }
+  getFileByFolder(folderId: number) {
+    return this.allFiles$.value.filter(
+      (file) => file.parentFolderId === folderId,
     );
   }
 

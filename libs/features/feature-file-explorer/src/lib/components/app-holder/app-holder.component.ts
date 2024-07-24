@@ -21,6 +21,7 @@ import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy
 import {
   DATA_TOKEN,
   IApp,
+  IFolder,
   IFolderData,
   IOptionEvent,
 } from '@portifolio/utils/util-models';
@@ -59,7 +60,7 @@ export class AppHolderComponent implements OnInit {
   ) {
     this.id.set(data?.folderId ?? 0);
     this.files$$ = this.foldersHierarchyFacade
-      .getFileByFolder(this.id())
+      .getFileByFolder$(this.id())
       .pipe(tap(() => this.cdr.detectChanges()));
 
     this.pasteEvent$ = this.contextMenuFacade.getEventByOption(
@@ -71,12 +72,11 @@ export class AppHolderComponent implements OnInit {
   ngOnInit(): void {
     this.pasteEvent$
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((event) => this.handleCopyAndPaste(event));
+      .subscribe(() => this.handleCopyAndPaste());
   }
 
-  handleCopyAndPaste(event: IOptionEvent<unknown>) {
+  handleCopyAndPaste() {
     const copyAndPaste = this.appCopyAndPasteFacade.getActualEvent();
-    console.log(event);
 
     if (!copyAndPaste.data && copyAndPaste.data != 0) return;
 
@@ -136,21 +136,65 @@ export class AppHolderComponent implements OnInit {
       this.id(),
     );
 
-    if (!newFolder || !oldFolder?.children) return;
-    
-    for (let i = 0; i < oldFolder.children.length; i++) {
-      const folder = oldFolder.children[i];
-      this.setFilesNewFolder(newFolder.id, folder.id);
-    }
+    const newFile = {
+      ...file,
+      pageConfigId: undefined,
+      isFolderId: newFolder?.id,
+      id: undefined,
+      parentFolderId: this.id(),
+    };
+
+    if (
+      !newFolder ||
+      (!oldFolder?.id && oldFolder?.id != 0)
+    )
+      return;
+
+    this.copyAllThings(oldFolder?.id, newFolder);
+    this.foldersHierarchyFacade.setNewFile(newFile);
   }
 
-  setFilesNewFolder(folderId: number, oldFolderId: number) {
-    const oldFolder = this.foldersHierarchyFacade.findFolder(oldFolderId);
-    const oldFolderFiles =
-      this.foldersHierarchyFacade.getFileByFolder(oldFolderId);
+  copyAllThings(
+    oldFolderId: number,
+    actualFolder: IFolder,
+  ) {
+    const files = this.foldersHierarchyFacade.getFileByFolder(oldFolderId);
 
-    if (!oldFolder || !oldFolderFiles) return;
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
 
-    console.log(oldFolder, oldFolderFiles);
+      if (file.type == 'file') {
+        const newFile = {
+          ...file,
+          pageConfigId: undefined,
+          isFolderId: undefined,
+          id: undefined,
+          parentFolderId: actualFolder?.id,
+        };
+        this.foldersHierarchyFacade.setNewFile(newFile);
+      } else {
+        const folderId = file.isFolderId;
+
+        if (folderId || folderId == 0) {
+          const oldFolder = this.foldersHierarchyFacade.findFolder(folderId);
+          const newFolder = this.foldersHierarchyFacade.createFolder(
+            file.name,
+            actualFolder?.id,
+          );
+
+          const newFile = {
+            ...file,
+            pageConfigId: undefined,
+            isFolderId: newFolder?.id,
+            id: undefined,
+            parentFolderId: actualFolder?.id,
+          };
+
+          if ((oldFolder?.id || oldFolder?.id == 0) && newFolder)
+            this.copyAllThings(oldFolder?.id, newFolder);
+          this.foldersHierarchyFacade.setNewFile(newFile);
+        }
+      }
+    }
   }
 }

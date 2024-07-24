@@ -83,6 +83,9 @@ export class PageHandleDirective implements OnInit {
     if (!this.config().isFolderId && this.config().isFolderId != 0) {
       const folder = this.foldersHierarchyFacade.createFolder(
         this.config().name,
+        this.config().parentFolderId == 0
+          ? undefined
+          : this.config().parentFolderId,
       );
       if (!folder) return;
 

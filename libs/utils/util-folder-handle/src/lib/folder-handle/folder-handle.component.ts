@@ -28,7 +28,7 @@ export class FolderHandleComponent implements OnInit {
 
   ngOnInit(): void {
     this.files$ = this.foldersHierarchyFacade
-      .getFileByFolder(this.folderId())
+      .getFileByFolder$(this.folderId())
       .pipe(tap(() => this.cdr.detectChanges()));
   }
 }

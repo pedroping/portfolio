@@ -42,6 +42,10 @@ export class FoldersHierarchyFacade {
     this.foldersHierarchyDataService.moveFolder(id, newFolderPlacement);
   }
 
+  getFileByFolder$(folderId: number) {
+    return this.filesDataService.getFileByFolder$(folderId);
+  }
+
   getFileByFolder(folderId: number) {
     return this.filesDataService.getFileByFolder(folderId);
   }
