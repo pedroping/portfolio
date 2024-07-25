@@ -1,5 +1,9 @@
-<section>
+<section [id]="worksSpaceId">
   <workspace-reference />
   <initial-menu-creator />
-  <workspace [id]="0" openContextMenu="default" />
+  <workspace
+    [id]="0"
+    openContextMenu="default"
+    [parentFolderId]="worksSpaceId"
+  />
 </section>

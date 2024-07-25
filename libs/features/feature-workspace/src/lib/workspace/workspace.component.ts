@@ -6,6 +6,7 @@ import {
 } from '@portifolio/features/feature-context-menus';
 import { MenuEventsFacade } from '@portifolio/features/feature-inital-menu';
 import { ElementsFacade } from '@portifolio/features/feature-page-creator';
+import { HandleCopyAndPasteEventsDirective } from '@portifolio/utils/util-app-copy-and-paste';
 import { AppDropHandleDirective } from '@portifolio/utils/util-app-drop-handle';
 import { FolderHandleComponent } from '@portifolio/utils/util-folder-handle';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
@@ -19,6 +20,10 @@ import { BASIC_FOLDER } from '../mocks/workspace-mocks';
   imports: [AppDropHandleDirective, FolderHandleComponent, AsyncPipe],
   hostDirectives: [
     { directive: OpenContextMenuDirective, inputs: ['id', 'openContextMenu'] },
+    {
+      directive: HandleCopyAndPasteEventsDirective,
+      inputs: ['parentFolderId', 'id'],
+    },
   ],
   host: {
     id: WORKSPACE_ID,

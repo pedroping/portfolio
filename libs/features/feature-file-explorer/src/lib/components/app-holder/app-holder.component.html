@@ -1,5 +1,5 @@
-<section [id]="fileExplorerId + id()" openContextMenu="default">
+<section [id]="parentFolderId()" openContextMenu="default">
   <div [dropHandle]="id()"></div>
 
-  <folder-handle [parentId]="fileExplorerId + id()" [folderId]="id()" />
+  <folder-handle [parentId]="parentFolderId()" [folderId]="id()" />
 </section>
