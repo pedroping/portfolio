@@ -74,6 +74,10 @@ export class FilesDataService {
     this.allFiles$.next(filteredFiles);
   }
 
+  resetData() {
+    this.allFiles$.next([]);
+  }
+
   get allFiles() {
     return this.allFiles$.value;
   }

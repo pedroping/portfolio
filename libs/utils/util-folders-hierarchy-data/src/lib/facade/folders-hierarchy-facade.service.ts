@@ -57,6 +57,11 @@ export class FoldersHierarchyFacade {
     );
   }
 
+  resetData() {
+    this.filesDataService.resetData();
+    this.foldersHierarchyDataService.resetData();
+  }
+
   deleteFolder(id: number) {
     this.foldersHierarchyDataService.deleteFolder(id);
   }

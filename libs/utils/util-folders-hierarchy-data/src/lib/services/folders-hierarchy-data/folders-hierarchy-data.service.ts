@@ -141,6 +141,10 @@ export class FoldersHierarchyDataService {
     this.allFolders$.next(allFolders);
   }
 
+  resetData() {
+    this.allFolders$.next([]);
+  }
+
   get newId() {
     return ++this.lastId;
   }

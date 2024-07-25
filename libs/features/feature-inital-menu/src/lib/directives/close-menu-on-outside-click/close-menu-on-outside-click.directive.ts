@@ -28,9 +28,11 @@ export class CloseMenuOnOutsideClickDirective implements OnInit {
           skip(1),
           takeUntilDestroyed(this.destroyRef),
           filter((event) => {
-            const isOutTarget = this.isOutTarget(event.target as HTMLElement);
+            const target = event.target as HTMLElement;
+            const isOutTarget = this.isOutTarget(target);
             const hasPrevent =
-              (event.target as HTMLElement).id === PREVENT_TOGGLE_ID;
+              target.id === PREVENT_TOGGLE_ID ||
+              this.menuEventsFacade.hasElement(target);
 
             return isOutTarget && !hasPrevent;
           }),

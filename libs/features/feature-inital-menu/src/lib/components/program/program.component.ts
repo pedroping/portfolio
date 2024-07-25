@@ -2,6 +2,7 @@ import { TitleCasePipe } from '@angular/common';
 import { Component, HostListener, computed, input } from '@angular/core';
 import { ElementsFacade } from '@portifolio/features/feature-page-creator';
 import { IPageMock } from '@portifolio/utils/util-models';
+import { PreventElementDirective } from '../../directives/prevent-element/prevent-element.directive';
 import { MenuEventsFacade } from '../../facades/menu-events-facade';
 import { ELEMENT_BASE_ICON } from '../../mocks/program-mocks';
 import { IBasicProgram } from '../../models/program-models';
@@ -11,6 +12,7 @@ import { IBasicProgram } from '../../models/program-models';
   styleUrls: ['./program.component.scss'],
   standalone: true,
   imports: [TitleCasePipe],
+  hostDirectives: [PreventElementDirective],
 })
 export class ProgramComponent {
   pageConfig = input<IPageMock | IBasicProgram>();

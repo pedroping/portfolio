@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { PreventElementsService } from '../services/prevent-elements.service';
 
 @Injectable({ providedIn: 'root' })
 export class MenuEventsFacade {
@@ -7,6 +8,18 @@ export class MenuEventsFacade {
   private readonly closeMenu$ = new Subject<void>();
   private readonly menuAction$ = new Subject<number>();
   private readonly menuOpened$ = new BehaviorSubject<boolean>(false);
+
+  constructor(
+    private readonly preventElementsService: PreventElementsService,
+  ) {}
+
+  pushElement(element: HTMLElement) {
+    this.preventElementsService.pushElement(element);
+  }
+
+  hasElement(element: HTMLElement) {
+    return this.preventElementsService.hasElement(element);
+  }
 
   setOpenMenu() {
     this.menuOpened$.next(true);

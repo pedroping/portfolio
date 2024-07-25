@@ -1,12 +1,12 @@
-<button routerLink="/login" [queryParams]="{ noSplash: true }">
+<a routerLink="/login" [queryParams]="{ noSplash: true }" preventElement>
   <div class="icon">
     <i class="fa-solid fa-key"></i>
   </div>
   <span> Log Off </span>
-</button>
-<button>
+</a>
+<a preventElement>
   <div class="icon">
     <i class="fa-solid fa-power-off"></i>
   </div>
   <span> Turn Off Computer </span>
-</button>
+</a>

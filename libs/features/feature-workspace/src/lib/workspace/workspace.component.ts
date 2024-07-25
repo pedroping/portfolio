@@ -1,14 +1,16 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   OpenContextMenuDirective,
   WORKSPACE_ID,
 } from '@portifolio/features/feature-context-menus';
+import { MenuEventsFacade } from '@portifolio/features/feature-inital-menu';
+import { ElementsFacade } from '@portifolio/features/feature-page-creator';
 import { AppDropHandleDirective } from '@portifolio/utils/util-app-drop-handle';
 import { FolderHandleComponent } from '@portifolio/utils/util-folder-handle';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
+import { IFolderData } from '@portifolio/utils/util-models';
 import { BASIC_FOLDER } from '../mocks/workspace-mocks';
-
 @Component({
   selector: 'workspace',
   templateUrl: './workspace.component.html',
@@ -22,11 +24,13 @@ import { BASIC_FOLDER } from '../mocks/workspace-mocks';
     id: WORKSPACE_ID,
   },
 })
-export class WorkspaceComponent implements OnInit {
+export class WorkspaceComponent implements OnInit, OnDestroy {
   appsConfig = BASIC_FOLDER;
   worksSpaceId = WORKSPACE_ID;
 
   constructor(
+    private readonly menuEventsFacade: MenuEventsFacade,
+    private readonly elementsFacade: ElementsFacade<IFolderData>,
     private readonly foldersHierarchyFacade: FoldersHierarchyFacade,
   ) {}
 
@@ -34,5 +38,11 @@ export class WorkspaceComponent implements OnInit {
     this.appsConfig.forEach((app) => {
       this.foldersHierarchyFacade.setNewFile(app);
     });
+  }
+
+  ngOnDestroy() {
+    this.elementsFacade.clearAll();
+    this.menuEventsFacade.setCloseMenu();
+    this.foldersHierarchyFacade.resetData();
   }
 }
