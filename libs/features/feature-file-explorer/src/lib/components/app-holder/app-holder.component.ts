@@ -4,14 +4,9 @@ import {
   ChangeDetectorRef,
   Component,
   input,
-  OnInit
+  OnInit,
 } from '@angular/core';
-import {
-  OpenContextMenuDirective
-} from '@portifolio/features/feature-context-menus';
-import {
-  HandleCopyAndPasteEventsDirective
-} from '@portifolio/utils/util-app-copy-and-paste';
+import { OpenContextMenuDirective } from '@portifolio/features/feature-context-menus';
 import { AppDropHandleDirective } from '@portifolio/utils/util-app-drop-handle';
 import { FolderHandleComponent } from '@portifolio/utils/util-folder-handle';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
@@ -33,12 +28,6 @@ import { Observable, tap } from 'rxjs';
   host: {
     '[id]': 'parentFolderId()',
   },
-  hostDirectives: [
-    {
-      directive: HandleCopyAndPasteEventsDirective,
-      inputs: ['parentFolderId', 'id'],
-    },
-  ],
 })
 export class AppHolderComponent implements OnInit {
   id = input.required<number>();

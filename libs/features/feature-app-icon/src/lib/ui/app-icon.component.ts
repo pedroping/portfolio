@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, ElementRef, input } from '@angular/core';
 import { IApp } from '@portifolio/utils/util-models';
 import { AppRenameComponent } from '../component/app-rename.component';
 import { IconDropEventsHandleDirective } from '../directives/icon-drop-events-handle/icon-drop-events-handle.directive';
@@ -28,4 +28,10 @@ export class AppIconComponent {
 
   title = computed(() => this.config().name);
   logo = computed(() => this.config().logo || APP_BASE_ICON);
+
+  elementRef: ElementRef<HTMLElement>;
+
+  constructor(private readonly _elementRef: ElementRef<HTMLElement>) {
+    this.elementRef = this._elementRef;
+  }
 }

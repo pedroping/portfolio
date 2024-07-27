@@ -1,12 +1,12 @@
-<section id="sub-context-menu-view">
-  <div class="option">
+<section id="sub-context-menu-view" [optionEvent]="data" [parentId]="parentId">
+  <div class="option" option="view-big-icons">
     <span>Big Icons</span>
   </div>
-  <div class="option">
+  <div class="option" option="view-medium-icons">
     <span>Medium Icons</span>
   </div>
 
-  <div class="option">
+  <div class="option" option="view-small-icons">
     <span>Small Icons</span>
   </div>
 </section>

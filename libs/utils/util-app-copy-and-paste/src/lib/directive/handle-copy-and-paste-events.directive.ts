@@ -11,8 +11,8 @@ import { AppCopyAndPasteFacade } from '../facade/app-copy-and-paste-facade.servi
   standalone: true,
 })
 export class HandleCopyAndPasteEventsDirective implements OnInit {
-  id = input.required<number>();
-  parentFolderId = input.required<string>();
+  folderId = input.required<number>();
+  parentId = input.required<string>();
   pasteEvent$?: Observable<IOptionEvent<unknown>>;
 
   constructor(
@@ -25,7 +25,7 @@ export class HandleCopyAndPasteEventsDirective implements OnInit {
   ngOnInit(): void {
     this.pasteEvent$ = this.contextMenuFacade.getEventByOption(
       'paste',
-      this.parentFolderId(),
+      this.parentId(),
     );
 
     this.pasteEvent$
@@ -48,22 +48,22 @@ export class HandleCopyAndPasteEventsDirective implements OnInit {
 
     if (!file) return;
 
-    if (file.parentFolderId == this.id() || file.isFolderId == this.id())
+    if (file.parentFolderId == this.folderId() || file.isFolderId == this.folderId())
       return;
 
     if (file.isFolderId || file.isFolderId == 0) {
       const hasSameChild = this.foldersHierarchyFacade.hasSameChild(
         file.isFolderId,
-        this.id(),
+        this.folderId(),
       );
 
       if (hasSameChild) return;
 
-      this.foldersHierarchyFacade.changeFolderId(id, this.id());
-      this.foldersHierarchyFacade.moveFolder(file.isFolderId, this.id());
+      this.foldersHierarchyFacade.changeFolderId(id, this.folderId());
+      this.foldersHierarchyFacade.moveFolder(file.isFolderId, this.folderId());
     }
 
-    this.foldersHierarchyFacade.changeFolderId(id, this.id());
+    this.foldersHierarchyFacade.changeFolderId(id, this.folderId());
   }
 
   handleCopy(id: number) {
@@ -78,7 +78,7 @@ export class HandleCopyAndPasteEventsDirective implements OnInit {
         pageConfigId: undefined,
         isFolderId: undefined,
         id: undefined,
-        parentFolderId: this.id(),
+        parentFolderId: this.folderId(),
       };
 
       this.foldersHierarchyFacade.setNewFile(newFile);
@@ -92,7 +92,7 @@ export class HandleCopyAndPasteEventsDirective implements OnInit {
 
     const newFolder = this.foldersHierarchyFacade.createFolder(
       file.name + '-copy',
-      this.id() == 0 ? undefined : this.id(),
+      this.folderId() == 0 ? undefined : this.folderId(),
     );
 
     const newFile = {
@@ -101,7 +101,7 @@ export class HandleCopyAndPasteEventsDirective implements OnInit {
       pageConfigId: undefined,
       isFolderId: newFolder?.id,
       id: undefined,
-      parentFolderId: this.id(),
+      parentFolderId: this.folderId(),
     };
 
     if (!newFolder || (!oldFolder?.id && oldFolder?.id != 0)) return;

@@ -1,12 +1,8 @@
-<section id="sub-context-menu-view">
-  <div class="option">
+<section id="sub-context-menu-view" [optionEvent]="data" [parentId]="parentId">
+  <div class="option" option="short-by-name">
     <span>Name</span>
   </div>
-  <div class="option">
+  <div class="option" option="short-by-size">
     <span>Size</span>
-  </div>
-
-  <div class="option">
-    <span>Modification Date</span>
   </div>
 </section>

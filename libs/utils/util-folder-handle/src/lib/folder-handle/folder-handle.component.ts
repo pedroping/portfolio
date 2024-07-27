@@ -1,10 +1,22 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectorRef, Component, input, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  DestroyRef,
+  forwardRef,
+  Host,
+  Inject,
+  input,
+  viewChildren,
+} from '@angular/core';
 import { AppIconComponent } from '@portifolio/features/feature-app-icon';
-import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
+import { HandleCopyAndPasteEventsDirective } from '@portifolio/utils/util-app-copy-and-paste';
 import { IApp } from '@portifolio/utils/util-models';
-import { Observable, tap } from 'rxjs';
-
+import { BehaviorSubject, Observable } from 'rxjs';
+import { HandleFolderShortEventDirective } from '../directives/handle-folder-short-event/handle-folder-short-event.directive';
+import { HandleFolderViewEventDirective } from '../directives/handle-folder-view-event/handle-folder-view-event.directive';
+import { FILE_TOKEN, getTokenObservable$ } from '../mocks/file-token';
+import { HandleFolderRefreshEventDirective } from '../directives/handle-folder-refresh-event/handle-folder-refresh-event.directive';
 @Component({
   selector: 'folder-handle',
   templateUrl: './folder-handle.component.html',
@@ -14,21 +26,49 @@ import { Observable, tap } from 'rxjs';
     '[id]': 'parentId()',
   },
   imports: [AppIconComponent, AsyncPipe],
+  hostDirectives: [
+    {
+      directive: HandleFolderShortEventDirective,
+      inputs: ['folderId', 'parentId'],
+    },
+    {
+      directive: HandleCopyAndPasteEventsDirective,
+      inputs: ['folderId', 'parentId'],
+    },
+    {
+      directive: HandleFolderViewEventDirective,
+      inputs: ['folderId', 'parentId'],
+    },
+    {
+      directive: HandleFolderRefreshEventDirective,
+      inputs: ['folderId', 'parentId'],
+    },
+  ],
+  providers: [
+    {
+      provide: FILE_TOKEN,
+      useFactory: forwardRef(() => new BehaviorSubject<IApp[]>([])),
+    },
+  ],
 })
-export class FolderHandleComponent implements OnInit {
+export class FolderHandleComponent {
   folderId = input.required<number>();
   parentId = input.required<string | number>();
 
-  files$ = new Observable<IApp[]>();
+  files$: Observable<IApp[]>;
+  apps = viewChildren(AppIconComponent);
 
   constructor(
     private readonly cdr: ChangeDetectorRef,
-    private readonly foldersHierarchyFacade: FoldersHierarchyFacade,
-  ) {}
-
-  ngOnInit(): void {
-    this.files$ = this.foldersHierarchyFacade
-      .getFileByFolder$(this.folderId())
-      .pipe(tap(() => this.cdr.detectChanges()));
+    private readonly destroyRef: DestroyRef,
+    @Host()
+    @Inject(FILE_TOKEN)
+    private readonly fileToken: BehaviorSubject<IApp[]>,
+  ) {
+    this.files$ = getTokenObservable$(
+      this.fileToken,
+      this.destroyRef,
+      this.cdr,
+    );
   }
 }

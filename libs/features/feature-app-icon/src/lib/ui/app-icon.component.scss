@@ -9,5 +9,52 @@
 
   img {
     width: 60px;
+    transition: all 100ms ease-in-out;
+  }
+
+  ::ng-deep {
+    h4,
+    input {
+      max-width: 70px !important;
+    }
+  }
+
+  &.big-icon {
+    img {
+      width: 90px;
+    }
+
+    ::ng-deep {
+      h4,
+      input {
+        max-width: 100px !important;
+      }
+    }
+  }
+
+  &.medium-icon {
+    img {
+      width: 60px;
+    }
+
+    ::ng-deep {
+      h4,
+      input {
+        max-width: 70px !important;
+      }
+    }
+  }
+
+  &.small-icon {
+    img {
+      width: 30px;
+    }
+
+    ::ng-deep {
+      h4,
+      input {
+        max-width: 40px !important;
+      }
+    }
   }
 }
