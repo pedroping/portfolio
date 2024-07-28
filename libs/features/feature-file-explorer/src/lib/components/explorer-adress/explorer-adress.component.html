@@ -2,12 +2,19 @@
   <span>Address</span>
   <div class="adress-input">
     <img src="/assets/images/hard-disk-icon.png" alt="Ícone de disco rigido" />
-    <input type="text" name="" value="C:/Desktop" />
+    <input
+      [formControl]="adressControl"
+      type="text"
+      (keyup.enter)="findFolder()"
+    />
   </div>
-  <div class="go-icon-with-label">
-    <button class="go-icon">
+  <button
+    class="go-icon-with-label"
+    (click)="findFolder(); $event.stopImmediatePropagation()"
+  >
+    <div class="go-icon">
       <i class="fa-solid fa-arrow-right"></i>
-    </button>
+    </div>
     <span>Go</span>
-  </div>
+  </button>
 </section>

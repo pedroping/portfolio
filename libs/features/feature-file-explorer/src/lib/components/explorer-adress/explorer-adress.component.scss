@@ -44,6 +44,9 @@
       cursor: pointer;
       height: 100%;
       transition: all 200ms ease-in-out;
+      background-color: transparent;
+      border: none;
+      outline: none;
 
       &:hover {
         transform: scale(1.05) translateY(-1px);

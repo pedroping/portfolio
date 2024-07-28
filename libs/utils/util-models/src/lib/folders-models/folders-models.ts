@@ -7,3 +7,8 @@ export interface IFolder {
 export interface IFolderData {
   folderId: number;
 }
+
+export const INITIAL_FOLDER_ADRESS = 'C:/Desktop';
+
+export const EXPLITED_ADRESS_01 = 'C:';
+export const EXPLITED_ADRESS_02 = 'Desktop';

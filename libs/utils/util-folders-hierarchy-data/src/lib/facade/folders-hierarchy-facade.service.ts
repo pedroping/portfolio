@@ -57,6 +57,14 @@ export class FoldersHierarchyFacade {
     );
   }
 
+  getFolderAdress(folderId: number) {
+    return this.foldersHierarchyDataService.getFolderAdress(folderId);
+  }
+  
+  findFolderByAdress(adress: string) {
+    return this.foldersHierarchyDataService.findFolderByAdress(adress);
+  }
+
   resetData() {
     this.filesDataService.resetData();
     this.foldersHierarchyDataService.resetData();

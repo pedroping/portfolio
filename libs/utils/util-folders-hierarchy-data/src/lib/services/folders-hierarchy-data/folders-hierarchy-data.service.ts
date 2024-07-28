@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
-import { IFolder, IFolderData } from '@portifolio/utils/util-models';
+import {
+  EXPLITED_ADRESS_01,
+  EXPLITED_ADRESS_02,
+  IFolder,
+  IFolderData,
+  INITIAL_FOLDER_ADRESS,
+} from '@portifolio/utils/util-models';
 import { BehaviorSubject } from 'rxjs';
 import { FilesDataService } from '../files-data/files-data.service';
 import { ElementsFacade } from '@portifolio/features/feature-page-creator';
@@ -50,6 +56,61 @@ export class FoldersHierarchyDataService {
     }
 
     return undefined;
+  }
+
+  getFolderAdress(folderId: number) {
+    let folderFile = this.filesDataService.getFolderFile(folderId);
+
+    let searchAdress = '';
+
+    if (folderFile?.name) searchAdress = '/' + folderFile?.name;
+
+    while (folderFile && folderFile?.parentFolderId != 0) {
+      if (folderFile) {
+        folderFile = this.filesDataService.getFolderFile(
+          folderFile?.parentFolderId,
+        );
+        searchAdress = '/' + folderFile?.name + searchAdress;
+      }
+    }
+
+    searchAdress = 'C:/Desktop' + searchAdress;
+
+    return searchAdress;
+  }
+
+  findFolderByAdress(adress: string) {
+    if (!adress) return null;
+
+    if (adress.trim() == INITIAL_FOLDER_ADRESS) return 0;
+
+    const allFolderNames = adress
+      .split('/')
+      .filter(
+        (element) =>
+          !element.includes(EXPLITED_ADRESS_01) &&
+          !element.includes(EXPLITED_ADRESS_02),
+      );
+
+    if (allFolderNames.length == 1) {
+      const folder = this.allFolders$.value.find(
+        (folder) => folder.title == allFolderNames[0],
+      );
+
+      return folder?.id ?? null;
+    }
+
+    let folder: IFolder | undefined;
+
+    allFolderNames.forEach((name) => {
+      const currentFolders = folder?.children
+        ? folder.children
+        : this.allFolders$.value;
+
+      folder = currentFolders.find((folder) => folder.title == name);
+    });
+
+    return folder ? folder.id : null;
   }
 
   deleteFolder(

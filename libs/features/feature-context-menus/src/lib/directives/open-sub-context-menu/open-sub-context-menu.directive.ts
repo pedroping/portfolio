@@ -103,7 +103,7 @@ export class OpenSubContextMenuDirective<T> {
   ) {
     const pageWidth = window.innerWidth;
     const viewWidth = elementView.offsetWidth;
-    const maxBound = elementPosition.x + viewWidth;
+    const maxBound = elementPosition.x + elementWidth + viewWidth;
 
     elementView.style.top = elementPosition.y + 'px';
 

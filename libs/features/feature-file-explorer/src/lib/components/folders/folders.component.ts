@@ -45,6 +45,7 @@ export class FoldersComponent {
       folder.id,
       folder.title,
       this.data.folderId,
+      this.pageConfig,
     );
   }
 }
