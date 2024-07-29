@@ -35,9 +35,6 @@ export class ElementCreatorService<T> {
       elementInjection,
     );
 
-    componentRef.changeDetectorRef.detectChanges();
-
-    this.elementsData.pushElement(pageConfig);
     DomElementAdpter.setDisplay(
       componentRef.instance.element,
       !!config?.opened,
@@ -46,7 +43,9 @@ export class ElementCreatorService<T> {
     this.setCustomTransform(componentRef.instance.element, pageConfig);
     pageConfig.hostView$.next(componentRef.hostView);
     pageConfig.element$.next(componentRef.instance.element);
+    this.elementsData.pushElement(pageConfig);
     this.setZIndexService.setNewZIndex(index, componentRef.instance.element);
+    componentRef.changeDetectorRef.detectChanges();
 
     return pageConfig;
   }
@@ -75,6 +74,8 @@ export class ElementCreatorService<T> {
 
   destroyElement(id: number) {
     const element = this.elementsData.findElement(id);
+
+    console.log(element, [...this.elementsData.elements$.value]);
 
     if (!element?.hostView$.value) return;
 
