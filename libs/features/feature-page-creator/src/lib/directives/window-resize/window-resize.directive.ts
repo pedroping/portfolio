@@ -1,4 +1,10 @@
-import { DestroyRef, Directive, Inject, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  DestroyRef,
+  Directive,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ElementsFacade } from '../../facades/elements-facade/elements-facade';
 import { CONFIG_TOKEN, IPageConfig } from '@portifolio/utils/util-models';
@@ -8,7 +14,7 @@ import { fromEvent, merge, skip, take } from 'rxjs';
   selector: '[windowResize]',
   standalone: true,
 })
-export class WindowResizeDirective implements OnInit {
+export class WindowResizeDirective implements OnInit, AfterViewInit {
   constructor(
     private readonly destroyRef: DestroyRef,
     private readonly elementsFacade: ElementsFacade,
@@ -28,5 +34,12 @@ export class WindowResizeDirective implements OnInit {
 
         this.elementsFacade.setMaxPosition({ elmentConfig: this._config });
       });
+  }
+
+  ngAfterViewInit() {
+    const element = this._config.element$.value;
+    if (!element || this._config.isFullScreen || !this._config.opened) return;
+
+    this.elementsFacade.setMaxPosition({ elmentConfig: this._config });
   }
 }
