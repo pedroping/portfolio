@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   DestroyRef,
   Directive,
   HostListener,
@@ -9,7 +10,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import { CONFIG_TOKEN, IPageConfig } from '@portifolio/utils/util-models';
 import { WorkspaceReferenceFacade } from '@portifolio/utils/util-workspace-reference';
-import { filter, fromEvent, take } from 'rxjs';
+import { filter, fromEvent } from 'rxjs';
 import { ElementsFacade } from '../../facades/elements-facade/elements-facade';
 import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
 import { OBSERVE_CONFIG } from '../../mocks/observerConfig-mocks';
@@ -18,7 +19,7 @@ import { OBSERVE_CONFIG } from '../../mocks/observerConfig-mocks';
   selector: '[pageMaximize]',
   standalone: true,
 })
-export class PageMaximizeDirective implements OnInit {
+export class PageMaximizeDirective implements OnInit, AfterViewInit {
   lastHeight = 0;
   currentWidth: string | number = 'auto';
   currentHeight: string | number = 'auto';
@@ -30,6 +31,29 @@ export class PageMaximizeDirective implements OnInit {
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig,
     private readonly workspaceReferenceFacade: WorkspaceReferenceFacade,
   ) {}
+
+  ngOnInit(): void {
+    const boundaryElement = this.workspaceReferenceFacade.element;
+    if (!boundaryElement) return;
+    this.lastHeight = boundaryElement.offsetHeight;
+    this.createBoundaryObservers();
+  }
+
+  ngAfterViewInit(): void {
+    if (!this._config || !this._config.isFullScreen) return;
+    const element = this._config.element$.value;
+
+    if (!element) return;
+
+    this.setSizes();
+    this.elementsFacade.openElement(this._config.id);
+    this.lastTranslet3d = DomElementAdpter.getTranslate3d(
+      this._config.customX || 0,
+      this._config.customY || 0,
+    );
+
+    this.setFullScreen(true, element);
+  }
 
   @HostListener('click') onclick() {
     const element = this._config.element$.value;
@@ -44,32 +68,6 @@ export class PageMaximizeDirective implements OnInit {
 
     this.setFullScreen(!isFullScreen, element);
     this._config.isFullScreen = !this._config.isFullScreen;
-  }
-
-  ngOnInit(): void {
-    const boundaryElement = this.workspaceReferenceFacade.element;
-    if (!boundaryElement) return;
-    this.lastHeight = boundaryElement.offsetHeight;
-
-    this._config.element$
-      .pipe(take(2), takeUntilDestroyed(this.destroyRef))
-      .subscribe(() => {
-        if (!this._config || !this._config.isFullScreen) return;
-        const element = this._config.element$.value;
-
-        if (!element) return;
-
-        this.setSizes();
-        this.elementsFacade.openElement(this._config.id);
-        this.lastTranslet3d = DomElementAdpter.getTranslate3d(
-          this._config.customX || 0,
-          this._config.customY || 0,
-        );
-
-        this.setFullScreen(true, element);
-      });
-
-    this.createBoundaryObservers();
   }
 
   createBoundaryObservers() {

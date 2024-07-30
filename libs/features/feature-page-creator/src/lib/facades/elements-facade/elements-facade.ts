@@ -74,12 +74,8 @@ export class ElementsFacade<T = unknown> {
     this.pageEvents.setAnyElementEvent(val);
   }
 
-  setMaxPosition(params: {
-    elmentConfig: IPageConfig;
-    x?: number;
-    y?: number;
-  }) {
-    this.pageActionsService.setMaxPosition(params);
+  setMaxPosition(elmentConfig: IPageConfig) {
+    this.pageActionsService.setMaxPosition(elmentConfig);
   }
 
   clearAll() {

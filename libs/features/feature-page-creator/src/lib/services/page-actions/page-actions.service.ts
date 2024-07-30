@@ -92,7 +92,7 @@ export class PageActionsService {
       return;
     }
 
-    this.setMaxPosition({ elmentConfig });
+    this.setMaxPosition(elmentConfig);
 
     DomElementAdpter.afterTransitions(element)
       .pipe(take(2))
@@ -102,15 +102,8 @@ export class PageActionsService {
       });
   }
 
-  setMaxPosition(params: {
-    elmentConfig: IPageConfig;
-    x?: number;
-    y?: number;
-  }) {
-    if (params.x && params.y)
-      params.elmentConfig.lastPosition = { x: params.x, y: params.y };
-
-    const element = params.elmentConfig.element$.value;
+  setMaxPosition(elmentConfig: IPageConfig) {
+    const element = elmentConfig.element$.value;
     const boundaryElement = this.workspaceReferenceFacade.element;
 
     if (!element) return;
@@ -124,40 +117,34 @@ export class PageActionsService {
       const maxBoundX = Math.max(0, boundaryWidth - element.offsetWidth);
       const maxBoundY = Math.max(0, boundaryHeight - element.offsetHeight);
 
-      const minHeight = params.elmentConfig.baseSizes.minHeight;
-      const minWidth = params.elmentConfig.baseSizes.minWidth;
+      const minHeight = elmentConfig.baseSizes.minHeight;
+      const minWidth = elmentConfig.baseSizes.minWidth;
 
       if (minHeight)
-        params.elmentConfig.baseSizes.minHeight = Math.min(
-          minHeight,
-          boundaryHeight,
-        );
+        elmentConfig.baseSizes.minHeight = Math.min(minHeight, boundaryHeight);
 
       if (minWidth)
-        params.elmentConfig.baseSizes.minWidth = Math.min(
-          minWidth,
-          boundaryWidth,
-        );
+        elmentConfig.baseSizes.minWidth = Math.min(minWidth, boundaryWidth);
 
       element.style.height = Math.min(height, boundaryHeight) + 'px';
       element.style.width = Math.min(width, boundaryWidth) + 'px';
-      element.style.minWidth = params.elmentConfig.baseSizes.minWidth + 'px';
-      element.style.minHeight = params.elmentConfig.baseSizes.minHeight + 'px';
+      element.style.minWidth = elmentConfig.baseSizes.minWidth + 'px';
+      element.style.minHeight = elmentConfig.baseSizes.minHeight + 'px';
 
-      params.elmentConfig.lastPosition.x = Math.min(
-        Math.max(params.elmentConfig.lastPosition.x, 0),
+      elmentConfig.lastPosition.x = Math.min(
+        Math.max(elmentConfig.lastPosition.x, 0),
         maxBoundX,
       );
-      params.elmentConfig.lastPosition.y = Math.min(
-        Math.max(params.elmentConfig.lastPosition.y, 0),
+      elmentConfig.lastPosition.y = Math.min(
+        Math.max(elmentConfig.lastPosition.y, 0),
         maxBoundY,
       );
     }
 
     DomElementAdpter.setTransform(
       element,
-      params.elmentConfig.lastPosition.x,
-      params.elmentConfig.lastPosition.y,
+      elmentConfig.lastPosition.x,
+      elmentConfig.lastPosition.y,
     );
   }
 

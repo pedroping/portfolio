@@ -1,43 +1,26 @@
-import {
-  DestroyRef,
-  Directive,
-  HostListener,
-  Inject,
-  OnInit,
-} from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { AfterViewInit, Directive, HostListener, Inject } from '@angular/core';
 import { DomElementAdpter } from '@portifolio/utils/util-adpters';
-import { ElementsFacade } from '../../facades/elements-facade/elements-facade';
 import { CONFIG_TOKEN, IPageConfig } from '@portifolio/utils/util-models';
-import { filter, take } from 'rxjs';
+import { ElementsFacade } from '../../facades/elements-facade/elements-facade';
 
 @Directive({
   selector: '[pageMinimize]',
   standalone: true,
 })
-export class PageMinimizeDirective implements OnInit {
+export class PageMinimizeDirective implements AfterViewInit {
   constructor(
-    private readonly destroyRef: DestroyRef,
     private readonly elementsFacade: ElementsFacade,
     @Inject(CONFIG_TOKEN) private readonly _config: IPageConfig,
   ) {}
 
-  ngOnInit(): void {
-    this._config.element$
-      .pipe(
-        take(2),
-        filter(
-          () =>
-            !!this._config &&
-            !this._config.opened &&
-            !this._config.isFullScreen,
-        ),
-        takeUntilDestroyed(this.destroyRef),
-      )
-      .subscribe(() => this.onclick());
+  ngAfterViewInit(): void {
+    if (!!this._config && (this._config.opened || this._config.isFullScreen))
+      return;
+
+    this.minimizeElement();
   }
 
-  @HostListener('click') onclick() {
+  @HostListener('click') minimizeElement() {
     const element = this._config.element$.value;
 
     if (!element) return;

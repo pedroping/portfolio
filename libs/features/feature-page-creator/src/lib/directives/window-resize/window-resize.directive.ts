@@ -6,9 +6,9 @@ import {
   OnInit,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ElementsFacade } from '../../facades/elements-facade/elements-facade';
 import { CONFIG_TOKEN, IPageConfig } from '@portifolio/utils/util-models';
-import { fromEvent, merge, skip, take } from 'rxjs';
+import { fromEvent, merge } from 'rxjs';
+import { ElementsFacade } from '../../facades/elements-facade/elements-facade';
 
 @Directive({
   selector: '[windowResize]',
@@ -22,17 +22,14 @@ export class WindowResizeDirective implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    merge(
-      fromEvent(window, 'resize'),
-      this._config.element$.pipe(take(2), skip(1)),
-    )
+    merge(fromEvent(window, 'resize'))
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
         const element = this._config.element$.value;
         if (!element || this._config.isFullScreen || !this._config.opened)
           return;
 
-        this.elementsFacade.setMaxPosition({ elmentConfig: this._config });
+        this.elementsFacade.setMaxPosition(this._config);
       });
   }
 
@@ -40,6 +37,6 @@ export class WindowResizeDirective implements OnInit, AfterViewInit {
     const element = this._config.element$.value;
     if (!element || this._config.isFullScreen || !this._config.opened) return;
 
-    this.elementsFacade.setMaxPosition({ elmentConfig: this._config });
+    this.elementsFacade.setMaxPosition(this._config);
   }
 }
