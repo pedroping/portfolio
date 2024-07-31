@@ -1,3 +1,5 @@
 @for (file of files$ | async; track file.id) {
   <app-icon [config]="file" [id]="file.id" />
 }
+
+<ng-container #vcr></ng-container>

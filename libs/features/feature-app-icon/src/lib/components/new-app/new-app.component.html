@@ -1,0 +1,9 @@
+<img src="/assets/images/windows-basic-folder.png" alt="Ícone de pasta" />
+<input
+  type="text"
+  #input
+  draggable="false"
+  (keyup.enter)="sendEvent()"
+  (focusout)="sendEvent()"
+  [formControl]="newFolderControl"
+/>

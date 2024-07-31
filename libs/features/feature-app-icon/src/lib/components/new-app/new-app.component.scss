@@ -1,0 +1,51 @@
+:host {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  margin: 5px;
+  object-fit: contain;
+  background-color: transparent;
+
+  img {
+    width: 60px;
+    transition: all 100ms ease-in-out;
+  }
+
+  input {
+    max-width: 70px;
+    padding-left: 2px;
+    border: 1px solid var(--black-03);
+    outline: none;
+  }
+
+  &.big-icon {
+    img {
+      width: 90px;
+    }
+
+    input {
+      max-width: 100px !important;
+    }
+  }
+
+  &.medium-icon {
+    img {
+      width: 60px;
+    }
+
+    input {
+      max-width: 70px !important;
+    }
+  }
+
+  &.small-icon {
+    img {
+      width: 30px;
+    }
+
+    input {
+      max-width: 40px !important;
+    }
+  }
+}

@@ -7,7 +7,9 @@ import {
   Host,
   Inject,
   input,
+  viewChild,
   viewChildren,
+  ViewContainerRef,
 } from '@angular/core';
 import { AppIconComponent } from '@portifolio/features/feature-app-icon';
 import { HandleCopyAndPasteEventsDirective } from '@portifolio/utils/util-app-copy-and-paste';
@@ -17,6 +19,7 @@ import { HandleFolderShortEventDirective } from '../directives/handle-folder-sho
 import { HandleFolderViewEventDirective } from '../directives/handle-folder-view-event/handle-folder-view-event.directive';
 import { FILE_TOKEN, getTokenObservable$ } from '../mocks/file-token';
 import { HandleFolderRefreshEventDirective } from '../directives/handle-folder-refresh-event/handle-folder-refresh-event.directive';
+import { HandleFolderNewEventDirective } from '../directives/handle-folder-new-event/handle-folder-new-event.directive';
 @Component({
   selector: 'folder-handle',
   templateUrl: './folder-handle.component.html',
@@ -43,6 +46,10 @@ import { HandleFolderRefreshEventDirective } from '../directives/handle-folder-r
       directive: HandleFolderRefreshEventDirective,
       inputs: ['folderId', 'parentId'],
     },
+    {
+      directive: HandleFolderNewEventDirective,
+      inputs: ['folderId', 'parentId'],
+    },
   ],
   providers: [
     {
@@ -57,7 +64,9 @@ export class FolderHandleComponent {
 
   files$: Observable<IApp[]>;
   apps = viewChildren(AppIconComponent);
-
+  vcr = viewChild('vcr', { read: ViewContainerRef });
+  lastOption?: string;
+  
   constructor(
     private readonly cdr: ChangeDetectorRef,
     private readonly destroyRef: DestroyRef,

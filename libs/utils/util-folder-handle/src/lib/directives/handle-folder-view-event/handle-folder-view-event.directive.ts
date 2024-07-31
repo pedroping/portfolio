@@ -14,7 +14,6 @@ import {
 export class HandleFolderViewEventDirective implements OnInit {
   folderId = input.required<number>();
   parentId = input.required<string | number>();
-  lastOption?: string;
 
   constructor(
     private readonly contextMenuFacade: ContextMenuFacade<number>,
@@ -23,8 +22,8 @@ export class HandleFolderViewEventDirective implements OnInit {
     effect(() => {
       const apps = this.folderHandleComponent.apps();
 
-      if (this.lastOption && apps.length > 0) {
-        this.handleEvent(this.lastOption);
+      if (this.folderHandleComponent.lastOption && apps.length > 0) {
+        this.handleEvent(this.folderHandleComponent.lastOption);
       }
     });
   }
@@ -46,7 +45,7 @@ export class HandleFolderViewEventDirective implements OnInit {
   }
 
   handleEvent(event: string) {
-    this.lastOption = event;
+    this.folderHandleComponent.lastOption = event;
     const appClass = VIEW_CLASS[event];
 
     this.folderHandleComponent.apps().forEach((app) => {
