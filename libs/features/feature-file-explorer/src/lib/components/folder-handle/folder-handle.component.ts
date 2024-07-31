@@ -15,11 +15,12 @@ import { AppIconComponent } from '@portifolio/features/feature-app-icon';
 import { HandleCopyAndPasteEventsDirective } from '@portifolio/utils/util-app-copy-and-paste';
 import { IApp } from '@portifolio/utils/util-models';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { HandleFolderShortEventDirective } from '../directives/handle-folder-short-event/handle-folder-short-event.directive';
-import { HandleFolderViewEventDirective } from '../directives/handle-folder-view-event/handle-folder-view-event.directive';
-import { FILE_TOKEN, getTokenObservable$ } from '../mocks/file-token';
-import { HandleFolderRefreshEventDirective } from '../directives/handle-folder-refresh-event/handle-folder-refresh-event.directive';
-import { HandleFolderNewEventDirective } from '../directives/handle-folder-new-event/handle-folder-new-event.directive';
+import { HandleFolderNewEventDirective } from '../../directives/handle-folder-new-event/handle-folder-new-event.directive';
+import { HandleFolderRefreshEventDirective } from '../../directives/handle-folder-refresh-event/handle-folder-refresh-event.directive';
+import { HandleFolderShortEventDirective } from '../../directives/handle-folder-short-event/handle-folder-short-event.directive';
+import { HandleFolderViewEventDirective } from '../../directives/handle-folder-view-event/handle-folder-view-event.directive';
+import { FILE_TOKEN, getTokenObservable$ } from '../../mocks/file-token';
+
 @Component({
   selector: 'folder-handle',
   templateUrl: './folder-handle.component.html',
@@ -66,7 +67,7 @@ export class FolderHandleComponent {
   apps = viewChildren(AppIconComponent);
   vcr = viewChild('vcr', { read: ViewContainerRef });
   lastOption?: string;
-  
+
   constructor(
     private readonly cdr: ChangeDetectorRef,
     private readonly destroyRef: DestroyRef,

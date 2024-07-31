@@ -2,7 +2,7 @@ import { Directive, input, OnInit, OutputEmitterRef } from '@angular/core';
 import { NewAppComponent } from '@portifolio/features/feature-app-icon';
 import { ContextMenuFacade } from '@portifolio/features/feature-context-menus';
 import { filter } from 'rxjs';
-import { FolderHandleComponent } from '../../folder-handle/folder-handle.component';
+import { FolderHandleComponent } from '../../components/folder-handle/folder-handle.component';
 import { VIEW_CLASS } from '../../mocks/folder-events-mocks';
 
 @Directive({

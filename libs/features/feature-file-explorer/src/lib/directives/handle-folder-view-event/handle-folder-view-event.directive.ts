@@ -1,11 +1,11 @@
 import { Directive, effect, input, OnInit } from '@angular/core';
 import { ContextMenuFacade } from '@portifolio/features/feature-context-menus';
 import { filter } from 'rxjs';
-import { FolderHandleComponent } from '../../folder-handle/folder-handle.component';
 import {
-  VIEW_CLASS,
   VIEW_FOLDER_EVENTS,
+  VIEW_CLASS,
 } from '../../mocks/folder-events-mocks';
+import { FolderHandleComponent } from '../../components/folder-handle/folder-handle.component';
 
 @Directive({
   selector: '[handleFolderViewEvent]',
