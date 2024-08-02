@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { IPageConfig } from '@portifolio/utils/util-models';
-import { CreateFolderPageService } from '../services/create-folder-page/create-folder-page.service';
+import { CreateFilesAndFoldersService } from '../services/create-files-and-folders/create-files-and-folders.service';
 import { FoldersViewStateService } from '../services/folders-view-state/folders-view-state.service';
 
 @Injectable({ providedIn: 'root' })
 export class FileExplorerFacade {
   constructor(
     private readonly foldersStateService: FoldersViewStateService,
-    private readonly createFolderPageService: CreateFolderPageService,
+    private readonly createFolderPageService: CreateFilesAndFoldersService,
   ) {}
 
   setState(val: boolean) {
@@ -38,5 +38,9 @@ export class FileExplorerFacade {
       actualFolderId,
       pageConfig,
     );
+  }
+
+  createFile(name: string, parentFolderId: number) {
+    this.createFolderPageService.createFile(name, parentFolderId);
   }
 }

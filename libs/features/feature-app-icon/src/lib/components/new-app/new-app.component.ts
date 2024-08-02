@@ -7,7 +7,6 @@ import {
   viewChild,
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
 
 @Component({
   selector: 'new-app',
@@ -20,11 +19,11 @@ import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy
   },
 })
 export class NewAppComponent implements AfterViewInit {
-  createEvent = output<unknown>();
+  createEvent = output<string>();
   input = viewChild<ElementRef<HTMLInputElement>>('input');
   newFolderControl = new FormControl<string>('', { nonNullable: true });
 
-  constructor(private readonly foldersHierarchyFacade: FoldersHierarchyFacade) {
+  constructor() {
     effect(() => {
       const input = this.input();
       input?.nativeElement.focus();
@@ -37,8 +36,7 @@ export class NewAppComponent implements AfterViewInit {
   }
 
   sendEvent() {
-    // const value = this.newFolderControl.value;
-
-    this.createEvent.emit(null);
+    const value = this.newFolderControl.value;
+    this.createEvent.emit(value);
   }
 }

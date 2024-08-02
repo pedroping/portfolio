@@ -1,6 +1,6 @@
 import { FileExplorerComponent } from '@portifolio/features/feature-file-explorer';
-import { IBasicApp, IInitialConfig } from '@portifolio/utils/util-models';
 import { CurriculumPageComponent } from '@portifolio/ui/ui-curriculum-page';
+import { IBasicApp, IInitialConfig } from '@portifolio/utils/util-models';
 
 export const FOLDER_01: IInitialConfig = {
   name: 'File Explorer',

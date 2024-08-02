@@ -9,7 +9,7 @@ import {
   input,
   viewChild,
   viewChildren,
-  ViewContainerRef,
+  ViewContainerRef
 } from '@angular/core';
 import { AppIconComponent } from '@portifolio/features/feature-app-icon';
 import { HandleCopyAndPasteEventsDirective } from '@portifolio/utils/util-app-copy-and-paste';

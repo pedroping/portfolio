@@ -4,19 +4,25 @@ import {
   OpenContextMenuDirective,
   WORKSPACE_ID,
 } from '@portifolio/features/feature-context-menus';
+import {
+  FolderHandleComponent
+} from '@portifolio/features/feature-file-explorer';
 import { MenuEventsFacade } from '@portifolio/features/feature-inital-menu';
 import { ElementsFacade } from '@portifolio/features/feature-page-creator';
 import { AppDropHandleDirective } from '@portifolio/utils/util-app-drop-handle';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
 import { IFolderData } from '@portifolio/utils/util-models';
 import { BASIC_FOLDER } from '../mocks/workspace-mocks';
-import { FolderHandleComponent } from '@portifolio/features/feature-file-explorer';
 @Component({
   selector: 'workspace',
   templateUrl: './workspace.component.html',
   styleUrls: ['./workspace.component.scss'],
   standalone: true,
-  imports: [AppDropHandleDirective, FolderHandleComponent, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    FolderHandleComponent,
+    AppDropHandleDirective,
+  ],
   hostDirectives: [
     { directive: OpenContextMenuDirective, inputs: ['id', 'openContextMenu'] },
   ],

@@ -1,5 +1,5 @@
 import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
-import { Component, Inject, Optional } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Optional } from '@angular/core';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
 import {
   CONFIG_TOKEN,
@@ -11,6 +11,7 @@ import {
 import { FolderSectionActionDirective } from '../../directives/folder-section-action/folder-section-action.directive';
 import { ShowHideFolderDirective } from '../../directives/show-hide-folder/show-hide-folder.directive';
 import { FileExplorerFacade } from '../../facade/file-explorer-facade.service';
+import { tap } from 'rxjs';
 @Component({
   selector: 'folders',
   templateUrl: './folders.component.html',
@@ -25,9 +26,12 @@ import { FileExplorerFacade } from '../../facade/file-explorer-facade.service';
 })
 export class FoldersComponent {
   id: number;
-  allFolders$$ = this.foldersHierarchyFacade.allFolders$$;
+  allFolders$$ = this.foldersHierarchyFacade.allFolders$$.pipe(
+    tap(() => this.cdr.detectChanges()),
+  );
 
   constructor(
+    private readonly cdr: ChangeDetectorRef,
     private readonly fileExplorerFacade: FileExplorerFacade,
     private readonly foldersHierarchyFacade: FoldersHierarchyFacade,
     @Optional() @Inject(DATA_TOKEN) private readonly data: IFolderData,

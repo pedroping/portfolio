@@ -1,16 +1,16 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { CreateFolderPageService } from './create-folder-page.service';
+import { CreateFilesAndFoldersService } from './create-files-and-folders.service';
 
 describe('Service: CreateFolderPage', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CreateFolderPageService]
+      providers: [CreateFilesAndFoldersService]
     });
   });
 
-  it('should ...', inject([CreateFolderPageService], (service: CreateFolderPageService) => {
+  it('should ...', inject([CreateFilesAndFoldersService], (service: CreateFilesAndFoldersService) => {
     expect(service).toBeTruthy();
   }));
 });
