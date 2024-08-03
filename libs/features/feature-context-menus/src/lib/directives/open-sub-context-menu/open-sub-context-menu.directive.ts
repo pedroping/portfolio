@@ -31,7 +31,7 @@ import {
   standalone: true,
 })
 export class OpenSubContextMenuDirective<T> {
-  menuComponent = input.required<Type<unknown>>({
+  menuComponent = input.required<Promise<Type<unknown>>>({
     alias: 'openSubContextMenu',
   });
   id = input.required<T>();
@@ -73,16 +73,16 @@ export class OpenSubContextMenuDirective<T> {
     this.openMenu();
   }
 
-  openMenu() {
+  async openMenu() {
     this.vcr.clear();
 
     this.contextMenuFacade.setCleatAll();
 
+    const component = await this.menuComponent();
+
     const rect = this.elementRef.nativeElement.getBoundingClientRect();
 
-    const { location, instance } = this.vcr.createComponent(
-      this.menuComponent(),
-    );
+    const { location, instance } = this.vcr.createComponent(component);
 
     const view = location.nativeElement as HTMLElement;
 

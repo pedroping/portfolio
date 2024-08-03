@@ -1,5 +1,5 @@
 import { NgComponentOutlet } from '@angular/common';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, signal, Type } from '@angular/core';
 import {
   ELEMENT_BASE_ICON,
   ElementsFacade,
@@ -19,6 +19,7 @@ import { IPreviewPage } from '../../models/preview-models';
 export class PagePreviewComponent implements IPreviewPage, OnInit {
   element?: IPageConfig;
   icon = ELEMENT_BASE_ICON;
+  pageContent = signal<Type<unknown> | null>(null);
 
   constructor(
     private readonly taskbarFacade: TaskbarFacade,
@@ -41,6 +42,7 @@ export class PagePreviewComponent implements IPreviewPage, OnInit {
 
   ngOnInit(): void {
     this.icon = this.element?.icon ?? ELEMENT_BASE_ICON;
+    this.element?.pageContent?.then((c) => this.pageContent.set(c));
   }
 
   closeElement() {

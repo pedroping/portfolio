@@ -23,7 +23,7 @@ export interface IInitialConfig {
   customY?: number;
   icon?: string;
   sub?: string;
-  pageContent?: Type<unknown>;
+  pageContent?: Promise<Type<unknown>>;
   opened: boolean;
   isFullScreen?: boolean;
 }

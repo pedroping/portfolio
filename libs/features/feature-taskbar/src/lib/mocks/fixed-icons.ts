@@ -1,6 +1,3 @@
-import { CurriculumPageComponent } from '@portifolio/ui/ui-curriculum-page';
-import { UiNewTrelloPageComponent } from '@portifolio/ui/ui-new-trello-page';
-import { WebWorkersPageComponent } from '@portifolio/ui/ui-web-workers-page';
 import { IInitialConfig } from '@portifolio/utils/util-models';
 
 export const FIXED_ICONS: IInitialConfig[] = [
@@ -15,7 +12,9 @@ export const FIXED_ICONS: IInitialConfig[] = [
     },
     customX: 50,
     customY: 50,
-    pageContent: CurriculumPageComponent,
+    pageContent: import('@portifolio/ui/ui-curriculum-page').then(
+      (c) => c.CurriculumPageComponent,
+    ),
     icon: '/assets/images/pdf-icon.png',
     opened: true,
   },
@@ -30,7 +29,9 @@ export const FIXED_ICONS: IInitialConfig[] = [
     },
     customX: 50,
     customY: 50,
-    pageContent: WebWorkersPageComponent,
+    pageContent: import('@portifolio/ui/ui-web-workers-page').then(
+      (c) => c.WebWorkersPageComponent,
+    ),
     icon: '/assets/images/gear-icon.png',
     opened: true,
   },
@@ -45,7 +46,9 @@ export const FIXED_ICONS: IInitialConfig[] = [
     },
     customX: 50,
     customY: 50,
-    pageContent: UiNewTrelloPageComponent,
+    pageContent: import('@portifolio/ui/ui-new-trello-page').then(
+      (c) => c.UiNewTrelloPageComponent,
+    ),
     icon: '/assets/images/trello-icon.png',
     opened: true,
   },

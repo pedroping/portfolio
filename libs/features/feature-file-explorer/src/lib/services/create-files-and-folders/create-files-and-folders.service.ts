@@ -4,8 +4,7 @@ import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy
 import {
   IApp,
   IFolderData,
-  IInitialConfig,
-  IPageConfig,
+  IPageConfig
 } from '@portifolio/utils/util-models';
 import { FOLDER_MOCK, NEW_PAGE_GAP } from '../../mocks/file-explorer-mocks';
 
@@ -15,7 +14,7 @@ export class CreateFilesAndFoldersService {
     private readonly elementsFacade: ElementsFacade<IFolderData>,
     private readonly foldersHierarchyFacade: FoldersHierarchyFacade,
   ) {}
-
+  
   createFolder(
     folderId: number,
     folderTitle: string,
@@ -24,42 +23,31 @@ export class CreateFilesAndFoldersService {
   ) {
     if (folderId === actualFolderId) return;
 
-    import('../../ui/file-explorer.component').then((component) => {
-      const newPageConfig = FOLDER_MOCK;
+    const newPageConfig = FOLDER_MOCK;
 
-      newPageConfig.name = folderTitle;
-      newPageConfig.pageContent = component.FileExplorerComponent;
+    newPageConfig.name = folderTitle;
 
-      if (pageConfig) {
-        newPageConfig.customX = pageConfig.lastPosition.x + NEW_PAGE_GAP;
-        newPageConfig.customY = pageConfig.lastPosition.y + NEW_PAGE_GAP;
-      }
+    if (pageConfig) {
+      newPageConfig.customX = pageConfig.lastPosition.x + NEW_PAGE_GAP;
+      newPageConfig.customY = pageConfig.lastPosition.y + NEW_PAGE_GAP;
+    }
 
-      this.elementsFacade.createElement({ folderId: folderId }, newPageConfig);
-    });
+    this.elementsFacade.createElement({ folderId: folderId }, newPageConfig);
   }
 
   createFile(name: string, parentFolderId: number) {
-    import('../../ui/file-explorer.component').then((component) => {
-      const config: IInitialConfig = {
-        name: 'File Explorer',
-        customX: 0,
-        customY: 0,
-        baseSizes: { width: 600, height: 500, minHeight: 500, minWidth: 600 },
-        pageContent: component.FileExplorerComponent,
-        opened: true,
-        isFullScreen: false,
-      };
+    const newPageConfig = FOLDER_MOCK;
 
-      const newFile: Omit<IApp, 'id' | 'parentTargetId'> = {
-        name: name,
-        parentFolderId: parentFolderId,
-        logo: '',
-        type: 'folder',
-        initialPageConfig: config,
-      };
+    newPageConfig.name = name;
 
-      this.foldersHierarchyFacade.setNewFile(newFile);
-    });
+    const newFile: Omit<IApp, 'id' | 'parentTargetId'> = {
+      name: name,
+      parentFolderId: parentFolderId,
+      logo: '',
+      type: 'folder',
+      initialPageConfig: newPageConfig,
+    };
+
+    this.foldersHierarchyFacade.setNewFile(newFile);
   }
 }

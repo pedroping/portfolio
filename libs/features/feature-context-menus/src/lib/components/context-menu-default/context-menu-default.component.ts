@@ -3,9 +3,6 @@ import { OpenSubContextMenuDirective } from '../../directives/open-sub-context-m
 import { OptionEventDirective } from '../../directives/option-event/option-event.directive';
 import { OptionDirective } from '../../directives/option/option.directive';
 import { IContextMenu } from '../../models/context-menu-models';
-import { SubContextMenuNewComponent } from '../sub-context-menu-new/sub-context-menu-new.component';
-import { SubContextMenuShortByComponent } from '../sub-context-menu-short-by/sub-context-menu-short-by.component';
-import { SubContextMenuViewComponent } from '../sub-context-menu-view/sub-context-menu-view.component';
 
 @Component({
   selector: 'context-menu-default',
@@ -15,9 +12,15 @@ import { SubContextMenuViewComponent } from '../sub-context-menu-view/sub-contex
   imports: [OpenSubContextMenuDirective, OptionEventDirective, OptionDirective],
 })
 export class ContextMenuDefaultComponent<T> implements IContextMenu<T> {
-  viewContextMenuComponent = SubContextMenuViewComponent;
-  shortBySubContextMenuComponent = SubContextMenuShortByComponent;
-  subContextMenuNewComponent = SubContextMenuNewComponent;
+  viewContextMenuComponent = import(
+    '../sub-context-menu-view/sub-context-menu-view.component'
+  ).then((c) => c.SubContextMenuViewComponent);
+  shortBySubContextMenuComponent = import(
+    '../sub-context-menu-short-by/sub-context-menu-short-by.component'
+  ).then((c) => c.SubContextMenuShortByComponent);
+  subContextMenuNewComponent = import(
+    '../sub-context-menu-new/sub-context-menu-new.component'
+  ).then((c) => c.SubContextMenuNewComponent);
 
   data?: T;
   parentId: string | number = '';

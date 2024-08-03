@@ -92,8 +92,8 @@ export class PageComponent implements IPageComponent, OnInit {
     this.width.set(this._config.baseSizes.width + 'px');
     this.height.set(this._config.baseSizes.height + 'px');
     this.icon.set(this._config.icon ?? ELEMENT_BASE_ICON);
-    this.pageContent.set(this._config.pageContent ?? null);
     this.name$ = this._config.renameElement$.pipe(startWith(this._config.name));
+    this._config.pageContent?.then((c) => this.pageContent.set(c ?? null));
 
     this._config.baseSizes.minHeight =
       this._config.baseSizes?.minHeight ?? BASE_HEIGHT;

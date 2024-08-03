@@ -1,7 +1,6 @@
 import { Directive, OnInit, ViewContainerRef } from '@angular/core';
 import { BuildAnimation } from '@portifolio/utils/util-animations';
 import { take, timer } from 'rxjs';
-import { UiSplashScreenComponent } from '../components/ui-splash-screen/ui-splash-screen.component';
 
 @Directive({
   selector: '[showLodingScreen]',
@@ -13,8 +12,12 @@ export class ShowScreenDirective implements OnInit {
     private readonly buildAnimation: BuildAnimation,
   ) {}
 
-  ngOnInit(): void {
-    const { location } = this.vcr.createComponent(UiSplashScreenComponent);
+  async ngOnInit() {
+    const component = await import(
+      '../components/ui-splash-screen/ui-splash-screen.component'
+    ).then((c) => c.UiSplashScreenComponent);
+
+    const { location } = this.vcr.createComponent(component);
 
     (location.nativeElement as HTMLElement).addEventListener(
       'mousemove',

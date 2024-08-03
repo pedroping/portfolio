@@ -40,19 +40,20 @@ export class OpenContextMenuDirective {
     private readonly contextMenuFacade: ContextMenuFacade<number | string>,
   ) {}
 
-  @HostListener('contextmenu', ['$event']) onClick(event: PointerEvent) {
+  @HostListener('contextmenu', ['$event']) async onClick(event: PointerEvent) {
     event.preventDefault();
     event.stopPropagation();
 
     this.contextMenuFacade.setClearDefault();
     this.clearView();
 
-    const menuComponent = getContextMenu<number | string>(this.menuType());
+    const menuComponent = await getContextMenu<number | string>(this.menuType());
 
     const parentId = this.elementRef.nativeElement.parentElement?.id || '';
 
     const component =
       this.workspaceReferenceFacade.createComponent(menuComponent);
+      
     const instance = component.componentRef.instance as IContextMenu<
       number | string
     >;
