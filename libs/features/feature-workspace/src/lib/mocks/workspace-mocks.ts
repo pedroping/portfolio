@@ -39,8 +39,8 @@ export const BASIC_FOLDER: IBasicApp[] = [
     initialPageConfig: CURRICULUM_FOLDER,
   },
   {
-    name: 'File Exploer',
-    logo: '',
+    name: 'Recycle Bin',
+    logo: '/assets/images/recycle-bin.png',
     type: 'folder',
     parentFolderId: 0,
     initialPageConfig: FILE_FOLDER,
