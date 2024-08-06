@@ -3,21 +3,38 @@ import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class FoldersViewStateService {
-  private menuState$ = new BehaviorSubject<boolean>(true);
+  private folderState$ = new BehaviorSubject<boolean>(true);
+  private adressState$ = new BehaviorSubject<boolean>(true);
 
-  setState(val: boolean) {
-    this.menuState$.next(val);
+  setAdressState(val: boolean) {
+    this.adressState$.next(val);
   }
 
-  toggleState() {
-    this.menuState$.next(!this.menuState);
+  toggleAdressState() {
+    this.adressState$.next(!this.adressState);
   }
 
-  get menuState$$() {
-    return this.menuState$.asObservable();
+  get adressState$$() {
+    return this.adressState$.asObservable();
   }
 
-  get menuState() {
-    return this.menuState$.value;
+  get adressState() {
+    return this.adressState$.value;
+  }
+
+  setFolderState(val: boolean) {
+    this.folderState$.next(val);
+  }
+
+  toggleFolderState() {
+    this.folderState$.next(!this.folderState);
+  }
+
+  get folderState$$() {
+    return this.folderState$.asObservable();
+  }
+
+  get folderState() {
+    return this.folderState$.value;
   }
 }

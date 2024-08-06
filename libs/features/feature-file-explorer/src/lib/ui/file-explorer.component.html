@@ -1,9 +1,9 @@
 <section id="explorer">
   <explore-shortcuts />
-  <explorer-adress />
+  <createSection eventType="adress" />
 
   <div class="folders-content">
-    <createFoldersSection />
+    <createSection eventType="folder" />
 
     <app-holder [parentFolderId]="fileExplorerId + id" [id]="id" />
   </div>

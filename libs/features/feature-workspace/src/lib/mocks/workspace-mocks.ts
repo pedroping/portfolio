@@ -18,6 +18,18 @@ export const CURRICULUM_FOLDER: IInitialConfig = {
   opened: true,
 };
 
+export const FILE_FOLDER = {
+  name: 'File Explorer',
+  customX: 500,
+  customY: 500,
+  baseSizes: { width: 600, height: 500, minHeight: 500, minWidth: 600 },
+  pageContent: import('@portifolio/features/feature-file-explorer').then(
+    (c) => c.FileExplorerComponent,
+  ),
+  opened: true,
+  isFullScreen: false,
+};
+
 export const BASIC_FOLDER: IBasicApp[] = [
   {
     name: 'Curriculum',
@@ -25,5 +37,12 @@ export const BASIC_FOLDER: IBasicApp[] = [
     type: 'file',
     parentFolderId: 0,
     initialPageConfig: CURRICULUM_FOLDER,
+  },
+  {
+    name: 'File Exploer',
+    logo: '',
+    type: 'folder',
+    parentFolderId: 0,
+    initialPageConfig: FILE_FOLDER,
   },
 ];

@@ -15,8 +15,9 @@ import { fromEvent } from 'rxjs';
   standalone: true,
 })
 export class AppDropHandleDirective implements OnInit {
-  folderId = input<number | undefined>(undefined, { alias: 'dropHandle' });
   config = input<IApp>();
+  useParent = input<boolean>();
+  folderId = input<number | undefined>(undefined, { alias: 'dropHandle' });
 
   constructor(
     private readonly destroyRef: DestroyRef,
@@ -25,9 +26,9 @@ export class AppDropHandleDirective implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const parentElement = this.config()
-      ? this.elementRef.nativeElement
-      : this.elementRef.nativeElement.parentElement;
+    const parentElement = this.useParent()
+      ? this.elementRef.nativeElement.parentElement
+      : this.elementRef.nativeElement;
 
     if (!parentElement) return;
 
@@ -48,23 +49,16 @@ export class AppDropHandleDirective implements OnInit {
     if (!eventData) return;
 
     const dropContent = JSON.parse(eventData) as IApp;
-    const actualId =
-      this.config()?.isFolderId ??
-      this.elementRef.nativeElement.parentElement?.id;
+
     const folderId = this.folderId() ?? this.config()?.isFolderId;
 
-    this.moveElement(dropContent, folderId, actualId);
+    this.moveElement(dropContent, folderId);
   }
 
-  moveElement(
-    dropContent: IApp,
-    folderId?: number,
-    actualId?: string | number,
-  ) {
+  moveElement(dropContent: IApp, folderId?: number) {
     if (!folderId && folderId != 0) return;
 
     if (
-      actualId == dropContent.parentTargetId ||
       dropContent.parentFolderId == folderId ||
       dropContent.isFolderId === folderId
     )

@@ -1,5 +1,7 @@
 import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectorRef, Component, Inject, Optional } from '@angular/core';
+import { HEIGHT_ANIMATION } from '@portifolio/utils/util-animations';
+import { AppDropHandleDirective } from '@portifolio/utils/util-app-drop-handle';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
 import {
   CONFIG_TOKEN,
@@ -8,21 +10,23 @@ import {
   IFolderData,
   IPageConfig,
 } from '@portifolio/utils/util-models';
-import { FolderSectionActionDirective } from '../../directives/folder-section-action/folder-section-action.directive';
+import { tap } from 'rxjs';
+import { SectionActionDirective } from '../../directives/section-action/section-action.directive';
 import { ShowHideFolderDirective } from '../../directives/show-hide-folder/show-hide-folder.directive';
 import { FileExplorerFacade } from '../../facade/file-explorer-facade.service';
-import { tap } from 'rxjs';
 @Component({
   selector: 'folders',
   templateUrl: './folders.component.html',
   styleUrls: ['./folders.component.scss'],
   standalone: true,
   imports: [
-    NgTemplateOutlet,
-    ShowHideFolderDirective,
-    FolderSectionActionDirective,
     AsyncPipe,
+    NgTemplateOutlet,
+    AppDropHandleDirective,
+    ShowHideFolderDirective,
+    SectionActionDirective,
   ],
+  animations: [HEIGHT_ANIMATION],
 })
 export class FoldersComponent {
   id: number;

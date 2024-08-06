@@ -1,5 +1,9 @@
-<section [id]="parentFolderId()" openContextMenu="default">
-  <div [dropHandle]="id()"></div>
+<section
+  [id]="parentFolderId()"
+  openContextMenu="default"
+  [attr.id]="parentFolderId()"
+>
+  <div [dropHandle]="id()" [useParent]="true"></div>
 
   <folder-handle [parentId]="parentFolderId()" [folderId]="id()" />
 </section>

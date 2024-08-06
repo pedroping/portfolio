@@ -9,6 +9,7 @@
         "@nx/enforce-module-boundaries": [
           "error",
           {
+            "checkDynamicDependenciesExceptions": ["*"],
             "enforceBuildableLibDependency": true,
             "allow": [],
             "depConstraints": [

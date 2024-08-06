@@ -10,20 +10,36 @@ export class FileExplorerFacade {
     private readonly createFolderPageService: CreateFilesAndFoldersService,
   ) {}
 
-  setState(val: boolean) {
-    this.foldersStateService.setState(val);
+  setAdressState(val: boolean) {
+    this.foldersStateService.setAdressState(val);
   }
 
-  toggleState() {
-    this.foldersStateService.toggleState();
+  toggleAdressState() {
+    this.foldersStateService.toggleAdressState();
   }
 
-  get menuState$$() {
-    return this.foldersStateService.menuState$$;
+  get adressState$$() {
+    return this.foldersStateService.adressState$$;
   }
 
-  get menuState() {
-    return this.foldersStateService.menuState;
+  get adressState() {
+    return this.foldersStateService.adressState;
+  }
+
+  setFolderState(val: boolean) {
+    this.foldersStateService.setFolderState(val);
+  }
+
+  toggleFolderState() {
+    this.foldersStateService.toggleFolderState();
+  }
+
+  get folderState$$() {
+    return this.foldersStateService.folderState$$;
+  }
+
+  get folderState() {
+    return this.foldersStateService.folderState;
   }
 
   createFolder(

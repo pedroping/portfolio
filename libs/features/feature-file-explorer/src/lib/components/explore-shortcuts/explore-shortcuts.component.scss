@@ -83,9 +83,11 @@
       align-items: center;
       gap: 5px;
       padding: 0px 10px;
+      height: 50px;
       font-weight: 500;
       transition: all 200ms ease-in-out;
       cursor: pointer;
+      margin-left: 5px;
 
       &:hover {
         transform: scale(1.05) translateY(-1px);
@@ -96,6 +98,8 @@
       }
 
       &:last-of-type {
+        margin-left: 0px;
+
         img {
           width: 35px;
         }

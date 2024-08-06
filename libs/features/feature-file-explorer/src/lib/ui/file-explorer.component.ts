@@ -3,7 +3,7 @@ import { DATA_TOKEN, IFolderData } from '@portifolio/utils/util-models';
 import { AppHolderComponent } from '../components/app-holder/app-holder.component';
 import { ExploreShortcutsComponent } from '../components/explore-shortcuts/explore-shortcuts.component';
 import { ExplorerAdressComponent } from '../components/explorer-adress/explorer-adress.component';
-import { CreateFoldersSectionDirective } from '../directives/create-folders-section/create-folders-section.directive';
+import { CreateSectionDirective } from '../directives/create-section/create-section.directive';
 import { FILE_EXPLORER_ID } from '../mocks/file-explorer-mocks';
 
 @Component({
@@ -15,7 +15,7 @@ import { FILE_EXPLORER_ID } from '../mocks/file-explorer-mocks';
     AppHolderComponent,
     ExploreShortcutsComponent,
     ExplorerAdressComponent,
-    CreateFoldersSectionDirective,
+    CreateSectionDirective,
   ],
 })
 export class FileExplorerComponent {

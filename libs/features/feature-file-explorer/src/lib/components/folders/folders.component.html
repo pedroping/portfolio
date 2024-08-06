@@ -1,15 +1,17 @@
 <section id="folder-adress">
   <div class="header">
-    <span>Folders</span> <i class="fa-solid fa-x" folderSectionAction></i>
+    <span>Folders</span>
+    <i class="fa-solid fa-x" sectionAction="folder"></i>
   </div>
 
   <div class="available-folders">
     <div
-      class="folders"
       showHideFolder
-      [folderContent]="folderContent"
+      class="folders"
       title="Desktop"
+      [dropHandle]="0"
       [class.selected]="id === 0"
+      #animationState="showHideFolder"
     >
       <div class="children-toggle" #folderToggle>
         <i class="fa-solid fa-plus"></i>
@@ -23,7 +25,7 @@
       </div>
     </div>
 
-    <ul #folderContent>
+    <ul [@heightAnimation]="animationState.animationKey()">
       @for (program of allFolders$$ | async; track $index) {
         <ng-container
           [ngTemplateOutlet]="folder_node"
@@ -38,9 +40,14 @@
   <li
     showHideFolder
     [title]="program.title"
+    #animationState="showHideFolder"
     [class.no-children]="!program.children || program.children.length <= 0"
   >
-    <div class="folders" [class.selected]="id === program.id">
+    <div
+      class="folders"
+      [dropHandle]="program.id"
+      [class.selected]="id === program.id"
+    >
       @if (program.children && program.children.length > 0) {
         <div class="children-toggle" #folderToggle>
           <i class="fa-solid fa-plus"></i>
@@ -56,7 +63,10 @@
     </div>
 
     @if (program.children && program.children.length > 0) {
-      <div class="folder-content" #folderContent>
+      <div
+        class="folder-content"
+        [@heightAnimation]="animationState.animationKey()"
+      >
         <ul>
           @for (childProgram of program.children; track $index) {
             <ng-container

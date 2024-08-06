@@ -2,6 +2,7 @@ import {
   DestroyRef,
   Directive,
   HostListener,
+  input,
   OnInit,
   signal,
 } from '@angular/core';
@@ -9,17 +10,23 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FileExplorerFacade } from '../../facade/file-explorer-facade.service';
 
 @Directive({
-  selector: '[folderSectionAction]',
+  selector: '[sectionAction]',
   standalone: true,
   host: {
     '[class.selected]': 'active()',
   },
 })
-export class FolderSectionActionDirective implements OnInit {
+export class SectionActionDirective implements OnInit {
   active = signal<boolean>(false);
+  eventType = input.required<'folder' | 'adress'>({
+    alias: 'sectionAction',
+  });
 
   @HostListener('click') onClick() {
-    this.fileExplorerFacade.toggleState();
+    if (this.eventType() == 'folder')
+      return this.fileExplorerFacade.toggleFolderState();
+
+    this.fileExplorerFacade.toggleAdressState();
   }
 
   constructor(
@@ -28,7 +35,12 @@ export class FolderSectionActionDirective implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.fileExplorerFacade.menuState$$
+    const event$ =
+      this.eventType() == 'folder'
+        ? this.fileExplorerFacade.folderState$$
+        : this.fileExplorerFacade.adressState$$;
+
+    event$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((state) => this.active.set(state));
   }

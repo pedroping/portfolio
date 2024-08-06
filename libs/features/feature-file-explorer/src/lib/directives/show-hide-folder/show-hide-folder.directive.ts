@@ -1,79 +1,55 @@
 import {
-  AfterViewInit,
+  computed,
+  contentChild,
   DestroyRef,
   Directive,
-  ElementRef,
-  contentChild,
   effect,
-  input,
+  ElementRef,
+  OnInit,
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { BuildAnimation } from '@portifolio/utils/util-animations';
-import { Subject, fromEvent, takeUntil } from 'rxjs';
+import { fromEvent, Subject, take } from 'rxjs';
 
 @Directive({
   selector: '[showHideFolder]',
+  exportAs: 'showHideFolder',
   standalone: true,
 })
-export class ShowHideFolderDirective implements AfterViewInit {
-  state = signal<boolean>(true);
-  title = input<string>('');
-  folderContent = input<HTMLElement | undefined | null>();
-  folderToggle = contentChild<ElementRef<HTMLElement>>('folderToggle');
-  folderContentSelected =
-    contentChild<ElementRef<HTMLElement>>('folderContent');
+export class ShowHideFolderDirective implements OnInit {
+  private state = signal<boolean>(true);
+  animationKey = computed(() => (this.state() ? 'open' : 'closed'));
+  private folderToggle = contentChild<ElementRef<HTMLElement>>('folderToggle', {
+    descendants: true,
+  });
 
-  destroySubscribers$ = new Subject<void>();
+  createSubscriptions$ = new Subject<void>();
 
-  constructor(
-    private readonly destroyRef: DestroyRef,
-    private readonly buildAnimation: BuildAnimation,
-  ) {
+  constructor(private readonly destroyRef: DestroyRef) {
     effect(() => {
-      this.destroySubscribers$.next();
-      this.createEvents();
+      const toggle = this.folderToggle();
+      const nativeElement = toggle?.nativeElement;
+      if (nativeElement) this.createSubscriptions$.next();
     });
   }
 
-  ngAfterViewInit() {
-    this.destroySubscribers$.next();
-    this.createEvents();
+  ngOnInit(): void {
+    const toggle = this.folderToggle()?.nativeElement;
+
+    this.createSubscriptions$
+      .pipe(take(1))
+      .subscribe(() => this.createToggleSubscription());
+
+    if (toggle) this.createSubscriptions$.next();
   }
 
-  createEvents() {
-    if (!this.toggle || !this.content) return;
+  private createToggleSubscription() {
+    const toggle = this.folderToggle()?.nativeElement;
 
-    fromEvent(this.toggle, 'click')
-      .pipe(
-        takeUntilDestroyed(this.destroyRef),
-        takeUntil(this.destroySubscribers$),
-      )
-      .subscribe(() => {
-        this.state.update((val) => !val);
+    if (!toggle) return;
 
-        if (!this.content) return;
-
-        if (this.state()) {
-          this.content.style.display = 'block';
-          this.buildAnimation.animate('reverseEnterAnimationY', this.content);
-          return;
-        }
-
-        this.buildAnimation
-          .animate('reverseLeaveAnimationY', this.content)
-          .subscribe(() => {
-            if (!this.content) return;
-            this.content.style.display = 'none';
-          });
-      });
-  }
-
-  get toggle() {
-    return this.folderToggle()?.nativeElement;
-  }
-
-  get content() {
-    return this.folderContent() ?? this.folderContentSelected()?.nativeElement;
+    fromEvent(toggle, 'click')
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.state.update((val) => !val));
   }
 }
