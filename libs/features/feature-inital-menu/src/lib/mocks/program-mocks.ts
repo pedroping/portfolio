@@ -1,6 +1,7 @@
 import { IPageMock } from '@portifolio/utils/util-models';
 import { IBasicProgram } from '../models/program-models';
 
+export const WORKSPACE_ID = 0;
 export const ELEMENT_BASE_ICON = '/assets/images/windows-basic-folder.png';
 
 export const PROGRAM_1_CONFIG: IPageMock = {

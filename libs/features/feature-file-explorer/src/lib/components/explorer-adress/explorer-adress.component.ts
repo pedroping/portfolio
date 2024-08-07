@@ -29,7 +29,7 @@ export class ExplorerAdressComponent implements OnInit {
     @Optional() @Inject(DATA_TOKEN) private readonly data: IFolderData,
     @Optional() @Inject(CONFIG_TOKEN) private readonly pageConfig: IPageConfig,
   ) {
-    this.id = data.folderId ?? -1;
+    this.id = data?.folderId ?? -1;
   }
 
   ngOnInit(): void {

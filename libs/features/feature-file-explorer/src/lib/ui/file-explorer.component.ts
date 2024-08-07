@@ -25,6 +25,6 @@ export class FileExplorerComponent {
   constructor(
     @Optional() @Inject(DATA_TOKEN) private readonly data: IFolderData,
   ) {
-    this.id = data.folderId ?? -1;
+    this.id = data?.folderId ?? -1;
   }
 }

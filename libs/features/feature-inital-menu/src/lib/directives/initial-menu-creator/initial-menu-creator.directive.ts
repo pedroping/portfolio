@@ -28,11 +28,20 @@ export class InitialMenuCreatorDirective implements OnInit {
   }
 
   createMenu() {
-    this.destroyMenu();
+    if (this.menuElement) {
+      this.buildAnimation
+        .animate('enterAnimationY', this.menuElement)
+        .subscribe(() => {
+          if (!this.menuElement) return;
+          this.menuElement.style.display = 'block';
+        });
+      return;
+    }
+
     const { location, changeDetectorRef } =
       this.vcr.createComponent(InitialMenuComponent);
-    this.menuElement = location.nativeElement;
     this.buildAnimation.animate('enterAnimationY', location.nativeElement);
+    this.menuElement = location.nativeElement;
     this.eventsFacade.setCreateOverlay();
     changeDetectorRef.detectChanges();
   }
@@ -44,8 +53,8 @@ export class InitialMenuCreatorDirective implements OnInit {
       .animate('leaveAnimationY', this.menuElement)
       .pipe(take(1))
       .subscribe(() => {
-        this.vcr.clear();
-        this.menuElement = undefined;
+        if (!this.menuElement) return;
+        this.menuElement.style.display = 'none';
       });
   }
 }
