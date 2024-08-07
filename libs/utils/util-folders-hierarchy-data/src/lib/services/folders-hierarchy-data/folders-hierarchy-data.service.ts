@@ -177,8 +177,6 @@ export class FoldersHierarchyDataService {
     if (newFolderPlacement == 0) {
       this.allFolders.push(folder);
       this.allFolders$.next(this.allFolders);
-      console.log(folder, this.allFolders);
-
       return;
     }
 
@@ -190,7 +188,6 @@ export class FoldersHierarchyDataService {
 
     newFolderPlace.children.push(folder);
 
-    console.log(folder, this.allFolders);
     this.allFolders$.next(this.allFolders);
   }
 
