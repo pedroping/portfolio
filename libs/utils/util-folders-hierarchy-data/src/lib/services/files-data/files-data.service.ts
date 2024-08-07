@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { IApp, IBasicApp } from '@portifolio/utils/util-models';
+import { IApp, TBasicApp } from '@portifolio/utils/util-models';
 import { BehaviorSubject, map, startWith } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class FilesDataService {
   private allFiles$ = new BehaviorSubject<IApp[]>([]);
 
-  setNewFile(file: IBasicApp): IApp {
+  setNewFile(file: TBasicApp): IApp {
     const newFileId = this.allFiles.length;
 
     const newFile = { ...file, id: newFileId };

@@ -1,4 +1,4 @@
-import { IBasicApp, IInitialConfig } from '@portifolio/utils/util-models';
+import { IInitialConfig, TBasicApp } from '@portifolio/utils/util-models';
 
 export const CURRICULUM_FOLDER: IInitialConfig = {
   name: 'Curriculum',
@@ -30,7 +30,7 @@ export const FILE_FOLDER = {
   isFullScreen: false,
 };
 
-export const BASIC_FOLDER: IBasicApp[] = [
+export const BASIC_FOLDER: TBasicApp[] = [
   {
     name: 'Curriculum',
     logo: '/assets/images/pdf-icon.png',

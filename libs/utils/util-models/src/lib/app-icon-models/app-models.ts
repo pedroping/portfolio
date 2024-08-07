@@ -1,9 +1,8 @@
-import {
-  IInitialConfig
-} from '../page-creator-models/element-models';
+import { IInitialConfig } from '../page-creator-models/element-models';
 
 export type IFoldersType = 'file' | 'folder';
-export interface IBasicApp {
+export interface IApp {
+  id: number;
   name: string;
   logo: string;
   type: IFoldersType;
@@ -12,9 +11,5 @@ export interface IBasicApp {
   initialPageConfig?: IInitialConfig;
   pageConfigId?: number;
 }
-export interface IDropEvent {
-  parentTargetId?: string;
-  id: number;
-}
 
-export type IApp = IBasicApp & IDropEvent;
+export type TBasicApp = Omit<IApp, 'id'>;

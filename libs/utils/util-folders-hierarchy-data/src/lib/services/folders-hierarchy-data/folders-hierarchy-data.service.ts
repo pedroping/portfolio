@@ -29,6 +29,7 @@ export class FoldersHierarchyDataService {
     if (!parentId && parentId != 0) {
       this.allFolders.push(newFolder);
       this.allFolders$.next(this.allFolders);
+
       return newFolder;
     }
 
@@ -40,6 +41,7 @@ export class FoldersHierarchyDataService {
     folder.children.push(newFolder);
 
     this.allFolders$.next(this.allFolders);
+
     return newFolder;
   }
 
@@ -47,15 +49,24 @@ export class FoldersHierarchyDataService {
     id: number | string,
     folders = this.allFolders,
   ): IFolder | undefined {
-    for (let i = 0; i < folders.length; i++) {
-      if (folders[i].id === id) return folders[i];
-    }
+    let folder: IFolder | undefined = undefined;
 
     for (let i = 0; i < folders.length; i++) {
-      if (folders[i].children) return this.findFolder(id, folders[i].children);
+      if (folders[i].id === id) {
+        folder = folders[i];
+      }
     }
 
-    return undefined;
+    if (folder) return folder;
+
+    for (let i = 0; i < folders.length; i++) {
+      if (folders[i]?.children) {
+        const findedFolder = this.findFolder(id, folders[i]?.children);
+        if (findedFolder) folder = findedFolder;
+      }
+    }
+
+    return folder;
   }
 
   getFolderAdress(folderId: number) {
@@ -166,6 +177,8 @@ export class FoldersHierarchyDataService {
     if (newFolderPlacement == 0) {
       this.allFolders.push(folder);
       this.allFolders$.next(this.allFolders);
+      console.log(folder, this.allFolders);
+
       return;
     }
 
@@ -177,6 +190,7 @@ export class FoldersHierarchyDataService {
 
     newFolderPlace.children.push(folder);
 
+    console.log(folder, this.allFolders);
     this.allFolders$.next(this.allFolders);
   }
 

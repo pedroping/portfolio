@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
+import { IApp, TBasicApp } from '@portifolio/utils/util-models';
 import { FilesDataService } from '../services/files-data/files-data.service';
 import { FoldersHierarchyDataService } from '../services/folders-hierarchy-data/folders-hierarchy-data.service';
-import { IApp } from '@portifolio/utils/util-models';
 
 @Injectable({ providedIn: 'root' })
 export class FoldersHierarchyFacade {
@@ -30,7 +30,7 @@ export class FoldersHierarchyFacade {
     this.filesDataService.renameFile(id, newTitle);
   }
 
-  setNewFile(file: Omit<IApp, 'id' | 'parentTargetId'>): IApp {
+  setNewFile(file: TBasicApp): IApp {
     return this.filesDataService.setNewFile(file);
   }
 

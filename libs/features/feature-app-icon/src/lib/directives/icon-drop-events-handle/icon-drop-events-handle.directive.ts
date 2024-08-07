@@ -22,16 +22,7 @@ export class IconDropEventsHandleDirective implements AfterViewInit {
   @HostListener('dragstart', ['$event'])
   onDragStart(event: DragEvent) {
     if (!event?.dataTransfer) return;
-
-    const id = this.elementRef.nativeElement.parentElement?.id || '';
-
-    event.dataTransfer.setData(
-      'text',
-      JSON.stringify({
-        ...this.config(),
-        parentTargetId: id,
-      }),
-    );
+    event.dataTransfer.setData('text', JSON.stringify(this.config()));
     event.dataTransfer.effectAllowed = 'move';
   }
 

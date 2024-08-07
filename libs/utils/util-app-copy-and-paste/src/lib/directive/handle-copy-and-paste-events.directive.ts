@@ -2,7 +2,12 @@ import { DestroyRef, Directive, input, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ContextMenuFacade } from '@portifolio/features/feature-context-menus';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
-import { IFolder, IOptionEvent } from '@portifolio/utils/util-models';
+import {
+  IApp,
+  IFolder,
+  IOptionEvent,
+  TBasicApp,
+} from '@portifolio/utils/util-models';
 import { Observable } from 'rxjs';
 import { AppCopyAndPasteFacade } from '../facade/app-copy-and-paste-facade.service';
 
@@ -48,7 +53,10 @@ export class HandleCopyAndPasteEventsDirective implements OnInit {
 
     if (!file) return;
 
-    if (file.parentFolderId == this.folderId() || file.isFolderId == this.folderId())
+    if (
+      file.parentFolderId == this.folderId() ||
+      file.isFolderId == this.folderId()
+    )
       return;
 
     if (file.isFolderId || file.isFolderId == 0) {
@@ -72,15 +80,7 @@ export class HandleCopyAndPasteEventsDirective implements OnInit {
     if (!file) return;
 
     if (file.type == 'file') {
-      const newFile = {
-        ...file,
-        name: file.name + '-copy',
-        pageConfigId: undefined,
-        isFolderId: undefined,
-        id: undefined,
-        parentFolderId: this.folderId(),
-      };
-
+      const newFile = this.createNewFile(file, undefined);
       this.foldersHierarchyFacade.setNewFile(newFile);
 
       return;
@@ -95,19 +95,27 @@ export class HandleCopyAndPasteEventsDirective implements OnInit {
       this.folderId() == 0 ? undefined : this.folderId(),
     );
 
-    const newFile = {
-      ...file,
-      name: file.name + '-copy',
-      pageConfigId: undefined,
-      isFolderId: newFolder?.id,
-      id: undefined,
-      parentFolderId: this.folderId(),
-    };
+    const newFile = this.createNewFile(file, newFolder?.id);
 
     if (!newFolder || (!oldFolder?.id && oldFolder?.id != 0)) return;
 
-    this.copyAllThings(oldFolder?.id, newFolder);
+    this.copyAllThings(oldFolder.id, newFolder);
     this.foldersHierarchyFacade.setNewFile(newFile);
+  }
+
+  createNewFile(
+    file: IApp,
+    newFolderId?: number,
+    parentFolderId?: number,
+  ): TBasicApp {
+    return {
+      ...file,
+      name: file.name + '-copy',
+      pageConfigId: undefined,
+      isFolderId: newFolderId,
+      parentFolderId:
+        parentFolderId == undefined ? this.folderId() : parentFolderId,
+    };
   }
 
   copyAllThings(oldFolderId: number, actualFolder: IFolder) {
@@ -117,36 +125,28 @@ export class HandleCopyAndPasteEventsDirective implements OnInit {
       const file = files[i];
 
       if (file.type == 'file') {
-        const newFile = {
-          ...file,
-          name: file.name + '-copy',
-          pageConfigId: undefined,
-          isFolderId: undefined,
-          id: undefined,
-          parentFolderId: actualFolder?.id,
-        };
+        const newFile = this.createNewFile(file, undefined, actualFolder.id);
         this.foldersHierarchyFacade.setNewFile(newFile);
       } else {
         const folderId = file.isFolderId;
 
         if (folderId || folderId == 0) {
           const oldFolder = this.foldersHierarchyFacade.findFolder(folderId);
+
           const newFolder = this.foldersHierarchyFacade.createFolder(
             file.name + '-copy',
             actualFolder?.id,
           );
 
-          const newFile = {
-            ...file,
-            name: file.name + '-copy',
-            pageConfigId: undefined,
-            isFolderId: newFolder?.id,
-            id: undefined,
-            parentFolderId: actualFolder?.id,
-          };
+          const newFile = this.createNewFile(
+            file,
+            newFolder?.id,
+            actualFolder.id,
+          );
 
           if ((oldFolder?.id || oldFolder?.id == 0) && newFolder)
             this.copyAllThings(oldFolder?.id, newFolder);
+
           this.foldersHierarchyFacade.setNewFile(newFile);
         }
       }
