@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IPageConfig } from '@portifolio/utils/util-models';
+import { IFolder, IPageConfig } from '@portifolio/utils/util-models';
 import { CreateFilesAndFoldersService } from '../services/create-files-and-folders/create-files-and-folders.service';
 import { FoldersViewStateService } from '../services/folders-view-state/folders-view-state.service';
 
@@ -43,14 +43,12 @@ export class FileExplorerFacade {
   }
 
   createFolder(
-    folderId: number,
-    folderTitle: string,
+    folder: IFolder,
     actualFolderId: number,
     pageConfig?: IPageConfig,
   ) {
     this.createFolderPageService.createFolder(
-      folderId,
-      folderTitle,
+      folder,
       actualFolderId,
       pageConfig,
     );

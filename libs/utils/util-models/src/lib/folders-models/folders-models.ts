@@ -1,6 +1,7 @@
 export interface IFolder {
   id: number;
   title: string;
+  logo: string;
   children?: IFolder[];
 }
 

@@ -3,8 +3,9 @@ import { ElementsFacade } from '@portifolio/features/feature-page-creator';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
 import {
   IApp,
+  IFolder,
   IFolderData,
-  IPageConfig
+  IPageConfig,
 } from '@portifolio/utils/util-models';
 import { FOLDER_MOCK, NEW_PAGE_GAP } from '../../mocks/file-explorer-mocks';
 
@@ -14,25 +15,25 @@ export class CreateFilesAndFoldersService {
     private readonly elementsFacade: ElementsFacade<IFolderData>,
     private readonly foldersHierarchyFacade: FoldersHierarchyFacade,
   ) {}
-  
+
   createFolder(
-    folderId: number,
-    folderTitle: string,
+    folder: IFolder,
     actualFolderId: number,
     pageConfig?: IPageConfig,
   ) {
-    if (folderId === actualFolderId) return;
+    if (folder.id === actualFolderId) return;
 
     const newPageConfig = FOLDER_MOCK;
 
-    newPageConfig.name = folderTitle;
+    newPageConfig.name = folder.title;
+    newPageConfig.icon = folder.logo;
 
     if (pageConfig) {
       newPageConfig.customX = pageConfig.lastPosition.x + NEW_PAGE_GAP;
       newPageConfig.customY = pageConfig.lastPosition.y + NEW_PAGE_GAP;
     }
 
-    this.elementsFacade.createElement({ folderId: folderId }, newPageConfig);
+    this.elementsFacade.createElement({ folderId: folder.id }, newPageConfig);
   }
 
   createFile(name: string, parentFolderId: number) {

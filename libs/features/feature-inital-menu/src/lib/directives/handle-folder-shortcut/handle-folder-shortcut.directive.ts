@@ -34,7 +34,10 @@ export class HandleFolderShortcutDirective implements OnInit {
     this.imgSrc = img.src;
     this.pageTitle = p.innerText;
 
-    const folder = this.foldersHierarchyFacade.createFolder(this.pageTitle);
+    const folder = this.foldersHierarchyFacade.createFolder(
+      this.pageTitle,
+      this.imgSrc,
+    );
 
     if (folder) this.folderId = folder?.id;
 

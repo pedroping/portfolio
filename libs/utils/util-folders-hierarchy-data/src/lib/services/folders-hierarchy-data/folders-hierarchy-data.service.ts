@@ -9,6 +9,7 @@ import {
 import { BehaviorSubject } from 'rxjs';
 import { FilesDataService } from '../files-data/files-data.service';
 import { ElementsFacade } from '@portifolio/features/feature-page-creator';
+import { DEFAULT_FOLDER_LOGO } from '../../mocks/folder-mocks';
 
 @Injectable({ providedIn: 'root' })
 export class FoldersHierarchyDataService {
@@ -20,10 +21,15 @@ export class FoldersHierarchyDataService {
     private readonly elementsFacade: ElementsFacade<IFolderData>,
   ) {}
 
-  createNewFolder(title: string, parentId?: number) {
+  createNewFolder(
+    title: string,
+    logo = DEFAULT_FOLDER_LOGO,
+    parentId?: number,
+  ) {
     const newFolder: IFolder = {
       title,
       id: this.newId,
+      logo,
     };
 
     if (!parentId && parentId != 0) {

@@ -18,8 +18,12 @@ export class FoldersHierarchyFacade {
     return this.filesDataService.getFile(id);
   }
 
-  createFolder(title: string, parentId?: number) {
-    return this.foldersHierarchyDataService.createNewFolder(title, parentId);
+  createFolder(title: string, logo?: string, parentId?: number) {
+    return this.foldersHierarchyDataService.createNewFolder(
+      title,
+      logo,
+      parentId,
+    );
   }
 
   renameFolder(id: number | string, newTitle: string) {
@@ -60,7 +64,7 @@ export class FoldersHierarchyFacade {
   getFolderAdress(folderId: number) {
     return this.foldersHierarchyDataService.getFolderAdress(folderId);
   }
-  
+
   findFolderByAdress(adress: string) {
     return this.foldersHierarchyDataService.findFolderByAdress(adress);
   }

@@ -52,6 +52,11 @@
         gap: 1px;
         cursor: pointer;
 
+        .logo {
+          min-width: 24px;
+          max-width: 30px;
+        }
+
         transition: all 200ms ease-in-out;
 
         &:hover {

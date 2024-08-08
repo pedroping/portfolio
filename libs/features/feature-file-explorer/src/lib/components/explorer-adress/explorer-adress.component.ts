@@ -9,6 +9,7 @@ import {
   IPageConfig,
 } from '@portifolio/utils/util-models';
 import { FileExplorerFacade } from '../../facade/file-explorer-facade.service';
+import { DESKTOP_ICON } from '../../mocks/file-explorer-mocks';
 
 @Component({
   selector: 'explorer-adress',
@@ -19,6 +20,7 @@ import { FileExplorerFacade } from '../../facade/file-explorer-facade.service';
 })
 export class ExplorerAdressComponent implements OnInit {
   id: number;
+  desktopIcon = DESKTOP_ICON;
   adressControl = new FormControl<string>(INITIAL_FOLDER_ADRESS, {
     nonNullable: true,
   });
@@ -46,13 +48,12 @@ export class ExplorerAdressComponent implements OnInit {
 
     if (folderId == 0) {
       this.fileExplorerFacade.createFolder(
-        0,
-        'Desktop',
+        { id: 0, title: 'Desktop', logo: this.desktopIcon },
         this.data.folderId,
         this.pageConfig,
       );
 
-      return
+      return;
     }
 
     const folder = this.foldersHierarchyFacade.findFolder(folderId);
@@ -60,8 +61,7 @@ export class ExplorerAdressComponent implements OnInit {
     if (!folder) return;
 
     this.fileExplorerFacade.createFolder(
-      folder.id,
-      folder.title,
+      folder,
       this.data.folderId,
       this.pageConfig,
     );

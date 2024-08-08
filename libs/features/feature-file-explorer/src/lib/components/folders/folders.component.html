@@ -17,10 +17,9 @@
         <i class="fa-solid fa-plus"></i>
       </div>
       <div class="folder-title" (dblclick)="openDesktopFolder()">
-        <img
-          src="/assets/images/windows-basic-folder.png"
-          alt="Ícone de pasta"
-        />
+        <div class="logo">
+          <img [src]="desktopIcon" alt="Ícone de pasta" />
+        </div>
         <span>Desktop</span>
       </div>
     </div>
@@ -54,10 +53,9 @@
         </div>
       }
       <div class="folder-title" (dblclick)="openFolder(program)">
-        <img
-          src="/assets/images/windows-basic-folder.png"
-          alt="Ícone de pasta"
-        />
+        <div class="logo">
+          <img [src]="program.logo" alt="Ícone de pasta" />
+        </div>
         <span> {{ program.title }}</span>
       </div>
     </div>

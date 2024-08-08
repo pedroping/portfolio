@@ -42,6 +42,8 @@ export class PageContentOverlayDirective implements AfterViewInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(this.handleBoolean);
 
+    this.validateOverlay();
+
     const overlay = this.overlay()?.nativeElement;
 
     if (!overlay) return;

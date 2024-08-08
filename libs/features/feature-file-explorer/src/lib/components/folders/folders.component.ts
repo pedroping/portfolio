@@ -14,6 +14,7 @@ import { tap } from 'rxjs';
 import { SectionActionDirective } from '../../directives/section-action/section-action.directive';
 import { ShowHideFolderDirective } from '../../directives/show-hide-folder/show-hide-folder.directive';
 import { FileExplorerFacade } from '../../facade/file-explorer-facade.service';
+import { DESKTOP_ICON } from '../../mocks/file-explorer-mocks';
 @Component({
   selector: 'folders',
   templateUrl: './folders.component.html',
@@ -30,6 +31,7 @@ import { FileExplorerFacade } from '../../facade/file-explorer-facade.service';
 })
 export class FoldersComponent {
   id: number;
+  desktopIcon = DESKTOP_ICON;
   allFolders$$ = this.foldersHierarchyFacade.allFolders$$.pipe(
     tap(() => this.cdr.detectChanges()),
   );
@@ -45,13 +47,15 @@ export class FoldersComponent {
   }
 
   openDesktopFolder() {
-    this.fileExplorerFacade.createFolder(0, 'Desktop', this.data.folderId);
+    this.fileExplorerFacade.createFolder(
+      { id: 0, title: 'Desktop', logo: this.desktopIcon },
+      this.data.folderId,
+    );
   }
 
   openFolder(folder: IFolder) {
     this.fileExplorerFacade.createFolder(
-      folder.id,
-      folder.title,
+      folder,
       this.data.folderId,
       this.pageConfig,
     );

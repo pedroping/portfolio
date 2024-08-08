@@ -21,13 +21,14 @@ export class InitialMenuCreatorDirective implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.createMenu(true);
     this.destroyMenu();
 
     this.menuEventsFacade.openMenu$$.subscribe(() => this.createMenu());
     this.menuEventsFacade.closeMenu$$.subscribe(() => this.destroyMenu());
   }
 
-  createMenu() {
+  createMenu(preventShow?: boolean) {
     if (this.menuElement) {
       this.buildAnimation
         .animate('enterAnimationY', this.menuElement)
@@ -40,10 +41,16 @@ export class InitialMenuCreatorDirective implements OnInit {
 
     const { location, changeDetectorRef } =
       this.vcr.createComponent(InitialMenuComponent);
-    this.buildAnimation.animate('enterAnimationY', location.nativeElement);
     this.menuElement = location.nativeElement;
     this.eventsFacade.setCreateOverlay();
     changeDetectorRef.detectChanges();
+
+    if (preventShow) {
+      location.nativeElement.style.display = 'none';
+      return;
+    }
+
+    this.buildAnimation.animate('enterAnimationY', location.nativeElement);
   }
 
   destroyMenu() {

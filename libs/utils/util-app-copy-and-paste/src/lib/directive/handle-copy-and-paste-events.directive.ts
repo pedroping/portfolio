@@ -92,6 +92,7 @@ export class HandleCopyAndPasteEventsDirective implements OnInit {
 
     const newFolder = this.foldersHierarchyFacade.createFolder(
       file.name + '-copy',
+      file.logo,
       this.folderId() == 0 ? undefined : this.folderId(),
     );
 
@@ -135,6 +136,7 @@ export class HandleCopyAndPasteEventsDirective implements OnInit {
 
           const newFolder = this.foldersHierarchyFacade.createFolder(
             file.name + '-copy',
+            file.logo,
             actualFolder?.id,
           );
 
