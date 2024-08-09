@@ -1,4 +1,4 @@
-import { IPageMock } from '@portifolio/utils/util-models';
+import { IFolderData, IPageMock } from '@portifolio/utils/util-models';
 import { IBasicProgram } from '../models/program-models';
 
 export const WORKSPACE_ID = 0;
@@ -28,6 +28,22 @@ export const PROGRAM_2_CONFIG: IPageMock = {
   data: { folderId: 0 },
   config: {
     name: 'File Explorer',
+    customX: 500,
+    customY: 500,
+    baseSizes: { width: 600, height: 500, minHeight: 500, minWidth: 600 },
+    pageContent: import('@portifolio/features/feature-file-explorer').then(
+      (c) => c.FileExplorerComponent,
+    ),
+    opened: true,
+    isFullScreen: false,
+  },
+};
+
+export const DESKTOP_CONFIG: IPageMock<IFolderData> = {
+  data: { folderId: 0 },
+  config: {
+    name: 'Desktop',
+    icon: '/assets/images/hard-disk.png',
     customX: 500,
     customY: 500,
     baseSizes: { width: 600, height: 500, minHeight: 500, minWidth: 600 },

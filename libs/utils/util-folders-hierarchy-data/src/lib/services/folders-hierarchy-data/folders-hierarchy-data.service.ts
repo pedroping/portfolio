@@ -21,15 +21,11 @@ export class FoldersHierarchyDataService {
     private readonly elementsFacade: ElementsFacade<IFolderData>,
   ) {}
 
-  createNewFolder(
-    title: string,
-    logo = DEFAULT_FOLDER_LOGO,
-    parentId?: number,
-  ) {
+  createNewFolder(title: string, logo?: string, parentId?: number) {
     const newFolder: IFolder = {
       title,
       id: this.newId,
-      logo,
+      logo: logo || DEFAULT_FOLDER_LOGO,
     };
 
     if (!parentId && parentId != 0) {
