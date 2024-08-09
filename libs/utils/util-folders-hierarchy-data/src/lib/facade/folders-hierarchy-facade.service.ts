@@ -26,6 +26,10 @@ export class FoldersHierarchyFacade {
     );
   }
 
+  getFolderFile(folderId: number) {
+    return this.filesDataService.getFolderFile(folderId);
+  }
+
   renameFolder(id: number | string, newTitle: string) {
     this.foldersHierarchyDataService.renameFolder(id, newTitle);
   }

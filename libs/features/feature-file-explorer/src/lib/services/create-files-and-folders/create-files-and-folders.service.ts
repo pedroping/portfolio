@@ -33,7 +33,14 @@ export class CreateFilesAndFoldersService {
       newPageConfig.customY = pageConfig.lastPosition.y + NEW_PAGE_GAP;
     }
 
-    this.elementsFacade.createElement({ folderId: folder.id }, newPageConfig);
+    const file = this.foldersHierarchyFacade.getFolderFile(folder.id);
+
+    const generatedConfig = this.elementsFacade.createElement(
+      { folderId: folder.id },
+      newPageConfig,
+    );
+
+    if (file) file.pageConfigId = generatedConfig.id;
   }
 
   createFile(name: string, parentFolderId: number) {

@@ -17,6 +17,7 @@ import {
 import { merge, startWith } from 'rxjs';
 import { ShowElementPreviewDirective } from '../../directives/show-element-preview/show-element-preview.directive';
 import { TaskbarFacade } from '../../facades/taskbar-facade.service';
+import { BASE_ELEMENT_ICON } from '../../mocks/elements-mocks';
 
 @Component({
   selector: 'taskbar-element',
@@ -71,7 +72,8 @@ export class TaskbarElementComponent implements OnInit, OnDestroy {
     this.showElementPreviewDirective.setIds(element.id);
     this.config = this.elementsFacade.getElement(element.id);
 
-    if (this.config) this.element().icon = this.config.icon;
+    if (this.config)
+      this.element().icon = this.config.icon || BASE_ELEMENT_ICON;
   }
 
   createConfigObservables() {

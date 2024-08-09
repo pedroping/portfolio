@@ -71,16 +71,17 @@ export class FilesDataService {
 
     if (file?.pageConfigId || file?.pageConfigId == 0)
       this.elmentsFacade.destroyElement(file.pageConfigId);
-    
+
     const filteredFiles = this.allFiles.filter((file) => file.id != id);
     this.allFiles$.next(filteredFiles);
   }
 
   deleteFilesByFolder(folderId: number) {
     const filteredFiles = this.allFiles.filter(
-      (file) => file.parentFolderId != folderId || file.type == 'folder',
+      (file) => file.parentFolderId == folderId,
     );
-    this.allFiles$.next(filteredFiles);
+
+    filteredFiles.forEach((file) => this.deleteFile(file.id));
   }
 
   resetData() {

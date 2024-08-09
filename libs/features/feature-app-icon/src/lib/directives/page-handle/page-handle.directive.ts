@@ -13,6 +13,7 @@ import { AppDropHandleDirective } from '@portifolio/utils/util-app-drop-handle';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
 import { IApp, IFolderData } from '@portifolio/utils/util-models';
 import { filter, take } from 'rxjs';
+import { APP_BASE_ICON } from '../../mocks/app-mocks';
 
 @Directive({
   selector: '[pageHandle]',
@@ -44,7 +45,7 @@ export class PageHandleDirective implements OnInit {
     if (!initialConfig) return;
 
     initialConfig.name = this.config().name;
-    initialConfig.icon = this.config().logo;
+    initialConfig.icon = this.config().logo || APP_BASE_ICON;
 
     if (this.config().type == 'folder') {
       const isFolderId = this.config().isFolderId;
