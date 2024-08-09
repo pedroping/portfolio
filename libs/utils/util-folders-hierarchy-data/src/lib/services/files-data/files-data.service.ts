@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
+import { ElementsFacade } from '@portifolio/features/feature-page-creator';
 import { IApp, TBasicApp } from '@portifolio/utils/util-models';
 import { BehaviorSubject, map, startWith } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class FilesDataService {
   private allFiles$ = new BehaviorSubject<IApp[]>([]);
+
+  constructor(private readonly elmentsFacade: ElementsFacade) {}
 
   setNewFile(file: TBasicApp): IApp {
     const newFileId = this.allFiles.length;
@@ -22,6 +25,7 @@ export class FilesDataService {
       map((files) => files.filter((file) => file.parentFolderId === folderId)),
     );
   }
+
   getFileByFolder(folderId: number) {
     return this.allFiles$.value.filter(
       (file) => file.parentFolderId === folderId,
@@ -63,6 +67,11 @@ export class FilesDataService {
   }
 
   deleteFile(id: number) {
+    const file = this.getFile(id);
+
+    if (file?.pageConfigId || file?.pageConfigId == 0)
+      this.elmentsFacade.destroyElement(file.pageConfigId);
+    
     const filteredFiles = this.allFiles.filter((file) => file.id != id);
     this.allFiles$.next(filteredFiles);
   }

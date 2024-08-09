@@ -2,6 +2,7 @@ import {
   Component,
   DestroyRef,
   HostListener,
+  OnDestroy,
   OnInit,
   input,
   signal,
@@ -29,10 +30,17 @@ import { TaskbarFacade } from '../../facades/taskbar-facade.service';
     '[class]': 'elementClass()',
   },
 })
-export class TaskbarElementComponent implements OnInit {
+export class TaskbarElementComponent implements OnInit, OnDestroy {
   element = input.required<IInitialConfig | IBasicElement>();
   config?: IPageConfig;
   elementClass = signal<string>('');
+
+  constructor(
+    private readonly destroyRef: DestroyRef,
+    private readonly taskbarFacade: TaskbarFacade,
+    private readonly elementsFacade: ElementsFacade,
+    private readonly showElementPreviewDirective: ShowElementPreviewDirective,
+  ) {}
 
   @HostListener('click') onClick() {
     const element = this.element();
@@ -42,42 +50,51 @@ export class TaskbarElementComponent implements OnInit {
     if (this.isInitialConfig(element)) return this.createElement(element);
 
     this.elementsFacade.validateElementOpened(element.id);
+    this.setElementClass();
     this.taskbarFacade.setCloseAll();
   }
-
-  constructor(
-    private readonly destroyRef: DestroyRef,
-    private readonly taskbarFacade: TaskbarFacade,
-    private readonly elementsFacade: ElementsFacade,
-    private readonly showElementPreviewDirective: ShowElementPreviewDirective,
-  ) {}
 
   ngOnInit(): void {
     const element = this.element();
 
+    this.setConfig();
     if (this.isInitialConfig(element)) return this.setElementClass();
 
-    this.showElementPreviewDirective.setIds(element.id);
+    this.createConfigObservables();
+  }
 
-    merge(element.onMinimize$, element.onMaximaze$)
-      .pipe(takeUntilDestroyed(this.destroyRef), startWith(undefined))
-      .subscribe(() => this.setElementClass());
+  setConfig() {
+    const element = this.element();
+
+    if (this.isInitialConfig(element)) return;
+
+    this.showElementPreviewDirective.setIds(element.id);
+    this.config = this.elementsFacade.getElement(element.id);
+
+    if (this.config) this.element().icon = this.config.icon;
   }
 
   createConfigObservables() {
     if (!this.config) return;
 
-    merge(this.config.onMinimize$, this.config.onMaximaze$)
+    merge(
+      this.config.onMinimize$,
+      this.config.onMaximaze$,
+      this.taskbarFacade.hideFixed$$,
+      this.elementsFacade.basicElements$,
+    )
       .pipe(takeUntilDestroyed(this.destroyRef), startWith(undefined))
-      .subscribe(() => this.setElementClass());
+      .subscribe(() => {
+        this.setConfig();
+        this.setElementClass();
+      });
 
-    this.config.onDestroy$.subscribe(() => {
-      if (this.config?.id || this.config?.id == 0)
-        this.taskbarFacade.removeId(this.config.id);
-      this.config = undefined;
-      this.showElementPreviewDirective.setIds();
-      this.elementClass.set('fixed-element');
-    });
+    this.config.onDestroy$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.destroyElement();
+        this.elementClass.set('fixed-element');
+      });
   }
 
   setElementClass() {
@@ -105,6 +122,17 @@ export class TaskbarElementComponent implements OnInit {
     }
 
     this.elementsFacade.validateElementOpened(this.config.id);
+  }
+
+  destroyElement() {
+    if (this.config?.id || this.config?.id == 0)
+      this.taskbarFacade.removeId(this.config.id);
+    this.config = undefined;
+    this.showElementPreviewDirective.setIds();
+  }
+
+  ngOnDestroy(): void {
+    this.destroyElement();
   }
 
   isInitialConfig(

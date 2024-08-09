@@ -1,4 +1,5 @@
 import {
+  DestroyRef,
   Directive,
   ElementRef,
   HostListener,
@@ -30,6 +31,7 @@ import {
   PREVIEW_GAP_TOP,
   PREVIEW_ID,
 } from '../../mocks/elements-mocks';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Directive({
   selector: '[showElementPreview]',
@@ -46,6 +48,7 @@ export class ShowElementPreviewDirective implements OnInit {
 
   constructor(
     private readonly vcr: ViewContainerRef,
+    private readonly destroyRef: DestroyRef,
     private readonly taskbarFacade: TaskbarFacade,
     private readonly buildAnimation: BuildAnimation,
     private readonly elementsFacade: ElementsFacade,
@@ -65,7 +68,10 @@ export class ShowElementPreviewDirective implements OnInit {
       fromEvent(this.elementRef.nativeElement, 'click'),
       fromEvent(this.elementRef.nativeElement, 'touchend').pipe(take(1)),
       fromEvent(this.elementRef.nativeElement, 'touchleave').pipe(take(1)),
-    ).pipe(tap(() => (hasCancel = true)));
+    ).pipe(
+      tap(() => (hasCancel = true)),
+      takeUntilDestroyed(this.destroyRef),
+    );
 
     touchLeaveEvent$
       .pipe(
@@ -73,6 +79,7 @@ export class ShowElementPreviewDirective implements OnInit {
         debounceTime(500),
         filter(() => !hasCancel),
         take(1),
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe(() => this.createElement());
   }
@@ -87,7 +94,10 @@ export class ShowElementPreviewDirective implements OnInit {
     const mouseLeave$ = merge(
       fromEvent(this.elementRef.nativeElement, 'click'),
       fromEvent(this.elementRef.nativeElement, 'mouseleave'),
-    ).pipe(tap(() => (hasCancel = true)));
+    ).pipe(
+      tap(() => (hasCancel = true)),
+      takeUntilDestroyed(this.destroyRef),
+    );
 
     mouseLeave$
       .pipe(
@@ -95,6 +105,7 @@ export class ShowElementPreviewDirective implements OnInit {
         debounceTime(500),
         filter(() => !hasCancel),
         take(1),
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe(() => {
         if (hasCancel) return;

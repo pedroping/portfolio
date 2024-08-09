@@ -44,6 +44,7 @@ export class PageHandleDirective implements OnInit {
     if (!initialConfig) return;
 
     initialConfig.name = this.config().name;
+    initialConfig.icon = this.config().logo;
 
     if (this.config().type == 'folder') {
       const isFolderId = this.config().isFolderId;
