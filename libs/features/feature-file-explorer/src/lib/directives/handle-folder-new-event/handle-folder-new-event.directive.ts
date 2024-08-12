@@ -55,7 +55,8 @@ export class HandleFolderNewEventDirective implements OnInit {
     event.subscribe((value) => {
       const index = this.folderHandleComponent.vcr()?.indexOf(hostView);
       if (index != undefined) this.folderHandleComponent.vcr()?.remove(index);
-      this.fileExplorerFacade.createFile(value, this.folderId());
+
+      if (value) this.fileExplorerFacade.createFile(value, this.folderId());
     });
   }
 }

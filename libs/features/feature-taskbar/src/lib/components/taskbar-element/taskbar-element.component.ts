@@ -127,7 +127,10 @@ export class TaskbarElementComponent implements OnInit, OnDestroy {
   }
 
   destroyElement() {
-    if (this.config?.id || this.config?.id == 0)
+    if (
+      (this.config?.id || this.config?.id == 0) &&
+      this.isInitialConfig(this.element())
+    )
       this.taskbarFacade.removeId(this.config.id);
     this.config = undefined;
     this.showElementPreviewDirective.setIds();
