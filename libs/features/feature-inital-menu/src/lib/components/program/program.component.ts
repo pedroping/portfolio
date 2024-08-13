@@ -1,18 +1,20 @@
 import { TitleCasePipe } from '@angular/common';
-import { Component, HostListener, computed, input } from '@angular/core';
-import { ElementsFacade } from '@portifolio/features/feature-page-creator';
+import { Component, computed, input } from '@angular/core';
 import { IPageMock } from '@portifolio/utils/util-models';
 import { PreventElementDirective } from '../../directives/prevent-element/prevent-element.directive';
-import { MenuEventsFacade } from '../../facades/menu-events-facade';
 import { ELEMENT_BASE_ICON } from '../../mocks/program-mocks';
 import { IBasicProgram } from '../../models/program-models';
+import { HandlePageOpenDirective } from '../../directives/handle-page-open/handle-page-open.directive';
 @Component({
   selector: 'program',
   templateUrl: './program.component.html',
   styleUrls: ['./program.component.scss'],
   standalone: true,
   imports: [TitleCasePipe],
-  hostDirectives: [PreventElementDirective],
+  hostDirectives: [
+    PreventElementDirective,
+    { directive: HandlePageOpenDirective, inputs: ['pageConfig'] },
+  ],
 })
 export class ProgramComponent {
   pageConfig = input<IPageMock | IBasicProgram>();
@@ -49,25 +51,6 @@ export class ProgramComponent {
 
     return config.config.icon ?? ELEMENT_BASE_ICON;
   });
-
-  constructor(
-    private readonly ElementsFacade: ElementsFacade,
-    private readonly menuEventsFacade: MenuEventsFacade,
-  ) {}
-
-  @HostListener('click') onCLick() {
-    const config = this.pageConfig();
-    if (!config) return;
-
-    if (this.isBasicProgram(config)) {
-      window.open(config.link);
-      window.focus();
-      return;
-    }
-
-    this.ElementsFacade.createElement(config.data, config.config);
-    this.menuEventsFacade.setCloseMenu();
-  }
 
   isBasicProgram(config: IPageMock | IBasicProgram): config is IBasicProgram {
     return !!(config as IBasicProgram)?.name;

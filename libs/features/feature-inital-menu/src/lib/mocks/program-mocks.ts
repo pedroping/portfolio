@@ -95,6 +95,25 @@ export const PROGRAM_4_CONFIG: IPageMock = {
   },
 };
 
+export const HELP_AND_SUPPORT: IPageMock = {
+  config: {
+    name: 'Help and Support',
+    baseSizes: {
+      width: window.innerWidth * 0.5,
+      height: window.innerHeight * 0.5,
+      minWidth: 850,
+      minHeight: window.innerHeight * 0.5,
+    },
+    customX: window.innerWidth * 0.2,
+    customY: window.innerHeight * 0.2,
+    pageContent: import('@portifolio/ui/ui-help-and-suport-page').then(
+      (c) => c.UiHelpAndSuportPageComponent,
+    ),
+    icon: '/assets/images/info-icon.png',
+    opened: true,
+  },
+};
+
 export const GITHUB_PROGRAM: IBasicProgram = {
   name: 'GitHub',
   sub: 'Repositories',
