@@ -26,11 +26,11 @@ export class ElementCreatorService<T> {
   ) {}
 
   createElement(data: T, config: IInitialConfig): IPageConfig {
-    const index = this.elementsData.elements$.value.length;
+    const index = this.elementsData.newIndex;
     const pageConfig = this.getPageConfig(config, index, data);
     const elementInjection = this.createElementInjection(data, pageConfig);
 
-    const { componentRef } = this.workspaceReferenceFacade.createComponent(
+    const componentRef = this.workspaceReferenceFacade.createComponent(
       PageComponent,
       elementInjection,
     );

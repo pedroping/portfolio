@@ -5,6 +5,7 @@ import { ELEMENT_BASE_ICON } from '../../mocks/elements.mocks';
 
 @Injectable({ providedIn: 'root' })
 export class ElementsData {
+  index = 0;
   elements$ = new BehaviorSubject<IPageConfig[]>([]);
   basicElements$ = new BehaviorSubject<IBasicElement[]>([]);
 
@@ -76,6 +77,10 @@ export class ElementsData {
   clearData() {
     this.elements$.next([]);
     this.basicElements$.next([]);
+  }
+
+  get newIndex() {
+    return ++this.index;
   }
 
   private getNewBasicElement(element: IPageConfig) {

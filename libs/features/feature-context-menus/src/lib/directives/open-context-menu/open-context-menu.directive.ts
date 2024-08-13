@@ -54,15 +54,15 @@ export class OpenContextMenuDirective {
     const component =
       this.workspaceReferenceFacade.createComponent(menuComponent);
       
-    const instance = component.componentRef.instance as IContextMenu<
+    const instance = component.instance as IContextMenu<
       number | string
     >;
-    const menuView = component.componentRef.location
+    const menuView = component.location
       .nativeElement as HTMLElement;
 
     instance.data = this.id();
     instance.parentId = parentId;
-    this.hostView = component.componentRef.hostView;
+    this.hostView = component.hostView;
 
     const positions = { x: event.pageX + MENU_GAP, y: event.pageY };
 

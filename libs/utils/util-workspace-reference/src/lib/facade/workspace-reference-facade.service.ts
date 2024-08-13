@@ -5,7 +5,6 @@ import {
   ViewContainerRef,
   ViewRef,
 } from '@angular/core';
-import { IComponent } from '../models/handle-vcr-models';
 import { HandleVcrService } from '../service/handle-vcr/handle-vcr.service';
 import { WorkspaceReferenceDataService } from '../service/workspace-reference-data/workspace-reference-data.service';
 
@@ -16,7 +15,7 @@ export class WorkspaceReferenceFacade<T = unknown> {
     private readonly workspaceReferenceDataService: WorkspaceReferenceDataService,
   ) {}
 
-  createComponent(component: Type<T>, injection?: Injector): IComponent<T> {
+  createComponent(component: Type<T>, injection?: Injector) {
     return this.handleVcrService.createComponent(component, injection);
   }
 
