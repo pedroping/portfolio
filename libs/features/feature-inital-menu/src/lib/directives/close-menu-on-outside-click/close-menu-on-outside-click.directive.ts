@@ -6,7 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { filter, fromEvent, merge, skip, take } from 'rxjs';
+import { filter, fromEvent, merge, skip } from 'rxjs';
 import { MenuEventsFacade } from '../../facades/menu-events-facade';
 import { PREVENT_TOGGLE_ID } from '../../mocks/menu-mocks';
 
@@ -23,7 +23,10 @@ export class CloseMenuOnOutsideClickDirective implements OnInit {
 
   ngOnInit(): void {
     this.ngZone.runOutsideAngular(() => {
-      merge(fromEvent(document, 'click'), fromEvent(document, 'mousedown'))
+      merge(
+        fromEvent(document, 'click'),
+        fromEvent(document, 'mousedown'),
+      )
         .pipe(
           skip(1),
           takeUntilDestroyed(this.destroyRef),
@@ -36,7 +39,6 @@ export class CloseMenuOnOutsideClickDirective implements OnInit {
 
             return isOutTarget && !hasPrevent;
           }),
-          take(1),
         )
         .subscribe(() => {
           this.ngZone.run(() => {
