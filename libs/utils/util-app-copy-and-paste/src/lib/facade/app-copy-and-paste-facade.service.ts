@@ -23,7 +23,15 @@ export class AppCopyAndPasteFacade {
     return this.appCopyAndPasteService.cutData$$;
   }
 
+  get selectedFolder() {
+    return this.appCopyAndPasteService.selectedFolder;
+  }
+
   getActualEvent() {
     return this.appCopyAndPasteService.getActualEvent();
+  }
+
+  setSelectedFolder(id: number) {
+    this.appCopyAndPasteService.setSelectedFolder(id);
   }
 }

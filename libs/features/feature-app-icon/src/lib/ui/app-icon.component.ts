@@ -3,6 +3,7 @@ import { OpenContextMenuDirective } from '@portifolio/features/feature-context-m
 import { IApp } from '@portifolio/utils/util-models';
 import { AppRenameComponent } from '../components/app-rename/app-rename.component';
 import { IconDropEventsHandleDirective } from '../directives/icon-drop-events-handle/icon-drop-events-handle.directive';
+import { IconSelectedDirective } from '../directives/icon-selected/icon-selected.directive';
 import { PageHandleDirective } from '../directives/page-handle/page-handle.directive';
 import { APP_BASE_ICON } from '../mocks/app-mocks';
 @Component({
@@ -12,6 +13,7 @@ import { APP_BASE_ICON } from '../mocks/app-mocks';
   standalone: true,
   hostDirectives: [
     { directive: PageHandleDirective, inputs: ['config'] },
+    { directive: IconSelectedDirective, inputs: ['config'] },
     { directive: IconDropEventsHandleDirective, inputs: ['config'] },
     { directive: OpenContextMenuDirective, inputs: ['id', 'openContextMenu'] },
   ],

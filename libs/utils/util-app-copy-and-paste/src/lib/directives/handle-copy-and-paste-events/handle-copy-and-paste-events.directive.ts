@@ -9,11 +9,15 @@ import {
   TBasicApp,
 } from '@portifolio/utils/util-models';
 import { Observable } from 'rxjs';
-import { AppCopyAndPasteFacade } from '../facade/app-copy-and-paste-facade.service';
+import { AppCopyAndPasteFacade } from '../../facade/app-copy-and-paste-facade.service';
+import { SelectLastFolderDirective } from '../select-last-folder/select-last-folder.directive';
 
 @Directive({
   selector: '[handleCopyAndPasteEvents]',
   standalone: true,
+  hostDirectives: [
+    { directive: SelectLastFolderDirective, inputs: ['folderId', 'parentId'] },
+  ],
 })
 export class HandleCopyAndPasteEventsDirective implements OnInit {
   folderId = input.required<number>();
