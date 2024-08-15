@@ -4,6 +4,7 @@ import {
   ICopyAndPaste,
   ICopyAndPasteEvent,
 } from '../models/app-copy-and-paste-models';
+import { IApp } from '@portifolio/utils/util-models';
 
 @Injectable({ providedIn: 'root' })
 export class AppCopyAndPasteService {
@@ -11,7 +12,9 @@ export class AppCopyAndPasteService {
   private cutData$ = new BehaviorSubject<number | undefined>(undefined);
 
   lastSelected: ICopyAndPaste = 'copy';
-  
+  selectedFolder = 0;
+  selectedIcon?: IApp;
+
   setCopyEvent(id: number) {
     this.copyData$.next(id);
     this.lastSelected = 'copy';
@@ -22,6 +25,14 @@ export class AppCopyAndPasteService {
     this.cutData$.next(id);
     this.lastSelected = 'cut';
     this.copyData$.next(undefined);
+  }
+
+  setSelectedFolder(id: number) {
+    this.selectedFolder = id;
+  }
+
+  setSelectedIcon(icon?: IApp) {
+    this.selectedIcon = icon;
   }
 
   get copyData$$() {
