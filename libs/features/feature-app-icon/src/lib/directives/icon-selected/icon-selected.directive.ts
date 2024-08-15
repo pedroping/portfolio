@@ -46,9 +46,9 @@ export class IconSelectedDirective implements OnInit {
       .subscribe((event) => {
         if (!event.ctrlKey || !this.selected()) return;
 
-        if (event.key == 'c')
+        if (event.key.toLocaleLowerCase() == 'c')
           return this.appCopyAndPasteFacade.setCopyEvent(this.config().id);
-        if (event.key == 'x')
+        if (event.key.toLocaleLowerCase() == 'x')
           return this.appCopyAndPasteFacade.setCutEvent(this.config().id);
       });
 

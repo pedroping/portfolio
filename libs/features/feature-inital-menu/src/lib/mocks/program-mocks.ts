@@ -99,9 +99,9 @@ export const HELP_AND_SUPPORT: IPageMock = {
   config: {
     name: 'Help and Support',
     baseSizes: {
-      width: window.innerWidth * 0.5,
+      width: 350,
       height: window.innerHeight * 0.5,
-      minWidth: 850,
+      minWidth: 350,
       minHeight: window.innerHeight * 0.5,
     },
     customX: window.innerWidth * 0.2,

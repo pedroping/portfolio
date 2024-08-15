@@ -22,7 +22,6 @@ export class MenuActionsDirective implements OnInit {
       fromEvent<KeyboardEvent>(document, 'keyup')
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((event) => {
-          if (event.key === 'M' && !!event.shiftKey) return this.closeMenu();
           if (event.key === 'Meta' && !!event.shiftKey)
             return this.toggleMenu();
           if (event.key === 'Escape') return this.closeMenu();

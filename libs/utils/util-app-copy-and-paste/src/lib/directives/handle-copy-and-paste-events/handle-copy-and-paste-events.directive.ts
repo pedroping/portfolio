@@ -46,10 +46,12 @@ export class HandleCopyAndPasteEventsDirective implements OnInit {
       .subscribe((event) => {
         if (
           !event.ctrlKey ||
-          !(event.key == 'v') ||
+          !(event.key.toLocaleLowerCase() == 'v') ||
           this.appCopyAndPasteFacade.selectedFolder != this.folderId()
         )
           return;
+          
+        event.stopImmediatePropagation();
 
         this.handleCopyAndPaste();
       });
