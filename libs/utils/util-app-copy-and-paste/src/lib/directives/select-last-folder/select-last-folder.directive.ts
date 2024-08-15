@@ -25,7 +25,5 @@ export class SelectLastFolderDirective implements OnInit {
 
   onClick() {
     this.appCopyAndPasteFacade.setSelectedFolder(this.folderId());
-
-    console.log(this.appCopyAndPasteFacade.selectedFolder);
   }
 }

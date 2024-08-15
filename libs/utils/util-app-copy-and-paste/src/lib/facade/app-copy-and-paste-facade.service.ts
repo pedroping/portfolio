@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { IApp } from '@portifolio/utils/util-models';
 import { AppCopyAndPasteService } from '../service/app-copy-and-paste.service';
 
 @Injectable({ providedIn: 'root' })
@@ -23,6 +24,10 @@ export class AppCopyAndPasteFacade {
     return this.appCopyAndPasteService.cutData$$;
   }
 
+  get selectedIcon() {
+    return this.appCopyAndPasteService.selectedIcon;
+  }
+
   get selectedFolder() {
     return this.appCopyAndPasteService.selectedFolder;
   }
@@ -33,5 +38,9 @@ export class AppCopyAndPasteFacade {
 
   setSelectedFolder(id: number) {
     this.appCopyAndPasteService.setSelectedFolder(id);
+  }
+
+  setSelectedIcon(icon?: IApp) {
+    this.appCopyAndPasteService.setSelectedIcon(icon);
   }
 }

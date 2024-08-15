@@ -8,7 +8,7 @@ import {
   IOptionEvent,
   TBasicApp,
 } from '@portifolio/utils/util-models';
-import { Observable } from 'rxjs';
+import { fromEvent, Observable } from 'rxjs';
 import { AppCopyAndPasteFacade } from '../../facade/app-copy-and-paste-facade.service';
 import { SelectLastFolderDirective } from '../select-last-folder/select-last-folder.directive';
 
@@ -40,6 +40,19 @@ export class HandleCopyAndPasteEventsDirective implements OnInit {
     this.pasteEvent$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => this.handleCopyAndPaste());
+
+    fromEvent<KeyboardEvent>(document, 'keyup')
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((event) => {
+        if (
+          !event.ctrlKey ||
+          !(event.key == 'v') ||
+          this.appCopyAndPasteFacade.selectedFolder != this.folderId()
+        )
+          return;
+
+        this.handleCopyAndPaste();
+      });
   }
 
   handleCopyAndPaste() {
