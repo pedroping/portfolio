@@ -3,18 +3,24 @@ import { provideHttpClient } from '@angular/common/http';
 import {
   APP_INITIALIZER,
   ApplicationConfig,
-  ENVIRONMENT_INITIALIZER,
   FactoryProvider,
   inject,
   isDevMode,
+  Provider,
 } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
+import {
+  PUBLIC_KEY,
+  SERVICE_KEY,
+  TEMPLATE_KEY,
+} from '@portifolio/features/feature-get-in-touch';
 import { AppEventsHandleFacade } from '@portifolio/utils/util-app-events-handle';
+import { environment } from 'src/environments/environment';
 import { appRoutes } from './app.routes';
 
-export const APP_EVENT_TOKEN: FactoryProvider = {
+const APP_EVENT_TOKEN: FactoryProvider = {
   provide: APP_INITIALIZER,
   useFactory: () => {
     const appEventsHandle = inject(AppEventsHandleFacade);
@@ -23,6 +29,21 @@ export const APP_EVENT_TOKEN: FactoryProvider = {
   },
   multi: true,
 };
+
+const EMAIL_KEYS: Provider[] = [
+  {
+    provide: PUBLIC_KEY,
+    useValue: environment.publicKey,
+  },
+  {
+    provide: SERVICE_KEY,
+    useValue: environment.serviceKey,
+  },
+  {
+    provide: TEMPLATE_KEY,
+    useValue: environment.templateKey,
+  },
+];
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -41,5 +62,6 @@ export const appConfig: ApplicationConfig = {
       },
     },
     APP_EVENT_TOKEN,
+    ...EMAIL_KEYS,
   ],
 };

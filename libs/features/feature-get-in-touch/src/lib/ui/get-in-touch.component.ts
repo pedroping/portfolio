@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { send } from '@emailjs/browser';
 import { from } from 'rxjs';
+import { PUBLIC_KEY, SERVICE_KEY, TEMPLATE_KEY } from '../mocks/keys-injector';
 
 @Component({
   selector: 'uf-get-in-touch',
@@ -26,18 +27,21 @@ export class GetInTouchComponent {
     message: new FormControl<string>(''),
   });
 
+  constructor(
+    @Inject(PUBLIC_KEY) private readonly publicKey: string,
+    @Inject(SERVICE_KEY) private readonly serviceKey: string,
+    @Inject(TEMPLATE_KEY) private readonly templateKey: string,
+  ) {}
+
   sendEmail(event: Event) {
     event.preventDefault();
 
     if (!this.getValidEmail()) return;
 
     from(
-      send(
-        'service_8wpdhk7',
-        'template_wtkdx6o',
-        this.emailForm.getRawValue(),
-        { publicKey: 'Mxk12hA0ZGLyWEAlk' },
-      ),
+      send(this.serviceKey, this.templateKey, this.emailForm.getRawValue(), {
+        publicKey: this.publicKey,
+      }),
     ).subscribe({
       next: () => {
         alert("E-mail sent successfully, I'll be in touch");

@@ -1,1 +1,3 @@
-export * from './lib/get-in-touch/get-in-touch.component';
+export * from './lib/mocks/keys-injector';
+export * from './lib/ui/get-in-touch.component';
+
