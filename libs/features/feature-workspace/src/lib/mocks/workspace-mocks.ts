@@ -30,6 +30,18 @@ export const FILE_FOLDER = {
   isFullScreen: false,
 };
 
+export const CONTACT_ME_FOLDER = {
+  name: 'Contact me',
+  customX: 500,
+  customY: 500,
+  baseSizes: { width: 500, height: 380, minHeight: 380, minWidth: 500 },
+  pageContent: import('@portifolio/features/feature-get-in-touch').then(
+    (c) => c.GetInTouchComponent,
+  ),
+  opened: true,
+  isFullScreen: false,
+};
+
 export const BASIC_FOLDER: TBasicApp[] = [
   {
     name: 'Curriculum',
@@ -44,5 +56,12 @@ export const BASIC_FOLDER: TBasicApp[] = [
     type: 'folder',
     parentFolderId: 0,
     initialPageConfig: FILE_FOLDER,
+  },
+  {
+    name: 'Get in touch',
+    logo: '/assets/images/text-me.png',
+    type: 'file',
+    parentFolderId: 0,
+    initialPageConfig: CONTACT_ME_FOLDER,
   },
 ];

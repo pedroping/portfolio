@@ -1,0 +1,28 @@
+<h1>Contact me:</h1>
+
+<form (submit)="sendEmail($event)" [formGroup]="emailForm">
+  <div class="field">
+    <label for="name">Name:</label>
+    <input type="text" name="name" id="name" formControlName="from_name" />
+  </div>
+
+  <div class="field">
+    <label for="email">Email:</label>
+    <input
+      type="text"
+      name="email"
+      id="email"
+      type="email"
+      formControlName="email"
+    />
+  </div>
+
+  <div class="field">
+    <label for="message">Message:</label>
+    <textarea name="message" id="message" formControlName="message"></textarea>
+  </div>
+
+  <div class="action">
+    <button type="submit" (click)="sendEmail($event)">Send</button>
+  </div>
+</form>

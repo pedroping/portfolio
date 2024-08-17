@@ -1,0 +1,68 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow: auto;
+  height: 100%;
+  width: 100%;
+  background-color: var(--help-and-support-background);
+  padding: 10px;
+  container-type: inline-size;
+  container-name: email-page;
+
+  form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    width: 100%;
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+
+      label {
+        font-size: 16px;
+      }
+
+      input {
+        height: 30px;
+        border-radius: 5px;
+        padding: 5px;
+      }
+
+      textarea {
+        height: 120px;
+        resize: none;
+        border-radius: 5px;
+        padding: 5px;
+      }
+
+      &:nth-of-type(3) {
+        grid-column: 1 / span 2;
+      }
+    }
+
+    .action {
+      grid-column: 1 / span 2;
+
+      button {
+        font-size: 16px;
+        padding: 5px 6px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@container (width < 400px) {
+  form {
+    grid-template-columns: 1fr !important;
+
+    .field:nth-of-type(3),
+    .action {
+      grid-column: 1 / span 1 !important;
+    }
+  }
+}

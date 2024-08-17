@@ -24,6 +24,9 @@
       "@portifolio/features/feature-file-explorer": [
         "libs/features/feature-file-explorer/src/index.ts"
       ],
+      "@portifolio/features/feature-get-in-touch": [
+        "libs/features/feature-get-in-touch/src/index.ts"
+      ],
       "@portifolio/features/feature-inital-menu": [
         "libs/features/feature-inital-menu/src/index.ts"
       ],
