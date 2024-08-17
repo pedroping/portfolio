@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { HandleFolderShortcutDirective } from '../../directives/handle-folder-shortcut/handle-folder-shortcut.directive';
 import { HandlePageOpenDirective } from '../../directives/handle-page-open/handle-page-open.directive';
-import { HELP_AND_SUPPORT } from '../../mocks/program-mocks';
+import { CONTACT_ME_FOLDER, HELP_AND_SUPPORT } from '../../mocks/program-mocks';
 
 @Component({
   selector: 'menu-shortcuts',
@@ -12,4 +12,5 @@ import { HELP_AND_SUPPORT } from '../../mocks/program-mocks';
 })
 export class MenuShortcutsComponent {
   helpAndSupport = HELP_AND_SUPPORT;
+  contactMe = CONTACT_ME_FOLDER;
 }

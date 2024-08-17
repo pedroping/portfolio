@@ -1,6 +1,8 @@
 :host {
   display: block;
   height: 100%;
+  container-type: inline-size;
+  container-name: file-explorer;
 
   section {
     display: flex;

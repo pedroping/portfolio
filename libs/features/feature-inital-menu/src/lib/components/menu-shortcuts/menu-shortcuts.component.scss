@@ -30,29 +30,32 @@
     }
   }
 
-  
+  .get-in-touch,
   .help-shortcuts {
-    margin-top: auto;
     display: flex;
     flex-direction: column;
     position: relative;
     width: 100%;
     padding: 10px 0px;
+  }
 
-    &::before {
-      position: absolute;
-      content: '';
-      width: 100%;
-      height: 2px;
-      top: 0px;
-      left: 0px;
-      background: linear-gradient(
-        90deg,
-        transparent 20%,
-        var(--black-01) 50%,
-        transparent 80%
-      );
-    }
+  .get-in-touch {
+    margin-top: auto;
+  }
+
+  .help-shortcuts::before {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 2px;
+    top: 0px;
+    left: 0px;
+    background: linear-gradient(
+      90deg,
+      transparent 20%,
+      var(--black-01) 50%,
+      transparent 80%
+    );
   }
 
   .shortcut {

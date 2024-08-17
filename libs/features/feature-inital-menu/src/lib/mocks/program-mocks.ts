@@ -114,6 +114,21 @@ export const HELP_AND_SUPPORT: IPageMock = {
   },
 };
 
+export const CONTACT_ME_FOLDER = {
+  config: {
+    name: 'Contact me',
+    customX: 500,
+    customY: 500,
+    baseSizes: { width: 500, height: 380, minHeight: 380, minWidth: 500 },
+    pageContent: import('@portifolio/features/feature-get-in-touch').then(
+      (c) => c.GetInTouchComponent,
+    ),
+    opened: true,
+    icon: '/assets/images/text-me.png',
+    isFullScreen: false,
+  },
+};
+
 export const GITHUB_PROGRAM: IBasicProgram = {
   name: 'GitHub',
   sub: 'Repositories',

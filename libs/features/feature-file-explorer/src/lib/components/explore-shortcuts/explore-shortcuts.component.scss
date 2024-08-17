@@ -113,4 +113,32 @@
       }
     }
   }
+
+  @container file-explorer (width < 380px) {
+    section {
+      flex-wrap: wrap;
+      height: auto;
+      padding: 0px 5px;
+      overflow: hidden;
+
+      .change-folder {
+        margin: 10px 0px;
+      }
+    }
+  }
+
+  @container file-explorer (width < 270px) {
+    section {
+      flex-direction: column;
+      align-items: flex-start !important;
+
+      .change-folder::after {
+        display: none;
+      }
+
+      .actions:last-of-type {
+        margin-left: 5px !important;
+      }
+    }
+  }
 }
