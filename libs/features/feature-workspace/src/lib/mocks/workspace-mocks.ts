@@ -42,6 +42,24 @@ export const CONTACT_ME_FOLDER = {
   isFullScreen: false,
 };
 
+export const EXPERIENCE: IInitialConfig = {
+  name: 'Experience',
+  icon: '/assets/images/person-icon.png',
+  customX: 500,
+  customY: 500,
+  baseSizes: {
+    width: window.innerWidth * 0.5,
+    height: window.innerHeight * 0.5,
+    minWidth: 500,
+    minHeight: window.innerHeight * 0.2,
+  },
+  opened: true,
+  isFullScreen: false,
+  pageContent: import('@portifolio/ui/ui-experience-page').then(
+    (c) => c.UiExperienceComponent,
+  ),
+};
+
 export const BASIC_FOLDER: TBasicApp[] = [
   {
     name: 'Curriculum',
@@ -63,5 +81,12 @@ export const BASIC_FOLDER: TBasicApp[] = [
     type: 'file',
     parentFolderId: 0,
     initialPageConfig: CONTACT_ME_FOLDER,
+  },
+  {
+    name: 'My Experience',
+    logo: '/assets/images/person-icon.png',
+    type: 'file',
+    parentFolderId: 0,
+    initialPageConfig: EXPERIENCE,
   },
 ];

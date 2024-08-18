@@ -42,6 +42,9 @@
       "@portifolio/ui/ui-curriculum-page": [
         "libs/ui/ui-curriculum-page/src/index.ts"
       ],
+      "@portifolio/ui/ui-experience-page": [
+        "libs/ui/ui-experience-page/src/index.ts"
+      ],
       "@portifolio/ui/ui-help-and-suport-page": [
         "libs/ui/ui-help-and-suport-page/src/index.ts"
       ],
