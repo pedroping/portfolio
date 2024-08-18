@@ -11,7 +11,11 @@ import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy
 import { IFolderData } from '@portifolio/utils/util-models';
 import { fromEvent } from 'rxjs';
 import { MenuEventsFacade } from '../../facades/menu-events-facade';
-import { DESKTOP_CONFIG, PROGRAM_2_CONFIG } from '../../mocks/program-mocks';
+import {
+  DESKTOP_CONFIG,
+  INITALfOLDER_APPS,
+  PROGRAM_2_CONFIG,
+} from '../../mocks/program-mocks';
 
 @Directive({
   selector: '[handleFolderShortcut]',
@@ -49,6 +53,13 @@ export class HandleFolderShortcutDirective implements OnInit {
     );
 
     if (folder) this.folderId = folder?.id;
+
+    const apps = INITALfOLDER_APPS[this.pageTitle];
+
+    apps?.forEach((app) => {
+      app.parentFolderId = this.folderId;
+      this.foldersHierarchyFacade.setNewFile(app);
+    });
 
     this.createSubscriptions();
   }

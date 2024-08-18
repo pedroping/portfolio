@@ -1,9 +1,9 @@
 import { Component, signal } from '@angular/core';
 import { LastZIndexService } from '@portifolio/utils/util-z-index-handler';
-import { CloseMenuOnOutsideClickDirective } from '../../directives/close-menu-on-outside-click/close-menu-on-outside-click.directive';
-import { MenuFavoritesComponent } from '../menu-favorites/menu-favorites.component';
-import { MenuFooterActionsComponent } from '../menu-footer-actions/menu-footer-actions.component';
-import { MenuShortcutsComponent } from '../menu-shortcuts/menu-shortcuts.component';
+import { MenuFavoritesComponent } from '../components/menu-favorites/menu-favorites.component';
+import { MenuFooterActionsComponent } from '../components/menu-footer-actions/menu-footer-actions.component';
+import { MenuShortcutsComponent } from '../components/menu-shortcuts/menu-shortcuts.component';
+import { CloseMenuOnOutsideClickDirective } from '../directives/close-menu-on-outside-click/close-menu-on-outside-click.directive';
 
 @Component({
   selector: 'initial-menu',

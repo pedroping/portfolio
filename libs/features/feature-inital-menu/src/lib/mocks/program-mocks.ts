@@ -1,4 +1,9 @@
-import { IFolderData, IPageMock } from '@portifolio/utils/util-models';
+import {
+  IFolderData,
+  IInitialConfig,
+  IPageMock,
+  TBasicApp,
+} from '@portifolio/utils/util-models';
 import { IBasicProgram } from '../models/program-models';
 
 export const WORKSPACE_ID = 0;
@@ -127,6 +132,95 @@ export const CONTACT_ME_FOLDER = {
     icon: '/assets/images/text-me.png',
     isFullScreen: false,
   },
+};
+
+const CURRICULUM_FOLDER: IInitialConfig = {
+  name: 'Curriculum',
+  sub: 'My Curriculum',
+  baseSizes: {
+    width: window.innerWidth * 0.8,
+    height: window.innerHeight * 0.8,
+    minWidth: 850,
+    minHeight: window.innerHeight * 0.5,
+  },
+  customX: 50,
+  customY: 50,
+  pageContent: import('@portifolio/ui/ui-curriculum-page').then(
+    (c) => c.CurriculumPageComponent,
+  ),
+  icon: '/assets/images/pdf-icon.png',
+  opened: true,
+};
+
+const WEB_WORKERS = {
+  name: 'Web Workers',
+  sub: 'How use web workers',
+  baseSizes: {
+    width: window.innerWidth * 0.8,
+    height: window.innerHeight * 0.8,
+    minWidth: 850,
+    minHeight: window.innerHeight * 0.5,
+  },
+  customX: 50,
+  customY: 50,
+  pageContent: import('@portifolio/ui/ui-web-workers-page').then(
+    (c) => c.WebWorkersPageComponent,
+  ),
+  icon: '/assets/images/gear-icon.png',
+  opened: true,
+};
+
+const NEW_TRELLO = {
+  name: 'New Trello',
+  sub: 'Handle cards here',
+  baseSizes: {
+    width: window.innerWidth * 0.8,
+    height: window.innerHeight * 0.8,
+    minWidth: window.innerWidth * 0.3,
+    minHeight: window.innerHeight * 0.5,
+  },
+  customX: 50,
+  customY: 50,
+  pageContent: import('@portifolio/ui/ui-new-trello-page').then(
+    (c) => c.UiNewTrelloPageComponent,
+  ),
+  icon: '/assets/images/trello-icon.png',
+  opened: true,
+};
+
+export const INITALfOLDER_APPS: { [key: string]: TBasicApp[] } = {
+  'My Documents': [
+    {
+      name: 'Curriculum',
+      logo: '/assets/images/pdf-icon.png',
+      type: 'file',
+      parentFolderId: 0,
+      initialPageConfig: CURRICULUM_FOLDER,
+    },
+  ],
+  'My Apps': [
+    {
+      name: 'Get in touch',
+      logo: '/assets/images/gear-icon.png',
+      type: 'file',
+      parentFolderId: 0,
+      initialPageConfig: CONTACT_ME_FOLDER.config,
+    },
+    {
+      name: 'Web Workers',
+      logo: '/assets/images/pdf-icon.png',
+      type: 'file',
+      parentFolderId: 0,
+      initialPageConfig: WEB_WORKERS,
+    },
+    {
+      name: 'New Trello',
+      logo: '/assets/images/trello-icon.png',
+      type: 'file',
+      parentFolderId: 0,
+      initialPageConfig: NEW_TRELLO,
+    },
+  ],
 };
 
 export const GITHUB_PROGRAM: IBasicProgram = {

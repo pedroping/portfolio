@@ -3,9 +3,10 @@ import { EventsFacade } from '@portifolio/features/feature-page-creator';
 import { BuildAnimation } from '@portifolio/utils/util-animations';
 import { LastZIndexService } from '@portifolio/utils/util-z-index-handler';
 import { take } from 'rxjs';
-import { InitialMenuComponent } from '../../components/initial-menu/initial-menu.component';
 import { MenuEventsFacade } from '../../facades/menu-events-facade';
+import { InitialMenuComponent } from '../../ui/initial-menu.component';
 import { MenuActionsDirective } from '../menu-actions/menu-actions.directive';
+
 @Directive({
   selector: 'initial-menu-creator',
   hostDirectives: [MenuActionsDirective],
