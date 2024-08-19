@@ -51,7 +51,7 @@ export const EXPERIENCE: IInitialConfig = {
     width: window.innerWidth * 0.5,
     height: window.innerHeight * 0.5,
     minWidth: 500,
-    minHeight: window.innerHeight * 0.2,
+    minHeight: 500,
   },
   opened: true,
   isFullScreen: false,
@@ -69,13 +69,6 @@ export const BASIC_FOLDER: TBasicApp[] = [
     initialPageConfig: CURRICULUM_FOLDER,
   },
   {
-    name: 'Recycle Bin',
-    logo: '/assets/images/recycle-bin.png',
-    type: 'folder',
-    parentFolderId: 0,
-    initialPageConfig: FILE_FOLDER,
-  },
-  {
     name: 'Get in touch',
     logo: '/assets/images/text-me.png',
     type: 'file',
@@ -88,5 +81,12 @@ export const BASIC_FOLDER: TBasicApp[] = [
     type: 'file',
     parentFolderId: 0,
     initialPageConfig: EXPERIENCE,
+  },
+  {
+    name: 'Recycle Bin',
+    logo: '/assets/images/recycle-bin.png',
+    type: 'folder',
+    parentFolderId: 0,
+    initialPageConfig: FILE_FOLDER,
   },
 ];

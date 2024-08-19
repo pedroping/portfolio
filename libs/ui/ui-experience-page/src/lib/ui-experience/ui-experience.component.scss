@@ -1,0 +1,105 @@
+:host {
+  height: 100%;
+  padding: 5px;
+  overflow: auto;
+  display: block;
+  container-type: inline-size;
+  container-name: file-explorer;
+  background-color: var(--help-and-support-background);
+
+  section {
+    margin-bottom: 10px;
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      img {
+        width: 100px;
+        aspect-ratio: 1/1;
+        border-radius: 10px;
+        border: 3px solid var(--white-01);
+      }
+
+      .text {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+
+        h2 {
+          font-size: 20px;
+          color: var(--text-color-01);
+          text-shadow:
+            2px 0 var(--black-02),
+            -2px 0 var(--black-02),
+            0 2px var(--black-02),
+            0 -2px var(--black-02),
+            1px 1px var(--black-02),
+            -1px -1px var(--black-02),
+            1px -1px var(--black-02),
+            -1px 1px var(--black-02);
+        }
+
+        p:first-of-type {
+          color: var(--text-color-01);
+          text-shadow:
+            2px 0 var(--black-02),
+            -2px 0 var(--black-02),
+            0 2px var(--black-02),
+            0 -2px var(--black-02),
+            1px 1px var(--black-02),
+            -1px -1px var(--black-02),
+            1px -1px var(--black-02),
+            -1px 1px var(--black-02);
+        }
+
+        p {
+          font-size: 12px;
+          font-weight: 600;
+        }
+      }
+    }
+
+    .details {
+      margin-top: 5px;
+
+      p,
+      li {
+        font-size: 14px;
+        font-weight: 400;
+      }
+
+      p:nth-of-type(2),
+      p:nth-of-type(3) span {
+        margin: 5px 0;
+        font-weight: 600;
+        font-size: 15px;
+      }
+
+      p:nth-of-type(3) {
+        margin: 5px 0 0;
+      }
+
+      ul {
+        margin-left: 20px;
+        margin-top: 5px;
+      }
+
+      &:last-of-type {
+        p {
+          font-size: 14px;
+          font-weight: 400;
+        }
+
+        p:last-of-type {
+          span {
+            margin: 5px 0;
+            font-weight: 600;
+            font-size: 15px;
+          }
+        }
+      }
+    }
+  }
+}

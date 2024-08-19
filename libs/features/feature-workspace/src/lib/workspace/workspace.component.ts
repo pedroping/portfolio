@@ -4,25 +4,19 @@ import {
   OpenContextMenuDirective,
   WORKSPACE_ID,
 } from '@portifolio/features/feature-context-menus';
-import {
-  FolderHandleComponent
-} from '@portifolio/features/feature-file-explorer';
+import { FolderHandleComponent } from '@portifolio/features/feature-file-explorer';
 import { MenuEventsFacade } from '@portifolio/features/feature-inital-menu';
 import { ElementsFacade } from '@portifolio/features/feature-page-creator';
 import { AppDropHandleDirective } from '@portifolio/utils/util-app-drop-handle';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
 import { IFolderData } from '@portifolio/utils/util-models';
-import { BASIC_FOLDER } from '../mocks/workspace-mocks';
+import { BASIC_FOLDER, EXPERIENCE } from '../mocks/workspace-mocks';
 @Component({
   selector: 'workspace',
   templateUrl: './workspace.component.html',
   styleUrls: ['./workspace.component.scss'],
   standalone: true,
-  imports: [
-    AsyncPipe,
-    FolderHandleComponent,
-    AppDropHandleDirective,
-  ],
+  imports: [AsyncPipe, FolderHandleComponent, AppDropHandleDirective],
   hostDirectives: [
     { directive: OpenContextMenuDirective, inputs: ['id', 'openContextMenu'] },
   ],
@@ -44,6 +38,8 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
     this.appsConfig.forEach((app) => {
       this.foldersHierarchyFacade.setNewFile(app);
     });
+
+    this.elementsFacade.createElement({} as any, EXPERIENCE);
   }
 
   ngOnDestroy() {

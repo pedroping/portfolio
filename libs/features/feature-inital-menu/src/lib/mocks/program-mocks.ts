@@ -197,7 +197,7 @@ const EXPERIENCE = {
     width: window.innerWidth * 0.5,
     height: window.innerHeight * 0.5,
     minWidth: 500,
-    minHeight: window.innerHeight * 0.2,
+    minHeight: 500,
   },
   opened: true,
   isFullScreen: false,
