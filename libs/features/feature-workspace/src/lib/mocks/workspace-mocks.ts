@@ -60,6 +60,24 @@ export const EXPERIENCE: IInitialConfig = {
   ),
 };
 
+export const ABOUT_ME: IInitialConfig = {
+  name: 'About Me',
+  icon: '/assets/images/about-me.png',
+  customX: 500,
+  customY: 500,
+  baseSizes: {
+    width: window.innerWidth * 0.5,
+    height: window.innerHeight * 0.5,
+    minWidth: 500,
+    minHeight: 500,
+  },
+  opened: true,
+  isFullScreen: false,
+  pageContent: import('@portifolio/ui/ui-about-me').then(
+    (c) => c.AboutMePageComponent,
+  ),
+};
+
 export const BASIC_FOLDER: TBasicApp[] = [
   {
     name: 'Curriculum',
@@ -81,6 +99,13 @@ export const BASIC_FOLDER: TBasicApp[] = [
     type: 'file',
     parentFolderId: 0,
     initialPageConfig: EXPERIENCE,
+  },
+  {
+    name: 'About Me',
+    logo: '/assets/images/about-me.png',
+    type: 'file',
+    parentFolderId: 0,
+    initialPageConfig: ABOUT_ME,
   },
   {
     name: 'Recycle Bin',

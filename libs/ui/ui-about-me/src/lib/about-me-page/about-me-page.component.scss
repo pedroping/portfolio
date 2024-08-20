@@ -1,0 +1,120 @@
+:host {
+  height: 100%;
+  padding: 5px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  container-type: inline-size;
+  container-name: file-explorer;
+  background-color: var(--help-and-support-background);
+  container-type: inline-size;
+  container-name: about-me-page;
+
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    img {
+      height: 160px;
+      border-radius: 10px;
+      border: 3px solid var(--white-01);
+    }
+
+    .text {
+      h2 {
+        font-size: 28px;
+        color: var(--text-color-01);
+        text-shadow:
+          2px 0 var(--black-02),
+          -2px 0 var(--black-02),
+          0 2px var(--black-02),
+          0 -2px var(--black-02),
+          1px 1px var(--black-02),
+          -1px -1px var(--black-02),
+          1px -1px var(--black-02),
+          -1px 1px var(--black-02);
+      }
+
+      p {
+        font-size: 12px;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .details {
+    margin-top: 10px;
+
+    .all-skills {
+      span {
+        font-size: 12px;
+        font-weight: 500;
+      }
+    }
+
+    .qualification {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+      gap: 10px;
+
+      img {
+        height: 80px;
+        border-radius: 10px;
+        border: 3px solid var(--white-01);
+      }
+
+      .text {
+        h3 {
+          font-size: 16px;
+          color: var(--text-color-01);
+          text-shadow:
+            2px 0 var(--black-02),
+            -2px 0 var(--black-02),
+            0 2px var(--black-02),
+            0 -2px var(--black-02),
+            1px 1px var(--black-02),
+            -1px -1px var(--black-02),
+            1px -1px var(--black-02),
+            -1px 1px var(--black-02);
+        }
+
+        p {
+          font-size: 12px;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px 0px;
+    margin-top: auto;
+
+    img {
+      width: 45px;
+      cursor: pointer;
+      transition: all 200ms ease-in-out;
+
+      &:hover {
+        transform: translateY(-1px);
+      }
+    }
+  }
+}
+
+@container about-me-page (width <= 350px) {
+  .header {
+    flex-direction: column;
+
+    img {
+      width: 100%;
+      height: auto !important;
+    }
+  }
+}

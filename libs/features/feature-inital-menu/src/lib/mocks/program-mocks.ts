@@ -188,6 +188,24 @@ const NEW_TRELLO = {
   opened: true,
 };
 
+const ABOUT_ME: IInitialConfig = {
+  name: 'About Me',
+  icon: '/assets/images/about-me.png',
+  customX: 500,
+  customY: 500,
+  baseSizes: {
+    width: window.innerWidth * 0.5,
+    height: window.innerHeight * 0.5,
+    minWidth: 500,
+    minHeight: 500,
+  },
+  opened: true,
+  isFullScreen: false,
+  pageContent: import('@portifolio/ui/ui-about-me').then(
+    (c) => c.AboutMePageComponent,
+  ),
+};
+
 const EXPERIENCE = {
   name: 'Experience',
   icon: '/assets/images/person-icon.png',
@@ -221,6 +239,13 @@ export const INITALfOLDER_APPS: { [key: string]: TBasicApp[] } = {
       type: 'file',
       parentFolderId: 0,
       initialPageConfig: EXPERIENCE,
+    },
+    {
+      name: 'About Me',
+      logo: '/assets/images/about-me.png',
+      type: 'file',
+      parentFolderId: 0,
+      initialPageConfig: ABOUT_ME,
     },
   ],
   'My Apps': [

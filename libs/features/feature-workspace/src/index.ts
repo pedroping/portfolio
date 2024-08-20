@@ -1,1 +1,1 @@
-export * from './lib/workspace/workspace.component';
+export * from './lib/ui/workspace.component';
