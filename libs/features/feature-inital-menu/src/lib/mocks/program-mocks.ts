@@ -251,14 +251,14 @@ export const INITALfOLDER_APPS: { [key: string]: TBasicApp[] } = {
   'My Apps': [
     {
       name: 'Get in touch',
-      logo: '/assets/images/gear-icon.png',
+      logo: '/assets/images/text-me.png',
       type: 'file',
       parentFolderId: 0,
       initialPageConfig: CONTACT_ME_FOLDER.config,
     },
     {
       name: 'Web Workers',
-      logo: '/assets/images/pdf-icon.png',
+      logo: '/assets/images/gear-icon.png',
       type: 'file',
       parentFolderId: 0,
       initialPageConfig: WEB_WORKERS,

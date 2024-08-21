@@ -1,10 +1,14 @@
-<a routerLink="/login" [queryParams]="{ noSplash: true }" preventElement>
+<a
+  [routerLink]="'/' + availableRoutes.LOGIN"
+  [queryParams]="{ noSplash: true }"
+  preventElement
+>
   <div class="icon">
     <i class="fa-solid fa-key"></i>
   </div>
   <span> Log Off </span>
 </a>
-<a preventElement>
+<a [routerLink]="'/' + availableRoutes.TURN_OFF" preventElement>
   <div class="icon">
     <i class="fa-solid fa-power-off"></i>
   </div>

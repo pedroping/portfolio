@@ -1,0 +1,22 @@
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background-color: var(--black-01);
+  color: var(--white-01);
+  cursor: pointer;
+
+  .label-with-animation {
+    display: flex;
+    align-items: end;
+    margin-top: 5px;
+    gap: 2px;
+
+    .dot {
+      width: 10px;
+      height: 5px;
+      animation: pulseAnimation 1s infinite none;
+      background-color: var(--white-01);
+    }
+  }
+}

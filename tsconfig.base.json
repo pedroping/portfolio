@@ -59,6 +59,9 @@
       "@portifolio/ui/ui-splash-screen": [
         "libs/ui/ui-splash-screen/src/index.ts"
       ],
+      "@portifolio/ui/ui-turn-off-page": [
+        "libs/ui/ui-turn-off-page/src/index.ts"
+      ],
       "@portifolio/ui/ui-web-workers-page": [
         "libs/ui/ui-web-workers-page/src/index.ts"
       ],
@@ -81,6 +84,7 @@
         "libs/utils/util-folders-hierarchy-data/src/index.ts"
       ],
       "@portifolio/utils/util-models": ["libs/utils/util-models/src/index.ts"],
+      "@portifolio/utils/util-routes": ["libs/utils/util-routes/src/index.ts"],
       "@portifolio/utils/util-styles": ["libs/utils/util-styles/src/index.ts"],
       "@portifolio/utils/util-workspace-reference": [
         "libs/utils/util-workspace-reference/src/index.ts"

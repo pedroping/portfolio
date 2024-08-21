@@ -1,20 +1,20 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UiSplashScreenComponent } from './ui-splash-screen.component';
+import { UiLoginSplashScreenComponent } from './ui-login-splash-screen.component';
 
-describe('UiSplashScreenComponent', () => {
-  let component: UiSplashScreenComponent;
-  let fixture: ComponentFixture<UiSplashScreenComponent>;
+describe('UiLoginSplashScreenComponent', () => {
+  let component: UiLoginSplashScreenComponent;
+  let fixture: ComponentFixture<UiLoginSplashScreenComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [UiSplashScreenComponent],
+      declarations: [UiLoginSplashScreenComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UiSplashScreenComponent);
+    fixture = TestBed.createComponent(UiLoginSplashScreenComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,21 +1,22 @@
-import { Directive, OnInit, ViewContainerRef } from '@angular/core';
+import { Directive, input, OnInit, ViewContainerRef } from '@angular/core';
 import { BuildAnimation } from '@portifolio/utils/util-animations';
 import { take, timer } from 'rxjs';
+import { TAvailableScreens } from '@portifolio/utils/util-models';
 
 @Directive({
   selector: '[showLodingScreen]',
   standalone: true,
 })
 export class ShowScreenDirective implements OnInit {
+  type = input.required<TAvailableScreens>();
+
   constructor(
     private readonly vcr: ViewContainerRef,
     private readonly buildAnimation: BuildAnimation,
   ) {}
 
   async ngOnInit() {
-    const component = await import(
-      '../components/ui-splash-screen/ui-splash-screen.component'
-    ).then((c) => c.UiSplashScreenComponent);
+    const component = await this.getComponent();
 
     const { location } = this.vcr.createComponent(component);
 
@@ -40,5 +41,17 @@ export class ShowScreenDirective implements OnInit {
 
   get htmlElement() {
     return document.querySelector('html') as HTMLElement;
+  }
+
+  getComponent() {
+    const loginComponent = import(
+      '../ui/ui-login-splash-screen/ui-login-splash-screen.component'
+    ).then((c) => c.UiLoginSplashScreenComponent);
+
+    const turnOffComponent = import(
+      '../ui/ui-turn-off-splash-screen/ui-turn-off-splash-screen.component'
+    ).then((c) => c.UiTurnOffSplashScreenComponent);
+
+    return this.type() == 'login' ? loginComponent : turnOffComponent;
   }
 }

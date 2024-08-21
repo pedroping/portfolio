@@ -6,7 +6,7 @@ import {
   FactoryProvider,
   inject,
   isDevMode,
-  Provider,
+  Provider
 } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
