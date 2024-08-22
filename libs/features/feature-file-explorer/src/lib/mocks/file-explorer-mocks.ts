@@ -2,6 +2,7 @@ import { IInitialConfig } from '@portifolio/utils/util-models';
 
 export const FILE_EXPLORER_ID = 'file-explorer-';
 
+export const DESKTOP_ID = 0;
 export const DESKTOP_ICON = '/assets/images/my-computer-folder-icon.png';
 
 export const NEW_PAGE_GAP = 20;

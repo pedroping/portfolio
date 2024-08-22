@@ -1,6 +1,8 @@
 <section id="explorer">
-  <explore-shortcuts />
-  <createSection eventType="adress" />
+  @if (id !== -1) {
+    <explore-shortcuts />
+    <createSection eventType="adress" />
+  }
 
   <div class="folders-content">
     <createSection eventType="folder" />

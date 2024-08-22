@@ -1,7 +1,9 @@
 <section id="folder-adress">
   <div class="header">
     <span>Folders</span>
-    <i class="fa-solid fa-x" sectionAction="folder"></i>
+    @if (this.id !== -1) {
+      <i class="fa-solid fa-x" sectionAction="folder"></i>
+    }
   </div>
 
   <div class="available-folders">

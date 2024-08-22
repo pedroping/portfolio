@@ -10,7 +10,8 @@ import { ElementsFacade } from '@portifolio/features/feature-page-creator';
 import { AppDropHandleDirective } from '@portifolio/utils/util-app-drop-handle';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
 import { IFolderData } from '@portifolio/utils/util-models';
-import { ABOUT_ME, BASIC_FOLDER } from '../mocks/workspace-mocks';
+import { BASIC_FOLDER } from '../mocks/workspace-mocks';
+
 @Component({
   selector: 'workspace',
   templateUrl: './workspace.component.html',
@@ -38,8 +39,6 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
     this.appsConfig.forEach((app) => {
       this.foldersHierarchyFacade.setNewFile(app);
     });
-
-    this.elementsFacade.createElement({} as any, ABOUT_ME);
   }
 
   ngOnDestroy() {

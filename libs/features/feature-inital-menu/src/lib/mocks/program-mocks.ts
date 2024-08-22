@@ -7,6 +7,7 @@ import {
 import { IBasicProgram } from '../models/program-models';
 
 export const WORKSPACE_ID = 0;
+export const ALL_FILES_FOLDER_ID = -1;
 export const ELEMENT_BASE_ICON = '/assets/images/windows-basic-folder.png';
 
 export const PROGRAM_1_CONFIG: IPageMock = {
@@ -224,6 +225,18 @@ const EXPERIENCE = {
   ),
 };
 
+export const RECYCLE_FOLDER = {
+  name: 'File Explorer',
+  customX: 500,
+  customY: 500,
+  baseSizes: { width: 600, height: 500, minHeight: 500, minWidth: 600 },
+  pageContent: import('@portifolio/features/feature-file-explorer').then(
+    (c) => c.FileExplorerComponent,
+  ),
+  opened: true,
+  isFullScreen: false,
+};
+
 export const INITALfOLDER_APPS: { [key: string]: TBasicApp[] } = {
   'My Documents': [
     {
@@ -293,3 +306,55 @@ export const REPOSITORY_PROGRAM: IBasicProgram = {
   link: 'https://github.com/pedroping/portfolio',
   icon: '/assets/images/git-repository-icon.png',
 };
+
+export const ALL_FILES: TBasicApp[] = [
+  {
+    name: 'Curriculum',
+    logo: '/assets/images/pdf-icon.png',
+    type: 'file',
+    parentFolderId: ALL_FILES_FOLDER_ID,
+    initialPageConfig: CURRICULUM_FOLDER,
+  },
+  {
+    name: 'My Experience',
+    logo: '/assets/images/person-icon.png',
+    type: 'file',
+    parentFolderId: ALL_FILES_FOLDER_ID,
+    initialPageConfig: EXPERIENCE,
+  },
+  {
+    name: 'About Me',
+    logo: '/assets/images/about-me.png',
+    type: 'file',
+    parentFolderId: ALL_FILES_FOLDER_ID,
+    initialPageConfig: ABOUT_ME,
+  },
+  {
+    name: 'Get in touch',
+    logo: '/assets/images/text-me.png',
+    type: 'file',
+    parentFolderId: ALL_FILES_FOLDER_ID,
+    initialPageConfig: CONTACT_ME_FOLDER.config,
+  },
+  {
+    name: 'Web Workers',
+    logo: '/assets/images/gear-icon.png',
+    type: 'file',
+    parentFolderId: ALL_FILES_FOLDER_ID,
+    initialPageConfig: WEB_WORKERS,
+  },
+  {
+    name: 'New Trello',
+    logo: '/assets/images/trello-icon.png',
+    type: 'file',
+    parentFolderId: ALL_FILES_FOLDER_ID,
+    initialPageConfig: NEW_TRELLO,
+  },
+  {
+    name: 'Recycle Bin',
+    logo: '/assets/images/recycle-bin.png',
+    type: 'folder',
+    parentFolderId: ALL_FILES_FOLDER_ID,
+    initialPageConfig: RECYCLE_FOLDER,
+  },
+];
