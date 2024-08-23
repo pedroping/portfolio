@@ -35,6 +35,11 @@ export class AppCopyAndPasteService {
     this.selectedIcon = icon;
   }
 
+  clearEvents() {
+    this.copyData$.next(undefined);
+    this.cutData$.next(undefined);
+  }
+
   get copyData$$() {
     return this.copyData$.asObservable();
   }

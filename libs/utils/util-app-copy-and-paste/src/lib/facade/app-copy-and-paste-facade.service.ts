@@ -43,4 +43,8 @@ export class AppCopyAndPasteFacade {
   setSelectedIcon(icon?: IApp) {
     this.appCopyAndPasteService.setSelectedIcon(icon);
   }
+
+  clearEvents() {
+    this.appCopyAndPasteService.clearEvents();
+  }
 }

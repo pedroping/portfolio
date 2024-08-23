@@ -50,7 +50,7 @@ export class HandleCopyAndPasteEventsDirective implements OnInit {
           this.appCopyAndPasteFacade.selectedFolder != this.folderId()
         )
           return;
-          
+
         event.stopImmediatePropagation();
 
         this.handleCopyAndPaste();
@@ -91,6 +91,7 @@ export class HandleCopyAndPasteEventsDirective implements OnInit {
     }
 
     this.foldersHierarchyFacade.changeFolderId(id, this.folderId());
+    this.appCopyAndPasteFacade.clearEvents();
   }
 
   handleCopy(id: number) {
@@ -101,7 +102,7 @@ export class HandleCopyAndPasteEventsDirective implements OnInit {
     if (file.type == 'file') {
       const newFile = this.createNewFile(file, undefined);
       this.foldersHierarchyFacade.setNewFile(newFile);
-
+      this.appCopyAndPasteFacade.clearEvents();
       return;
     }
 
@@ -121,6 +122,7 @@ export class HandleCopyAndPasteEventsDirective implements OnInit {
 
     this.copyAllThings(oldFolder.id, newFolder);
     this.foldersHierarchyFacade.setNewFile(newFile);
+    this.appCopyAndPasteFacade.clearEvents();
   }
 
   createNewFile(
