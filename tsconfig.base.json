@@ -86,6 +86,9 @@
       "@portifolio/utils/util-models": ["libs/utils/util-models/src/index.ts"],
       "@portifolio/utils/util-routes": ["libs/utils/util-routes/src/index.ts"],
       "@portifolio/utils/util-styles": ["libs/utils/util-styles/src/index.ts"],
+      "@portifolio/utils/util-trash-handle": [
+        "libs/utils/util-trash-handle/src/index.ts"
+      ],
       "@portifolio/utils/util-workspace-reference": [
         "libs/utils/util-workspace-reference/src/index.ts"
       ],

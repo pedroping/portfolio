@@ -234,6 +234,7 @@ export const RECYCLE_FOLDER = {
     (c) => c.FileExplorerComponent,
   ),
   opened: true,
+  icon: '/assets/images/recycle-bin.png',
   isFullScreen: false,
 };
 

@@ -59,18 +59,20 @@
   }
 
   .shortcut {
-    display: flex;
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    align-items: center;
     padding: 2px 5px;
     align-items: center;
-    gap: 10px;
+    gap: 5px;
     cursor: pointer;
     width: 100%;
     max-width: 100%;
     transition: all 200ms ease-in-out;
 
     img {
-      width: 30px;
-      height: 25px;
+      max-width: 30px;
+      max-height: 25px;
     }
 
     p {

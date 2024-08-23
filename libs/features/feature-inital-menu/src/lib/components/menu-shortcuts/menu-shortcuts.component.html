@@ -14,11 +14,12 @@
     <p>My Documents</p>
   </div>
   <div class="shortcut" handleFolderShortcut>
-    <img
-      src="/assets/images/windows-apps.png"
-      alt="Ícone pasta de fotos"
-    />
+    <img src="/assets/images/windows-apps.png" alt="Ícone pasta de fotos" />
     <p>My Apps</p>
+  </div>
+  <div class="shortcut" handleFolderShortcut [isTrash]="true">
+    <img src="/assets/images/recycle-bin.png" alt="Ícone da lixeira" />
+    <p>Recycle Bin</p>
   </div>
 </div>
 

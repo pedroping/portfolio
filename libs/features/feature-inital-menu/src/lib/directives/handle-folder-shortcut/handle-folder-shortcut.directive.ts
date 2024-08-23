@@ -15,7 +15,9 @@ import {
   DESKTOP_CONFIG,
   INITALfOLDER_APPS,
   PROGRAM_2_CONFIG,
+  RECYCLE_FOLDER,
 } from '../../mocks/program-mocks';
+import { TrashHandle } from '@portifolio/utils/util-trash-handle';
 
 @Directive({
   selector: '[handleFolderShortcut]',
@@ -24,9 +26,11 @@ import {
 export class HandleFolderShortcutDirective implements OnInit {
   explorerConfig = PROGRAM_2_CONFIG.config;
   isDesktop = input<boolean>();
+  isTrash = input<boolean>();
 
   constructor(
     private readonly destroyRef: DestroyRef,
+    private readonly trashHandle: TrashHandle,
     private readonly menuEventsFacade: MenuEventsFacade,
     private readonly elementRef: ElementRef<HTMLElement>,
     private readonly elementsFacade: ElementsFacade<IFolderData>,
@@ -38,7 +42,7 @@ export class HandleFolderShortcutDirective implements OnInit {
   folderId = -1;
 
   ngOnInit(): void {
-    if (this.isDesktop()) return this.createSubscriptions();
+    if (this.isDesktop() || this.isTrash()) return this.createSubscriptions();
 
     const element = this.elementRef.nativeElement;
     const img = element.querySelector('img') as HTMLImageElement;
@@ -68,6 +72,15 @@ export class HandleFolderShortcutDirective implements OnInit {
     fromEvent(this.elementRef.nativeElement, 'click')
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
+        if (this.isTrash()) {
+          this.elementsFacade.createElement(
+            { folderId: this.trashHandle.folderId },
+            RECYCLE_FOLDER,
+          );
+          this.menuEventsFacade.setCloseMenu();
+          return;
+        }
+
         if (this.isDesktop()) {
           if (!DESKTOP_CONFIG.data) return;
 

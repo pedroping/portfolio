@@ -10,6 +10,7 @@ export interface IApp {
   isFolderId?: number;
   initialPageConfig?: IInitialConfig;
   pageConfigId?: number;
+  preventFolderDelete?: boolean;
 }
 
 export type TBasicApp = Omit<IApp, 'id'>;

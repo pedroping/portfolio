@@ -78,6 +78,15 @@ export const ABOUT_ME: IInitialConfig = {
   ),
 };
 
+export const TRASH_FILE: TBasicApp = {
+  name: 'Recycle Bin',
+  logo: '/assets/images/recycle-bin.png',
+  type: 'folder',
+  parentFolderId: 0,
+  initialPageConfig: FILE_FOLDER,
+  preventFolderDelete: true,
+};
+
 export const BASIC_FOLDER: TBasicApp[] = [
   {
     name: 'Curriculum',
@@ -106,12 +115,5 @@ export const BASIC_FOLDER: TBasicApp[] = [
     type: 'file',
     parentFolderId: 0,
     initialPageConfig: ABOUT_ME,
-  },
-  {
-    name: 'Recycle Bin',
-    logo: '/assets/images/recycle-bin.png',
-    type: 'folder',
-    parentFolderId: 0,
-    initialPageConfig: FILE_FOLDER,
   },
 ];

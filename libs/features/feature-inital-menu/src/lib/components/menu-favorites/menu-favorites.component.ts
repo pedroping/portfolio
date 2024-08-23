@@ -24,7 +24,7 @@ import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy
   imports: [ProgramComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MenuFavoritesComponent implements OnInit {
+export class MenuFavoritesComponent {
   programMocks = [
     PROGRAM_1_CONFIG,
     PROGRAM_2_CONFIG,
@@ -41,14 +41,13 @@ export class MenuFavoritesComponent implements OnInit {
     private readonly foldersHierarchyFacade: FoldersHierarchyFacade,
   ) {}
 
-  ngOnInit(): void {
+  openAllPrograms() {
+    this.menuEventsFacade.setCloseMenu();
+    this.foldersHierarchyFacade.deleteFilesByFolder(ALL_FILES_FOLDER_ID);
+    
     ALL_FILES.forEach((file) => {
       this.foldersHierarchyFacade.setNewFile(file);
     });
-  }
-
-  openAllPrograms() {
-    this.menuEventsFacade.setCloseMenu();
 
     this.elementsFacade.createElement(
       { folderId: ALL_FILES_FOLDER_ID },
