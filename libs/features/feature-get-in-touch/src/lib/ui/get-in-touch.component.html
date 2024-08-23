@@ -23,6 +23,12 @@
   </div>
 
   <div class="action">
-    <button type="submit" (click)="sendEmail($event)">Send</button>
+    <button
+      type="submit"
+      (click)="sendEmail($event)"
+      [disabled]="disabled$ | async"
+    >
+      Send
+    </button>
   </div>
 </form>
