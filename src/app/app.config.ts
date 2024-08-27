@@ -6,7 +6,7 @@ import {
   FactoryProvider,
   inject,
   isDevMode,
-  Provider
+  Provider,
 } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
@@ -29,6 +29,8 @@ const APP_EVENT_TOKEN: FactoryProvider = {
   },
   multi: true,
 };
+
+console.log(process.env['PUBLIC_KEY']);
 
 const EMAIL_KEYS: Provider[] = [
   {
