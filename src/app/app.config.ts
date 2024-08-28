@@ -30,8 +30,6 @@ const APP_EVENT_TOKEN: FactoryProvider = {
   multi: true,
 };
 
-console.log(process.env['PUBLIC_KEY']);
-
 const EMAIL_KEYS: Provider[] = [
   {
     provide: PUBLIC_KEY,
