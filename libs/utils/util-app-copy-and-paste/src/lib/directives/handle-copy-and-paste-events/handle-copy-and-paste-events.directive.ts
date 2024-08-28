@@ -135,6 +135,7 @@ export class HandleCopyAndPasteEventsDirective implements OnInit {
       name: file.name + '-copy',
       pageConfigId: undefined,
       isFolderId: newFolderId,
+      preventFolderDelete: false,
       parentFolderId:
         parentFolderId == undefined ? this.folderId() : parentFolderId,
     };
