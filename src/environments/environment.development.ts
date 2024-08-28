@@ -1,5 +1,5 @@
 export const environment = {
-  serviceKey: 'service_8wpdhk7',
-  templateKey: 'template_wtkdx6o',
-  publicKey: 'Mxk12hA0ZGLyWEAlk',
+  serviceKey: process.env['SERVICE_KEY'],
+  templateKey: process.env['TEMPLATE_KEY'],
+  publicKey: process.env['PUBLIC_KEY'],
 };
