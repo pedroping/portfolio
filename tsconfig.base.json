@@ -65,9 +65,6 @@
       "@portifolio/ui/ui-web-workers-page": [
         "libs/ui/ui-web-workers-page/src/index.ts"
       ],
-      "@portifolio/utils/util-adpters": [
-        "libs/utils/util-adpters/src/index.ts"
-      ],
       "@portifolio/utils/util-animations": [
         "libs/utils/util-animations/src/index.ts"
       ],

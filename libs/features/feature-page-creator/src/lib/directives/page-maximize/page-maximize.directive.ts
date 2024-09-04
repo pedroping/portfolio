@@ -7,10 +7,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import { CONFIG_TOKEN, IPageConfig } from '@portifolio/utils/util-models';
 import { WorkspaceReferenceFacade } from '@portifolio/utils/util-workspace-reference';
 import { filter, fromEvent } from 'rxjs';
+import { DomElementAdpter } from '../../adapters/dom-element-adpter';
 import { ElementsFacade } from '../../facades/elements-facade/elements-facade';
 import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
 import { OBSERVE_CONFIG } from '../../mocks/observerConfig-mocks';

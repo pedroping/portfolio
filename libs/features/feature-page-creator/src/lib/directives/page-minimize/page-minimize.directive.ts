@@ -1,7 +1,7 @@
 import { AfterViewInit, Directive, HostListener, Inject } from '@angular/core';
-import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import { CONFIG_TOKEN, IPageConfig } from '@portifolio/utils/util-models';
 import { ElementsFacade } from '../../facades/elements-facade/elements-facade';
+import { DomElementAdpter } from '../../adapters/dom-element-adpter';
 
 @Directive({
   selector: '[pageMinimize]',

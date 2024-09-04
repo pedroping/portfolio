@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { LastZIndexService } from '@portifolio/utils/util-z-index-handler';
+import { DomElementAdpter } from '../../adapters/dom-element-adpter';
 import { ElementsData } from '../elements-data/elements-data.service';
 import { PageEvents } from '../page-events/page-events.service';
-import { DomElementAdpter } from '@portifolio/utils/util-adpters';
+
 @Injectable({ providedIn: 'root' })
 export class SetZIndexService {
   private biggestElementId?: string | number;

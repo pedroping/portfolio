@@ -7,9 +7,9 @@ import {
   contentChild,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import { CONFIG_TOKEN, IPageConfig } from '@portifolio/utils/util-models';
 import { fromEvent, map, merge, take } from 'rxjs';
+import { DomElementAdpter } from '../../adapters/dom-element-adpter';
 import { ElementsFacade } from '../../facades/elements-facade/elements-facade';
 import { EventsFacade } from '../../facades/events-facade/events-facade.service';
 @Directive({

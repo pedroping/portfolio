@@ -4,7 +4,6 @@ import {
   Injector,
   ViewRef,
 } from '@angular/core';
-import { DomElementAdpter } from '@portifolio/utils/util-adpters';
 import {
   CONFIG_TOKEN,
   DATA_TOKEN,
@@ -16,6 +15,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { PageComponent } from '../../ui/page.component';
 import { ElementsData } from '../elements-data/elements-data.service';
 import { SetZIndexService } from '../set-z-index/set-z-index.service';
+import { DomElementAdpter } from '../../adapters/dom-element-adpter';
 @Injectable({ providedIn: 'root' })
 export class ElementCreatorService<T> {
   constructor(

@@ -6,13 +6,12 @@ import {
   OnInit,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { DomElementAdpter } from '@portifolio/utils/util-adpters';
-import { ElementsFacade } from '../../facades/elements-facade/elements-facade';
-import { IPageConfig } from '@portifolio/utils/util-models';
-import { fromEvent, takeUntil } from 'rxjs';
-import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
-import { CONFIG_TOKEN } from '@portifolio/utils/util-models';
+import { CONFIG_TOKEN, IPageConfig } from '@portifolio/utils/util-models';
 import { WorkspaceReferenceFacade } from '@portifolio/utils/util-workspace-reference';
+import { fromEvent, takeUntil } from 'rxjs';
+import { DomElementAdpter } from '../../adapters/dom-element-adpter';
+import { ElementsFacade } from '../../facades/elements-facade/elements-facade';
+import { ELEMENT_PADDING } from '../../mocks/elements.mocks';
 @Directive({
   selector: '[pageMove]',
   standalone: true,

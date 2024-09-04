@@ -6,9 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { DomElementAdpter } from '@portifolio/utils/util-adpters';
-import { ElementsFacade } from '../../facades/elements-facade/elements-facade';
-import { IPageConfig } from '@portifolio/utils/util-models';
+import { CONFIG_TOKEN, IPageConfig } from '@portifolio/utils/util-models';
 import {
   BehaviorSubject,
   Observable,
@@ -17,8 +15,9 @@ import {
   takeUntil,
   tap,
 } from 'rxjs';
+import { DomElementAdpter } from '../../adapters/dom-element-adpter';
+import { ElementsFacade } from '../../facades/elements-facade/elements-facade';
 import { BASE_WIDTH } from '../../mocks/elements.mocks';
-import { CONFIG_TOKEN } from '@portifolio/utils/util-models';
 
 @Directive({
   selector: '.left',
