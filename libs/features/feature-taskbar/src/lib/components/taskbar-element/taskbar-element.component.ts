@@ -2,8 +2,10 @@ import {
   Component,
   DestroyRef,
   HostListener,
+  OnChanges,
   OnDestroy,
   OnInit,
+  SimpleChanges,
   input,
   signal,
 } from '@angular/core';
@@ -31,7 +33,7 @@ import { BASE_ELEMENT_ICON } from '../../mocks/elements-mocks';
     '[class]': 'elementClass()',
   },
 })
-export class TaskbarElementComponent implements OnInit, OnDestroy {
+export class TaskbarElementComponent implements OnInit, OnDestroy, OnChanges {
   element = input.required<IInitialConfig | IBasicElement>();
   config?: IPageConfig;
   elementClass = signal<string>('');
@@ -64,6 +66,14 @@ export class TaskbarElementComponent implements OnInit, OnDestroy {
     this.createConfigObservables();
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['element']) {
+      const element = this.element();
+      this.setConfig();
+      if (this.isInitialConfig(element)) return this.setElementClass();
+    }
+  }
+
   setConfig() {
     const element = this.element();
 
@@ -79,12 +89,7 @@ export class TaskbarElementComponent implements OnInit, OnDestroy {
   createConfigObservables() {
     if (!this.config) return;
 
-    merge(
-      this.config.onMinimize$,
-      this.config.onMaximaze$,
-      this.taskbarFacade.hideFixed$$,
-      this.elementsFacade.basicElements$,
-    )
+    merge(this.config.onMinimize$, this.config.onMaximaze$)
       .pipe(takeUntilDestroyed(this.destroyRef), startWith(undefined))
       .subscribe(() => {
         this.setConfig();

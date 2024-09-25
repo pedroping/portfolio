@@ -2,6 +2,6 @@
   <taskbar-element [element]="item" />
 }
 
-@for (item of basicElements$$ | async; track $index) {
+@for (item of basicElements$$ | async; track item.id) {
   <taskbar-element [element]="item" />
 }

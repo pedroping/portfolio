@@ -38,7 +38,6 @@ export class PagesListComponent implements OnInit {
         ),
       )
       .subscribe((elements) => {
-        this.basicElements$.next([]);
         this.basicElements$.next(elements);
         this.cdr.detectChanges();
       });
