@@ -1,7 +1,7 @@
 import { Component, computed, ElementRef, input } from '@angular/core';
 import { OpenContextMenuDirective } from '@portifolio/features/feature-context-menus';
 import { IApp } from '@portifolio/utils/util-models';
-import { AppRenameComponent } from '../components/app-rename/app-rename.component';
+import { FileRenameComponent } from '../components/file-rename/file-rename.component';
 import { IconDropEventsHandleDirective } from '../directives/icon-drop-events-handle/icon-drop-events-handle.directive';
 import { IconSelectedDirective } from '../directives/icon-selected/icon-selected.directive';
 import { PageHandleDirective } from '../directives/page-handle/page-handle.directive';
@@ -22,7 +22,7 @@ import { APP_BASE_ICON } from '../mocks/app-mocks';
     '[title]': 'title()',
     '[draggable]': 'true',
   },
-  imports: [AppRenameComponent],
+  imports: [FileRenameComponent],
 })
 export class AppIconComponent {
   config = input.required<IApp>();

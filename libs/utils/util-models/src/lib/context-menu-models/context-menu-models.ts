@@ -8,6 +8,7 @@ export type TAvalilableOptions =
   | 'short-by-name'
   | 'short-by-size'
   | 'new-folder'
+  | 'new-text-document'
   | 'program-open'
   | 'program-explore'
   | 'program-copy'

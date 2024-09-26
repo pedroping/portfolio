@@ -5,7 +5,7 @@ import {
   OutputEmitterRef,
   ViewRef,
 } from '@angular/core';
-import { NewAppComponent } from '@portifolio/features/feature-app-icon';
+import { NewFolderComponent } from '@portifolio/features/feature-app-icon';
 import { ContextMenuFacade } from '@portifolio/features/feature-context-menus';
 import { filter } from 'rxjs';
 import { FolderHandleComponent } from '../../components/folder-handle/folder-handle.component';
@@ -38,7 +38,7 @@ export class HandleFolderNewEventDirective implements OnInit {
         vcr.clear();
 
         const { instance, location, hostView } =
-          vcr.createComponent(NewAppComponent);
+          vcr.createComponent(NewFolderComponent);
 
         const appClass = this.folderHandleComponent.lastOption
           ? VIEW_CLASS[this.folderHandleComponent.lastOption]

@@ -18,13 +18,13 @@ import { IApp, IFolderData } from '@portifolio/utils/util-models';
 import { filter, fromEvent, merge, Subject, take, takeUntil } from 'rxjs';
 
 @Component({
-  selector: 'app-rename',
-  templateUrl: './app-rename.component.html',
-  styleUrls: ['./app-rename.component.scss'],
+  selector: 'file-rename',
+  templateUrl: './file-rename.component.html',
+  styleUrls: ['./file-rename.component.scss'],
   standalone: true,
   imports: [AsyncPipe, ReactiveFormsModule, FormsModule],
 })
-export class AppRenameComponent implements OnInit {
+export class FileRenameComponent implements OnInit {
   title = signal<string>('');
   config = input.required<IApp>();
   id = input.required<string | number>();

@@ -9,16 +9,16 @@ import {
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'new-app',
-  templateUrl: './new-app.component.html',
-  styleUrls: ['./new-app.component.scss'],
+  selector: 'new-folder',
+  templateUrl: './new-folder.component.html',
+  styleUrls: ['./new-folder.component.scss'],
   standalone: true,
   imports: [ReactiveFormsModule],
   host: {
     '[draggable]': 'false',
   },
 })
-export class NewAppComponent implements AfterViewInit {
+export class NewFolderComponent implements AfterViewInit {
   createEvent = output<string>();
   input = viewChild<ElementRef<HTMLInputElement>>('input');
   newFolderControl = new FormControl<string>('', { nonNullable: true });

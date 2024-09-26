@@ -3,20 +3,20 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { AppRenameComponent } from './app-rename.component';
+import { FileRenameComponent } from './file-rename.component';
 
-describe('AppRenameComponent', () => {
-  let component: AppRenameComponent;
-  let fixture: ComponentFixture<AppRenameComponent>;
+describe('FileRenameComponent', () => {
+  let component: FileRenameComponent;
+  let fixture: ComponentFixture<FileRenameComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AppRenameComponent],
+      declarations: [FileRenameComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AppRenameComponent);
+    fixture = TestBed.createComponent(FileRenameComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
