@@ -1,5 +1,8 @@
-import { Component, output } from '@angular/core';
-import { PREVENT_TOGGLE_ID } from '@portifolio/features/feature-inital-menu';
+import { Component } from '@angular/core';
+import {
+  MenuEventsFacade,
+  PREVENT_TOGGLE_ID,
+} from '@portifolio/features/feature-inital-menu';
 import { PagesListComponent } from '../components/pages-list/pages-list.component';
 import { TaskbarActionsComponent } from '../components/taskbar-actions/taskbar-actions.component';
 
@@ -11,6 +14,11 @@ import { TaskbarActionsComponent } from '../components/taskbar-actions/taskbar-a
   imports: [PagesListComponent, TaskbarActionsComponent],
 })
 export class TaskbarComponent {
-  startClick = output<void>();
   preventToggleId = PREVENT_TOGGLE_ID;
+
+  constructor(private readonly menuEventsFacade: MenuEventsFacade) {}
+
+  toggleMenu() {
+    this.menuEventsFacade.toggleMenu();
+  }
 }
