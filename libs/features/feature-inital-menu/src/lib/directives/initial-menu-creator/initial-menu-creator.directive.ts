@@ -50,7 +50,6 @@ export class InitialMenuCreatorDirective implements OnInit {
     this.menuElement = location.nativeElement;
     this.instance = instance;
     this.eventsFacade.setCreateOverlay();
-    changeDetectorRef.detectChanges();
 
     if (preventShow) {
       location.nativeElement.style.display = 'none';

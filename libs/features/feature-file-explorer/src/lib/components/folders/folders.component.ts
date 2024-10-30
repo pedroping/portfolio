@@ -1,5 +1,5 @@
 import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectorRef, Component, Inject, Optional } from '@angular/core';
+import { Component, Inject, Optional } from '@angular/core';
 import { HEIGHT_ANIMATION } from '@portifolio/utils/util-animations';
 import { AppDropHandleDirective } from '@portifolio/utils/util-app-drop-handle';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
@@ -10,7 +10,6 @@ import {
   IFolderData,
   IPageConfig,
 } from '@portifolio/utils/util-models';
-import { tap } from 'rxjs';
 import { SectionActionDirective } from '../../directives/section-action/section-action.directive';
 import { ShowHideFolderDirective } from '../../directives/show-hide-folder/show-hide-folder.directive';
 import { FileExplorerFacade } from '../../facade/file-explorer-facade.service';
@@ -32,12 +31,9 @@ import { DESKTOP_ICON } from '../../mocks/file-explorer-mocks';
 export class FoldersComponent {
   id: number;
   desktopIcon = DESKTOP_ICON;
-  allFolders$$ = this.foldersHierarchyFacade.allFolders$$.pipe(
-    tap(() => this.cdr.detectChanges()),
-  );
+  allFolders$$ = this.foldersHierarchyFacade.allFolders$$;
 
   constructor(
-    private readonly cdr: ChangeDetectorRef,
     private readonly fileExplorerFacade: FileExplorerFacade,
     private readonly foldersHierarchyFacade: FoldersHierarchyFacade,
     @Optional() @Inject(DATA_TOKEN) private readonly data: IFolderData,

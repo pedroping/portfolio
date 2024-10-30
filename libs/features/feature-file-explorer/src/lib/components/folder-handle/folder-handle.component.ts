@@ -1,6 +1,5 @@
 import { AsyncPipe } from '@angular/common';
 import {
-  ChangeDetectorRef,
   Component,
   DestroyRef,
   forwardRef,
@@ -69,16 +68,11 @@ export class FolderHandleComponent {
   lastOption?: string;
 
   constructor(
-    private readonly cdr: ChangeDetectorRef,
     private readonly destroyRef: DestroyRef,
     @Host()
     @Inject(FILE_TOKEN)
     private readonly fileToken: BehaviorSubject<IApp[]>,
   ) {
-    this.files$ = getTokenObservable$(
-      this.fileToken,
-      this.destroyRef,
-      this.cdr,
-    );
+    this.files$ = getTokenObservable$(this.fileToken, this.destroyRef);
   }
 }
