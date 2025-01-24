@@ -12,10 +12,10 @@ import {
 } from '@portifolio/utils/util-models';
 import { WorkspaceReferenceFacade } from '@portifolio/utils/util-workspace-reference';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { DomElementAdpter } from '../../adapters/dom-element-adpter';
 import { PageComponent } from '../../ui/page.component';
 import { ElementsData } from '../elements-data/elements-data.service';
 import { SetZIndexService } from '../set-z-index/set-z-index.service';
-import { DomElementAdpter } from '../../adapters/dom-element-adpter';
 @Injectable({ providedIn: 'root' })
 export class ElementCreatorService<T> {
   constructor(
@@ -45,7 +45,6 @@ export class ElementCreatorService<T> {
     pageConfig.element$.next(componentRef.instance.element);
     this.elementsData.pushElement(pageConfig);
     this.setZIndexService.setNewZIndex(index, componentRef.instance.element);
-    componentRef.changeDetectorRef.detectChanges();
 
     return pageConfig;
   }
