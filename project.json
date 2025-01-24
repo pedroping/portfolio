@@ -8,16 +8,12 @@
   "targets": {
     "build": {
       "executor": "@nx/angular:webpack-browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/portifolio",
         "index": "./src/index.html",
         "main": "./src/main.ts",
-        "polyfills": [
-          "zone.js"
-        ],
+        "polyfills": ["zone.js"],
         "customWebpackConfig": {
           "path": "./webpack.config.js"
         },
@@ -34,7 +30,7 @@
         ],
         "scripts": [],
         "serviceWorker": true,
-        "ngswConfigPath": "ngsw-config.json",
+        "ngswConfigPath": "./ngsw-config.json",
         "stylePreprocessorOptions": {
           "includePaths": [
             "libs/utils/util-styles/src/lib",
@@ -95,16 +91,12 @@
     "lint": {
       "executor": "@nx/eslint:lint",
       "options": {
-        "lintFilePatterns": [
-          "./src"
-        ]
+        "lintFilePatterns": ["./src"]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/{projectName}"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/{projectName}"],
       "options": {
         "jestConfig": "jest.config.app.ts"
       }
