@@ -49,8 +49,8 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(appRoutes),
     provideServiceWorker('ngsw-worker.js', {
-      enabled: !isDevMode(),
-      registrationStrategy: 'registerWhenStable:30000',
+      enabled: environment.production,
+      registrationStrategy: 'registerImmediately',
     }),
     provideAnimationsAsync(),
     provideHttpClient(),
