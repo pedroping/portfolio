@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   OpenContextMenuDirective,
@@ -17,7 +16,7 @@ import { BASIC_FOLDER, TRASH_FILE } from '../mocks/workspace-mocks';
   templateUrl: './workspace.component.html',
   styleUrls: ['./workspace.component.scss'],
   standalone: true,
-  imports: [AsyncPipe, FolderHandleComponent, AppDropHandleDirective],
+  imports: [FolderHandleComponent, AppDropHandleDirective],
   hostDirectives: [
     { directive: OpenContextMenuDirective, inputs: ['id', 'openContextMenu'] },
   ],
