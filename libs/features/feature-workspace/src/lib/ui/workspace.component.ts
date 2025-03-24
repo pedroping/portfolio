@@ -10,7 +10,7 @@ import { AppDropHandleDirective } from '@portifolio/utils/util-app-drop-handle';
 import { FoldersHierarchyFacade } from '@portifolio/utils/util-folders-hierarchy-data';
 import { IFolderData } from '@portifolio/utils/util-models';
 import { TrashHandle } from '@portifolio/utils/util-trash-handle';
-import { BASIC_FOLDER, TRASH_FILE } from '../mocks/workspace-mocks';
+import { BASIC_FOLDER, EXPERIENCE, TRASH_FILE } from '../mocks/workspace-mocks';
 @Component({
   selector: 'workspace',
   templateUrl: './workspace.component.html',
@@ -43,6 +43,8 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
     const trashFile = this.foldersHierarchyFacade.setNewFile(TRASH_FILE);
 
     this.trashHandle.setFileId(trashFile.id);
+
+    this.elementsFacade.createElement({ folderId: 0 }, EXPERIENCE);
   }
 
   ngOnDestroy() {
