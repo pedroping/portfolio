@@ -14,7 +14,6 @@ import { FolderHandleComponent } from '../folder-handle/folder-handle.component'
   styleUrls: ['./app-holder.component.scss'],
   standalone: true,
   imports: [
-    AsyncPipe,
     FolderHandleComponent,
     AppDropHandleDirective,
     OpenContextMenuDirective,

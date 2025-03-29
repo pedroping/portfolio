@@ -76,6 +76,16 @@ export class FoldersHierarchyDataService {
 
     let searchAdress = '';
 
+    if (!folderFile) {
+      const folder = this.findFolder(folderId);
+
+      if (folder?.title) searchAdress = '/' + folder.title;
+
+      searchAdress = 'C:/Desktop' + searchAdress;
+
+      return searchAdress;
+    }
+
     if (folderFile?.name) searchAdress = '/' + folderFile?.name;
 
     while (folderFile && folderFile?.parentFolderId != 0) {
