@@ -56,7 +56,7 @@ export class FoldersComponent implements OnInit {
     this.allFolders$$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
-        this.cdr.detectChanges();
+        this.cdr.markForCheck();
       });
   }
 

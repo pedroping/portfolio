@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ElementsFacade } from '@portifolio/features/feature-page-creator';
 import { IBasicElement } from '@portifolio/utils/util-models';
 import { BehaviorSubject, map, switchMap } from 'rxjs';
@@ -21,7 +21,6 @@ export class PagesListComponent implements OnInit {
   fixedElements = FIXED_ICONS;
 
   constructor(
-    private readonly cdr: ChangeDetectorRef,
     private readonly taskbarFacade: TaskbarFacade,
     private readonly elementsFacade: ElementsFacade,
   ) {}
