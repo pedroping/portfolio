@@ -42,7 +42,7 @@ export class PagePreviewComponent implements IPreviewPage, OnInit {
 
   ngOnInit(): void {
     this.icon = this.element?.icon ?? ELEMENT_BASE_ICON;
-    this.element?.pageContent?.then((c) => this.pageContent.set(c));
+    this.element?.pageContent?.()?.then((c) => this.pageContent.set(c));
   }
 
   closeElement() {

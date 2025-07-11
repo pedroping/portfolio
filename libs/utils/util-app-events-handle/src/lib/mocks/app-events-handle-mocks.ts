@@ -6,9 +6,10 @@ export const FOLDER_MOCK: IInitialConfig = {
   customY: 0,
   icon: '/assets/images/my-computer-folder-icon.png',
   baseSizes: { width: 600, height: 500, minHeight: 500, minWidth: 600 },
-  pageContent: import('@portifolio/features/feature-file-explorer').then(
-    (c) => c.FileExplorerComponent,
-  ),
+  pageContent: () =>
+    import('@portifolio/features/feature-file-explorer').then(
+      (c) => c.FileExplorerComponent,
+    ),
   opened: true,
   isFullScreen: false,
 };

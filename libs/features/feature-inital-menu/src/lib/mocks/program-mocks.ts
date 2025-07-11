@@ -22,9 +22,10 @@ export const PROGRAM_1_CONFIG: IPageMock = {
     },
     customX: 50,
     customY: 50,
-    pageContent: import('@portifolio/ui/ui-new-trello-page').then(
-      (c) => c.UiNewTrelloPageComponent,
-    ),
+    pageContent: () =>
+      import('@portifolio/ui/ui-new-trello-page').then(
+        (c) => c.UiNewTrelloPageComponent,
+      ),
     icon: '/assets/images/trello-icon.png',
     opened: true,
   },
@@ -37,9 +38,10 @@ export const PROGRAM_2_CONFIG: IPageMock = {
     customX: 500,
     customY: 500,
     baseSizes: { width: 600, height: 500, minHeight: 500, minWidth: 600 },
-    pageContent: import('@portifolio/features/feature-file-explorer').then(
-      (c) => c.FileExplorerComponent,
-    ),
+    pageContent: () =>
+      import('@portifolio/features/feature-file-explorer').then(
+        (c) => c.FileExplorerComponent,
+      ),
     opened: true,
     isFullScreen: false,
   },
@@ -53,9 +55,10 @@ export const DESKTOP_CONFIG: IPageMock<IFolderData> = {
     customX: 500,
     customY: 500,
     baseSizes: { width: 600, height: 500, minHeight: 500, minWidth: 600 },
-    pageContent: import('@portifolio/features/feature-file-explorer').then(
-      (c) => c.FileExplorerComponent,
-    ),
+    pageContent: () =>
+      import('@portifolio/features/feature-file-explorer').then(
+        (c) => c.FileExplorerComponent,
+      ),
     opened: true,
     isFullScreen: false,
   },
@@ -73,9 +76,10 @@ export const PROGRAM_3_CONFIG: IPageMock = {
     },
     customX: 50,
     customY: 50,
-    pageContent: import('@portifolio/ui/ui-web-workers-page').then(
-      (c) => c.WebWorkersPageComponent,
-    ),
+    pageContent: () =>
+      import('@portifolio/ui/ui-web-workers-page').then(
+        (c) => c.WebWorkersPageComponent,
+      ),
     icon: '/assets/images/gear-icon.png',
     opened: true,
   },
@@ -93,9 +97,10 @@ export const PROGRAM_4_CONFIG: IPageMock = {
     },
     customX: 50,
     customY: 50,
-    pageContent: import('@portifolio/ui/ui-curriculum-page').then(
-      (c) => c.CurriculumPageComponent,
-    ),
+    pageContent: () =>
+      import('@portifolio/ui/ui-curriculum-page').then(
+        (c) => c.CurriculumPageComponent,
+      ),
     icon: '/assets/images/pdf-icon.png',
     opened: true,
   },
@@ -112,9 +117,10 @@ export const HELP_AND_SUPPORT: IPageMock = {
     },
     customX: window.innerWidth * 0.2,
     customY: window.innerHeight * 0.2,
-    pageContent: import('@portifolio/ui/ui-help-and-suport-page').then(
-      (c) => c.UiHelpAndSuportPageComponent,
-    ),
+    pageContent: () =>
+      import('@portifolio/ui/ui-help-and-suport-page').then(
+        (c) => c.UiHelpAndSuportPageComponent,
+      ),
     icon: '/assets/images/info-icon.png',
     opened: true,
   },
@@ -126,9 +132,10 @@ export const CONTACT_ME_FOLDER = {
     customX: 500,
     customY: 500,
     baseSizes: { width: 500, height: 380, minHeight: 380, minWidth: 500 },
-    pageContent: import('@portifolio/features/feature-get-in-touch').then(
-      (c) => c.GetInTouchComponent,
-    ),
+    pageContent: () =>
+      import('@portifolio/features/feature-get-in-touch').then(
+        (c) => c.GetInTouchComponent,
+      ),
     opened: true,
     icon: '/assets/images/text-me.png',
     isFullScreen: false,
@@ -146,9 +153,10 @@ const CURRICULUM_FOLDER: IInitialConfig = {
   },
   customX: 50,
   customY: 50,
-  pageContent: import('@portifolio/ui/ui-curriculum-page').then(
-    (c) => c.CurriculumPageComponent,
-  ),
+  pageContent: () =>
+    import('@portifolio/ui/ui-curriculum-page').then(
+      (c) => c.CurriculumPageComponent,
+    ),
   icon: '/assets/images/pdf-icon.png',
   opened: true,
 };
@@ -164,9 +172,10 @@ const WEB_WORKERS = {
   },
   customX: 50,
   customY: 50,
-  pageContent: import('@portifolio/ui/ui-web-workers-page').then(
-    (c) => c.WebWorkersPageComponent,
-  ),
+  pageContent: () =>
+    import('@portifolio/ui/ui-web-workers-page').then(
+      (c) => c.WebWorkersPageComponent,
+    ),
   icon: '/assets/images/gear-icon.png',
   opened: true,
 };
@@ -182,9 +191,10 @@ const NEW_TRELLO = {
   },
   customX: 50,
   customY: 50,
-  pageContent: import('@portifolio/ui/ui-new-trello-page').then(
-    (c) => c.UiNewTrelloPageComponent,
-  ),
+  pageContent: () =>
+    import('@portifolio/ui/ui-new-trello-page').then(
+      (c) => c.UiNewTrelloPageComponent,
+    ),
   icon: '/assets/images/trello-icon.png',
   opened: true,
 };
@@ -202,9 +212,8 @@ const ABOUT_ME: IInitialConfig = {
   },
   opened: true,
   isFullScreen: false,
-  pageContent: import('@portifolio/ui/ui-about-me').then(
-    (c) => c.AboutMePageComponent,
-  ),
+  pageContent: () =>
+    import('@portifolio/ui/ui-about-me').then((c) => c.AboutMePageComponent),
 };
 
 const EXPERIENCE = {
@@ -220,9 +229,10 @@ const EXPERIENCE = {
   },
   opened: true,
   isFullScreen: false,
-  pageContent: import('@portifolio/ui/ui-experience-page').then(
-    (c) => c.UiExperienceComponent,
-  ),
+  pageContent: () =>
+    import('@portifolio/ui/ui-experience-page').then(
+      (c) => c.UiExperienceComponent,
+    ),
 };
 
 export const RECYCLE_FOLDER = {
@@ -230,9 +240,10 @@ export const RECYCLE_FOLDER = {
   customX: 500,
   customY: 500,
   baseSizes: { width: 600, height: 500, minHeight: 500, minWidth: 600 },
-  pageContent: import('@portifolio/features/feature-file-explorer').then(
-    (c) => c.FileExplorerComponent,
-  ),
+  pageContent: () =>
+    import('@portifolio/features/feature-file-explorer').then(
+      (c) => c.FileExplorerComponent,
+    ),
   opened: true,
   icon: '/assets/images/recycle-bin.png',
   isFullScreen: false,

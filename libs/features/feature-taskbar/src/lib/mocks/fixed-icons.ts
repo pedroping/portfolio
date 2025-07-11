@@ -12,9 +12,10 @@ export const FIXED_ICONS: IInitialConfig[] = [
     },
     customX: 50,
     customY: 50,
-    pageContent: import('@portifolio/ui/ui-curriculum-page').then(
-      (c) => c.CurriculumPageComponent,
-    ),
+    pageContent: () =>
+      import('@portifolio/ui/ui-curriculum-page').then(
+        (c) => c.CurriculumPageComponent,
+      ),
     icon: '/assets/images/pdf-icon.png',
     opened: true,
   },
@@ -29,9 +30,10 @@ export const FIXED_ICONS: IInitialConfig[] = [
     },
     customX: 50,
     customY: 50,
-    pageContent: import('@portifolio/ui/ui-web-workers-page').then(
-      (c) => c.WebWorkersPageComponent,
-    ),
+    pageContent: () =>
+      import('@portifolio/ui/ui-web-workers-page').then(
+        (c) => c.WebWorkersPageComponent,
+      ),
     icon: '/assets/images/gear-icon.png',
     opened: true,
   },
@@ -46,9 +48,10 @@ export const FIXED_ICONS: IInitialConfig[] = [
     },
     customX: 50,
     customY: 50,
-    pageContent: import('@portifolio/ui/ui-new-trello-page').then(
-      (c) => c.UiNewTrelloPageComponent,
-    ),
+    pageContent: () =>
+      import('@portifolio/ui/ui-new-trello-page').then(
+        (c) => c.UiNewTrelloPageComponent,
+      ),
     icon: '/assets/images/trello-icon.png',
     opened: true,
   },

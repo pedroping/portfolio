@@ -12,7 +12,7 @@ export const FOLDER_MOCK: IInitialConfig = {
   customX: 0,
   customY: 0,
   baseSizes: { width: 600, height: 500, minHeight: 500, minWidth: 600 },
-  pageContent: import('../ui/file-explorer.component').then(
+  pageContent: () => import('../ui/file-explorer.component').then(
     (c) => c.FileExplorerComponent,
   ),
   opened: true,

@@ -37,8 +37,6 @@ export class PageHandleDirective implements OnInit {
   @HostListener('dblclick') onClick() {
     const pageConfigId = this.config().pageConfigId;
     
-    console.log(this.config(), pageConfigId);
-
     if (pageConfigId || pageConfigId == 0)
       return this.handlePageId(pageConfigId);
 
