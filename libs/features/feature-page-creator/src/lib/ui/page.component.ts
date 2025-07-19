@@ -28,6 +28,7 @@ import { PageResizeBottomDirective } from '../directives/page-resize-bottom/page
 import { PageResizeLeftDirective } from '../directives/page-resize-left/page-resize-left.directive';
 import { PageResizeRightDirective } from '../directives/page-resize-right/page-resize-right.directive';
 import { PageResizeTopDirective } from '../directives/page-resize-top/page-resize-top.directive';
+import { PageTemplateRefDirective } from '../directives/page-templateRef/page-templateRef.directive';
 import { PreventHandlerDirective } from '../directives/prevent-handler/prevent-handler.directive';
 import { SetZIndexDirective } from '../directives/set-zIndex/set-zIndex.directive';
 import { WindowResizeDirective } from '../directives/window-resize/window-resize.directive';
@@ -55,6 +56,7 @@ import {
     PageResizeTopDirective,
     PreventHandlerDirective,
     PageResizeLeftDirective,
+    PageTemplateRefDirective,
     PageResizeRightDirective,
     PageResizeBottomDirective,
     PageContentOverlayDirective,

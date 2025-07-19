@@ -1,4 +1,4 @@
-import { Type, ViewRef } from '@angular/core';
+import { TemplateRef, Type, ViewRef } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 export interface IBasicElement {
@@ -41,6 +41,7 @@ export interface IElementReference<T> {
   onMaximaze$: Subject<void>;
   renameElement$: Subject<string>;
   data?: T;
+  templateRef?: TemplateRef<unknown>;
 }
 
 export type IPageConfig<T = unknown> = IInitialConfig & IElementReference<T>;

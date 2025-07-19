@@ -9,9 +9,9 @@
     <ui-page-actions-buttons-close preventHandler pageClose />
   </div>
 </header>
-<section pageContentOverlay>
+<section *pageTemplateRef pageContentOverlay>
   @if (pageContent()) {
-    <ng-container [ngComponentOutlet]="pageContent()"></ng-container>
+  <ng-container [ngComponentOutlet]="pageContent()"></ng-container>
   }
   <div class="overlay" #overlay></div>
 </section>

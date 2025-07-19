@@ -1,5 +1,11 @@
-import { NgComponentOutlet } from '@angular/common';
-import { Component, HostListener, OnInit, signal, Type } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  OnInit,
+  signal,
+  viewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import {
   ELEMENT_BASE_ICON,
   ElementsFacade,
@@ -14,12 +20,13 @@ import { IPreviewPage } from '../../models/preview-models';
   templateUrl: './page-preview.component.html',
   styleUrls: ['./page-preview.component.scss'],
   standalone: true,
-  imports: [CloseComponent, NgComponentOutlet],
+  imports: [CloseComponent],
 })
 export class PagePreviewComponent implements IPreviewPage, OnInit {
   element?: IPageConfig;
   icon = ELEMENT_BASE_ICON;
-  pageContent = signal<Type<unknown> | null>(null);
+  pageContent = signal<string | null>(null);
+  vcr = viewChild('vcr', { read: ViewContainerRef });
 
   constructor(
     private readonly taskbarFacade: TaskbarFacade,
@@ -42,7 +49,12 @@ export class PagePreviewComponent implements IPreviewPage, OnInit {
 
   ngOnInit(): void {
     this.icon = this.element?.icon ?? ELEMENT_BASE_ICON;
-    this.element?.pageContent?.()?.then((c) => this.pageContent.set(c));
+
+    const templateRef = this.element?.templateRef;
+
+    if (!templateRef) return;
+
+    this.vcr()?.createEmbeddedView(templateRef);
   }
 
   closeElement() {

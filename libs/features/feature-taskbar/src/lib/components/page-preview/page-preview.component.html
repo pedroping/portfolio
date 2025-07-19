@@ -4,14 +4,10 @@
       <img [src]="icon" alt="Ícone da pagina" />
       <div class="page-name">{{ element?.name }}</div>
     </div>
-    <ui-page-actions-buttons-close
-      (click)="closeElement(); $event.stopPropagation()"
-    />
+    <ui-page-actions-buttons-close (click)="closeElement(); $event.stopPropagation()" />
   </div>
   <div class="content">
-    @if (element?.pageContent) {
-      <ng-container [ngComponentOutlet]="pageContent()"></ng-container>
-    }
+    <ng-container #vcr></ng-container>
     <div class="overlay"></div>
   </div>
 </section>
