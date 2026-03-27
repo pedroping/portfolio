@@ -1,4 +1,4 @@
-# 📊 _<a href="https://new-trello-by-pedro.vercel.app/home" target="_blank">My Portfolio</a>_
+# 📊 _<a href="https://pedro-ping-portfolio.vercel.app" target="_blank">My Portfolio</a>_
 
 <img src="/src/assets/images/windows-background.png" title="hover text">
 
